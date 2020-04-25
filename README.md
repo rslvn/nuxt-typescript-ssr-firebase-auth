@@ -4,23 +4,34 @@
 
 - [nuxt-typescript-ssr-firebase-auth](#nuxt-typescript-ssr-firebase-auth)
   - [DETAILED DOCUMENTATION](#detailed-documentation)
-  - [Build Setup](#build-setup)
   - [Features](#features)
   - [Prepare for build](#prepare-for-build)
-    - [firebase](#firebase)
-      - [create project(s)](#create-projects)
-      - [firebase credentials files](#firebase-credentials-files)
-        - [firebase credentials file for `development` env](#firebase-credentials-file-for-development-env)
-        - [firebase credentials file for `production` env](#firebase-credentials-file-for-production-env)
+    - [firebase configuration](#firebase-configuration)
+      - [create project](#create-project)
+      - [update `.firebaserc`](#update-firebaserc)
+      - [firebase credentials file](#firebase-credentials-file)
+      - [action configurations](#action-configurations)
+      - [development env](#development-env)
+      - [more: TBD](#more-tbd)
     - [dotenv](#dotenv)
-      - [development](#development)
-      - [production](#production)
-  - [Build Setup](#build-setup-1)
-  - [localization](#localization)
-    - [change language](#change-language)
+  - [Build & Run & Deploy](#build--run--deploy)
+    - [install dependencies](#install-dependencies)
+    - [deploy](#deploy)
+    - [run locally with firebase](#run-locally-with-firebase)
+    - [for locally development](#for-locally-development)
+      - [hosting on local and api on firebase](#hosting-on-local-and-api-on-firebase)
+      - [hosting and api on local](#hosting-and-api-on-local)
+        - [enable nuxt `serverMiddleware` in `src/nuxt.config.ts`](#enable-nuxt-servermiddleware-in-srcnuxtconfigts)
+        - [update `.env`](#update-env)
+        - [and run](#and-run)
+  - [references](#references)
   - [Contribution](#contribution)
   - [hints](#hints)
-    - [nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.](#nuxt-failed-to-execute-appendchild-on-node-this-node-type-does-not-support-this-method)
+    - [locally run with firebase](#locally-run-with-firebase)
+    - [localization](#localization)
+      - [change language](#change-language)
+    - [Errors and fixes](#errors-and-fixes)
+      - [nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.](#nuxt-failed-to-execute-appendchild-on-node-this-node-type-does-not-support-this-method)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -29,31 +40,13 @@
 ## DETAILED DOCUMENTATION
 > Coming soon
 
-## Build Setup
-
-```bash
-# install dependencies
-$ npm --prefix functions install && npm --prefix src install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
-
 ## Features
 - [x] nuxtjs - universal mode
 - [x] typescript
 - [x] firebase
     - [x] firebase-hosting
     - [x] firebase-functions
+        - [x] performance configuration
         - [x] the url same as hosting
     - [x] firebase-auth
         - [x] firebase-auth password
@@ -92,24 +85,30 @@ Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more 
 
 ## Prepare for build
 
-### firebase
+### firebase configuration
 
 #### create project
-needs 2 projects on firebase; one of them for `development` and the other one for `production`.
-> you can create/use one project for both as well. But still, you need to create firebase credentials files for `development` and `production`.
+create a firebase project on https://console.firebase.google.com/
 
-more: TBD
+#### update `.firebaserc`
+update `.firebaserc` with the project created/owned by you
 
 > If you already have a project you can use it too.
 
 #### firebase credentials file
+> This configuration is necessary for nuxt `serverSiddle`, If you use firebase-functions skip this step.
+- export the credentials files from your firebase project.
+- copy the file to `server/config/firebase-admin-credentials.json`
 
-- export the credentials files from you `production` firebase project.
-- copy the file to `server/service/firebase-admin-credentials.json`
+#### action configurations
+TBD
 
 #### development env
 create a `development` branch and use that branch for development. Create a new project on firebase and setup `development' branch with the new firebase project
 > don't confuse yourself to work on multi-environment in one repository/branch
+
+
+#### more: TBD
 
 ### dotenv
 
@@ -130,28 +129,76 @@ FIREBASE_APP_ID= ***
 FIREBASE_MEASUREMENT_ID= ***
 ```
 
-## Build Setup
+## Build & Run & Deploy
 
+A global `package.json` has been created to manage easy build and deployment.
+All `predeploy` refer to scripts `package.json` in `predeploy`
+
+### install dependencies
 ```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
+$ npm --prefix functions install
+$ npm --prefix src install
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### deploy
+This command builds and deploys firebase-functions from functions and firebase-hosting from src
+```bash
+$ firebase deploy
+```
+
+### run locally with firebase
+
+    $ npm run build
+
+or
+
+    $ npm run predeploy:function && npm run predeploy:hosting
+    
+and then 
+
+    $ firebase serve
+> you will see the links as output of the command
+
+### for locally development
+
+#### hosting on local and api on firebase
+
+first, deploy functions to firebase
+```bash
+$ npm run predeploy:function
+$ firebase deploy --only functions
+```
+
+and then 
+```bash
+cd src
+npm run dev
+```
+
+#### hosting and api on local
+
+##### enable nuxt `serverMiddleware` in `src/nuxt.config.ts`
+```typescript
+  serverMiddleware: [
+     '~/server/api'
+   ],
+```
+
+##### update `.env`
+```.env
+API_URL=https://localhost:3000/api
+```
+
+##### and run
+```bash
+cd src
+npm run dev
+```
 
 ## references
 
--
+- https://firebase.google.com/docs/auth/web/
+- https://github.com/webcore-it/nuxt2-ssr-on-firebase
 
 ## Contribution
 
