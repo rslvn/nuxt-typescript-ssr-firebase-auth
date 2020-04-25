@@ -78,7 +78,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - [x] vee-validate
     - [x] integration with nuxt-i18n
 - [x] redirect to next url after login
-- [x] dotenv - development and production config for local usage.
+- [x] dotenv
 - [ ] better formatting
 - [ ] backend-frontend types in a npm package
 - [x] custom error page - simple
@@ -93,7 +93,7 @@ Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more 
 
 ### firebase
 
-#### create project(s)
+#### create project
 needs 2 projects on firebase; one of them for `development` and the other one for `production`.
 > you can create/use one project for both as well. But still, you need to create firebase credentials files for `development` and `production`.
 
@@ -102,21 +102,14 @@ more: TBD
 
 > If you already have a project you can use it too.
 
-#### firebase credentials files
+#### firebase credentials file
 
-##### firebase credentials file for `development` env 
-- export the credentials files from you `development` firebase project.
-- copy the file to 
-    - `server/service/firebase-admin-credentials-development.json`
-    - `functions/src/service/firebase-admin-credentials-production.json`
-
-> if you don't have a development env, you can export the credential files from your `production` and copy the files as `server/service/firebase-admin-credentials-development.json`
-
-##### firebase credentials file for `production` env 
 - export the credentials files from you `production` firebase project.
-- copy the file to `server/service/firebase-admin-credentials-production.json`
+- copy the file to `server/service/firebase-admin-credentials.json`
 
-> if you don't have a development env, you can export the credential files from your `development` and copy the files as `server/service/firebase-admin-credentials-production.json`
+#### development env
+create a `development` branch and use that branch for development. Create a new project on firebase and setup `development' branch with the new firebase project
+> don't confuse yourself to work on multi-environment in one repository/branch
 
 ### dotenv
 
@@ -136,9 +129,6 @@ FIREBASE_MESSAGING_SENDER_ID= ***
 FIREBASE_APP_ID= ***
 FIREBASE_MEASUREMENT_ID= ***
 ```
-
-#### development
-create a `development` branch and use that branch for development 
 
 ## Build Setup
 
@@ -176,7 +166,8 @@ Please feel free to send a pull request. Welcome :)
 
 ## hints
 
-### If you deploy it locally with `firebase serve`, It does not work at first 2 times and then it works.
+### locally run with firebase
+If you deploy it locally with `firebase serve`, It does not work at first 2 times and then it works.
 > first deploy it with `firebase deploy`, and then call the website url.
 
 ---
@@ -192,7 +183,7 @@ changeLocale() {
   this.$i18n.setLocale(this.$i18n.locale === 'en' ? 'tr' : 'en')
 }
 ```
----
+
 > for the other strategy
 ```html
 <nuxt-link :to="switchLocalePath('en')">English</nuxt-link>
@@ -201,7 +192,9 @@ changeLocale() {
 
 ---
 
-### nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.
+### Errors and fixes
+
+#### nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.
 add `client-only` tag
 
     <client-only> 
