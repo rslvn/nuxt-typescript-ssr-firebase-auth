@@ -77,6 +77,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
     - [x] Turkish
 - [x] vee-validate
     - [x] integration with nuxt-i18n
+- [x] redirect to next url after login
 - [x] dotenv - development and production config for local usage.
 - [ ] better formatting
 - [ ] backend-frontend types in a npm package
@@ -175,6 +176,11 @@ Please feel free to send a pull request. Welcome :)
 
 ## hints
 
+### If you deploy it locally with `firebase serve`, It does not work at first 2 times and then it works.
+> first deploy it with `firebase deploy`, and then call the website url.
+
+---
+
 ### localization
 
 #### change language
@@ -193,6 +199,7 @@ changeLocale() {
 <nuxt-link :to="switchLocalePath('tr')">Turkish</nuxt-link>
 ```
 
+---
 
 ### nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.
 add `client-only` tag

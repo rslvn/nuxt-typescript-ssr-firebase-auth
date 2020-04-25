@@ -1,5 +1,5 @@
-// import { Configuration, Context } from '@nuxt/types'
 require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -67,14 +67,12 @@ export default {
    */
   buildModules: [
     '@nuxt/typescript-build',
-    // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module'
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
     'nuxt-i18n'
@@ -120,14 +118,12 @@ export default {
     baseURL: process.env.API_URL
   },
   // serverMiddleware: [
-  //   // // body-parser middleware
-  //   // bodyParser.json(),
   //   '~/server/api'
   // ],
+
   /*
    ** Build configuration
    */
-  // buildDir: '../functions/.nuxt',
   build: {
     analyze: false, // env variables are strings
     publicPath: '/assets/',
