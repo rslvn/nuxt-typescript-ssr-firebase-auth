@@ -85,6 +85,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 - [x] global notification
 - [x] toaster notification
 - [x] tooltips
+- [x] force logout if token is invalid
 
 Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more coming functionality
 
@@ -96,7 +97,6 @@ Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more 
 #### create project
 needs 2 projects on firebase; one of them for `development` and the other one for `production`.
 > you can create/use one project for both as well. But still, you need to create firebase credentials files for `development` and `production`.
-
 
 more: TBD
 

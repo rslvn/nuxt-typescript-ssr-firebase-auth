@@ -22,13 +22,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import {
-    FirebaseAuthAction,
-    FirebaseAuthActionParams,
-    RouteParameters,
-    RouteType,
-    StateNamespace
-  } from "~/types";
+  import { FirebaseAuthAction, FirebaseAuthActionParams, RouteParameters, RouteType, StateNamespace } from "~/types";
 
   @Component({
     components: {},
