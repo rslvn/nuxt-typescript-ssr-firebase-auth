@@ -4,18 +4,18 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <SocialLogin :title="$t('form.social.title.register')" :providers="providers"/>
+          <SocialLogin :title="$t('form.social.title.register')" :providers="providers" :callback="noCallback"/>
         </div>
 
         <div class="column is-half">
-          <RegisterForm :sign-up-with-email="handleSignUpWithEmail"/>
+          <client-only>
+            <RegisterForm :sign-up-with-email="handleSignUpWithEmail"/>
+          </client-only>
         </div>
 
       </div>
     </div>
   </section>
-
-
 </template>
 
 <script lang="ts">
@@ -39,6 +39,9 @@
 
     get providers() {
       return SupportedProviders
+    }
+
+    noCallback() {
     }
 
   }

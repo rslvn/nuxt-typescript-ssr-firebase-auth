@@ -31,8 +31,8 @@ router.post(service, async (req: Request, res: Response) => {
     .then((decodedIdToken: admin.auth.DecodedIdToken) => {
       let user: StoredUser = {
         name: '',
-        verified: decodedIdToken.email_verified,
-        email: decodedIdToken.email,
+        verified: decodedIdToken.email_verified as boolean,
+        email: decodedIdToken.email as string,
         profilePicture: AnonymousUserImage,
         userId: decodedIdToken.sub,
         providers: [decodedIdToken.firebase.sign_in_provider]
@@ -41,7 +41,8 @@ router.post(service, async (req: Request, res: Response) => {
       console.log(service, 'returns user: ', user);
 
       return res.status(200).json(user);
-    }).catch((error) => handleFirebaseError(res, error));
+    })
+    .catch((error) => handleFirebaseError(res, error));
 });
 
 export default router;

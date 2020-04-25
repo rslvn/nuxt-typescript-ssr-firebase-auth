@@ -32,17 +32,19 @@ router.post(service, async (req: Request, res: Response) => {
 
     await addDecodedIdToken(req.body.token)
         .then((decodedIdToken: admin.auth.DecodedIdToken) => {
+            const alt = decodedIdToken.name as string || decodedIdToken.email as string;
+
             const profilePicture = decodedIdToken.picture ?
                 {
                     src: decodedIdToken.picture,
-                    alt: 'Picture of ' + decodedIdToken.name || decodedIdToken.email
+                    alt: 'Picture of ' + alt
                 }
                 : AnonymousUserImage
 
             const user: StoredUser = {
                 name: decodedIdToken.name || '',
-                verified: decodedIdToken.email_verified,
-                email: decodedIdToken.email,
+                verified: decodedIdToken.email_verified as boolean,
+                email: decodedIdToken.email as string,
                 profilePicture,
                 userId: decodedIdToken.sub,
                 providers: [decodedIdToken.firebase.sign_in_provider]
@@ -50,7 +52,8 @@ router.post(service, async (req: Request, res: Response) => {
             console.log(service, 'returns user: ', user);
 
             return res.status(200).json(user);
-        }).catch((error) => handleFirebaseError(res, error));
+        })
+        .catch((error) => handleFirebaseError(res, error));
 });
 
 app.use('/api', router)

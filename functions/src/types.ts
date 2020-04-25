@@ -11,12 +11,12 @@ export const AnonymousUserImage: Image = {
 };
 
 export interface StoredUser {
-    name: string | null
-    email: string | null
+    name: string
+    email: string
     profilePicture: Image
     userId: string,
     verified: boolean
-    providers: (string | undefined)[]
+    providers: string[]
 }
 
 export const runtimeOpts: RuntimeOptions = {

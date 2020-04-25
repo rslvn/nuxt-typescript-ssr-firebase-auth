@@ -95,6 +95,7 @@ firebase-admin-credentials-development.json
 yarn.lock
 
 .firebase
+firebase-debug.log
 
 # dotenv environment variables file
 .env

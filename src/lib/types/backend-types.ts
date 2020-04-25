@@ -9,10 +9,10 @@ export const AnonymousUserImage: Image = {
 };
 
 export interface StoredUser {
-  name: string | null
-  email: string | null
+  name: string | undefined
+  email: string
   profilePicture: Image
   userId: string,
   verified: boolean
-  providers: (string | undefined)[]
+  providers: string[]
 }

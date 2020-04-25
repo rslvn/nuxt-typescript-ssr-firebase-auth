@@ -3,20 +3,23 @@
     <h3 class="title has-text-centered has-text-dark">{{title}}</h3>
     <div class="box">
 
-      <div class="buttons">
-        <b-button v-if="isProviderExist(providerType.google)" type="is-danger" icon-left="google" outlined
-                  @click="signInWithGoogle(callback)" expanded>
-          {{ $t('form.social.google') }}
-        </b-button>
-        <b-button v-if="isProviderExist(providerType.twitter)" type="is-info" icon-left="twitter" outlined
-                  @click="signInWithTwitter(callback)" expanded>
-          {{ $t('form.social.twitter') }}
-        </b-button>
-        <b-button v-if="isProviderExist(providerType.facebook)" type="is-link" icon-left="facebook" outlined
-                  @click="signInWithFacebook(callback)" expanded>
-          {{ $t('form.social.facebook') }}
-        </b-button>
-      </div>
+      <client-only>
+        <div class="buttons">
+          <b-button v-if="isProviderExist(providerType.google)" type="is-danger" icon-left="google" outlined
+                    @click="signInWithGoogle(callback)" expanded>
+            {{ $t('form.social.google') }}
+          </b-button>
+          <b-button v-if="isProviderExist(providerType.twitter)" type="is-info" icon-left="twitter" outlined
+                    @click="signInWithTwitter(callback)" expanded>
+            {{ $t('form.social.twitter') }}
+          </b-button>
+          <b-button v-if="isProviderExist(providerType.facebook)" type="is-link" icon-left="facebook" outlined
+                    @click="signInWithFacebook(callback)" expanded>
+            {{ $t('form.social.facebook') }}
+          </b-button>
+        </div>
+      </client-only>
+
     </div>
   </div>
 </template>
@@ -32,7 +35,7 @@
 
     @Prop({ type: String, required: true }) title !: string
     @Prop({ type: Array, required: true }) providers !: ProviderConfig[]
-    @Prop({ type: Function, required: false, default: () => console.log('CALLBACK') }) callback !: () => void
+    @Prop({ type: Function, required: true }) callback !: () => void
 
     @StateNamespace.auth.Action signInWithGoogle !: () => void;
     @StateNamespace.auth.Action signInWithTwitter !: () => void;

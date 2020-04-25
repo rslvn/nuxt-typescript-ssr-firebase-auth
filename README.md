@@ -33,7 +33,7 @@
 
 ```bash
 # install dependencies
-$ npm install
+$ npm --prefix functions install && npm --prefix src install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
@@ -119,34 +119,11 @@ more: TBD
 
 ### dotenv
 
->!!! dotenv is just for local  or `yarn build & yarn start` usage. `firebase-function` is just supported for `production` env
-
-#### development
-
-create `.env.development` file with below content
-
-```.env
-# axios config
-API_URL=http://localhost:3000/api
-
-# firebase config
-FIREBASE_API_KEY= ***
-FIREBASE_AUTH_DOMAIN= ***
-FIREBASE_DATABASE_URL= ***
-FIREBASE_PROJECT_ID= ***
-FIREBASE_STORAGE_BUCKET= ***
-FIREBASE_MESSAGING_SENDER_ID= ***
-FIREBASE_APP_ID= ***
-FIREBASE_MEASUREMENT_ID= ***
-```
-
-#### production
-
 create `.env` file with below content
 
 ```.env
 # axios config
-API_URL=https://<your_host_or_project_name>/api
+API_URL= https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/api
 
 # firebase config
 FIREBASE_API_KEY= ***
@@ -158,6 +135,9 @@ FIREBASE_MESSAGING_SENDER_ID= ***
 FIREBASE_APP_ID= ***
 FIREBASE_MEASUREMENT_ID= ***
 ```
+
+#### development
+create a `development` branch and use that branch for development 
 
 ## Build Setup
 
@@ -178,9 +158,26 @@ $ yarn generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-## localization
+## references
 
-### change language
+-
+
+## Contribution
+
+Please feel free to send a pull request. Welcome :)
+- you see a mistake ( excepted, totally my mistake :) )
+- you know a better/best practice
+- you can add more functionality
+- you found a bug
+- you think you have time to fix/implement a card from [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate)
+
+
+
+## hints
+
+### localization
+
+#### change language
 
 > strategy: 'no_prefix', 
 
@@ -196,22 +193,11 @@ changeLocale() {
 <nuxt-link :to="switchLocalePath('tr')">Turkish</nuxt-link>
 ```
 
-## Contribution
 
-Please feel free to send a pull request. Welcome :)
-- you see a mistake ( excepted, totally my mistake :) )
-- you know a better/best practice
-- you can add more functionality
-- you found a bug
-- you think you have time to fix/implement a card from [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate)
-
-
-
-## hints
 ### nuxt Failed to execute 'appendChild' on 'Node': This node type does not support this method.
-add `no-ssr` tag
+add `client-only` tag
 
-    <no-ssr> 
+    <client-only> 
        ...
-    </no-ssr>
+    </client-only>
     
