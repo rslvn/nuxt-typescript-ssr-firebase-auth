@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import admin from '../service/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { addDecodedIdToken } from "../service/firebase-admin-utils";
-import { AnonymousUserImage, StoredUser } from '../../lib/types'
+import { AnonymousUserImage, StoredUser } from '../../types'
 
 let service = '/auth';
 

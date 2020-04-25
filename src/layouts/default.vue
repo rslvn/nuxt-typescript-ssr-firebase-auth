@@ -34,7 +34,7 @@
   import { Component, Vue } from 'nuxt-property-decorator'
   import TopNavbar from '../components/shared/TopNavbar.vue'
   import TopNotification from '~/components/notification/TopNotification.vue'
-  import { NotificationMessage, StateNamespace } from '~/lib/types'
+  import { NotificationMessage, StateNamespace } from '~/types'
 
   @Component({
     components: { TopNotification, TopNavbar }

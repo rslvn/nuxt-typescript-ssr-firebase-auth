@@ -20,7 +20,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
-  import { LoginCredentials, StateNamespace, SupportedProviders } from "~/lib/types";
+  import { LoginCredentials, StateNamespace, SupportedProviders } from "~/types";
 
   @Component({
     components: { SocialLogin, LoginForm },

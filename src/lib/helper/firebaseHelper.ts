@@ -1,5 +1,5 @@
 import { User } from 'firebase'
-import { AnonymousUserImage, FirebaseAuthAction, StoredUser } from '~/lib/types'
+import { AnonymousUserImage, FirebaseAuthAction, StoredUser } from '~/types'
 
 export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
   return firebaseUser

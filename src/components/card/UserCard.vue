@@ -69,7 +69,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { StateNamespace, StoredUser } from "~/lib/types";
+  import { StateNamespace, StoredUser } from "~/types";
   import ProviderList from "~/components/profile/ProviderList.vue";
 
   @Component({

@@ -14,7 +14,7 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
-  import { RouteParameters, RouteType, StateNamespace } from "~/lib/types";
+  import { RouteParameters, RouteType, StateNamespace } from "~/types";
   import { Context } from "@nuxt/types";
 
   @Component({

@@ -1,5 +1,5 @@
 import { Middleware } from "@nuxt/types";
-import { RouteType } from "~/lib/types";
+import { RouteType } from "~/types";
 import { routesForLoggedInUsers, routesForNotLoggedInUsers } from "~/lib/helper/global-helpers";
 
 const authRouterMiddleware: Middleware = ({ store, redirect, route }) => {

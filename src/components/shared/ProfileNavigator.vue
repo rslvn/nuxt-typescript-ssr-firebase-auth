@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AnonymousUserImage, Image, RouteType, StoredUser } from "~/lib/types";
+  import { AnonymousUserImage, Image, RouteType, StoredUser } from "~/types";
 
   @Component({
     components: {}

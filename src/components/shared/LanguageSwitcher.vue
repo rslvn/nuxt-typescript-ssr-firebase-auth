@@ -23,7 +23,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { SupportedLanguage, SupportedLanguages } from "~/lib/types";
+  import { SupportedLanguage, SupportedLanguages } from "~/types";
 
   @Component({
     components: {}

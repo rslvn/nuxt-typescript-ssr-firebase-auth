@@ -1,5 +1,5 @@
 import { namespace } from "vuex-class";
-import { StoredUser } from "~/lib/types/backend-types";
+import { StoredUser } from "~/types/backend-types";
 
 export interface AuthState {
   user: StoredUser | null,

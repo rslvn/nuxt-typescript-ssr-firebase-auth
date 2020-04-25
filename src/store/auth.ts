@@ -9,7 +9,7 @@ import {
   RootState,
   RouteType,
   StoredUser
-} from '~/lib/types'
+} from '~/types'
 import { auth, facebookAuthProvider, googleAuthProvider, twitterAuthProvider } from '~/plugins/fire-init-plugin'
 import {
   errorToNotificationMessage,

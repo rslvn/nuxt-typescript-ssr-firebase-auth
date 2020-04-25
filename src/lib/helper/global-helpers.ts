@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { Route } from "vue-router";
-import { RouteType } from "~/lib/types";
+import { RouteType } from "~/types";
 
 let timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS';
 

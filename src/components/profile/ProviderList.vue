@@ -41,7 +41,7 @@
     StateNamespace,
     StoredUser,
     SupportedProviders
-  } from "~/lib/types";
+  } from "~/types";
   import { showWarningToaster } from "~/lib/service/notification-service";
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
   import SocialLogin from "~/components/form/SocialLogin.vue";

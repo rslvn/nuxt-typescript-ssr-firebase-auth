@@ -1,4 +1,4 @@
-import { NotificationMessage, NotificationType } from "~/lib/types";
+import { NotificationMessage, NotificationType } from "~/types";
 import { NotificationProgrammatic } from 'buefy'
 
 const hasIcon = true;

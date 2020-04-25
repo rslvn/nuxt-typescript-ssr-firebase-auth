@@ -5,7 +5,7 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import ForgetPasswordForm from "~/components/form/ForgetPasswordForm.vue";
-  import { StateNamespace } from "~/lib/types";
+  import { StateNamespace } from "~/types";
 
   @Component({
     components: { ForgetPasswordForm },

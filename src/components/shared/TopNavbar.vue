@@ -45,7 +45,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { RouteType, StateNamespace, StoredUser } from "~/lib/types";
+  import { RouteType, StateNamespace, StoredUser } from "~/types";
   import LanguageSwitcher from "~/components/shared/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/shared/ProfileNavigator.vue";
 

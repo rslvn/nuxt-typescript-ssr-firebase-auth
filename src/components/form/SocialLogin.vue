@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderType, StateNamespace } from "~/lib/types";
+  import { ProviderConfig, ProviderType, StateNamespace } from "~/types";
 
   @Component({
     components: {}

@@ -2,7 +2,7 @@ import { auth } from '~/plugins/fire-init-plugin'
 import { Plugin } from '@nuxt/types'
 import { User } from 'firebase';
 import { getStoredUser } from '~/lib/helper/firebaseHelper';
-import { AppCookie, RouteType } from "~/lib/types";
+import { AppCookie, RouteType } from "~/types";
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
 import { routesForNotLoggedInUsers } from "~/lib/helper/global-helpers";

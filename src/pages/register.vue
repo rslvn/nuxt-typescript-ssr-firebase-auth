@@ -22,7 +22,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
-  import { RegistrationCredentials, StateNamespace, SupportedProviders } from "~/lib/types";
+  import { RegistrationCredentials, StateNamespace, SupportedProviders } from "~/types";
 
   @Component({
     components: { SocialLogin, RegisterForm },

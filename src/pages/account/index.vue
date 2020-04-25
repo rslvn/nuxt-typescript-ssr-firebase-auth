@@ -19,7 +19,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { StateNamespace, StoredUser } from "~/lib/types";
+  import { StateNamespace, StoredUser } from "~/types";
   import UserCard from "~/components/card/UserCard.vue";
 
   @Component({

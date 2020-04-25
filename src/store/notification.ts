@@ -1,4 +1,4 @@
-import { NotificationMessage, NotificationState, RootState } from "~/lib/types";
+import { NotificationMessage, NotificationState, RootState } from "~/types";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 export const state = (): NotificationState => ({

@@ -28,7 +28,7 @@
     RouteParameters,
     RouteType,
     StateNamespace
-  } from "~/lib/types";
+  } from "~/types";
 
   @Component({
     components: {},

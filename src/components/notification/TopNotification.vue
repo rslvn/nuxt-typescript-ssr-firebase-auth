@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { NotificationMessage } from "~/lib/types";
+  import { NotificationMessage } from "~/types";
 
   @Component({
     components: {}

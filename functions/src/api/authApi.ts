@@ -42,7 +42,7 @@ router.post(service, async (req: Request, res: Response) => {
                 : AnonymousUserImage
 
             const user: StoredUser = {
-                name: decodedIdToken.name || '',
+                name: decodedIdToken.name,
                 verified: decodedIdToken.email_verified as boolean,
                 email: decodedIdToken.email as string,
                 profilePicture,

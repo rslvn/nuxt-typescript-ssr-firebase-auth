@@ -1,6 +1,6 @@
 import { Middleware } from "@nuxt/types";
 import { Route } from 'vue-router'
-import { RouteType } from "~/lib/types";
+import { RouteType } from "~/types";
 import { log } from "~/lib/helper/global-helpers";
 
 const routesForNotLoggedInUsers = (route: Route) => {
