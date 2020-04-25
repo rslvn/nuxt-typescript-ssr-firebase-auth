@@ -2,7 +2,7 @@ import { ActionTree } from 'vuex'
 import { Context } from '@nuxt/types'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AppCookie, RootState, StoredUser } from "../types"
-import { log } from '~/lib/helper/global-helpers'
+import { log } from '~/service/helper/global-helpers'
 
 export const state = (): RootState => ({})
 

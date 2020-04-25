@@ -42,7 +42,7 @@
     StoredUser,
     SupportedProviders
   } from "~/types";
-  import { showWarningToaster } from "~/lib/service/notification-service";
+  import { showWarningToaster } from "~/service/notification-service";
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
   import SocialLogin from "~/components/form/SocialLogin.vue";
 

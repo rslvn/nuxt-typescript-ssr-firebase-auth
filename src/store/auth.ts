@@ -17,8 +17,8 @@ import {
   getInfoNotificationMessage,
   showInfoToaster,
   showSuccessToaster
-} from '~/lib/service/notification-service'
-import { log } from '~/lib/helper/global-helpers'
+} from '~/service/notification-service'
+import { log } from '~/service/helper/global-helpers'
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 

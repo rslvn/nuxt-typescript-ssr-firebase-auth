@@ -90,8 +90,6 @@ sw.*
 
 # Vim swap files
 *.swp
-firebase-admin-credentials-production.json
-firebase-admin-credentials-development.json
 yarn.lock
 
 .firebase
@@ -102,9 +100,11 @@ firebase-debug.log
 
 **/*.log
 node_modules
-#functions/.nuxt
+
+# firebase
 functions/lib
 functions/nuxt.config.ts
 public
+firebase-admin-credentials.json
 
 package-lock.json
