@@ -1,0 +1,30 @@
+{
+  "functions": {
+    "source": "functions",
+    "predeploy": [
+      "npm run predeploy:function"
+    ]
+  },
+  "hosting": {
+    "predeploy": [
+      "npm run predeploy:hosting"
+    ],
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "authApi"
+      },
+      {
+        "source": "**",
+        "function": "nuxtOnFunction"
+      }
+    ]
+  }
+}
+

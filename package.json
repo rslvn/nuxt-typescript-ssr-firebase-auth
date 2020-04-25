@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "build": "npm run predeploy:function && npm run predeploy:hosting",
+    "predeploy:function": "npm run clear:function && npm run lint:functions && npm run build:src && npm run build:function",
+    "build:function": "cp -r src/.nuxt functions/. && npm --prefix functions run build",
+    "build:src": "npm run clear:src && npm --prefix src run build",
+    "predeploy:hosting": "npm run clear:hosting && mkdir -p public/assets && cp -r functions/.nuxt/dist/* public/assets/. && cp -a src/static/. public/",
+    "clear:function": "rm -rf functions/lib functions/.nuxt",
+    "clear:src": "rm -rf src/.nuxt ",
+    "clear:hosting": "rm -rf public",
+    "lint:functions": "npm --prefix functions run lint"
+  }
+}
