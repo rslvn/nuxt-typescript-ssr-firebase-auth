@@ -86,7 +86,8 @@ const messages = {
       name: 'Ad :',
       email: 'E-posta :',
       providers: 'Saglayicilar:',
-      verifyButton: 'E-posta Dogrula'
+      verifyButton: 'E-posta Dogrula',
+      updatePasswordButton: 'Parolayi guncelle'
     }
   },
 

@@ -8,7 +8,7 @@
         </div>
 
         <div class="column is-half">
-          <LoginForm :sign-in-with-email="handleSignInWithEmail"/>
+          <LoginForm :sign-in-with-email="handleSignInWithEmail" :callback="noCallback"/>
         </div>
 
       </div>

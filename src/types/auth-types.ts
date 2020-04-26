@@ -18,9 +18,10 @@ export interface RegistrationCredentials {
 export interface LoginCredentials {
   email: string
   password: string
+  callback?: () => void
 }
 
-export interface UpdatePasswordCredentials{
+export interface UpdatePasswordCredentials {
   credentials: LoginCredentials
   newPassword: string
 }

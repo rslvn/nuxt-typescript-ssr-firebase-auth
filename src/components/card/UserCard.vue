@@ -64,13 +64,30 @@
       >
       </b-button>
     </div>
+    <div v-if="!!passwordProvider" class="buttons">
+      <b-button
+        type="is-primary"
+        @click="showSetPasswordModal"
+      >
+        {{ $t('card.user.updatePasswordButton') }}
+      </b-button>
+
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { StateNamespace, StoredUser } from "~/types";
+  import {
+    LoginCredentials,
+    ProviderConfig,
+    ProviderType,
+    StateNamespace,
+    StoredUser,
+    SupportedProviders
+  } from "~/types";
   import ProviderList from "~/components/profile/ProviderList.vue";
+  import SetPasswordModal from "~/components/modal/SetPasswordModal.vue";
 
   @Component({
     components: { ProviderList }
@@ -81,12 +98,38 @@
 
     @Prop({ required: true }) user !: StoredUser
 
-    @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>;
+    @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
+    @StateNamespace.auth.Action updatePassword !: (password: string) => void;
+
+    get passwordProvider(): ProviderConfig | undefined {
+      return this.user.providers.includes(ProviderType.password) ?
+        SupportedProviders.find(provider => provider.providerType === ProviderType.password)
+        : undefined
+    }
 
     submit() {
       this.loading = true;
       this.handleSendingEmailVerificationCode()
         .then(() => this.loading = false)
+    }
+
+    confirmPassword(password: string) {
+      this.updatePassword(password)
+    }
+
+    showSetPasswordModal() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: SetPasswordModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+        props: {
+          user: this.user,
+          linkedProviders: [this.passwordProvider],
+          confirmPassword: this.confirmPassword
+        }
+      })
     }
 
   }

@@ -14,12 +14,13 @@
       :label="$attrs.label"
     >
       <b-input
+        v-bind="$attrs"
         :type="inputType"
         :value="value"
-        v-bind="$attrs"
         :placeholder="placeholder"
-        @input="input"
         :password-reveal="inputType === 'password'"
+        :disabled="disabled"
+        @input="input"
       />
     </b-field>
 
@@ -39,6 +40,7 @@
     @Prop({ type: String, required: false, default: 'text' }) inputType !: string;
     @Prop({ type: String, required: false, default: 'some@domain.com' }) placeholder !: string;
     @Prop({ type: Boolean, required: false, default: false }) horizontal !: boolean;
+    @Prop({ type: Boolean, required: false, default: false }) disabled !: boolean;
 
     @Model('input', { required: true }) readonly value!: any;
 

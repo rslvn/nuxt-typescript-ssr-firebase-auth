@@ -65,10 +65,12 @@ See the [Features](#features) for more functionalities
             - [x] send verification code
                 - [x] processing display when the button clicked
             - [x] verify action with mail verification code
+            - [x] update password
         - [x] firebase-auth google
         - [x] firebase-auth twitter
         - [x] firebase-auth facebook
         - [x] link/unlink password authenticator
+            - [x] set password
         - [x] link/unlink google authenticator
         - [x] link/unlink twitter authenticator
         - [x] link/unlink facebook authenticator

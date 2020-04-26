@@ -11,6 +11,7 @@
           :placeholder="$t('common.field.emailPlaceHolder')"
           rules="required|email"
           vid="email"
+          :disabled="!!email"
         />
 
         <BinputWithValidation
@@ -22,7 +23,7 @@
           vid="password"
         />
 
-        <b-button tag="router-link"
+        <b-button v-if="showForgetPassword" tag="router-link"
                   :to="routeType.FORGET_PASSWORD"
                   type="is-text"
                   class="has-text-primary is-pulled-right">
@@ -36,7 +37,7 @@
         </div>
       </ValidationObserver>
     </div>
-    <div class="has-text-centered">
+    <div v-if="showRegisterLink" class="has-text-centered">
       <nuxt-link
         tag="a"
         class="button-outline"
@@ -62,12 +63,19 @@
     }
   })
   export default class LoginForm extends Vue {
-    credentials: LoginCredentials = {
-      email: '',
-      password: ''
-    }
 
-    @Prop({ type: Function, required: true }) signInWithEmail !: (credentials: LoginCredentials) => void;
+    @Prop({ type: Function, required: true }) signInWithEmail !: (credentials: LoginCredentials) => void
+    @Prop({ type: Function, required: true }) callback !: () => void
+    @Prop({ type: String, default: '' }) email !: string
+    @Prop({ type: Boolean, default: true }) showForgetPassword !: boolean
+    @Prop({ type: Boolean, default: true }) showRegisterLink !: boolean
+
+
+    credentials: LoginCredentials = {
+      email: this.email || '',
+      password: '',
+      callback: this.callback
+    }
 
     get routeType() {
       return RouteType

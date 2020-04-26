@@ -85,7 +85,8 @@ const messages = {
       name: 'Name:',
       email: 'Email: ',
       providers: 'Providers:',
-      verifyButton: 'Verify Email'
+      verifyButton: 'Verify Email',
+      updatePasswordButton: 'Update Password'
     }
   },
 

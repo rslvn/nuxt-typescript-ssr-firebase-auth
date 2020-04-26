@@ -6,27 +6,6 @@
               class="has-margin-right-10"
     />
 
-    <b-modal v-show="showModal" :active.sync="showModal"
-             has-modal-card
-             trap-focus
-             aria-role="dialog"
-             aria-modal>
-      <div class="modal-card">
-        <section class="modal-card-body">
-
-          <SocialLogin v-if="showSocialLogin" :providers="linkedProviders"
-                       :title="$t('provider.linkPasswordProvider.socialLogin.title')"
-                       :callback="socialLoginSuccessCallback"/>
-
-          <SetPasswordForm v-else :title="$t('provider.linkPasswordProvider.passwordForm.title')"
-                           :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: user.email})"
-                           :button-text="$t('provider.linkPasswordProvider.passwordForm.submit')"
-                           :confirm-password="handleConfirmPassword"/>
-        </section>
-      </div>
-
-    </b-modal>
-
   </div>
 </template>
 
@@ -45,14 +24,12 @@
   import { showWarningToaster } from "~/service/notification-service";
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
   import SocialLogin from "~/components/form/SocialLogin.vue";
+  import SetPasswordModal from "~/components/modal/SetPasswordModal.vue";
 
   @Component({
     components: { SocialLogin, SetPasswordForm, Provider }
   })
   export default class ProviderList extends Vue {
-
-    showModal = false
-    showSocialLogin = true
 
     @Prop({ type: Object, required: true }) user !: StoredUser;
 
@@ -127,18 +104,23 @@
       ))
     }
 
+    confirmPassword(password: string) {
+      this.linkPassword({ email: this.user.email, password })
+    }
+
     showLinkPasswordModal() {
-      this.showSocialLogin = true;
-      this.showModal = true;
-    }
-
-    socialLoginSuccessCallback() {
-      this.showSocialLogin = false;
-    }
-
-    handleConfirmPassword(password: string) {
-      this.showModal = false;
-      this.linkPassword({ email: this.user.email || '', password })
+      this.$buefy.modal.open({
+        parent: this,
+        component: SetPasswordModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+        props: {
+          user: this.user,
+          linkedProviders: this.linkedProviders,
+          confirmPassword: this.confirmPassword
+        }
+      })
     }
 
   }
