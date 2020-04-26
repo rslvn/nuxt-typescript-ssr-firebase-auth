@@ -5,7 +5,7 @@ import express, { Request, Response } from 'express'
 
 const { Nuxt } = require('nuxt');
 
-console.log('Creating the function.')
+console.log('Creating nuxtOnFunction function.')
 
 const config = {
     // Don't start in dev mode.
@@ -20,11 +20,6 @@ const config = {
     },
 };
 const nuxt = new Nuxt(config);
-// Init express.
-const app = express();
-app.use(cookieParser())
-
-// app.use(nuxt.render);
 
 let isReady = false
 const readyPromise = nuxt
@@ -44,6 +39,9 @@ const handleRequest = async (req: Request, res: Response) => {
     await nuxt.render(req, res)
 }
 
+// Init express.
+const app = express();
+app.use(cookieParser())
 // Give nuxt middleware to express.
 app.get('*', handleRequest)
 app.use(handleRequest)

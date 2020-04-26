@@ -43,7 +43,8 @@ const messages = {
     confirmPasswordReset: 'Password reset confirmed!',
     providerLinked: '<b>{provider}</b> is successfully linked',
     providerUnlinked: '<b>{provider}</b> is successfully unlinked',
-    unlinkNotAllowed: 'The last provider <b>{provider}</b> can not be unlinked'
+    unlinkNotAllowed: 'The last provider <b>{provider}</b> can not be unlinked',
+    passwordUpdated: 'Your password updated successfully'
   },
 
   form: {

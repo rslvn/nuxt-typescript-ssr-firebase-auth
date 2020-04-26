@@ -43,7 +43,8 @@ const messages = {
     confirmPasswordReset: 'Parola sifirlama onaylandi',
     providerLinked: '<b>{provider}</b> hesaba basari ile baglandi',
     providerUnlinked: '<b>{provider}</b> baglantisi hesaptan koparildi',
-    unlinkNotAllowed: 'Son login method <b>{provider}</b> hesaptan koparilamaz'
+    unlinkNotAllowed: 'Son login method <b>{provider}</b> hesaptan koparilamaz',
+    passwordUpdated: 'Parolaniz basarili bir sekilde guncellendi.'
   },
 
   form: {

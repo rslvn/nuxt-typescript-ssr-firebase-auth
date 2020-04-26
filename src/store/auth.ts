@@ -8,7 +8,8 @@ import {
   RegistrationCredentials,
   RootState,
   RouteType,
-  StoredUser
+  StoredUser,
+  UpdatePasswordCredentials
 } from '~/types'
 import { auth, facebookAuthProvider, googleAuthProvider, twitterAuthProvider } from '~/plugins/fire-init-plugin'
 import {
@@ -146,6 +147,20 @@ export const actions: ActionTree<AuthState, RootState> = {
     await auth.signInWithPopup(facebookAuthProvider)
       .then(() => {
         callback()
+      })
+      .catch((error: Error) => handError(dispatch, error))
+  },
+
+  async updatePassword({ dispatch }, updatePasswordCredentials: UpdatePasswordCredentials) {
+    let authCredential = firebase.auth.EmailAuthProvider
+      .credential(updatePasswordCredentials.credentials.email, updatePasswordCredentials.credentials.password);
+    await auth.currentUser?.reauthenticateWithCredential(authCredential)
+      .then(async () => {
+        await auth.currentUser?.updatePassword(updatePasswordCredentials.newPassword)
+          .then(() => {
+            showSuccessToaster(this.$i18n.t('notification.passwordUpdated'))
+          })
+          .catch((error: Error) => handError(dispatch, error))
       })
       .catch((error: Error) => handError(dispatch, error))
   },
