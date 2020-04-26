@@ -45,9 +45,11 @@ Firebase full password authentication (register, login, forget password, reset p
 
 See the [Features](#features) for more functionalities
 
-![](docs/login.png) 
-![](docs/register.png) 
-![](docs/account.png) 
+![login screen](doc/login.png) 
+
+![register screen](doc/register.png) 
+
+![account sc](doc/account.png) 
 
 ## DETAILED DOCUMENTATION
 > Coming soon
