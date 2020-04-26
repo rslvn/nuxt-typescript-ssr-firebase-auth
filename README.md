@@ -37,6 +37,14 @@
 
 # nuxt-typescript-ssr-firebase-auth
 
+`nuxt generate` is really sucks!!! We need a good alternative to deploy our applications to cloud without VPS and SSL configuration.
+
+This repository is created as a sample of using nuxt on firebase-functions+firebase-hosting and still SSR and has `nuxtServerInit` functionally is active.
+
+Firebase full password authentication (register, login, forget password, reset password), google authentication, twitter authentication, facebook authentication in `nuxt`.
+
+See the [Features](#features) for more functionalities
+
 ## DETAILED DOCUMENTATION
 > Coming soon
 
@@ -100,8 +108,26 @@ update `.firebaserc` with the project created/owned by you
 - export the credentials files from your firebase project.
 - copy the file to `server/config/firebase-admin-credentials.json`
 
+#### provider config
+
+#### password
+- https://firebase.google.com/docs/auth/web/password-auth
+
+#### google
+- https://firebase.google.com/docs/auth/web/google-signin
+
+#### twitter
+- https://firebase.google.com/docs/auth/web/twitter-login
+
+##### facebook
+- https://www.robinwieruch.de/firebase-facebook-login
+- https://firebase.google.com/docs/auth/web/facebook-login
+- https://hackernoon.com/vue-nuxt-firebase-auth-database-ssr-example-tutorial-facebook-login-setup-authentication-starter-app-a6dfde0133fc
+
 #### action configurations
 TBD
+
+- - https://firebase.google.com/docs/auth/custom-email-handler
 
 #### development env
 create a `development` branch and use that branch for development. Create a new project on firebase and setup `development' branch with the new firebase project
@@ -197,8 +223,11 @@ npm run dev
 
 ## references
 
-- https://firebase.google.com/docs/auth/web/
+- https://firebase.google.com/docs/auth/web/firebaseui
 - https://github.com/webcore-it/nuxt2-ssr-on-firebase
+- https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8
+- https://www.robinwieruch.de/firebase-facebook-login
+- https://qiita.com/simochee/items/e5b77af4aa36bd0f32e5
 
 ## Contribution
 
