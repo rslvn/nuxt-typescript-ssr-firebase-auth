@@ -12,18 +12,18 @@ const app = express();
 app.use(cookieParser());
 const router = Router();
 
-const handleFirebaseError = (response: Response, error: FirebaseError) => {
+const handleFirebaseError = (response: Response, error: FirebaseError, servicePath: string) => {
     console.error('Firebase error', error);
     const statusCode = error?.code === 'auth/id-token-expired' ? 401 : 500;
     response.status(statusCode).json({
-        service,
+        servicePath,
         error
     });
 };
 
 router.post(service, async (req: Request, res: Response) => {
 
-    console.log(service, ' called (post)');
+    console.log(req.originalUrl, ' called (post)');
 
     if (!req.body.token) {
         return res.status(400).send('Invalid Parameter');
@@ -51,7 +51,7 @@ router.post(service, async (req: Request, res: Response) => {
 
             return res.status(200).json(user);
         })
-        .catch((error) => handleFirebaseError(res, error));
+        .catch((error) => handleFirebaseError(res, error, '/api'+service));
 });
 
 app.use('/api', router)

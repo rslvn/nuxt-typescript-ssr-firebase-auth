@@ -13,7 +13,7 @@ export const actions: ActionTree<RootState, RootState> = {
     const token = app.$cookies.get(AppCookie.token)
     if (token) {
       return await app.$axios
-        .post('/auth', {
+        .post('/auth/', {
           token
         })
         .then((response: AxiosResponse<StoredUser>) => {

@@ -225,7 +225,7 @@ npm run dev
 
 - https://firebase.google.com/docs/auth/web/firebaseui
 - https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8
-- https://github.com/webcore-it/nuxt2-ssr-on-firebase
+- https://github.com/KiritchoukC/nuxt-on-firebase-example
 - https://www.robinwieruch.de/firebase-facebook-login
 - https://qiita.com/simochee/items/e5b77af4aa36bd0f32e5
 
@@ -241,12 +241,6 @@ Please feel free to send a pull request. Welcome :)
 
 
 ## hints
-
-### locally run with firebase
-If you deploy it locally with `firebase serve`, It does not work at first 2 times and then it works.
-> first deploy it with `firebase deploy`, and then call the website url.
-
----
 
 ### localization
 

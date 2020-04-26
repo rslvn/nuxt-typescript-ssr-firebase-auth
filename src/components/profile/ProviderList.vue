@@ -6,7 +6,7 @@
               class="has-margin-right-10"
     />
 
-    <b-modal :active.sync="showModal"
+    <b-modal v-show="showModal" :active.sync="showModal"
              has-modal-card
              trap-focus
              aria-role="dialog"
