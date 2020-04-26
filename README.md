@@ -224,8 +224,8 @@ npm run dev
 ## references
 
 - https://firebase.google.com/docs/auth/web/firebaseui
-- https://github.com/webcore-it/nuxt2-ssr-on-firebase
 - https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8
+- https://github.com/webcore-it/nuxt2-ssr-on-firebase
 - https://www.robinwieruch.de/firebase-facebook-login
 - https://qiita.com/simochee/items/e5b77af4aa36bd0f32e5
 

@@ -1,7 +1,7 @@
 import { runWith } from "firebase-functions";
-import express from 'express'
 import cookieParser from 'cookie-parser'
 import { runtimeOpts } from './types'
+import express, { Request, Response } from 'express'
 
 const { Nuxt } = require('nuxt');
 
@@ -23,8 +23,30 @@ const nuxt = new Nuxt(config);
 // Init express.
 const app = express();
 app.use(cookieParser())
+
+// app.use(nuxt.render);
+
+let isReady = false
+const readyPromise = nuxt
+    .ready()
+    .then(() => {
+        isReady = true
+    })
+    .catch(() => {
+        process.exit(1)
+    })
+
+const handleRequest = async (req: Request, res: Response) => {
+    if (!isReady) {
+        await readyPromise
+    }
+    res.set('Cache-Control', 'public, max-age=1, s-maxage=1')
+    await nuxt.render(req, res)
+}
+
 // Give nuxt middleware to express.
-app.use(nuxt.render);
+app.get('*', handleRequest)
+app.use(handleRequest)
 
 export const nuxtOnFunction = runWith(runtimeOpts)
     .https

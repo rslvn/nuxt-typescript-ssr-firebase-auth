@@ -21,7 +21,6 @@ const handleFirebaseError = (response: Response, error: FirebaseError) => {
     });
 };
 
-// @ts-ignore
 router.post(service, async (req: Request, res: Response) => {
 
     console.log(service, ' called (post)');
