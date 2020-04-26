@@ -30,7 +30,7 @@ router.post(service, async (req: Request, res: Response) => {
         return res.status(400).send('Invalid Parameter');
     }
 
-    await addDecodedIdToken(req.body.token)
+    return await addDecodedIdToken(req.body.token)
         .then((decodedIdToken: admin.auth.DecodedIdToken) => {
             const alt = decodedIdToken.name as string || decodedIdToken.email as string;
 
