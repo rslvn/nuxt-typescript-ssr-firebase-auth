@@ -64,6 +64,8 @@ See the [Features](#features) for more functionalities
     - [x] firebase-functions
         - [x] performance configuration
         - [x] the url same as hosting
+    - [x] firebase-storage
+        - [x] profile picture
     - [x] firebase-auth
         - [x] firebase-auth password
             - [x] register
