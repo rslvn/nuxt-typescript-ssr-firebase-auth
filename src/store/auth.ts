@@ -1,9 +1,8 @@
-import { ActionTree, Dispatch, GetterTree, MutationTree } from 'vuex'
+import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
 import {
   AuthState,
   LoginCredentials,
-  NotificationMessage,
   ProviderType,
   RegistrationCredentials,
   RootState,
@@ -12,38 +11,19 @@ import {
 } from '~/types'
 import { auth, facebookAuthProvider, googleAuthProvider, twitterAuthProvider } from '~/plugins/fire-init-plugin'
 import {
-  errorToNotificationMessage,
   getDangerNotificationMessage,
   getInfoNotificationMessage,
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { log } from '~/service/helper/global-helpers'
+import { handleError, sendNotification } from '~/service/helper/global-helpers'
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
-
-const sendNotification = async (
-  dispatch: Dispatch,
-  notificationMessage: NotificationMessage
-) => {
-  await dispatch('notification/saveMessage', notificationMessage, {
-    root: true
-  })
-};
 
 const getProviderOption = (provider: ProviderType) => {
   return {
     provider: provider.replace('.com', '')
   }
-}
-
-const sendErrorNotification = async (dispatch: Dispatch, error: Error) => {
-  await sendNotification(dispatch, errorToNotificationMessage(error))
-}
-
-const handError = async (dispatch: Dispatch, error: Error) => {
-  log(error)
-  await sendErrorNotification(dispatch, error)
 }
 
 export const state = (): AuthState => ({
@@ -70,6 +50,11 @@ export const mutations: MutationTree<AuthState> = {
   setName(state, name: string) {
     if (state.user) {
       state.user.name = name
+    }
+  },
+  setProfilePicture(state, profilePicture: string) {
+    if (state.user) {
+      state.user.profilePicture.src = profilePicture
     }
   },
   addProvider(state, provider: string) {
@@ -101,7 +86,7 @@ export const actions: ActionTree<AuthState, RootState> = {
           credentials.callback()
         }
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async reauthenticateWithCredential({ dispatch }, credentials: LoginCredentials) {
@@ -112,7 +97,7 @@ export const actions: ActionTree<AuthState, RootState> = {
           credentials.callback()
         }
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async signUpWithEmail({ commit, dispatch }, credentials: RegistrationCredentials) {
@@ -138,7 +123,17 @@ export const actions: ActionTree<AuthState, RootState> = {
               getDangerNotificationMessage(this.$i18n.t('notification.verifyMailNotSent', { email: credentials.email })))
           )
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
+  },
+
+  async updateProfilePicture({ commit },profilePictureUrl: string) {
+    await auth.currentUser
+      ?.updateProfile({
+        photoURL: profilePictureUrl
+      })
+      .then(() => {
+        commit('setProfilePicture', profilePictureUrl)
+      })
   },
 
   async signInWithGoogle({ dispatch }, callback: () => void) {
@@ -146,14 +141,14 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         callback()
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async signInWithTwitter({ dispatch }, callback: () => void) {
     await auth.signInWithPopup(twitterAuthProvider)
       .then(() => {
         callback()
-      }).catch((error: Error) => handError(dispatch, error))
+      }).catch((error: Error) => handleError(dispatch, error))
   },
 
   async signInWithFacebook({ dispatch }, callback: () => void) {
@@ -161,7 +156,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         callback()
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async updatePassword({ dispatch }, newPassword: string) {
@@ -169,7 +164,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         showSuccessToaster(this.$i18n.t('notification.passwordUpdated'))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async handleSendingEmailVerificationCode({ dispatch }) {
@@ -177,7 +172,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.verifyMailSent', { email: auth.currentUser?.email }))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async sendPasswordResetEmail({ commit, dispatch }, emailAddress: string) {
@@ -185,7 +180,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.sendPasswordResetEmail'))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async confirmPasswordReset({ commit, dispatch }, { actionCode, password }) {
@@ -193,7 +188,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.confirmPasswordReset'))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async handleVerifyEmail({ commit, dispatch }, actionCode: string) {
@@ -203,7 +198,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('setVerified')
         showInfoToaster(this.$i18n.t('notification.mailVerified'))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async handleVerifyPasswordResetCode({ commit, dispatch }, actionCode: string) {
@@ -212,7 +207,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         showInfoToaster(this.$i18n.t('notification.passwordResetVerified'))
         return true;
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async handleRecoverEmail({ dispatch }, actionCode: string) {
@@ -226,7 +221,7 @@ export const actions: ActionTree<AuthState, RootState> = {
           auth.sendPasswordResetEmail(email)
             .then(() => console.log('PasswordResetEmail sent'))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async linkPassword({ dispatch, commit }, credentials: LoginCredentials) {
@@ -237,7 +232,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('addProvider', ProviderType.password)
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.password)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async unlinkPassword({ dispatch, commit }) {
@@ -246,7 +241,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('removeProvider', ProviderType.password)
         showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.password)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async linkGoogle({ dispatch, commit }) {
@@ -255,7 +250,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('addProvider', ProviderType.google)
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.google)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async unlinkGoogle({ dispatch, commit }) {
@@ -264,7 +259,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('removeProvider', ProviderType.google)
         showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.google)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async linkTwitter({ dispatch, commit }) {
@@ -273,7 +268,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('addProvider', ProviderType.twitter)
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.twitter)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async unlinkTwitter({ dispatch, commit }) {
@@ -282,7 +277,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('removeProvider', ProviderType.twitter)
         showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.twitter)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async linkFacebook({ dispatch, commit }) {
@@ -291,7 +286,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('addProvider', ProviderType.facebook);
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.facebook)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async unlinkFacebook({ dispatch, commit }) {
@@ -300,7 +295,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         commit('removeProvider', ProviderType.facebook);
         showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.facebook)))
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async logout({ dispatch, commit }) {
@@ -309,7 +304,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         this.$router.push(RouteType.LOGIN)
         commit('forceLogout', false);
       })
-      .catch((error: Error) => handError(dispatch, error))
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
 }

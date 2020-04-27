@@ -78,14 +78,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import {
-    LoginCredentials,
-    ProviderConfig,
-    ProviderType,
-    StateNamespace,
-    StoredUser,
-    SupportedProviders
-  } from "~/types";
+  import { ProviderConfig, ProviderType, StateNamespace, StoredUser, SupportedProviders } from "~/types";
   import ProviderList from "~/components/profile/ProviderList.vue";
   import SetPasswordModal from "~/components/modal/SetPasswordModal.vue";
 

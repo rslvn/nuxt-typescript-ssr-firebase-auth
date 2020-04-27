@@ -20,3 +20,15 @@ export interface LoginCredentials {
   password: string
   callback?: () => void
 }
+
+export interface StorageRef {
+  folderRef: string,
+  parameters ?: any
+}
+
+export const ProfilePictureStorageRef: StorageRef = {
+  folderRef: 'user/:userId/profilePicture/',
+  parameters: {
+    userId: ':userId'
+  }
+}

@@ -16,10 +16,3 @@ export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
     } : null
 };
 
-
-export const getFirebaseAuthActionByValue = (actionText: string): FirebaseAuthAction | null => {
-  return (
-    Object.keys(FirebaseAuthAction)
-      .map((key) => FirebaseAuthAction[key as keyof typeof FirebaseAuthAction])
-      .find((authAction: FirebaseAuthAction) => authAction === actionText)) || null;
-};
