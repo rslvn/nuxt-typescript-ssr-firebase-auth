@@ -1,11 +1,11 @@
 import { auth } from '~/plugins/fire-init-plugin'
 import { Plugin } from '@nuxt/types'
 import { User } from 'firebase';
-import { getStoredUser } from '~/service/helper/firebaseHelper';
-import { AppCookie, RouteType } from "~/types";
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
-import { routesForNotLoggedInUsers } from "~/service/helper/global-helpers";
+import { AppCookie, RouteQueryParameters, RouteType } from "~/types";
+import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
+import { getStoredUser } from '~/service/helper/firebaseHelper';
 
 const saveUserAction = 'auth/setUser'
 const logoutAction = 'auth/logout'
@@ -17,18 +17,25 @@ const logout = (store: Store<any>) => {
 }
 
 const getNextRoute = (route: Route): Location => {
+  let path: string = route.query[RouteQueryParameters.next] as string;
+  if (path) {
+    return {
+      path
+    }
+  }
 
-  let path: string = route.query.next as string;
-
-  return path ? { path } :
-    (routesForNotLoggedInUsers(route) ? RouteType.HOME : { path: route.fullPath })
+  return authenticatedNotAllowed(route) ? RouteType.HOME : {
+    path: route.fullPath
+  }
 }
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
+
+  let cookieOptions = {
+    sameSite: 'Lax'
+  }
+
   auth.onAuthStateChanged((firebaseUser: User | null) => {
-
-    console.log('Route in plugin: ', route.fullPath, route.query)
-
     return new Promise((resolve) => {
       if (store.state.auth.forceLogout) {
         logout(store)
@@ -36,21 +43,19 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
         return
       }
 
-      const storedUser = getStoredUser(firebaseUser)
-      // log('firebaseUser: ', firebase storedUser)
+      let storedUser = getStoredUser(firebaseUser)
+
       store.commit(saveUserAction, storedUser)
 
       if (firebaseUser) {
         firebaseUser.getIdToken()
-          .then((token: string) => app.$cookies.set(AppCookie.token, token, { sameSite: 'Lax' }))
+          .then((token: string) => app.$cookies.set(AppCookie.token, token, cookieOptions))
 
-        let next = getNextRoute(route);
-
-        redirect(next)
+        redirect(getNextRoute(route))
 
       } else {
         app.$cookies.remove(AppCookie.token);
-        if (route.path === RouteType.ACCOUNT.path) {
+        if (authenticatedAllowed(route)) {
           redirect(RouteType.LOGIN)
         }
       }

@@ -10,3 +10,7 @@ export const RouteType = {
 export enum RouteParameters {
   actionCode = 'actionCode'
 }
+
+export enum RouteQueryParameters {
+  next = 'next'
+}

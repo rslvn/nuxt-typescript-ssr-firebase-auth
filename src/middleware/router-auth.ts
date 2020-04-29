@@ -1,26 +1,23 @@
 import { Middleware } from "@nuxt/types";
-import { RouteType } from "~/types";
-import { routesForLoggedInUsers, routesForNotLoggedInUsers } from "~/service/helper/global-helpers";
+import { RouteQueryParameters, RouteType } from "~/types";
+import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
 
-const authRouterMiddleware: Middleware = ({ store, redirect, route }) => {
+const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
   if (store.state.auth.user) {
-    // console.log('routesForNotLoggedInUsers: ', routesForNotLoggedInUsers(route), route.path);
-    if (routesForNotLoggedInUsers(route)) {
+    if (authenticatedNotAllowed(route)) {
       redirect(RouteType.ACCOUNT)
     }
   } else {
-    // console.log('routesForLoggedInUsers: ', routesForLoggedInUsers(route), route.path);
-    if (routesForLoggedInUsers(route)) {
+    if (authenticatedAllowed(route)) {
       redirect({
           ...RouteType.LOGIN,
           query: {
-            next: route.fullPath
+            [RouteQueryParameters.next]: route.fullPath
           }
         }
       )
     }
-
   }
 };
 
-export default authRouterMiddleware
+export default routerAuthMiddleware

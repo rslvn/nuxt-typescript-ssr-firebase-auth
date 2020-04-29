@@ -38,11 +38,11 @@ export const slugify = (text: string): string => {
   return slug(text, '-')
 }
 
-export const routesForLoggedInUsers = (route: Route): boolean => {
+export const authenticatedAllowed = (route: Route): boolean => {
   return route.matched.some(record => record.path.startsWith(RouteType.ACCOUNT.path))
 }
 
-export const routesForNotLoggedInUsers = (route: Route): boolean => {
+export const authenticatedNotAllowed = (route: Route): boolean => {
   return (
     route.path == RouteType.LOGIN.path || route.path == RouteType.REGISTER.path
     || route.path == RouteType.FORGET_PASSWORD.path || route.path == RouteType.RESET_PASSWORD.path
