@@ -22,9 +22,9 @@
         </td>
       </tr>
 
-      <tr>
+      <tr v-if="user.email">
         <td>{{ $t('card.user.email')}}</td>
-        <td>{{user.email }}
+        <td>{{ user.email }}
           <b-icon
             v-if="user.verified"
             type="is-success"
@@ -47,7 +47,7 @@
       </thead>
     </table>
     <br>
-    <div v-if="!user.verified" class="buttons">
+    <div v-if="user.email && !user.verified" class="buttons">
       <b-button
         type="is-primary"
         @click="submit"
@@ -78,9 +78,16 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderType, StateNamespace, StoredUser, SupportedProviders } from "~/types";
+  import {
+    LoginCredentials,
+    ProviderConfig,
+    ProviderType,
+    StateNamespace,
+    StoredUser,
+    SupportedProviders
+  } from "~/types";
   import ProviderList from "~/components/profile/ProviderList.vue";
-  import SetPasswordModal from "~/components/modal/SetPasswordModal.vue";
+  import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
 
   @Component({
     components: { ProviderList }
@@ -106,21 +113,21 @@
         .then(() => this.loading = false)
     }
 
-    confirmPassword(password: string) {
-      this.updatePassword(password)
+    confirmCredentials(credentials: LoginCredentials) {
+      this.updatePassword(credentials.password)
     }
 
     showSetPasswordModal() {
       this.$buefy.modal.open({
         parent: this,
-        component: SetPasswordModal,
+        component: SetEmailPasswordModal,
         hasModalCard: true,
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
         props: {
           user: this.user,
           linkedProviders: [this.passwordProvider],
-          confirmPassword: this.confirmPassword
+          confirmCredentials: this.confirmCredentials
         }
       })
     }

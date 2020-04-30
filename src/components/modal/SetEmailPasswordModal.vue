@@ -10,10 +10,10 @@
                    :title="$t('provider.linkPasswordProvider.socialLogin.title')"
                    :callback="loginSuccessCallback"/>
 
-      <SetPasswordForm v-if="!showLogin" :title="$t('provider.linkPasswordProvider.passwordForm.title')"
-                       :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: user.email})"
-                       :button-text="$t('provider.linkPasswordProvider.passwordForm.submit')"
-                       :confirm-password="handleConfirmPassword"/>
+      <SetEmailPasswordForm v-if="!showLogin" :title="$t('provider.linkPasswordProvider.passwordForm.title')"
+                            :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: user.email})"
+                            :button-text="$t('provider.linkPasswordProvider.passwordForm.submit')"
+                            :confirm-credentials="handleConfirmCredentials"/>
     </section>
   </div>
 </template>
@@ -22,11 +22,11 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, StoredUser } from "../../types";
   import SocialLogin from "~/components/form/SocialLogin.vue";
-  import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
+  import SetEmailPasswordForm from "~/components/form/SetEmailPasswordForm.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
 
   @Component({
-    components: { LoginForm, SetPasswordForm, SocialLogin }
+    components: { LoginForm, SetEmailPasswordForm, SocialLogin }
   })
   export default class SetPasswordModal extends Vue {
 
@@ -36,7 +36,7 @@
 
     @Prop({ type: Object, required: true }) user !: StoredUser;
     @Prop({ type: Array, required: true }) linkedProviders !: ProviderConfig[];
-    @Prop({ type: Function, required: true }) confirmPassword !: (newPassword: string) => void;
+    @Prop({ type: Function, required: true }) confirmCredentials !: (credentials: LoginCredentials) => void;
 
     get socialProviders() {
       return this.linkedProviders.filter(provider => provider.providerType !== ProviderType.password)
@@ -50,10 +50,10 @@
       this.showLogin = false;
     }
 
-    handleConfirmPassword(password: string) {
+    handleConfirmCredentials(credentials: LoginCredentials) {
       // @ts-ignore
       this.$parent.close()
-      this.confirmPassword(password)
+      this.confirmCredentials(credentials)
     }
   }
 </script>

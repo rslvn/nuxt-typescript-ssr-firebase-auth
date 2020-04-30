@@ -24,7 +24,7 @@
   import { showWarningToaster } from "~/service/notification-service";
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
   import SocialLogin from "~/components/form/SocialLogin.vue";
-  import SetPasswordModal from "~/components/modal/SetPasswordModal.vue";
+  import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
 
   @Component({
     components: { SocialLogin, SetPasswordForm, Provider }
@@ -104,21 +104,21 @@
       ))
     }
 
-    confirmPassword(password: string) {
-      this.linkPassword({ email: this.user.email, password })
+    confirmCredentials(credentials: LoginCredentials) {
+      this.linkPassword(credentials)
     }
 
     showLinkPasswordModal() {
       this.$buefy.modal.open({
         parent: this,
-        component: SetPasswordModal,
+        component: SetEmailPasswordModal,
         hasModalCard: true,
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
         props: {
           user: this.user,
           linkedProviders: this.linkedProviders,
-          confirmPassword: this.confirmPassword
+          confirmCredentials: this.confirmCredentials
         }
       })
     }
