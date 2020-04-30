@@ -12,6 +12,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import Provider from "~/components/profile/Provider.vue";
+  import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
   import {
     LoginCredentials,
     ProviderConfig,
@@ -22,12 +23,9 @@
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
-  import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
-  import SocialLogin from "~/components/form/SocialLogin.vue";
-  import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
 
   @Component({
-    components: { SocialLogin, SetPasswordForm, Provider }
+    components: { Provider }
   })
   export default class ProviderList extends Vue {
 

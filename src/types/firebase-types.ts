@@ -1,3 +1,7 @@
+export enum AppCookie {
+  token = '__session'
+}
+
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
   RECOVERY_EMAIL = 'recoverEmail',
@@ -21,9 +25,14 @@ export interface LoginCredentials {
   callback?: () => void
 }
 
+export interface SocialLoginCredentials {
+  providerType: ProviderType
+  callback?: () => void
+}
+
 export interface StorageRef {
   folderRef: string,
-  parameters ?: any
+  parameters?: any
 }
 
 export const ProfilePictureStorageRef: StorageRef = {
@@ -31,4 +40,51 @@ export const ProfilePictureStorageRef: StorageRef = {
   parameters: {
     userId: ':userId'
   }
+}
+
+export enum ProviderType {
+  password = 'password',
+  google = 'google.com',
+  twitter = 'twitter.com',
+  facebook = 'facebook.com',
+}
+
+export interface ProviderConfig {
+  providerType: ProviderType
+  colorType: string
+  icon: string
+  iconPack: string,
+}
+
+export const SupportedProviders: ProviderConfig[] = [
+  {
+    providerType: ProviderType.password,
+    colorType: 'is-primary',
+    icon: 'at',
+    iconPack: 'fas'
+  },
+  {
+    providerType: ProviderType.google,
+    colorType: 'is-danger',
+    icon: 'google',
+    iconPack: 'fab'
+  },
+  {
+    providerType: ProviderType.twitter,
+    colorType: 'is-info',
+    icon: 'twitter',
+    iconPack: 'fab'
+  },
+  {
+    providerType: ProviderType.facebook,
+    colorType: 'is-link',
+    icon: 'facebook',
+    iconPack: 'fab'
+  },
+];
+
+export interface ProviderLink {
+  providerConfig: ProviderConfig
+  linked: boolean,
+  method: () => void
 }

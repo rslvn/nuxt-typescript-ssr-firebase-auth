@@ -63,9 +63,7 @@ const messages = {
         login: 'Sosyal Media ile Login',
         register: 'Sosyal Medya'
       },
-      google: 'Google ile Giris Yap',
-      twitter: 'Twitter ile Giris Yap',
-      facebook: 'Facebook ile Giris Yap',
+      loginWith: '{provider} ile Giris Yap',
     },
 
     resetPassword: {

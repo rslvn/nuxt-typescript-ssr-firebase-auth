@@ -63,9 +63,7 @@ const messages = {
         login: 'Social Login',
         register: 'Social Register'
       },
-      google: 'Login with Google',
-      twitter: 'Login with Twitter',
-      facebook: 'Login with Facebook',
+      loginWith: 'Login with {provider}',
     },
     resetPassword: {
       title: 'Reset Password',

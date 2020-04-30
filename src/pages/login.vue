@@ -4,7 +4,8 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <SocialLogin :title="$t('form.social.title.login')" :providers="providers" :callback="noCallback"/>
+          <SocialLogin :title="$t('form.social.title.login')" :providers="providers" :callback="noCallback"
+                       :reauthenticate="false"/>
         </div>
 
         <div class="column is-half">
@@ -20,7 +21,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
-  import { LoginCredentials, StateNamespace, SupportedProviders } from "~/types";
+  import { LoginCredentials, ProviderType, StateNamespace, SupportedProviders } from "~/types";
 
   @Component({
     components: { SocialLogin, LoginForm },
@@ -36,7 +37,7 @@
     }
 
     get providers() {
-      return SupportedProviders
+      return SupportedProviders.filter(value => value.providerType !== ProviderType.password)
     }
 
     noCallback() {

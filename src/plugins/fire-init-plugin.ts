@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
+import { ProviderType } from "~/types";
 
 if (!firebase.apps.length) {
 
@@ -17,6 +18,22 @@ if (!firebase.apps.length) {
   }
 
   firebase.initializeApp(config)
+}
+
+export const getAuthProvider = (providerType: ProviderType) => {
+  switch (providerType) {
+    case ProviderType.google:
+      return new firebase.auth.GoogleAuthProvider();
+
+    case ProviderType.twitter:
+      return new firebase.auth.TwitterAuthProvider();
+
+    case ProviderType.facebook:
+      return new firebase.auth.FacebookAuthProvider()
+
+    default:
+      throw new Error('No social auth provider for provider type' + providerType);
+  }
 }
 
 export const googleAuthProvider: firebase.auth.GoogleAuthProvider = new firebase.auth.GoogleAuthProvider()

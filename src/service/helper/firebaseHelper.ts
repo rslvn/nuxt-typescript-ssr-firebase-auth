@@ -1,5 +1,5 @@
 import { User } from 'firebase'
-import { AnonymousUserImage, FirebaseAuthAction, StoredUser } from '~/types'
+import { AnonymousUserImage, ProviderType, StoredUser } from '~/types'
 
 export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
   return firebaseUser
@@ -16,3 +16,8 @@ export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
     } : null
 };
 
+export const getProviderOption = (provider: ProviderType) => {
+  return {
+    provider: provider.replace('.com', '')
+  }
+}

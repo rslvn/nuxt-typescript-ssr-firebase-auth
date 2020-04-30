@@ -5,17 +5,11 @@
 
       <client-only>
         <div class="buttons">
-          <b-button v-if="isProviderExist(providerType.google)" type="is-danger" icon-left="google" outlined
-                    @click="signInWithGoogle(callback)" expanded>
-            {{ $t('form.social.google') }}
-          </b-button>
-          <b-button v-if="isProviderExist(providerType.twitter)" type="is-info" icon-left="twitter" outlined
-                    @click="signInWithTwitter(callback)" expanded>
-            {{ $t('form.social.twitter') }}
-          </b-button>
-          <b-button v-if="isProviderExist(providerType.facebook)" type="is-link" icon-left="facebook" outlined
-                    @click="signInWithFacebook(callback)" expanded>
-            {{ $t('form.social.facebook') }}
+          <b-button v-for="provider in providers" :key="provider.providerType" :type="provider.colorType"
+                    :icon-left="provider.icon"
+                    expanded outlined
+                    @click="submit(provider.providerType)">
+            {{ $t('form.social.loginWith',getLangProviderOption(provider.providerType)) }}
           </b-button>
         </div>
       </client-only>
@@ -26,7 +20,8 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderType, StateNamespace } from "~/types";
+  import { ProviderConfig, ProviderType, SocialLoginCredentials, StateNamespace } from "~/types";
+  import { getProviderOption } from "~/service/helper/firebaseHelper";
 
   @Component({
     components: {}
@@ -36,10 +31,10 @@
     @Prop({ type: String, required: true }) title !: string
     @Prop({ type: Array, required: true }) providers !: ProviderConfig[]
     @Prop({ type: Function, required: true }) callback !: () => void
+    @Prop({ type: Boolean, required: true }) reauthenticate !: boolean
 
-    @StateNamespace.auth.Action signInWithGoogle !: () => void;
-    @StateNamespace.auth.Action signInWithTwitter !: () => void;
-    @StateNamespace.auth.Action signInWithFacebook !: () => void;
+    @StateNamespace.auth.Action signInWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
+    @StateNamespace.auth.Action reauthenticateWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
 
     get providerType() {
       return ProviderType
@@ -47,6 +42,23 @@
 
     isProviderExist(providerType: ProviderType) {
       return this.providers.find(value => value.providerType === providerType)
+    }
+
+    getLangProviderOption(providerType: ProviderType) {
+      return getProviderOption(providerType)
+    }
+
+    getSocialLoginCredentials(providerType: ProviderType): SocialLoginCredentials {
+      return {
+        providerType,
+        callback: this.callback
+      }
+    }
+
+    submit(providerType: ProviderType) {
+      return this.reauthenticate ?
+        this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType)) :
+        this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType));
     }
 
   }

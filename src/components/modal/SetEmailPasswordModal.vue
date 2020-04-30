@@ -8,7 +8,7 @@
 
       <SocialLogin v-if="showLogin && socialProviders.length > 0" :providers="linkedProviders"
                    :title="$t('provider.linkPasswordProvider.socialLogin.title')"
-                   :callback="loginSuccessCallback"/>
+                   :callback="loginSuccessCallback" :reauthenticate="true"/>
 
       <SetEmailPasswordForm v-if="!showLogin" :title="$t('provider.linkPasswordProvider.passwordForm.title')"
                             :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: user.email})"

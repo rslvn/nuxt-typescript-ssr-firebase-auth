@@ -7,9 +7,16 @@ import {
   RegistrationCredentials,
   RootState,
   RouteType,
+  SocialLoginCredentials,
   StoredUser
 } from '~/types'
-import { auth, facebookAuthProvider, googleAuthProvider, twitterAuthProvider } from '~/plugins/fire-init-plugin'
+import {
+  auth,
+  facebookAuthProvider,
+  getAuthProvider,
+  googleAuthProvider,
+  twitterAuthProvider
+} from '~/plugins/fire-init-plugin'
 import {
   getDangerNotificationMessage,
   getInfoNotificationMessage,
@@ -17,14 +24,9 @@ import {
   showSuccessToaster
 } from '~/service/notification-service'
 import { handleError, sendNotification } from '~/service/helper/global-helpers'
+import { getProviderOption } from "~/service/helper/firebaseHelper";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
-
-const getProviderOption = (provider: ProviderType) => {
-  return {
-    provider: provider.replace('.com', '')
-  }
-}
 
 export const state = (): AuthState => ({
   user: null,
@@ -126,7 +128,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateProfilePicture({ commit },profilePictureUrl: string) {
+  async updateProfilePicture({ commit }, profilePictureUrl: string) {
     await auth.currentUser
       ?.updateProfile({
         photoURL: profilePictureUrl
@@ -136,25 +138,24 @@ export const actions: ActionTree<AuthState, RootState> = {
       })
   },
 
-  async signInWithGoogle({ dispatch }, callback: () => void) {
-    await auth.signInWithPopup(googleAuthProvider)
-      .then(() => {
-        callback()
+  async signInWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
+    await auth.signInWithPopup(authProvider)
+      .then(async () => {
+        if (socialLoginCredentials.callback) {
+          socialLoginCredentials.callback()
+        }
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signInWithTwitter({ dispatch }, callback: () => void) {
-    await auth.signInWithPopup(twitterAuthProvider)
-      .then(() => {
-        callback()
-      }).catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async signInWithFacebook({ dispatch }, callback: () => void) {
-    await auth.signInWithPopup(facebookAuthProvider)
-      .then(() => {
-        callback()
+  async reauthenticateWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
+    await auth.currentUser?.reauthenticateWithPopup(authProvider)
+      .then(async () => {
+        if (socialLoginCredentials.callback) {
+          socialLoginCredentials.callback()
+        }
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
