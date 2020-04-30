@@ -1,10 +1,4 @@
 <template>
-  <!--  <div v-if="loading" class="has-text-centered">-->
-  <!--    LOADING... please wait-->
-  <!--  </div>-->
-
-  <!--  <div v-else>-->
-
   <div>
     <section class="section">
       <div class="container is-fullhd">
@@ -21,7 +15,7 @@
       <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column is-three-quarters">
-            <TopNotification v-if="getMessage" :notification-message="getMessage"/>
+            <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
             <nuxt/>
           </div>
         </div>
@@ -40,13 +34,8 @@
     components: { TopNotification, TopNavbar }
   })
   export default class defaultLayout extends Vue {
-    loading = true;
-
     @StateNamespace.notification.Getter getMessage!: NotificationMessage;
-
-    created() {
-      this.$nextTick(() => this.loading = false)
-    }
+    @StateNamespace.notification.Action clearMessage !: () => void;
   }
 
 </script>

@@ -2,6 +2,8 @@
   <div class="modal-card">
     <section class="modal-card-body">
 
+      <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
+
       <LoginForm v-if="showLogin && !!passwordProvider" :show-forget-password="false" :show-register-link="false"
                  :sign-in-with-email="reauthenticateWithCredential"
                  :email="user.email" :callback="loginSuccessCallback" class="has-margin-bottom-15"/>
@@ -20,18 +22,28 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, StoredUser } from "../../types";
+  import {
+    LoginCredentials,
+    NotificationMessage,
+    ProviderConfig,
+    ProviderType,
+    StateNamespace,
+    StoredUser
+  } from "../../types";
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import SetEmailPasswordForm from "~/components/form/SetEmailPasswordForm.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
+  import TopNotification from "~/components/notification/TopNotification.vue";
 
   @Component({
-    components: { LoginForm, SetEmailPasswordForm, SocialLogin }
+    components: { TopNotification, LoginForm, SetEmailPasswordForm, SocialLogin }
   })
   export default class SetPasswordModal extends Vue {
 
     showLogin = true
 
+    @StateNamespace.notification.Getter getMessage!: NotificationMessage;
+    @StateNamespace.notification.Action clearMessage !: () => void;
     @StateNamespace.auth.Action reauthenticateWithCredential !: (credentials: LoginCredentials) => void;
 
     @Prop({ type: Object, required: true }) user !: StoredUser;
@@ -47,6 +59,7 @@
     }
 
     loginSuccessCallback() {
+      this.clearMessage();
       this.showLogin = false;
     }
 

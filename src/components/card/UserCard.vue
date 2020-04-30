@@ -100,6 +100,7 @@
 
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
     @StateNamespace.auth.Action updatePassword !: (password: string) => void;
+    @StateNamespace.notification.Action clearMessage !: () => void;
 
     get passwordProvider(): ProviderConfig | undefined {
       return this.user.providers.includes(ProviderType.password) ?
@@ -124,6 +125,8 @@
         hasModalCard: true,
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
+        canCancel: true,
+        onCancel: this.clearMessage,
         props: {
           user: this.user,
           linkedProviders: [this.passwordProvider],
