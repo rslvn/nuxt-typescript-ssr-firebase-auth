@@ -9,7 +9,6 @@
 
   @Component({
     components: { ForgetPasswordForm },
-    // middleware: 'logged-in-not-allowed'
   })
   export default class ForgetPassword extends Vue {
 

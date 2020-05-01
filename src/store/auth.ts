@@ -10,16 +10,11 @@ import {
   SocialLoginCredentials,
   StoredUser
 } from '~/types'
-import {
-  auth,
-  facebookAuthProvider,
-  getAuthProvider,
-  googleAuthProvider,
-  twitterAuthProvider
-} from '~/plugins/fire-init-plugin'
+import { auth, getAuthProvider } from '~/plugins/fire-init-plugin'
 import {
   getDangerNotificationMessage,
   getInfoNotificationMessage,
+  getSuccessNotificationMessage,
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
@@ -186,8 +181,8 @@ export const actions: ActionTree<AuthState, RootState> = {
 
   async confirmPasswordReset({ commit, dispatch }, { actionCode, password }) {
     return await auth.confirmPasswordReset(actionCode, password)
-      .then(() => {
-        showInfoToaster(this.$i18n.t('notification.confirmPasswordReset'))
+      .then(async () => {
+        await sendNotification(dispatch, getSuccessNotificationMessage(this.$i18n.t('notification.confirmPasswordReset')))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
@@ -195,7 +190,6 @@ export const actions: ActionTree<AuthState, RootState> = {
   async handleVerifyEmail({ commit, dispatch }, actionCode: string) {
     return await auth.applyActionCode(actionCode)
       .then(async () => {
-        await this.$router.replace(RouteType.ACCOUNT);
         commit('setVerified')
         showInfoToaster(this.$i18n.t('notification.mailVerified'))
       })
@@ -236,65 +230,21 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async unlinkPassword({ dispatch, commit }) {
-    return auth.currentUser?.unlink(ProviderType.password)
+  async linkSocialProvider({ dispatch, commit }, providerType: ProviderType) {
+    let authProvider = getAuthProvider(providerType);
+    return auth.currentUser?.linkWithPopup(authProvider)
       .then(() => {
-        commit('removeProvider', ProviderType.password)
-        showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.password)))
+        commit('addProvider', providerType)
+        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async linkGoogle({ dispatch, commit }) {
-    return auth.currentUser?.linkWithPopup(googleAuthProvider)
+  async unlinkProvider({ dispatch, commit }, providerType: ProviderType) {
+    return auth.currentUser?.unlink(providerType)
       .then(() => {
-        commit('addProvider', ProviderType.google)
-        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.google)))
-      })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async unlinkGoogle({ dispatch, commit }) {
-    return auth.currentUser?.unlink(ProviderType.google)
-      .then(() => {
-        commit('removeProvider', ProviderType.google)
-        showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.google)))
-      })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async linkTwitter({ dispatch, commit }) {
-    return auth.currentUser?.linkWithPopup(twitterAuthProvider)
-      .then(() => {
-        commit('addProvider', ProviderType.twitter)
-        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.twitter)))
-      })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async unlinkTwitter({ dispatch, commit }) {
-    return auth.currentUser?.unlink(ProviderType.twitter)
-      .then(() => {
-        commit('removeProvider', ProviderType.twitter)
-        showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.twitter)))
-      })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async linkFacebook({ dispatch, commit }) {
-    return auth.currentUser?.linkWithPopup(facebookAuthProvider)
-      .then(() => {
-        commit('addProvider', ProviderType.facebook);
-        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.facebook)))
-      })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
-  async unlinkFacebook({ dispatch, commit }) {
-    return auth.currentUser?.unlink(ProviderType.facebook)
-      .then(() => {
-        commit('removeProvider', ProviderType.facebook);
-        showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(ProviderType.facebook)))
+        commit('removeProvider', providerType)
+        showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },

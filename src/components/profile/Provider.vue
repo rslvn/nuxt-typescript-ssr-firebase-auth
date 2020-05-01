@@ -26,11 +26,11 @@
 
     @Prop({ type: Object }) providerConfig !: ProviderConfig;
     @Prop({ type: Boolean, required: true }) isLinked !: boolean;
-    @Prop({ type: Function, required: true }) linkFunction !: () => void;
+    @Prop({ type: Function, required: true }) linkFunction !: (providerType: ProviderType) => void;
 
     submit() {
       if (!this.isLinked) {
-        this.linkFunction();
+        this.linkFunction(this.providerConfig.providerType);
         return;
       }
 
@@ -43,7 +43,7 @@
         cancelText: this.$t('common.cancel') as string,
         type: 'is-danger',
         hasIcon: true,
-        onConfirm: () => this.linkFunction()
+        onConfirm: () => this.linkFunction(this.providerConfig.providerType)
       })
     }
 

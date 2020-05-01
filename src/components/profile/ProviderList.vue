@@ -5,7 +5,6 @@
               :link-function="providerLink.method"
               class="has-margin-right-10"
     />
-
   </div>
 </template>
 
@@ -23,6 +22,7 @@
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
+  import { getProviderOption } from "~/service/helper/firebaseHelper";
 
   @Component({
     components: { Provider }
@@ -32,19 +32,13 @@
     @Prop({ type: Object, required: true }) user !: StoredUser;
 
     @StateNamespace.auth.Action linkPassword !: (credentials: LoginCredentials) => Promise<void>;
-    @StateNamespace.auth.Action linkGoogle !: () => Promise<void>;
-    @StateNamespace.auth.Action linkTwitter !: () => Promise<void>;
-    @StateNamespace.auth.Action linkFacebook !: () => Promise<void>;
-
-    @StateNamespace.auth.Action unlinkPassword !: () => Promise<void>;
-    @StateNamespace.auth.Action unlinkGoogle !: () => Promise<void>;
-    @StateNamespace.auth.Action unlinkTwitter !: () => Promise<void>;
-    @StateNamespace.auth.Action unlinkFacebook !: () => Promise<void>;
+    @StateNamespace.auth.Action linkSocialProvider !: () => Promise<void>;
+    @StateNamespace.auth.Action unlinkProvider !: () => Promise<void>;
 
     get allProviders(): ProviderLink[] {
       return SupportedProviders.map(providerConfig => {
         let linked = this.user.providers.includes(providerConfig.providerType)
-        let method = linked ? this.getUnlinkMethod(providerConfig.providerType) : this.getLinkMethod(providerConfig.providerType)
+        let method = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
         return {
           providerConfig,
           linked,
@@ -66,40 +60,20 @@
     }
 
     getLinkMethod(providerType: ProviderType) {
-      switch (providerType) {
-        case ProviderType.password:
-          return this.showLinkPasswordModal;
-        case ProviderType.google:
-          return this.linkGoogle;
-        case ProviderType.twitter:
-          return this.linkTwitter;
-        case ProviderType.facebook:
-          return this.linkFacebook;
-      }
+      return providerType === ProviderType.password ? this.showLinkPasswordModal : this.linkSocialProvider
     }
 
-    getUnlinkMethod(providerType: ProviderType) {
+    getUnlinkMethod() {
       if (this.linkedProviders.length <= 1) {
         return this.showWarning
       }
-
-      switch (providerType) {
-        case ProviderType.password:
-          return this.unlinkPassword;
-        case ProviderType.google:
-          return this.unlinkGoogle;
-        case ProviderType.twitter:
-          return this.unlinkTwitter;
-        case ProviderType.facebook:
-          return this.unlinkFacebook;
-      }
+      return this.unlinkProvider
     }
 
     showWarning() {
-      showWarningToaster(this.$i18n.t('notification.unlinkNotAllowed', {
-          provider: this.linkedProviders[0].providerType.replace('.com', '')
-        }
-      ))
+      showWarningToaster(
+        this.$i18n.t('notification.unlinkNotAllowed', getProviderOption(this.linkedProviders[0].providerType))
+      )
     }
 
     confirmCredentials(credentials: LoginCredentials) {

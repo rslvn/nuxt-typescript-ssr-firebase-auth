@@ -14,12 +14,11 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
-  import { RouteParameters, RouteType, StateNamespace } from "~/types";
+  import { NotificationMessage, RouteParameters, StateNamespace } from "~/types";
   import { Context } from "@nuxt/types";
 
   @Component({
     components: { SetPasswordForm },
-    // middleware: 'logged-in-not-allowed'
   })
   export default class ResetPassword extends Vue {
 
@@ -27,14 +26,11 @@
 
     @StateNamespace.auth.Action confirmPasswordReset !: (code: any) => Promise<boolean>;
     @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.auth.Action saveMessage !: (notificationMessage: NotificationMessage) => Promise<boolean>;
 
     handleConfirmPasswordReset(password: string) {
       this.clearMessage();
       this.confirmPasswordReset({ password, actionCode: this.actionCode })
-        .then(() => {
-          console.log('password updated successfully');
-          this.$router.replace(RouteType.LOGIN)
-        });
     }
 
     async asyncData({ query, error, route }: Context) {
