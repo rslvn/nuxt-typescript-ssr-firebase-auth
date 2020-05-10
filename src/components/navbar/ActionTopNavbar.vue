@@ -23,19 +23,15 @@
         <LanguageSwitcher/>
       </b-navbar-item>
       <b-navbar-item tag="div">
-        <ProfileNavigator v-if="storedUser" :stored-user="storedUser" :logout="logout"/>
-        <div v-else class="buttons">
-          <b-button tag="router-link"
-                    :to="routeType.REGISTER"
-                    type="is-primary">
-            <strong>{{$t('topNavbar.register')}}</strong>
-          </b-button>
+        <div class="buttons">
 
-          <b-button tag="router-link"
-                    :to="routeType.LOGIN"
-                    type="is-primary">
+          <a class="button is-primary" :href="routeType.REGISTER.path">
+            <strong>{{$t('topNavbar.register')}}</strong>
+          </a>
+
+          <a class="button is-primary" :href="routeType.LOGIN.path">
             <strong>{{$t('topNavbar.login')}}</strong>
-          </b-button>
+          </a>
         </div>
       </b-navbar-item>
 
@@ -45,18 +41,13 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { RouteType, StateNamespace, StoredUser } from "~/types";
-  import LanguageSwitcher from "~/components/shared/LanguageSwitcher.vue";
-  import ProfileNavigator from "~/components/shared/ProfileNavigator.vue";
+  import { RouteType } from "~/types";
+  import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
 
   @Component({
-    components: { ProfileNavigator, LanguageSwitcher }
+    components: { LanguageSwitcher }
   })
   export default class TopNavbar extends Vue {
-
-    @StateNamespace.auth.Getter storedUser !: StoredUser;
-    @StateNamespace.auth.Action logout!: () => void;
-
     get routeType() {
       return RouteType
     }

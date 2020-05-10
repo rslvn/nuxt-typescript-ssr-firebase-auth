@@ -44,7 +44,9 @@ const messages = {
     providerLinked: '<b>{provider}</b> hesaba basari ile baglandi',
     providerUnlinked: '<b>{provider}</b> baglantisi hesaptan koparildi',
     unlinkNotAllowed: 'Son login method <b>{provider}</b> hesaptan koparilamaz',
-    passwordUpdated: 'Parolaniz basarili bir sekilde guncellendi.'
+    passwordUpdated: 'Parolaniz basarili bir sekilde guncellendi.',
+    missingActionCode: 'Action kodu yok',
+    unknownAction: 'BU aksiyonu yurutmek icin yetkiniz yok',
   },
 
   form: {

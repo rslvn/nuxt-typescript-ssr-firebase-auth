@@ -9,6 +9,7 @@
 
   @Component({
     components: { ForgetPasswordForm },
+    layout: 'action'
   })
   export default class ForgetPassword extends Vue {
 

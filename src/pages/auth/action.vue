@@ -10,7 +10,7 @@
                 icon="sync-alt"
                 custom-class="fa-spin">
               </b-icon>
-              {{ $t('page.action.processing')}}
+              <span class="has-margin-left-5"> {{ $t('page.action.processing')}} </span>
 
             </b-loading>
           </b-notification>
@@ -22,29 +22,20 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { FirebaseAuthAction, FirebaseAuthActionParams, RouteParameters, RouteType, StateNamespace } from "~/types";
+  import {
+    FirebaseAuthAction,
+    FirebaseAuthActionParams,
+    NotificationMessage,
+    RouteParameters,
+    RouteType,
+    StateNamespace
+  } from "~/types";
+  import { getWarningNotificationMessage } from "~/service/notification-service";
+  import { Context } from "@nuxt/types";
 
   @Component({
     components: {},
-    asyncData: async ({ query, error, route }) => {
-
-      let action = (query[FirebaseAuthActionParams.ACTION] as string)?.trim();
-      let actionCode = (query[FirebaseAuthActionParams.ACTION_CODE] as string)?.trim();
-
-      if (!action || !actionCode) {
-        // return;
-        throw error({
-          statusCode: 403,
-          message: 'No action or action code',
-          path: route.path
-        });
-      }
-
-      return {
-        action,
-        actionCode
-      }
-    }
+    layout: 'action',
   })
   export default class Action extends Vue {
     action: string = '';
@@ -55,9 +46,24 @@
 
     @StateNamespace.auth.Action handleVerifyEmail !: (actionCode: string) => Promise<any>;
     @StateNamespace.auth.Action handleVerifyPasswordResetCode !: (actionCode: string) => Promise<boolean>;
+    @StateNamespace.notification.Action saveMessage !: (notificationMessage: NotificationMessage) => {};
+
+    async asyncData({ query }: Context) {
+      let action = (query[FirebaseAuthActionParams.ACTION] as string)?.trim();
+      let actionCode = (query[FirebaseAuthActionParams.ACTION_CODE] as string)?.trim();
+
+      return {
+        action,
+        actionCode
+      }
+    }
 
     mounted() {
-      console.log('Action: ' + this.actionCode);
+      if (!this.action || !this.actionCode) {
+        this.isLoading = false
+        this.saveMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
+        return;
+      }
 
       switch (this.action) {
         case FirebaseAuthAction.VERIFY_EMAIL:
@@ -65,9 +71,9 @@
             .then(() => this.isLoading = false);
           break;
 
-        case FirebaseAuthAction.RECOVERY_EMAIL:
+        // case FirebaseAuthAction.RECOVERY_EMAIL:
+        //   break;
 
-          break;
         case FirebaseAuthAction.RESET_PASSWORD:
           this.handleVerifyPasswordResetCode(this.actionCode)
             .then((validActionCode) => {
@@ -81,10 +87,11 @@
                 });
               }
             });
-
           break;
+
         default:
-          console.log('Invalid action: ', this.action)
+          this.isLoading = false
+          this.saveMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
       }
     }
   }

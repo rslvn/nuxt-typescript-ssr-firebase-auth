@@ -26,19 +26,17 @@ const getNextRoute = (route: Route): Location => {
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
 
   let cookieOptions = {
-    sameSite: 'Lax'
+    sameSite: 'None'
   }
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {
       if (store.state.auth.forceLogout) {
         logout(store)
-        resolve()
-        return
+        return resolve()
       }
 
       let storedUser = getStoredUser(firebaseUser)
-
       store.commit(saveUserAction, storedUser)
 
       if (firebaseUser) {

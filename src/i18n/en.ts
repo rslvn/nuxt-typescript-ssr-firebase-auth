@@ -44,7 +44,9 @@ const messages = {
     providerLinked: '<b>{provider}</b> is successfully linked',
     providerUnlinked: '<b>{provider}</b> is successfully unlinked',
     unlinkNotAllowed: 'The last provider <b>{provider}</b> can not be unlinked',
-    passwordUpdated: 'Your password updated successfully'
+    passwordUpdated: 'Your password updated successfully',
+    missingActionCode: 'Action code is missing',
+    unknownAction: 'You are not allowed to execute that process'
   },
 
   form: {

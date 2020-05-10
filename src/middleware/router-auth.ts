@@ -3,7 +3,7 @@ import { RouteQueryParameters, RouteType } from "~/types";
 import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
 
 const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
-  console.log('routerAuthMiddleware', route.fullPath, route.query)
+  console.log('routerAuthMiddleware', route.fullPath, route.query, store.state.auth.user)
   if (store.state.auth.user) {
     if (authenticatedNotAllowed(route)) {
       redirect(RouteType.ACCOUNT)

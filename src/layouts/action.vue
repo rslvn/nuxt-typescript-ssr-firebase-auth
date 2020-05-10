@@ -4,9 +4,7 @@
       <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column is-three-quarters">
-            <client-only>
-              <TopNavbar/>
-            </client-only>
+            <ActionTopNavbar/>
           </div>
         </div>
       </div>
@@ -26,12 +24,12 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator'
-  import TopNavbar from '../components/navbar/TopNavbar.vue'
   import TopNotification from '~/components/notification/TopNotification.vue'
   import { NotificationMessage, StateNamespace } from '~/types'
+  import ActionTopNavbar from "~/components/navbar/ActionTopNavbar.vue";
 
   @Component({
-    components: { TopNotification, TopNavbar }
+    components: { ActionTopNavbar, TopNotification }
   })
   export default class defaultLayout extends Vue {
     @StateNamespace.notification.Getter getMessage!: NotificationMessage;
