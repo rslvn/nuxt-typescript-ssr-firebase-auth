@@ -5,7 +5,7 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <BinputWithValidation
+        <BInputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceHolder')"
@@ -14,7 +14,7 @@
           :disabled="!!email"
         />
 
-        <BinputWithValidation
+        <BInputWithValidation
           v-model="credentials.password"
           input-type="password"
           :label="$t('common.field.password')"
@@ -22,6 +22,12 @@
           rules="required"
           vid="password"
         />
+
+        <div class="field">
+          <b-checkbox v-model="credentials.rememberMe">
+            Remember me
+          </b-checkbox>
+        </div>
 
         <b-button v-if="showForgetPassword" tag="router-link"
                   :to="routeType.FORGET_PASSWORD"
@@ -51,15 +57,15 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { LoginCredentials, RouteType } from "~/types";
+  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
+  import { AppCookie, LoginCredentials, RouteType } from "~/types";
   import { ValidationObserver } from "vee-validate";
-  import BinputWithValidation from "~/components/ui/input/BinputWithValidation.vue";
+  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
 
   @Component({
     components: {
       ValidationObserver,
-      BinputWithValidation
+      BInputWithValidation
     }
   })
   export default class LoginForm extends Vue {
@@ -69,12 +75,23 @@
     @Prop({ type: String, default: '' }) email !: string
     @Prop({ type: Boolean, default: true }) showForgetPassword !: boolean
     @Prop({ type: Boolean, default: true }) showRegisterLink !: boolean
-
+    @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
 
     credentials: LoginCredentials = {
       email: this.email || '',
       password: '',
+      rememberMe: false,
       callback: this.callback
+    }
+
+    @Watch('credentials.rememberMe')
+    onRememberMeChanged(value: boolean, oldValue: boolean) {
+      this.$cookies.set(AppCookie.rememberMe, value, { sameSite: 'lax' })
+    }
+
+    created() {
+      let rememberMe = this.$cookies.get(AppCookie.rememberMe);
+      this.credentials.rememberMe = rememberMe != undefined || typeof rememberMe == "boolean" ? rememberMe : true;
     }
 
     get routeType() {
@@ -84,5 +101,6 @@
     submit() {
       this.signInWithEmail(this.credentials)
     }
+
   }
 </script>

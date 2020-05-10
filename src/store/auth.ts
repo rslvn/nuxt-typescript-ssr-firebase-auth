@@ -76,12 +76,17 @@ export const actions: ActionTree<AuthState, RootState> = {
   },
 
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
-    await auth
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
-        if (credentials.callback) {
-          credentials.callback()
-        }
+    let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+    await auth.setPersistence(persistence)
+      .then(async () => {
+        await auth
+          .signInWithEmailAndPassword(credentials.email, credentials.password)
+          .then(() => {
+            if (credentials.callback) {
+              credentials.callback()
+            }
+          })
+          .catch((error: Error) => handleError(dispatch, error))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
@@ -191,7 +196,7 @@ export const actions: ActionTree<AuthState, RootState> = {
     return await auth.applyActionCode(actionCode)
       .then(async () => {
         commit('setVerified')
-        showInfoToaster(this.$i18n.t('notification.mailVerified'))
+        await sendNotification(dispatch, getSuccessNotificationMessage(this.$i18n.t('notification.mailVerified')))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },

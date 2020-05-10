@@ -1,5 +1,6 @@
 export enum AppCookie {
-  token = '__session'
+  token = '__session',
+  rememberMe = 'rememberMe'
 }
 
 export enum FirebaseAuthAction {
@@ -22,6 +23,7 @@ export interface RegistrationCredentials {
 export interface LoginCredentials {
   email: string
   password: string
+  rememberMe: boolean
   callback?: () => void
 }
 

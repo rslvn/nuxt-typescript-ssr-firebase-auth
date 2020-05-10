@@ -25,12 +25,12 @@
       ]
     },
     "types": [
-      "./custom-typing",
       "@types/node",
       "@nuxt/types",
       "src/types",
       "@nuxtjs/axios",
-      "nuxt-i18n"
+      "nuxt-i18n",
+      "cookie-universal-nuxt"
     ]
   },
   "exclude": [

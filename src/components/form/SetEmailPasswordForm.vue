@@ -6,7 +6,7 @@
       <br v-if="description">
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <BinputWithValidation
+        <BInputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceHolder')"
@@ -16,7 +16,7 @@
           :disabled="!!credentials.email"
         />
 
-        <BinputWithValidation
+        <BInputWithValidation
           v-model="credentials.password"
           input-type="password"
           :label="$t('common.field.password')"
@@ -25,7 +25,7 @@
           vid="password"
         />
 
-        <BinputWithValidation
+        <BInputWithValidation
           v-model="confirmedPassword"
           input-type="password"
           :label="$t('common.field.confirmPassword')"
@@ -48,13 +48,13 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
-  import BinputWithValidation from "~/components/ui/input/BinputWithValidation.vue";
+  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
   import { LoginCredentials } from "~/types";
 
   @Component({
     components: {
       ValidationObserver,
-      BinputWithValidation
+      BInputWithValidation
     }
   })
   export default class SetPasswordForm extends Vue {
@@ -66,7 +66,8 @@
 
     credentials: LoginCredentials = {
       email: this.email,
-      password: ''
+      password: '',
+      rememberMe: true
     }
 
     confirmedPassword = '';
