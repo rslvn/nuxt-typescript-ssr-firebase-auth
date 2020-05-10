@@ -46,7 +46,6 @@ export const authenticatedNotAllowed = (route: Route): boolean => {
   return (
     route.path == RouteType.LOGIN.path || route.path == RouteType.REGISTER.path
     || route.path == RouteType.FORGET_PASSWORD.path || route.path == RouteType.RESET_PASSWORD.path
-    || route.path == RouteType.ACTION.path
   )
 }
 

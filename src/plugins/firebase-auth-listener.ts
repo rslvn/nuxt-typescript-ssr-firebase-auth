@@ -4,7 +4,7 @@ import { User } from 'firebase';
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
 import { AppCookie, RouteQueryParameters, RouteType } from "~/types";
-import { authenticatedAllowed } from "~/service/helper/global-helpers";
+import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
 import { getStoredUser } from '~/service/helper/firebaseHelper';
 
 const saveUserAction = 'auth/setUser'
@@ -19,8 +19,15 @@ const logout = (store: Store<any>) => {
 const getNextRoute = (route: Route): Location => {
   console.log('getNextRoute', route.fullPath, route.query)
   let path: string = route.query[RouteQueryParameters.next] as string;
+  if (path) {
+    return { path }
+  }
 
-  return path ? { path } : RouteType.HOME
+  if (authenticatedNotAllowed(route) || route.path == RouteType.ACTION.path) {
+    return RouteType.ACCOUNT
+  }
+
+  return { path: route.fullPath }
 }
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {

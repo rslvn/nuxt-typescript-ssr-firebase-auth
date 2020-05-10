@@ -4,7 +4,9 @@
       <div class="container is-fullhd">
         <div class="columns is-centered">
           <div class="column is-three-quarters">
-            <ActionTopNavbar/>
+            <client-only>
+              <ActionTopNavbar/>
+            </client-only>
           </div>
         </div>
       </div>
