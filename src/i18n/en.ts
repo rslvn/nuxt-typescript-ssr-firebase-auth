@@ -13,6 +13,7 @@ const messages = {
       passwordPlaceHolder: 'Enter password',
       confirmPassword: 'Confirm Password',
       confirmPasswordPlaceHolder: 'Re-enter password',
+      rememberMe: 'Remember Me',
     },
     cancel: 'Cancel'
   },

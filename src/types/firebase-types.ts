@@ -28,7 +28,8 @@ export interface LoginCredentials {
 }
 
 export interface SocialLoginCredentials {
-  providerType: ProviderType
+  providerType: ProviderType,
+  rememberMe: boolean
   callback?: () => void
 }
 

@@ -3,6 +3,8 @@
     <h3 class="title has-text-centered has-text-dark">{{title}}</h3>
     <div class="box">
 
+      <RememberMe v-if="showRememberMe" :value="rememberMe"/>
+
       <client-only>
         <div class="buttons">
           <b-button v-for="provider in providers" :key="provider.providerType" :type="provider.colorType"
@@ -22,16 +24,19 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ProviderConfig, ProviderType, SocialLoginCredentials, StateNamespace } from "~/types";
   import { getProviderOption } from "~/service/helper/firebaseHelper";
+  import RememberMe from "~/components/ui/RememberMe.vue";
 
   @Component({
-    components: {}
+    components: { RememberMe }
   })
   export default class SocialLogin extends Vue {
 
     @Prop({ type: String, required: true }) title !: string
+    @Prop({ type: Boolean, required: true }) rememberMe !: boolean
     @Prop({ type: Array, required: true }) providers !: ProviderConfig[]
     @Prop({ type: Function, required: true }) callback !: () => void
     @Prop({ type: Boolean, required: true }) reauthenticate !: boolean
+    @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
 
     @StateNamespace.auth.Action signInWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
     @StateNamespace.auth.Action reauthenticateWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
@@ -51,6 +56,7 @@
     getSocialLoginCredentials(providerType: ProviderType): SocialLoginCredentials {
       return {
         providerType,
+        rememberMe: this.rememberMe,
         callback: this.callback
       }
     }

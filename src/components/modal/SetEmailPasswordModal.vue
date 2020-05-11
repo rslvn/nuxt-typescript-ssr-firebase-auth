@@ -6,10 +6,13 @@
 
       <LoginForm v-if="showLogin && !!passwordProvider" :show-forget-password="false" :show-register-link="false"
                  :sign-in-with-email="reauthenticateWithCredential"
-                 :email="user.email" :callback="loginSuccessCallback" class="has-margin-bottom-15"/>
+                 :email="user.email" :remember-me="rememberMe" :show-remember-me="false"
+                 :callback="loginSuccessCallback" class="has-margin-bottom-15"/>
 
       <SocialLogin v-if="showLogin && socialProviders.length > 0" :providers="linkedProviders"
                    :title="$t('provider.linkPasswordProvider.socialLogin.title')"
+                   :remember-me="rememberMe"
+                   :show-remember-me="false"
                    :callback="loginSuccessCallback" :reauthenticate="true"/>
 
       <SetEmailPasswordForm v-if="!showLogin" :title="$t('provider.linkPasswordProvider.passwordForm.title')"
@@ -44,6 +47,7 @@
 
     @StateNamespace.notification.Getter getMessage!: NotificationMessage;
     @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action reauthenticateWithCredential !: (credentials: LoginCredentials) => void;
 
     @Prop({ type: Object, required: true }) user !: StoredUser;

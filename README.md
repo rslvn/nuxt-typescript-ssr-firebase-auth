@@ -84,6 +84,7 @@ See the [Features](#features) for more functionalities
         - [x] link/unlink google authenticator
         - [x] link/unlink twitter authenticator
         - [x] link/unlink facebook authenticator
+        - [x] remember me
 - [x] buefy
 - [x] nuxt-i18n
     - [x] English

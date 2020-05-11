@@ -3,7 +3,8 @@ import { StoredUser } from "~/types/backend-types";
 
 export interface AuthState {
   user: StoredUser | null,
-  forceLogout: boolean
+  forceLogout: boolean,
+  rememberMe: boolean
 }
 
 export interface NotificationState {

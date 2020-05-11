@@ -1,6 +1,7 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
 import {
+  AppCookie,
   AuthState,
   LoginCredentials,
   ProviderType,
@@ -20,16 +21,19 @@ import {
 } from '~/service/notification-service'
 import { handleError, sendNotification } from '~/service/helper/global-helpers'
 import { getProviderOption } from "~/service/helper/firebaseHelper";
+import { cookieOptions } from "~/config/cookie-config";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 
 export const state = (): AuthState => ({
   user: null,
-  forceLogout: false
+  forceLogout: false,
+  rememberMe: true
 })
 
 export const getters: GetterTree<AuthState, RootState> = {
-  storedUser: (state) => state.user
+  storedUser: (state) => state.user,
+  rememberMe: (state) => state.rememberMe
 }
 
 export const mutations: MutationTree<AuthState> = {
@@ -38,6 +42,9 @@ export const mutations: MutationTree<AuthState> = {
   },
   forceLogout(state, forceLogout: boolean) {
     state.forceLogout = forceLogout
+  },
+  setRememberMe(state, rememberMe: boolean) {
+    state.rememberMe = rememberMe
   },
   setVerified(state) {
     if (state.user) {
@@ -74,7 +81,11 @@ export const actions: ActionTree<AuthState, RootState> = {
   async saveUser({ commit }, user: StoredUser) {
     commit('setUser', user);
   },
-
+  async saveRememberMe({ commit }, rememberMe: boolean) {
+    console.log('saveRememberMe', rememberMe)
+    this.$cookies.set(AppCookie.rememberMe, rememberMe, cookieOptions)
+    commit('setRememberMe', rememberMe);
+  },
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
     let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
     await auth.setPersistence(persistence)
@@ -138,13 +149,18 @@ export const actions: ActionTree<AuthState, RootState> = {
       })
   },
 
-  async signInWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
-    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
-    await auth.signInWithPopup(authProvider)
+  async signInWithSocialProvider({ dispatch }, credentials: SocialLoginCredentials) {
+    let authProvider = getAuthProvider(credentials.providerType);
+    let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+    await auth.setPersistence(persistence)
       .then(async () => {
-        if (socialLoginCredentials.callback) {
-          socialLoginCredentials.callback()
-        }
+        await auth.signInWithPopup(authProvider)
+          .then(async () => {
+            if (credentials.callback) {
+              credentials.callback()
+            }
+          })
+          .catch((error: Error) => handleError(dispatch, error))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },

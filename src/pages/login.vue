@@ -4,12 +4,12 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <SocialLogin :title="$t('form.social.title.login')" :providers="providers" :callback="noCallback"
+          <SocialLogin :title="$t('form.social.title.login')" :remember-me="rememberMe" :providers="providers" :callback="noCallback"
                        :reauthenticate="false"/>
         </div>
 
         <div class="column is-half">
-          <LoginForm :sign-in-with-email="handleSignInWithEmail" :callback="noCallback"/>
+          <LoginForm :remember-me="rememberMe" :sign-in-with-email="handleSignInWithEmail" :callback="noCallback"/>
         </div>
 
       </div>
@@ -28,6 +28,7 @@
   })
   export default class login extends Vue {
 
+    @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signInWithEmail !: (credentials: LoginCredentials) => void;
     @StateNamespace.notification.Action clearMessage !: () => void;
 

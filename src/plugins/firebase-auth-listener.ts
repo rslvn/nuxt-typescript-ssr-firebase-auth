@@ -6,10 +6,11 @@ import { Location, Route } from 'vue-router';
 import { AppCookie, RouteQueryParameters, RouteType } from "~/types";
 import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
 import { getStoredUser } from '~/service/helper/firebaseHelper';
-import { CookieSerializeOptions } from "cookie";
+import { cookieOptions } from "~/config/cookie-config";
 
 const saveUserAction = 'auth/setUser'
 const logoutAction = 'auth/logout'
+const saveRememberMe = 'auth/saveRememberMe'
 
 const logout = (store: Store<any>) => {
   store.dispatch(logoutAction, true).then(() => {
@@ -33,12 +34,8 @@ const getNextRoute = (route: Route): Location => {
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
 
-  let cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
-
   let rememberMe = app.$cookies.get(AppCookie.rememberMe);
-  if (rememberMe == undefined) {
-    app.$cookies.set(AppCookie.rememberMe, true, cookieOptions)
-  }
+  store.dispatch(saveRememberMe, rememberMe === undefined ? true : rememberMe);
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {

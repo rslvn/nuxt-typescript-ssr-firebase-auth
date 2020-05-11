@@ -13,6 +13,7 @@ const messages = {
       passwordPlaceHolder: 'Parolanizi giriniz',
       confirmPassword: 'Parola Tekrar',
       confirmPasswordPlaceHolder: 'Parolanizi tekrar giriniz',
+      rememberMe: 'Beni Hatirla',
     },
     cancel: 'Iptal'
   },

@@ -4,7 +4,7 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <SocialLogin :title="$t('form.social.title.register')" :providers="providers" :callback="noCallback"
+          <SocialLogin :title="$t('form.social.title.register')" :remember-me="rememberMe" :providers="providers" :callback="noCallback"
                        :reauthenticate="false"/>
         </div>
 
@@ -30,6 +30,7 @@
   })
   export default class register extends Vue {
 
+    @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => void;
     @StateNamespace.notification.Action clearMessage  !: () => void;
 
