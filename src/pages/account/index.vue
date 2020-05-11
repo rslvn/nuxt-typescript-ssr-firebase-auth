@@ -1,20 +1,18 @@
 <template>
 
   <section class="section">
-    <div class="columns has-same-height is-gapless">
+    <div v-if="storedUser" class="columns has-same-height is-gapless">
 
       <div class="column">
 
-        <div>
-          <div class="card-image is-centered has-margin-5-fullhd">
-            <figure class="image is-128x128 is-active profile">
-              <img class="is-rounded has-border-bottom-width-2" :src="storedUser.profilePicture.src"
-                   :alt="storedUser.profilePicture.alt">
-              <!--                <a @click="info(props.index)"><img :src="props.list.image"></a>-->
-            </figure>
-            <SingleFileUpload class="uploadButton" :parent-folder-ref="parentFolderRef"
-                              :upload-completed="updateProfilePicture"/>
-          </div>
+        <div class="card-image is-centered has-margin-5-fullhd">
+          <figure class="image is-128x128 is-active profile">
+            <img class="is-rounded has-border-bottom-width-2" :src="storedUser.profilePicture.src"
+                 :alt="storedUser.profilePicture.alt">
+            <!--                <a @click="info(props.index)"><img :src="props.list.image"></a>-->
+          </figure>
+          <SingleFileUpload class="uploadButton" :parent-folder-ref="parentFolderRef"
+                            :upload-completed="updateProfilePicture"/>
         </div>
 
       </div>
