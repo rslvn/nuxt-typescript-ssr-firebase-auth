@@ -1,16 +1,16 @@
-import { Image } from "~/types/backend-types";
+import { Image } from '~/types/backend-types';
+import { CookieSerializeOptions } from "cookie";
 
 export * from './backend-types'
 export * from './firebase-types'
 export * from './state-types'
 export * from './route-types'
 
-
 export interface SupportedLanguage {
-  name: string;
-  code: string;
-  alias: string;
-  flag: Image;
+  name: string
+  code: string
+  alias: string
+  flag: Image
 }
 
 export const SupportedLanguages: SupportedLanguage[] = [
@@ -32,4 +32,8 @@ export const SupportedLanguages: SupportedLanguage[] = [
       alt: 'Turkiye bayragi'
     }
   }
-];
+]
+
+export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
+
+export const sessionCookieOptions: CookieSerializeOptions = { sameSite: 'none' }

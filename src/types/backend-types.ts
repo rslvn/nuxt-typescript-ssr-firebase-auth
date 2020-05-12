@@ -16,3 +16,7 @@ export interface StoredUser {
   verified: boolean
   providers: string[]
 }
+
+export const ApiConfig = {
+  auth: '/auth/'
+}

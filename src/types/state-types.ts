@@ -33,3 +33,16 @@ export const StateNamespace = {
   notification: namespace('notification'),
 };
 
+export const StoreConfig = {
+  auth: {
+    setUser: 'auth/setUser',
+    forceLogout: 'auth/forceLogout',
+    logout: 'auth/logout',
+    saveRememberMe: 'auth/saveRememberMe',
+  },
+  notification: {
+    saveMessage: 'notification/saveMessage',
+    clearMessage: 'notification/clearMessage'
+  }
+}
+

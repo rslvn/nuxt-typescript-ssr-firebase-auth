@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import {
   AppCookie,
   AuthState,
+  cookieOptions,
   LoginCredentials,
   ProviderType,
   RegistrationCredentials,
@@ -21,7 +22,6 @@ import {
 } from '~/service/notification-service'
 import { handleError, sendNotification } from '~/service/helper/global-helpers'
 import { getProviderOption } from "~/service/helper/firebaseHelper";
-import { cookieOptions } from "~/config/cookie-config";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 

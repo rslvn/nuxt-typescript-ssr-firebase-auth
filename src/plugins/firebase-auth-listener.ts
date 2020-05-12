@@ -3,17 +3,12 @@ import { Plugin } from '@nuxt/types'
 import { User } from 'firebase';
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
-import { AppCookie, RouteQueryParameters, RouteType } from "~/types";
-import { authenticatedAllowed, authenticatedNotAllowed } from "~/service/helper/global-helpers";
+import { AppCookie, RouteQueryParameters, RouteType, sessionCookieOptions, StoreConfig } from '~/types';
+import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/helper/global-helpers';
 import { getStoredUser } from '~/service/helper/firebaseHelper';
-import { sessionCookieOptions } from "~/config/cookie-config";
-
-const saveUserAction = 'auth/setUser'
-const logoutAction = 'auth/logout'
-const saveRememberMe = 'auth/saveRememberMe'
 
 const logout = (store: Store<any>) => {
-  store.dispatch(logoutAction, true).then(() => {
+  store.dispatch(StoreConfig.auth.logout, true).then(() => {
     console.log('the user is forced to logout')
   });
 }
@@ -35,7 +30,7 @@ const getNextRoute = (route: Route): Location => {
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
 
   let rememberMe = app.$cookies.get(AppCookie.rememberMe);
-  store.dispatch(saveRememberMe, rememberMe === undefined ? true : rememberMe);
+  store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {
@@ -45,7 +40,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       }
 
       let storedUser = getStoredUser(firebaseUser)
-      store.commit(saveUserAction, storedUser)
+      store.commit(StoreConfig.auth.setUser, storedUser)
 
       if (firebaseUser) {
         firebaseUser.getIdToken()

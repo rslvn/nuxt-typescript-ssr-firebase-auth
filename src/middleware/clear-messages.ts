@@ -1,8 +1,9 @@
 import { Middleware } from '@nuxt/types'
+import { StoreConfig } from "~/types";
 
-const clearMessageMiddleware: Middleware = ({ store }) => {
+const clearMessageMiddleware: Middleware = async ({ store }) => {
   if (store.state.notification.message) {
-    store.commit('notification/setMessage');
+    await store.dispatch(StoreConfig.notification.clearMessage);
     console.log('Messages cleared')
   }
 };

@@ -2,7 +2,7 @@ import moment from 'moment'
 import slug from 'slug'
 import { v4 as uuidv4 } from 'uuid';
 import { Route } from "vue-router"
-import { NotificationMessage, RouteType } from "~/types"
+import { NotificationMessage, RouteType, StoreConfig } from "~/types"
 import { Dispatch } from "vuex";
 import { errorToNotificationMessage } from "~/service/notification-service";
 
@@ -50,7 +50,7 @@ export const authenticatedNotAllowed = (route: Route): boolean => {
 }
 
 export const sendNotification = async (dispatch: Dispatch, notificationMessage: NotificationMessage) => {
-  await dispatch('notification/saveMessage', notificationMessage, {
+  await dispatch(StoreConfig.notification.saveMessage, notificationMessage, {
     root: true
   })
 };

@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex'
 import { Context } from '@nuxt/types'
 import { AxiosError, AxiosResponse } from 'axios'
-import { AppCookie, RootState, StoredUser } from "../types"
+import { ApiConfig, AppCookie, RootState, StoreConfig, StoredUser } from "../types"
 import { log } from '~/service/helper/global-helpers'
 
 export const state = (): RootState => ({})
@@ -13,17 +13,16 @@ export const actions: ActionTree<RootState, RootState> = {
     const token = app.$cookies.get(AppCookie.token)
     if (token) {
       return await app.$axios
-        .post('/auth/', {
+        .post(ApiConfig.auth, {
           token
         })
         .then((response: AxiosResponse<StoredUser>) => {
-          commit('auth/setUser', response.data)
+          commit(StoreConfig.auth.setUser, response.data)
         })
         .catch((error: AxiosError) => {
           console.log('Error: ', error)
           if (error?.response?.status !== 401) {
-            commit('auth/forceLogout', true)
-            log('remove idToken')
+            commit(StoreConfig.auth.forceLogout, true)
             app.$cookies.remove(AppCookie.token);
           }
         });
