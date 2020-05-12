@@ -22,11 +22,6 @@ export default {
         rel: 'stylesheet',
         href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css'
       },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css'
-      }
     ]
   },
   /*
@@ -54,7 +49,7 @@ export default {
     '~/plugins/fire-init-plugin',
     // this should be ssr: false
     { src: '~/plugins/firebase-auth-listener', ssr: false },
-    { src: '~/plugins/buefy-plugin', ssr: false },
+    { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
     { src: '~/plugins/i18n-plugin' }
   ],

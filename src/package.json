@@ -20,6 +20,7 @@
     "hooks": {}
   },
   "dependencies": {
+    "@mdi/font": "^5.1.45",
     "@nuxt/typescript-runtime": "^0.4.6",
     "@nuxtjs/axios": "^5.10.1",
     "@types/cookie-parser": "^1.4.2",
