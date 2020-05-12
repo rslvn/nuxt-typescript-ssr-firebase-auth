@@ -43,7 +43,7 @@ This repository is created as a sample of using nuxt on firebase-functions+fireb
 
 Firebase full password authentication (register, login, forget password, reset password), google authentication, twitter authentication, facebook authentication in `nuxt`.
 
-[DEMO](https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/)
+DEMO: [https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/](https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/)
 
 See the [Features](#features) for more functionalities
 
@@ -93,8 +93,6 @@ See the [Features](#features) for more functionalities
     - [x] integration with nuxt-i18n
 - [x] redirect to next url after login
 - [x] dotenv
-- [ ] better formatting
-- [ ] backend-frontend types in a npm package
 - [x] custom error page - simple
 - [x] global notification
 - [x] toaster notification
@@ -102,6 +100,8 @@ See the [Features](#features) for more functionalities
 - [x] force logout if token is invalid
 - [x] uuid
 - [x] slug
+- [ ] better formatting
+- [ ] backend-frontend types in a npm package
 
 Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more coming functionality
 
