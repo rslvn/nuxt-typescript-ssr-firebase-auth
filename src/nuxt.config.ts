@@ -54,7 +54,10 @@ export default {
     { src: '~/plugins/firebase-auth-listener', ssr: false },
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
-    { src: '~/plugins/i18n-plugin' }
+    { src: '~/plugins/i18n-plugin' },
+    ['@nuxtjs/google-analytics', {
+      id: '228881236'
+    }],
   ],
   router: {
     middleware: ['clear-messages', 'router-auth']

@@ -23,6 +23,7 @@
     "@mdi/font": "^5.1.45",
     "@nuxt/typescript-runtime": "^0.4.6",
     "@nuxtjs/axios": "^5.10.1",
+    "@nuxtjs/google-analytics": "^2.2.3",
     "@types/cookie-parser": "^1.4.2",
     "@types/slug": "^0.9.1",
     "@types/uuid": "^7.0.3",
