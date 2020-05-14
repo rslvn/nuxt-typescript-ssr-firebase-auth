@@ -82,7 +82,6 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('setUser', user);
   },
   async saveRememberMe({ commit }, rememberMe: boolean) {
-    console.log('saveRememberMe', rememberMe)
     this.$cookies.set(AppCookie.rememberMe, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe);
   },

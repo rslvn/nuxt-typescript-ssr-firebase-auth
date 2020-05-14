@@ -92,6 +92,7 @@ See the [Features](#features) for more functionalities
 - [x] vee-validate
     - [x] integration with nuxt-i18n
 - [x] redirect to next url after login
+- [x] custom loading component
 - [x] dotenv
 - [x] custom error page - simple
 - [x] global notification
@@ -243,6 +244,7 @@ npm run dev
 - https://github.com/KiritchoukC/nuxt-on-firebase-example
 - https://www.robinwieruch.de/firebase-facebook-login
 - https://qiita.com/simochee/items/e5b77af4aa36bd0f32e5
+- https://buefy.org/extensions/veevalidate
 
 ## Contribution
 

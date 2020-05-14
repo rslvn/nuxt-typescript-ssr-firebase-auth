@@ -14,7 +14,6 @@ const logout = (store: Store<any>) => {
 }
 
 const getNextRoute = (route: Route): Location => {
-  console.log('getNextRoute', route.fullPath, route.query)
   let path: string = route.query[RouteQueryParameters.next] as string;
   if (path) {
     return { path }

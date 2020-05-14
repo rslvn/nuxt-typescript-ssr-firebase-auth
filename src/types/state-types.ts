@@ -11,8 +11,14 @@ export interface NotificationState {
   message: NotificationMessage | null
 }
 
+export interface LoadingState {
+  loading: boolean
+}
+
 export interface RootState {
-  auth?: AuthState
+  auth?: AuthState,
+  notification?: NotificationState
+  loading?: LoadingState
 }
 
 export interface NotificationMessage {
@@ -31,6 +37,7 @@ export enum NotificationType {
 export const StateNamespace = {
   auth: namespace('auth'),
   notification: namespace('notification'),
+  loading: namespace('loading'),
 };
 
 export const StoreConfig = {
@@ -43,6 +50,10 @@ export const StoreConfig = {
   notification: {
     saveMessage: 'notification/saveMessage',
     clearMessage: 'notification/clearMessage'
+  },
+  loading: {
+    saveLoading: 'loading/saveLoading',
+    setLoading: 'loading/setLoading'
   }
 }
 

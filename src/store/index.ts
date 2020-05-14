@@ -2,13 +2,13 @@ import { ActionTree } from 'vuex'
 import { Context } from '@nuxt/types'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiConfig, AppCookie, RootState, StoreConfig, StoredUser } from "../types"
-import { log } from '~/service/helper/global-helpers'
 
 export const state = (): RootState => ({})
 
 export const actions: ActionTree<RootState, RootState> = {
-  async nuxtServerInit({ commit }, { route, app }: Context) {
-    console.log(`>>>>>>>>>> nuxtServerInit mode: ${process?.mode} for path: ${route.path}`)
+  async nuxtServerInit({ commit, dispatch, state }, { route, app }: Context) {
+    commit(StoreConfig.loading.setLoading, true)
+    console.log(`>>>>>>>>>> nuxtServerInit loading: ${state?.loading?.loading} mode: ${process?.mode} for path: ${route.path}`)
 
     const token = app.$cookies.get(AppCookie.token)
     if (token) {
@@ -25,10 +25,9 @@ export const actions: ActionTree<RootState, RootState> = {
             commit(StoreConfig.auth.forceLogout, true)
             app.$cookies.remove(AppCookie.token);
           }
-        });
-    } else {
-      log('No token')
-      return Promise.resolve()
+        })
+        .then(() => commit(StoreConfig.loading.setLoading, false));
     }
+    return dispatch(StoreConfig.loading.saveLoading, false)
   }
 }

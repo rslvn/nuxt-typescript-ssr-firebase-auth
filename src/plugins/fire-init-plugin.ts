@@ -36,9 +36,6 @@ export const getAuthProvider = (providerType: ProviderType) => {
   }
 }
 
-export const googleAuthProvider: firebase.auth.GoogleAuthProvider = new firebase.auth.GoogleAuthProvider()
-export const twitterAuthProvider: firebase.auth.TwitterAuthProvider = new firebase.auth.TwitterAuthProvider()
-export const facebookAuthProvider: firebase.auth.FacebookAuthProvider = new firebase.auth.FacebookAuthProvider()
 export const auth: firebase.auth.Auth = firebase.auth()
 export const firestore: firebase.firestore.Firestore = firebase.firestore()
 export const storage: firebase.storage.Storage = firebase.storage()

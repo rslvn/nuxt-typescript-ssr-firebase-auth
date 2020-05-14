@@ -36,4 +36,4 @@ export const SupportedLanguages: SupportedLanguage[] = [
 
 export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
 
-export const sessionCookieOptions: CookieSerializeOptions = { sameSite: 'none' }
+export const sessionCookieOptions: CookieSerializeOptions = { sameSite: 'none', secure: true }
