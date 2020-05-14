@@ -55,9 +55,6 @@ export default {
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
     { src: '~/plugins/i18n-plugin' },
-    ['@nuxtjs/google-analytics', {
-      id: '228881236'
-    }],
   ],
   router: {
     middleware: ['clear-messages', 'router-auth']
@@ -76,7 +73,10 @@ export default {
   modules: [
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
-    'nuxt-i18n'
+    'nuxt-i18n',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-74295415-1'
+    }],
   ],
 
   i18n: {
