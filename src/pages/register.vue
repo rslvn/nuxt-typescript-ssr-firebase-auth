@@ -23,7 +23,8 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
-  import { ProviderType, RegistrationCredentials, StateNamespace, SupportedProviders } from "~/types";
+  import { DefaultMeta, ProviderType, RegistrationCredentials, StateNamespace, SupportedProviders } from "~/types";
+  import { getHead } from "~/service/helper/global-helpers";
 
   @Component({
     components: { SocialLogin, RegisterForm },
@@ -44,6 +45,10 @@
     }
 
     noCallback() {
+    }
+
+    head(){
+      return getHead(DefaultMeta, 'Register')
     }
 
   }

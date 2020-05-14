@@ -5,6 +5,7 @@ export * from './backend-types'
 export * from './firebase-types'
 export * from './state-types'
 export * from './route-types'
+export * from './seo-types'
 
 export interface SupportedLanguage {
   name: string

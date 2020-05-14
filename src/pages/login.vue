@@ -21,7 +21,8 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
-  import { LoginCredentials, ProviderType, StateNamespace, SupportedProviders } from "~/types";
+  import { DefaultMeta, LoginCredentials, ProviderType, StateNamespace, SupportedProviders } from "~/types";
+  import { getHead } from "~/service/helper/global-helpers";
 
   @Component({
     components: { SocialLogin, LoginForm },
@@ -42,6 +43,10 @@
     }
 
     noCallback() {
+    }
+
+    head(){
+      return getHead(DefaultMeta, 'Login')
     }
 
   }
