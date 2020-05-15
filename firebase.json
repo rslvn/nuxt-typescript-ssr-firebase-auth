@@ -21,6 +21,10 @@
         "function": "authApi"
       },
       {
+        "source": "/sitemap.xml",
+        "function": "sitemapApp"
+      },
+      {
         "source": "**",
         "function": "nuxtOnFunction"
       }

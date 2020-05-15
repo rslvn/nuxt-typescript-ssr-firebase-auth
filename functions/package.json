@@ -33,9 +33,11 @@
     "nuxt-i18n": "^6.10.1",
     "nuxt-property-decorator": "^2.7.2",
     "nuxt-start": "^2.12.2",
+    "sitemap": "^6.1.4",
     "slug": "^2.1.1",
     "vee-validate": "^3.3.0",
-    "vuex-class": "^0.3.2"
+    "vuex-class": "^0.3.2",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.6",
