@@ -22,7 +22,7 @@
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
-  import { getProviderOption } from "~/service/helper/firebaseHelper";
+  import { getProviderOption } from "~/service/firebase-service";
 
   @Component({
     components: { Provider }

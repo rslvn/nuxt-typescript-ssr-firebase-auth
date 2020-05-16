@@ -10,14 +10,14 @@
 
 <script lang="ts">
   import { Component, Vue } from "nuxt-property-decorator"
-  import { getHead } from "~/service/helper/global-helpers";
-  import { DefaultMeta } from "~/types";
+  import { getHead } from "~/service/seo-service"
+  import { DefaultMeta } from "~/types"
 
   @Component({
     components: {}
   })
   export default class extends Vue {
-    head(){
+    head() {
       return getHead(DefaultMeta)
     }
   }

@@ -23,7 +23,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ProviderConfig, ProviderType, SocialLoginCredentials, StateNamespace } from "~/types";
-  import { getProviderOption } from "~/service/helper/firebaseHelper";
+  import { getProviderOption } from "~/service/firebase-service";
   import RememberMe from "~/components/ui/RememberMe.vue";
 
   @Component({

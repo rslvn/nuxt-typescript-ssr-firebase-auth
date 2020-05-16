@@ -17,11 +17,12 @@ import {
   getDangerNotificationMessage,
   getInfoNotificationMessage,
   getSuccessNotificationMessage,
+  sendNotification,
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { handleError, sendNotification } from '~/service/helper/global-helpers'
-import { getProviderOption } from "~/service/helper/firebaseHelper";
+import { getProviderOption } from "~/service/firebase-service";
+import { handleError } from "~/service/error-service";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 

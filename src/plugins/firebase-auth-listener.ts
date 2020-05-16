@@ -3,9 +3,16 @@ import { Plugin } from '@nuxt/types'
 import { User } from 'firebase';
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
-import { AppCookie, RouteQueryParameters, RouteType, sessionCookieOptions, StoreConfig } from '~/types';
-import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/helper/global-helpers';
-import { getStoredUser } from '~/service/helper/firebaseHelper';
+import {
+  AppCookie,
+  RouteQueryParameters,
+  RouteType,
+  sessionCookieOptionsDev,
+  sessionCookieOptionsProd,
+  StoreConfig
+} from '~/types';
+import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service';
+import { getStoredUser } from '~/service/firebase-service';
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -42,8 +49,9 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       store.commit(StoreConfig.auth.setUser, storedUser)
 
       if (firebaseUser) {
+        let cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
         firebaseUser.getIdToken()
-          .then((token: string) => app.$cookies.set(AppCookie.token, token, sessionCookieOptions))
+          .then((token: string) => app.$cookies.set(AppCookie.token, token, cookieOptions))
 
         redirect(getNextRoute(route))
 

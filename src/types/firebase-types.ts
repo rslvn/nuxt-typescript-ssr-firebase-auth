@@ -1,8 +1,3 @@
-export enum AppCookie {
-  token = '__session',
-  rememberMe = 'rememberMe'
-}
-
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
   RECOVERY_EMAIL = 'recoverEmail',

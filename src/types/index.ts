@@ -35,6 +35,13 @@ export const SupportedLanguages: SupportedLanguage[] = [
   }
 ]
 
+export enum AppCookie {
+  token = '__session',
+  rememberMe = 'rememberMe'
+}
+
 export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
 
-export const sessionCookieOptions: CookieSerializeOptions = { sameSite: 'none', secure: true }
+export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none'}
+
+export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true}

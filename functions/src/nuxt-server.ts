@@ -1,6 +1,5 @@
-import { runWith } from "firebase-functions";
+import { RuntimeOptions, runWith } from "firebase-functions";
 import cookieParser from 'cookie-parser'
-import { runtimeOpts } from './types'
 import express, { Request, Response } from 'express'
 
 const { Nuxt } = require('nuxt');
@@ -45,6 +44,12 @@ app.use(cookieParser())
 // Give nuxt middleware to express.
 app.get('*', handleRequest)
 app.use(handleRequest)
+
+const runtimeOpts: RuntimeOptions = {
+    timeoutSeconds: 300,
+    memory: '2GB',
+    maxInstances: 1
+}
 
 export const nuxtOnFunction = runWith(runtimeOpts)
     .https

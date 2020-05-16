@@ -1,8 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createGzip } from 'zlib'
-import { runWith } from "firebase-functions";
-import { runtimeOpts } from "../types";
+import { RuntimeOptions, runWith } from "firebase-functions";
 
 const service = '/sitemap.xml';
 const app = express();
@@ -44,6 +43,11 @@ router.get(service, (req: Request, res: Response) => {
 });
 
 app.use(router)
+
+const runtimeOpts: RuntimeOptions = {
+    timeoutSeconds: 300,
+    maxInstances: 1
+}
 
 export const sitemapApp = runWith(runtimeOpts)
     .https

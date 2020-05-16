@@ -64,6 +64,7 @@ See the [Features](#features) for more functionalities
     - [x] firebase-functions
         - [x] performance configuration
         - [x] the url same as hosting
+        - [x] dynamic sitemap
     - [x] firebase-storage
         - [x] profile picture
     - [x] firebase-auth
@@ -91,6 +92,10 @@ See the [Features](#features) for more functionalities
     - [x] Turkish
 - [x] vee-validate
     - [x] integration with nuxt-i18n
+- [x] SEO
+    - [x] Google meta
+    - [x] Facebook meta
+    - [x] Twitter card meta
 - [x] redirect to next url after login
 - [x] custom loading component
 - [x] dotenv

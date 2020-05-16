@@ -4,7 +4,8 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <SocialLogin :title="$t('form.social.title.register')" :remember-me="rememberMe" :providers="providers" :callback="noCallback"
+          <SocialLogin :title="$t('form.social.title.register')" :remember-me="rememberMe" :providers="providers"
+                       :callback="noCallback"
                        :reauthenticate="false"/>
         </div>
 
@@ -24,7 +25,7 @@
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
   import { DefaultMeta, ProviderType, RegistrationCredentials, StateNamespace, SupportedProviders } from "~/types";
-  import { getHead } from "~/service/helper/global-helpers";
+  import { getHead } from "~/service/seo-service";
 
   @Component({
     components: { SocialLogin, RegisterForm },
@@ -47,7 +48,7 @@
     noCallback() {
     }
 
-    head(){
+    head() {
       return getHead(DefaultMeta, 'Register')
     }
 

@@ -1,5 +1,6 @@
-import { NotificationMessage, NotificationType } from "~/types";
+import { NotificationMessage, NotificationType, StoreConfig } from "~/types";
 import { NotificationProgrammatic } from 'buefy'
+import { Dispatch } from "vuex";
 
 const hasIcon = true;
 const position = 'is-top-right';
@@ -8,6 +9,12 @@ const toasterConfig = {
   hasIcon,
   queue: false,
   duration: 3000,
+};
+
+export const sendNotification = async (dispatch: Dispatch, notificationMessage: NotificationMessage) => {
+  await dispatch(StoreConfig.notification.saveMessage, notificationMessage, {
+    root: true
+  })
 };
 
 export const errorToNotificationMessage = (error: Error): NotificationMessage => {

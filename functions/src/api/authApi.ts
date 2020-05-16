@@ -1,9 +1,9 @@
 import express, { Request, Response, Router } from 'express';
 import { addDecodedIdToken } from '../service/firebase-admin-utils';
-import { AnonymousUserImage, runtimeOpts, StoredUser } from '../types'
+import { AnonymousUserImage, StoredUser } from '../types'
 import admin from '../service/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
-import { runWith } from "firebase-functions";
+import { RuntimeOptions, runWith } from "firebase-functions";
 import cookieParser from "cookie-parser";
 
 const service = '/auth';
@@ -51,10 +51,16 @@ router.post(service, async (req: Request, res: Response) => {
 
             return res.status(200).json(user);
         })
-        .catch((error) => handleFirebaseError(res, error, '/api'+service));
+        .catch((error) => handleFirebaseError(res, error, '/api' + service));
 });
 
 app.use('/api', router)
+
+const runtimeOpts: RuntimeOptions = {
+    timeoutSeconds: 300,
+    memory: '1GB',
+    maxInstances: 1
+}
 
 export const authApi = runWith(runtimeOpts)
     .https
