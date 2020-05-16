@@ -1,6 +1,9 @@
+import { Configuration } from '@nuxt/types'
+
 require('dotenv').config({ path: '.env' })
 
-export default {
+// export default {
+const config: Configuration = {
   mode: 'universal',
   /*
    ** Headers of the page
@@ -39,15 +42,15 @@ export default {
    */
   css: [],
   env: {
-    WEBSITE_URL: process.env.WEBSITE_URL,
-    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
-    FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
-    FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
-    FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
-    FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
-    FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
-    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
-    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID
+    WEBSITE_URL: process.env.WEBSITE_URL as string,
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY as string,
+    FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN as string,
+    FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL as string,
+    FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID as string,
+    FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET as string,
+    FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID as string,
+    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID as string,
+    FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID as string
   },
   /*
    ** Plugins to load before mounting the App
@@ -132,9 +135,24 @@ export default {
   build: {
     analyze: false, // env variables are strings
     publicPath: '/assets/',
-    extractCSS: false,
+    extractCSS: true,
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+    filenames: {
+      chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
+    },
     babel: {
-      presets({ isServer }: any) {
+      presets({ isServer }) {
         return [
           [
             require.resolve('@nuxt/babel-preset-app'),
@@ -147,7 +165,16 @@ export default {
         ]
       }
     },
-    transpile: ['vee-validate/dist/rules']
+    transpile: ['vee-validate/dist/rules'],
+    extend: ({ module }, {}) => {
+      module?.rules.push(
+        {
+          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+          loader: 'file-loader'
+        }
+      )
+    }
   },
-  generate: {}
 }
+
+export default config

@@ -37,9 +37,9 @@
 
 # nuxt-typescript-ssr-firebase-auth
 
-`nuxt generate` is really sucks!!! We lost `nuxtServerInit`, dynamic routing stuff etc. We need a good alternative to deploy our applications to cloud without VPS and SSL configuration.
+`nuxt generate` is really sucks!!! We lost `nuxtServerInit`, dynamic routing stuff etc. We need a good alternative to deploy our applications to the cloud without VPS and SSL configuration.
 
-This repository is created as a sample of using nuxt on firebase-functions+firebase-hosting and still SSR and has `nuxtServerInit` functionally is active.
+This repository is created as a sample of using nuxt on firebase-functions+firebase-hosting and still SSR and has the `nuxtServerInit` functionality as active.
 
 Firebase full password authentication (register, login, forget password, reset password), google authentication, twitter authentication, facebook authentication in `nuxt`.
 

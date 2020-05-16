@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
-  import { getNewFileName } from "~/service/global-service";
-  import { storage, TaskEvent, TaskState } from "~/plugins/fire-init-plugin";
-  import { handleError } from "~/service/error-service";
+  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
+  import { getNewFileName } from '~/service/global-service'
+  import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
+  import { handleError } from '~/service/error-service'
 
   @Component({
     components: {}
