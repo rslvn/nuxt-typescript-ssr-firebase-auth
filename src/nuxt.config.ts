@@ -136,21 +136,21 @@ const config: Configuration = {
     analyze: false, // env variables are strings
     publicPath: '/assets/',
     extractCSS: true,
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.(css|vue)$/,
-            chunks: 'all',
-            enforce: true
-          }
-        }
-      }
-    },
-    filenames: {
-      chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
-    },
+    // optimization: {
+    //   splitChunks: {
+    //     cacheGroups: {
+    //       styles: {
+    //         name: 'styles',
+    //         test: /\.(css|vue)$/,
+    //         chunks: 'all',
+    //         enforce: true
+    //       }
+    //     }
+    //   }
+    // },
+    // filenames: {
+    //   chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
+    // },
     babel: {
       presets({ isServer }) {
         return [
@@ -166,14 +166,6 @@ const config: Configuration = {
       }
     },
     transpile: ['vee-validate/dist/rules'],
-    extend: ({ module }, {}) => {
-      module?.rules.push(
-        {
-          test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-          loader: 'file-loader'
-        }
-      )
-    }
   },
 }
 
