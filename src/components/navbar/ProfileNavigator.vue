@@ -4,7 +4,7 @@
     <template slot="label" class="is-grouped">
       <b-field grouped>
         <figure class="image is-32x32 has-margin-right-5">
-          <img class="is-rounded" :src="userPicture.src" :alt="userPicture.alt">
+          <img class="is-rounded" :src="userPicture.src" :alt="userPicture.alt" @error="imageLoadError">
         </figure>
         <span><b>{{ storedUser.name || storedUser.email }}</b></span>
       </b-field>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AnonymousUserImage, Image, RouteType, StoredUser } from "~/types";
+  import { AnonymousUserImage, Image, ProfileImagePlaceholder, RouteType, StoredUser } from "~/types";
 
   @Component({
     components: {}
@@ -40,6 +40,10 @@
 
     get userPicture(): Image {
       return this.storedUser.profilePicture || AnonymousUserImage
+    }
+
+    imageLoadError(event: any) {
+      event.target.src = ProfileImagePlaceholder
     }
 
   }

@@ -11,9 +11,7 @@
             icon="github"
             size="is-large">
           </b-icon>
-          <span>
-            {{ $t('page.home.goToSource') }}
-          </span>
+          <span v-html="$t('page.home.goToSource')" />
         </a>
       </div>
     </div>
