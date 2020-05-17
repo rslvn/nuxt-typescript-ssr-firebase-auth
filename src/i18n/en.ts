@@ -28,7 +28,8 @@ const messages = {
 
   page: {
     home: {
-      title: 'Welcome to Home'
+      title: 'Welcome to Home',
+      goToSource: 'Go to source on Github'
     },
     action: {
       processing: 'Processing... Please wait.'

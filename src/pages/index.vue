@@ -12,7 +12,7 @@
             size="is-large">
           </b-icon>
           <span>
-            Go to sourceon Github
+            {{ $t('page.home.goToSource') }}
           </span>
         </a>
       </div>

@@ -28,7 +28,8 @@ const messages = {
 
   page: {
     home: {
-      title: 'Anasayfaya hosgeldiniz'
+      title: 'Anasayfaya hosgeldiniz',
+      goToSource: 'Github uzerinde kaynak koda ulas'
     },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.'
