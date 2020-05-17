@@ -7,7 +7,7 @@
 
         <div class="card-image is-centered has-margin-5-fullhd">
           <figure class="image is-128x128 is-active profile">
-            <img class="is-rounded has-border-bottom-width-2" :src="storedUser.profilePicture.src"
+            <img class="is-rounded has-border-bottom-width-2" v-lazy="storedUser.profilePicture.src" :src="placeholder"
                  :alt="storedUser.profilePicture.alt">
             <!--                <a @click="info(props.index)"><img :src="props.list.image"></a>-->
           </figure>
@@ -27,7 +27,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { ProfilePictureStorageRef, StateNamespace, StoredUser } from "~/types";
+  import { ProfileImagePlaceholder, ProfilePictureStorageRef, StateNamespace, StoredUser } from "~/types";
   import UserCard from "~/components/card/UserCard.vue";
   import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
 
@@ -40,10 +40,13 @@
 
     @StateNamespace.auth.Action updateProfilePicture !: (profilePictureUrl: string) => void;
 
-
     get parentFolderRef() {
       return ProfilePictureStorageRef.folderRef
         .replace(ProfilePictureStorageRef.parameters.userId, this.storedUser.userId)
+    }
+
+    get placeholder() {
+      return ProfileImagePlaceholder
     }
 
   }

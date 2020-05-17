@@ -45,3 +45,5 @@ export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
 export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none'}
 
 export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true}
+
+export const ProfileImagePlaceholder = '/img/anonymous-user.svg'

@@ -62,6 +62,7 @@ const config: Configuration = {
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
     { src: '~/plugins/i18n-plugin' },
+    '~/plugins/vue-lazyload-plugin',
   ],
   router: {
     middleware: ['clear-messages', 'router-auth']
