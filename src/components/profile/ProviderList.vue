@@ -1,10 +1,20 @@
 <template>
-  <div>
-    <Provider v-for="(providerLink, key) in allProviders" :key="key" :provider-config="providerLink.providerConfig"
-              :is-linked="providerLink.linked"
-              :link-function="providerLink.method"
-              class="has-margin-right-10"
-    />
+  <div class="box">
+
+    <b-field v-for="(providerLink, key) in allProviders" :key="key" custom-class="is-medium" horizontal>
+      <template slot="label">
+        {{providerLink.providerConfig.providerType}}
+      </template>
+      <Provider :provider-config="providerLink.providerConfig"
+                :is-linked="providerLink.linked"
+                :link-function="providerLink.method" />
+    </b-field>
+
+<!--    <Provider v-for="(providerLink, key) in allProviders" :key="key" :provider-config="providerLink.providerConfig"-->
+<!--              :is-linked="providerLink.linked"-->
+<!--              :link-function="providerLink.method"-->
+<!--              class="has-margin-right-10"-->
+<!--    />-->
   </div>
 </template>
 

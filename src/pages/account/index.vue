@@ -1,25 +1,32 @@
 <template>
 
-  <section class="section">
-    <div v-if="storedUser" class="columns has-same-height is-gapless">
+  <section v-if="storedUser" class="section">
+    <div class="columns is-mobile">
 
       <div class="column">
-
-        <div class="card-image is-centered has-margin-5-fullhd">
-          <figure class="image is-128x128 is-active profile">
-            <img class="is-rounded has-border-bottom-width-2" v-lazy="storedUser.profilePicture.src" :src="placeholder"
-                 :alt="storedUser.profilePicture.alt">
-            <!--                <a @click="info(props.index)"><img :src="props.list.image"></a>-->
-          </figure>
-          <SingleFileUpload class="uploadButton" :parent-folder-ref="parentFolderRef"
-                            :upload-completed="updateProfilePicture"/>
-        </div>
-
+        <b-field position="is-centered" grouped>
+          <ProfilePictureCard :user="storedUser"/>
+        </b-field>
       </div>
+
+    </div>
+
+    <div class="columns is-mobile is-centered">
 
       <div class="column">
-        <UserCard :user="storedUser"/>
+        <h2 class="subtitle">Account Info</h2>
+        <ProfileInfo :user="storedUser"/>
       </div>
+
+    </div>
+
+    <div class="columns is-mobile is-centered">
+
+      <div class="column">
+        <h2 class="subtitle">Linked Accounts</h2>
+        <ProviderList :user="storedUser"/>
+      </div>
+
     </div>
 
   </section>
@@ -30,9 +37,12 @@
   import { ProfileImagePlaceholder, ProfilePictureStorageRef, StateNamespace, StoredUser } from "~/types";
   import UserCard from "~/components/card/UserCard.vue";
   import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
+  import ProfileInfo from "~/components/profile/ProfileInfo.vue";
+  import ProfilePictureCard from "~/components/profile/ProfilePictureCard.vue";
+  import ProviderList from "~/components/profile/ProviderList.vue";
 
   @Component({
-    components: { SingleFileUpload, UserCard },
+    components: { ProviderList, ProfilePictureCard, ProfileInfo, SingleFileUpload, UserCard },
   })
   export default class Account extends Vue {
 
@@ -52,9 +62,4 @@
   }
 </script>
 
-<style scoped>
-  .uploadButton {
-    position: absolute;
-    top: 0;
-  }
-</style>
+

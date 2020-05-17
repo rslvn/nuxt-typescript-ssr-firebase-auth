@@ -2,7 +2,7 @@
   <section class="section">
     <div class="container is-fullhd">
       <div class="columns is-centered has-margin-bottom-50">
-        <h1 class="header">{{ $t('page.home.title') }}</h1>
+        <h1 class="title">{{ $t('page.home.title') }}</h1>
       </div>
       <div class="columns is-centered">
         <a class="box" href="https://github.com/rslvn/nuxt-typescript-ssr-firebase-auth">

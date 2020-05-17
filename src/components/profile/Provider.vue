@@ -7,7 +7,7 @@
 
     <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
               :class="isLinked ? '': 'has-text-black'"
-              :icon-left="providerConfig.icon" @click="submit" size="is-small" outlined>
+              :icon-left="providerConfig.icon" @click="submit" size="is-large" outlined>
     </b-button>
   </b-tooltip>
 
