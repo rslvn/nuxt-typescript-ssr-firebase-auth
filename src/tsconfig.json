@@ -27,7 +27,6 @@
     "types": [
       "@types/node",
       "@nuxt/types",
-      "src/types",
       "@nuxtjs/axios",
       "nuxt-i18n",
       "cookie-universal-nuxt"

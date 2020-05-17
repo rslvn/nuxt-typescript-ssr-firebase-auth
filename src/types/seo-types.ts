@@ -1,13 +1,13 @@
 import { Image } from "~/types/backend-types";
 
-export interface AppMeta {
+export interface PageMeta {
   title: string
   description: string
   image: Image
   url: string
 }
 
-export const DefaultMeta: AppMeta = {
+export const DefaultMeta: PageMeta = {
   title: 'Nuxt TS Firebase Auth SSR',
   description: 'The description of Nuxt TS Firebase Auth SSR web',
   image: {

@@ -4,6 +4,16 @@
       <div class="columns is-centered">
         <h1 class="header">{{ $t('page.home.title') }}</h1>
       </div>
+      <div class="columns">
+        <card
+          title="Free"
+          icon="github-circle"
+        >
+          Open source on <a href="https://github.com/buefy/buefy">
+          GitHub
+        </a>
+        </card>
+      </div>
     </div>
   </section>
 </template>

@@ -110,3 +110,5 @@ firebase-admin-credentials.json
 package-lock.json
 
 tmp
+
+.vercel

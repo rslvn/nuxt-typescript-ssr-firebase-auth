@@ -24,13 +24,26 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
-  import { DefaultMeta, ProviderType, RegistrationCredentials, StateNamespace, SupportedProviders } from "~/types";
+  import {
+    PageMeta,
+    DefaultMeta,
+    ProviderType,
+    RegistrationCredentials,
+    StateNamespace,
+    SupportedProviders
+  } from "~/types";
   import { getHead } from "~/service/seo-service";
 
   @Component({
     components: { SocialLogin, RegisterForm },
   })
   export default class register extends Vue {
+
+    pageMeta: PageMeta = {
+      ...DefaultMeta,
+      title: 'Register |' + DefaultMeta.title,
+      url: DefaultMeta.url + '/register'
+    }
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => void;
@@ -49,7 +62,7 @@
     }
 
     head() {
-      return getHead(DefaultMeta, 'Register')
+      return getHead(this.pageMeta)
     }
 
   }

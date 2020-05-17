@@ -1,31 +1,28 @@
-import { AppMeta } from "~/types";
+import { PageMeta } from "~/types";
 
-export const getHead = (appMeta: AppMeta, pageTitle ?: string) => {
-
-  let title = pageTitle ? pageTitle + ' | ' + appMeta.title : appMeta.title;
-
+export const getHead = (pageMeta: PageMeta) => {
   return {
-    title,
+    title: pageMeta.title,
     meta: [
-      { hid: 'description', name: 'description', content: appMeta.description },
+      { hid: 'description', name: 'description', content: pageMeta.description },
       // Open Graph
-      { name: 'og:title', content: appMeta.title },
-      { name: 'og:description', content: appMeta.description },
+      { name: 'og:title', content: pageMeta.title },
+      { name: 'og:description', content: pageMeta.description },
       { name: 'og:type', content: 'website' },
-      { name: 'og:url', content: appMeta.url },
-      { name: 'og:image', content: appMeta.image.src },
+      { name: 'og:url', content: pageMeta.url },
+      { name: 'og:image', content: pageMeta.image.src },
 
       { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:site', content: '@nuxt_js' },
-      { name: 'twitter:title', content: appMeta.title },
-      { name: 'twitter:description', content: appMeta.description },
-      { name: 'twitter:image', content: appMeta.image.src },
+      { name: 'twitter:site', content: '@tangowall' },
+      { name: 'twitter:title', content: pageMeta.title },
+      { name: 'twitter:description', content: pageMeta.description },
+      { name: 'twitter:image', content: pageMeta.image.src },
       { name: 'twitter:image:alt', content: 'Orange Make-Up Website logo' },
 
       // Google / Schema.org markup:
-      { itemprop: 'name', content: appMeta.title },
-      { itemprop: 'description', content: appMeta.description },
-      { itemprop: 'image', content: appMeta.image.src }
+      { itemprop: 'name', content: pageMeta.title },
+      { itemprop: 'description', content: pageMeta.description },
+      { itemprop: 'image', content: pageMeta.image.src }
     ]
   }
 }
