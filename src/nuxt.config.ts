@@ -23,13 +23,6 @@ const config: Configuration = {
         content: "7KSGr_zujhmsc2fhu0iAfR_L0e5--J_QwD5EeePB1yM"
       }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css'
-      },
-    ]
   },
   /*
    ** Customize the progress-bar color

@@ -36,6 +36,7 @@
     "sitemap": "^6.1.4",
     "slug": "^2.1.1",
     "vee-validate": "^3.3.0",
+    "vue-lazyload": "^1.3.3",
     "vuex-class": "^0.3.2",
     "zlib": "^1.0.5"
   },

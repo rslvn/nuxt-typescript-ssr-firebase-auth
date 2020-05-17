@@ -98,6 +98,7 @@ See the [Features](#features) for more functionalities
     - [x] Twitter card meta
 - [x] redirect to next url after login
 - [x] custom loading component
+- [x] image lazy load (vue-lazyload)
 - [x] dotenv
 - [x] custom error page - simple
 - [x] global notification

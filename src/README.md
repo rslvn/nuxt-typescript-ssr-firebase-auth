@@ -6,4 +6,16 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# src
+# Nuxt Source
+
+## dev
+```shell script
+npm run dev
+```
+
+## start
+```shell script
+npm run build
+npm run start
+```
+
