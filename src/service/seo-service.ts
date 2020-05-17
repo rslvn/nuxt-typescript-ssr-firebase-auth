@@ -12,12 +12,12 @@ export const getHead = (pageMeta: PageMeta) => {
       { name: 'og:url', content: pageMeta.url },
       { name: 'og:image', content: pageMeta.image.src },
 
-      { name: 'twitter:card', content: 'summary' },
-      { name: 'twitter:site', content: '@tangowall' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@whereistango' },
       { name: 'twitter:title', content: pageMeta.title },
       { name: 'twitter:description', content: pageMeta.description },
       { name: 'twitter:image', content: pageMeta.image.src },
-      { name: 'twitter:image:alt', content: 'Orange Make-Up Website logo' },
+      { name: 'twitter:image:alt', content: pageMeta.image.alt },
 
       // Google / Schema.org markup:
       { itemprop: 'name', content: pageMeta.title },
