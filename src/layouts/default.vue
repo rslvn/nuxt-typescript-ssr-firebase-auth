@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <div class="columns is-centered">
+      <div class="columns">
         <div class="column">
           <client-only>
             <TopNavbar/>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="columns is-centered">
+      <div class="columns">
         <div class="column">
           <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
           <nuxt/>

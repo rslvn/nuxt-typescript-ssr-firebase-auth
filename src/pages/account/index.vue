@@ -1,6 +1,6 @@
 <template>
 
-  <section v-if="storedUser" class="section">
+  <dic v-if="storedUser">
     <div class="columns is-mobile">
 
       <div class="column">
@@ -29,7 +29,7 @@
 
     </div>
 
-  </section>
+  </dic>
 </template>
 
 <script lang="ts">
