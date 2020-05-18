@@ -1,6 +1,5 @@
 <template>
-  <section class="section">
-    <div class="container is-fullhd">
+    <div class="container">
       <div class="columns is-centered has-margin-bottom-50">
         <h1 class="title">{{ $t('page.home.title') }}</h1>
       </div>
@@ -15,7 +14,6 @@
         </a>
       </div>
     </div>
-  </section>
 </template>
 
 <script lang="ts">

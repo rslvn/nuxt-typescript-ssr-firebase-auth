@@ -35,14 +35,12 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import { ProfileImagePlaceholder, ProfilePictureStorageRef, StateNamespace, StoredUser } from "~/types";
-  import UserCard from "~/components/card/UserCard.vue";
-  import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
   import ProfileInfo from "~/components/profile/ProfileInfo.vue";
   import ProfilePictureCard from "~/components/profile/ProfilePictureCard.vue";
   import ProviderList from "~/components/profile/ProviderList.vue";
 
   @Component({
-    components: { ProviderList, ProfilePictureCard, ProfileInfo, SingleFileUpload, UserCard },
+    components: { ProviderList, ProfilePictureCard, ProfileInfo },
   })
   export default class Account extends Vue {
 
