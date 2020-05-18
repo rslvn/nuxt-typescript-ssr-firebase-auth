@@ -49,6 +49,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       store.commit(StoreConfig.auth.setUser, storedUser)
 
       if (firebaseUser) {
+        // console.log('Firebase user: ', firebaseUser)
         let cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
         firebaseUser.getIdToken()
           .then((token: string) => app.$cookies.set(AppCookie.token, token, cookieOptions))

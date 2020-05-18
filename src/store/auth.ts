@@ -5,6 +5,7 @@ import {
   AuthState,
   cookieOptions,
   LoginCredentials,
+  ProviderData,
   ProviderType,
   RegistrationCredentials,
   RootState,
@@ -21,7 +22,7 @@ import {
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { getProviderOption } from "~/service/firebase-service";
+import { getProviderData, getProviderOption } from "~/service/firebase-service";
 import { handleError } from "~/service/error-service";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
@@ -62,14 +63,14 @@ export const mutations: MutationTree<AuthState> = {
       state.user.profilePicture.src = profilePicture
     }
   },
-  addProvider(state, provider: string) {
-    if (state.user) {
-      state.user.providers.push(provider)
+  addProvider(state, providerData: ProviderData) {
+    if (state.user && providerData) {
+      state.user.providers.push(providerData)
     }
   },
-  removeProvider(state, provider: string) {
+  removeProvider(state, providerType: ProviderType) {
     if (state.user) {
-      const index = state.user.providers.indexOf(provider)
+      const index = state.user.providers.findIndex((providerData) => providerData.providerType === providerType)
 
       if (index > -1) {
         state.user.providers.splice(index, 1)
@@ -244,8 +245,13 @@ export const actions: ActionTree<AuthState, RootState> = {
     let authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password);
 
     return auth.currentUser?.linkWithCredential(authCredential)
-      .then(() => {
-        commit('addProvider', ProviderType.password)
+      .then((userCredential) => {
+
+        let userInfo = userCredential.user?.providerData
+          ?.find((userInfo) => userInfo?.providerId == ProviderType.password)
+
+        commit('addProvider', getProviderData(userInfo))
+
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.password)))
       })
       .catch((error: Error) => handleError(dispatch, error))
@@ -254,8 +260,13 @@ export const actions: ActionTree<AuthState, RootState> = {
   async linkSocialProvider({ dispatch, commit }, providerType: ProviderType) {
     let authProvider = getAuthProvider(providerType);
     return auth.currentUser?.linkWithPopup(authProvider)
-      .then(() => {
-        commit('addProvider', providerType)
+      .then((userCredential) => {
+
+        let userInfo = userCredential.user?.providerData
+          ?.find((userInfo) => userInfo?.providerId == providerType)
+
+        commit('addProvider', getProviderData(userInfo))
+
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))

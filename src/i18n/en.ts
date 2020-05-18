@@ -82,7 +82,7 @@ const messages = {
 
   card: {
     user: {
-      title: 'Profile',
+      title: 'Account Info:',
       userId: 'Id:',
       name: 'Name:',
       email: 'Email: ',
@@ -91,6 +91,9 @@ const messages = {
       updatePasswordButton: 'Update Password',
       mailVerified: 'Email is verified',
       mailNotVerified: 'Email is not verified'
+    },
+    linkedAccounts: {
+      title: 'Linked Accounts:'
     }
   },
 
@@ -105,6 +108,17 @@ const messages = {
           description: 'Set a  password for <b>{email}</b>',
           submit: 'Save Password'
         }
+    },
+    submit: {
+      link: 'Link',
+      unlink: 'Unlink'
+    },
+    info: {
+      displayName: 'Display Name:',
+      email: 'Email:',
+      phoneNumber: 'Phone Number:',
+      photoURL: 'Photo',
+      uid: 'Id:'
     },
     tooltip: {
       linkedProvider: '{provider} provider is linked to your account. Click to unlink!',

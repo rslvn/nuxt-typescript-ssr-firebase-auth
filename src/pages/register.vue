@@ -41,7 +41,7 @@
 
     pageMeta: PageMeta = {
       ...DefaultMeta,
-      title: 'Register |' + DefaultMeta.title,
+      title: 'Register | ' + DefaultMeta.title,
       url: DefaultMeta.url + '/register'
     }
 

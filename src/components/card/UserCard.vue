@@ -103,7 +103,7 @@
     @StateNamespace.notification.Action clearMessage !: () => void;
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.user.providers.includes(ProviderType.password) ?
+      return this.user.providers.find((providerData) => providerData.providerType === ProviderType.password) ?
         SupportedProviders.find(provider => provider.providerType === ProviderType.password)
         : undefined
     }

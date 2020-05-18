@@ -32,7 +32,7 @@
 
     pageMeta: PageMeta = {
       ...DefaultMeta,
-      title: 'Login |' + DefaultMeta.title,
+      title: 'Login | ' + DefaultMeta.title,
       url: DefaultMeta.url + '/login'
     }
 

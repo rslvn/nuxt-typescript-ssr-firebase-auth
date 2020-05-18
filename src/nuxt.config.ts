@@ -119,9 +119,9 @@ const config: Configuration = {
   axios: {
     baseURL: process.env.API_URL
   },
-  // serverMiddleware: [
-  //   '~/server/api'
-  // ],
+  serverMiddleware: [
+    '~/server/api'
+  ],
 
   /*
    ** Build configuration

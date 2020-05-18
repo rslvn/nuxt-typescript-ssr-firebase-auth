@@ -13,7 +13,7 @@
   export default class privacyPolicy extends Vue {
     pageMeta: PageMeta = {
       ...DefaultMeta,
-      title: 'Policy&Privacy |' + DefaultMeta.title,
+      title: 'Policy&Privacy | ' + DefaultMeta.title,
       url: DefaultMeta.url + '/privacy-policy'
     }
 

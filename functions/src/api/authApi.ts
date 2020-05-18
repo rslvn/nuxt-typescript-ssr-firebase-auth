@@ -46,7 +46,7 @@ router.post(service, async (req: Request, res: Response) => {
                 email: decodedIdToken.email as string,
                 profilePicture,
                 userId: decodedIdToken.sub,
-                providers: [decodedIdToken.firebase.sign_in_provider]
+                providers: [{ providerType: decodedIdToken.firebase.sign_in_provider }]
             };
 
             return res.status(200).json(user);

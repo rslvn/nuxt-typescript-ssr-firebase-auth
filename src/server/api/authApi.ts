@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import admin from '../../service/firebase-admin/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { addDecodedIdToken } from "../../service/firebase-admin/firebase-admin-service";
-import { AnonymousUserImage, StoredUser } from '../../types'
+import { AnonymousUserImage, ProviderType, StoredUser } from '../../types'
 
 let service = '/auth';
 
@@ -29,13 +29,23 @@ router.post(service, async (req: Request, res: Response) => {
 
   await addDecodedIdToken(req.body.token)
     .then((decodedIdToken: admin.auth.DecodedIdToken) => {
+
+      const alt = decodedIdToken.name as string || decodedIdToken.email as string;
+
+      const profilePicture = decodedIdToken.picture ?
+        {
+          src: decodedIdToken.picture,
+          alt: 'Picture of ' + alt
+        }
+        : AnonymousUserImage
+
       let user: StoredUser = {
-        name: '',
+        name: decodedIdToken.name,
         verified: decodedIdToken.email_verified as boolean,
         email: decodedIdToken.email as string,
-        profilePicture: AnonymousUserImage,
+        profilePicture: profilePicture,
         userId: decodedIdToken.sub,
-        providers: [decodedIdToken.firebase.sign_in_provider]
+        providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
       };
 
       console.log(service, 'returns user: ', user);

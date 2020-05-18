@@ -14,7 +14,7 @@
     <div class="columns is-mobile is-centered">
 
       <div class="column">
-        <h2 class="subtitle">Account Info</h2>
+        <h2 class="subtitle">{{$t('card.user.title')}}</h2>
         <ProfileInfo :user="storedUser"/>
       </div>
 
@@ -23,7 +23,7 @@
     <div class="columns is-mobile is-centered">
 
       <div class="column">
-        <h2 class="subtitle">Linked Accounts</h2>
+        <h2 class="subtitle">{{$t('card.linkedAccounts.title')}}</h2>
         <ProviderList :user="storedUser"/>
       </div>
 

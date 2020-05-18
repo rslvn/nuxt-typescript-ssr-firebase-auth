@@ -83,13 +83,16 @@ const messages = {
 
   card: {
     user: {
-      title: 'Profil :',
+      title: 'Hesap Bilgileri:',
       userId: 'Kimlik:',
       name: 'Ad :',
       email: 'E-posta :',
       providers: 'Saglayicilar:',
       verifyButton: 'E-posta Dogrula',
       updatePasswordButton: 'Parolayi guncelle'
+    },
+    linkedAccounts: {
+      title: 'Bagli Hesaplar:'
     }
   },
 
@@ -104,6 +107,17 @@ const messages = {
           description: '<b>{email}</b> icin bir parola belirleyiniz',
           submit: 'Parolayi Kaydet'
         }
+    },
+    submit: {
+      link: 'Bagla',
+      unlink: 'Baglantiyi kopar'
+    },
+    info: {
+      displayName: 'Ad:',
+      email: 'E-Posta:',
+      phoneNumber: 'Telefon Numarasi:',
+      photoURL: 'Fotograf:',
+      uid: 'Kimlik:'
     },
     tooltip: {
       linkedProvider: '{provider} hesabiniza bagli. Baglantiyi kopar!',

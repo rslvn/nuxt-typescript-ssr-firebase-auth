@@ -8,11 +8,15 @@ export const AnonymousUserImage: Image = {
     alt: 'anonymous user picture'
 }
 
+export interface ProviderData {
+    providerType: string
+}
+
 export interface StoredUser {
     name: string
     email: string
     profilePicture: Image
     userId: string,
     verified: boolean
-    providers: string[]
+    providers: ProviderData[]
 }

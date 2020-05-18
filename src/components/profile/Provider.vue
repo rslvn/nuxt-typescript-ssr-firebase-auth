@@ -1,32 +1,42 @@
 <template>
+  <div class="box">
+    <ProviderInfo v-if="providerData" :provider-data="providerData"/>
+    <!--    <p v-if="providerData"> {{providerData}}</p>-->
 
-  <b-tooltip
-    :label="getLabel(providerConfig.providerType)"
-    :type="isLinked ? 'is-light': 'is-success'"
-    multilined>
+    <b-tooltip
+      :label="getLabel(providerConfig.providerType)"
+      :type="isLinked ? 'is-light': 'is-success'"
+      class="has-margin-top-10 is-right"
+      multilined>
 
-    <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
-              :class="isLinked ? '': 'has-text-black'"
-              :icon-left="providerConfig.icon" @click="submit" size="is-large" outlined>
-    </b-button>
-  </b-tooltip>
+      <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
+                :class="isLinked ? '': 'has-text-black'"
+                :icon-right="providerConfig.icon" @click="submit" outlined>
+        <span
+          class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}</span>
+      </b-button>
+    </b-tooltip>
+  </div>
+
 
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderType } from "~/types";
+  import { ProviderConfig, ProviderData, ProviderType } from "~/types";
+  import ProviderInfo from "~/components/profile/ProviderInfo.vue";
 
   @Component({
-    components: {}
+    components: { ProviderInfo }
   })
   export default class Provider extends Vue {
 
     defaultType = 'is-light';
 
-    @Prop({ type: Object }) providerConfig !: ProviderConfig;
+    @Prop({ type: Object, required: true }) providerConfig !: ProviderConfig;
     @Prop({ type: Boolean, required: true }) isLinked !: boolean;
     @Prop({ type: Function, required: true }) linkFunction !: (providerType: ProviderType) => void;
+    @Prop({ type: Object, required: false }) providerData !: ProviderData;
 
     submit() {
       if (!this.isLinked) {

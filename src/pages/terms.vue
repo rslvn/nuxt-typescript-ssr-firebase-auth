@@ -13,7 +13,7 @@
   export default class terms extends Vue {
     pageMeta: PageMeta = {
       ...DefaultMeta,
-      title: 'Terms |' + DefaultMeta.title,
+      title: 'Terms | ' + DefaultMeta.title,
       url: DefaultMeta.url + '/terms'
     }
 

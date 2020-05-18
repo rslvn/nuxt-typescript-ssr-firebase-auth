@@ -1,20 +1,15 @@
 <template>
   <div class="box">
 
-    <b-field v-for="(providerLink, key) in allProviders" :key="key" custom-class="is-medium" horizontal>
-      <template slot="label">
-        {{providerLink.providerConfig.providerType}}
-      </template>
+    <b-field v-for="(providerLink, key) in allProviders" :key="key" :label="providerLink.providerConfig.providerType"
+             custom-class="is-medium" horizontal>
       <Provider :provider-config="providerLink.providerConfig"
+                :provider-data="providerLink.providerData"
                 :is-linked="providerLink.linked"
-                :link-function="providerLink.method" />
+                :link-function="providerLink.method"
+      />
     </b-field>
 
-<!--    <Provider v-for="(providerLink, key) in allProviders" :key="key" :provider-config="providerLink.providerConfig"-->
-<!--              :is-linked="providerLink.linked"-->
-<!--              :link-function="providerLink.method"-->
-<!--              class="has-margin-right-10"-->
-<!--    />-->
   </div>
 </template>
 
@@ -25,6 +20,7 @@
   import {
     LoginCredentials,
     ProviderConfig,
+    ProviderData,
     ProviderLink,
     ProviderType,
     StateNamespace,
@@ -47,10 +43,12 @@
 
     get allProviders(): ProviderLink[] {
       return SupportedProviders.map(providerConfig => {
-        let linked = this.user.providers.includes(providerConfig.providerType)
+        let providerData = this.user.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType);
+        let linked = !!providerData
         let method = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
         return {
           providerConfig,
+          providerData,
           linked,
           method
         }
@@ -58,15 +56,15 @@
     }
 
     get linkedProviders(): ProviderConfig[] {
-      return SupportedProviders.filter(provider => this.user.providers.includes(provider.providerType))
+      return SupportedProviders.filter(provider => this.isLinked(provider.providerType))
     }
 
     get unlinkedProviders(): ProviderConfig[] {
-      return SupportedProviders.filter(provider => !this.user.providers.includes(provider.providerType));
+      return SupportedProviders.filter(provider => !this.isLinked(provider.providerType));
     }
 
     isLinked(providerType: ProviderType): boolean {
-      return this.user.providers.includes(providerType)
+      return !!this.user.providers.find((providerData) => providerData.providerType === providerType)
     }
 
     getLinkMethod(providerType: ProviderType) {

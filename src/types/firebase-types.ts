@@ -1,3 +1,5 @@
+import { ProviderData } from "~/types/backend-types";
+
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
   RECOVERY_EMAIL = 'recoverEmail',
@@ -83,6 +85,7 @@ export const SupportedProviders: ProviderConfig[] = [
 
 export interface ProviderLink {
   providerConfig: ProviderConfig
+  providerData?: ProviderData
   linked: boolean,
   method: () => void
 }
