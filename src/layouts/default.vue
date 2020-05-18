@@ -7,6 +7,7 @@
             <client-only>
               <TopNavbar/>
             </client-only>
+            <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
           </div>
         </div>
       </div>
@@ -15,7 +16,6 @@
       <div class="container">
         <div class="columns">
           <div class="column">
-            <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
             <nuxt/>
           </div>
         </div>

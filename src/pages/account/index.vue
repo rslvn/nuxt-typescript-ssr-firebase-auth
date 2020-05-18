@@ -1,6 +1,6 @@
 <template>
 
-  <dic v-if="storedUser">
+  <div v-if="storedUser">
     <div class="columns is-mobile">
 
       <div class="column">
@@ -11,7 +11,7 @@
 
     </div>
 
-    <div class="columns is-mobile is-centered">
+    <div class="columns is-mobile">
 
       <div class="column">
         <h2 class="subtitle">{{$t('card.user.title')}}</h2>
@@ -20,7 +20,7 @@
 
     </div>
 
-    <div class="columns is-mobile is-centered">
+    <div class="columns is-mobile">
 
       <div class="column">
         <h2 class="subtitle">{{$t('card.linkedAccounts.title')}}</h2>
@@ -29,7 +29,7 @@
 
     </div>
 
-  </dic>
+  </div>
 </template>
 
 <script lang="ts">

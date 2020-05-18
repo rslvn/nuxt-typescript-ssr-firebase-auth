@@ -23,7 +23,6 @@
       <span>{{ providerData.phoneNumber }}</span>
     </b-field>
 
-
   </div>
 </template>
 

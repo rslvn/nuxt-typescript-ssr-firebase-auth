@@ -29,7 +29,7 @@
       </b-field>
     </b-field>
 
-    <b-field v-if="user.email && !user.verified" horizontal>
+    <b-field v-if="passwordProvider && !user.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"
@@ -50,7 +50,7 @@
     </b-field>
 
 
-    <b-field v-if="!!passwordProvider" horizontal>
+    <b-field v-if="passwordProvider && user.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"

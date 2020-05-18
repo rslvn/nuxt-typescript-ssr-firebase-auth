@@ -1,9 +1,8 @@
 <template>
-  <div class="card-image">
-
-    <figure class="image is-128x128 is-active profile">
-      <img class="is-rounded has-border-bottom-width-2" v-lazy="user.profilePicture.src"
-           :src="placeholder"
+  <div>
+    <figure class="image is-128x128">
+      <img
+           :src="user.profilePicture.src"
            :alt="user.profilePicture.alt">
     </figure>
 

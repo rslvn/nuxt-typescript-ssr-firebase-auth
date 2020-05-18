@@ -1,21 +1,23 @@
 <template>
   <div class="box">
     <ProviderInfo v-if="providerData" :provider-data="providerData"/>
-    <!--    <p v-if="providerData"> {{providerData}}</p>-->
 
-    <b-tooltip
-      :label="getLabel(providerConfig.providerType)"
-      :type="isLinked ? 'is-light': 'is-success'"
-      class="has-margin-top-10 is-right"
-      multilined>
+    <b-field horizontal>
+      <b-tooltip
+        :label="getLabel(providerConfig.providerType)"
+        :type="isLinked ? 'is-light': 'is-success'"
+        class="has-margin-top-10 is-right"
+        multilined>
 
-      <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
-                :class="isLinked ? '': 'has-text-black'"
-                :icon-right="providerConfig.icon" @click="submit" outlined>
+        <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
+                  :class="isLinked ? '': 'has-text-black'"
+                  :icon-right="providerConfig.icon" @click="submit" outlined>
         <span
           class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}</span>
-      </b-button>
-    </b-tooltip>
+        </b-button>
+      </b-tooltip>
+    </b-field>
+
   </div>
 
 
