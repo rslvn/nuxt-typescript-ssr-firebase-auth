@@ -1,16 +1,12 @@
 <template>
-  <section class="section">
-    <div class="container is-fullhd">
-      <b-notification :active.sync="active"
-                      :type="notificationMessage.type"
-                      :has-icon="notificationMessage.hasIcon"
-                      aria-close-label="Close message"
-                      role="alert"
-      >
-        {{notificationMessage.message}}
-      </b-notification>
-    </div>
-  </section>
+  <b-notification :active.sync="active"
+                  :type="notificationMessage.type"
+                  :has-icon="notificationMessage.hasIcon"
+                  aria-close-label="Close message"
+                  role="alert"
+  >
+    {{notificationMessage.message}}
+  </b-notification>
 </template>
 
 <script lang="ts">

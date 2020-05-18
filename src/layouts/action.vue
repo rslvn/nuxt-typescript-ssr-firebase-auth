@@ -1,26 +1,22 @@
 <template>
   <div>
-    <section class="section">
-      <div class="container is-fullhd">
-        <div class="columns is-centered">
-          <div class="column is-three-quarters">
-            <client-only>
-              <ActionTopNavbar/>
-            </client-only>
-          </div>
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <client-only>
+            <ActionTopNavbar/>
+          </client-only>
         </div>
       </div>
-    </section>
-    <section class="section">
-      <div class="container is-fullhd">
-        <div class="columns is-centered">
-          <div class="column is-three-quarters">
-            <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
-            <nuxt/>
-          </div>
+    </div>
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
+          <nuxt/>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
