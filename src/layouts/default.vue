@@ -4,9 +4,7 @@
       <div class="container">
         <div class="columns">
           <div class="column">
-            <client-only>
-              <TopNavbar/>
-            </client-only>
+            <TopNavbar/>
             <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
           </div>
         </div>
