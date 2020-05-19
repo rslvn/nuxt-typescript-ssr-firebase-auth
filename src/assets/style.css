@@ -1,0 +1,35 @@
+.image-fill-32 img {
+  height: 32px;
+  object-fit: fill;
+}
+
+.image-fill-64 img {
+  height: 64px;
+  object-fit: fill;
+}
+
+.image-fill-256 img {
+  height: 256px;
+  object-fit: fill;
+}
+
+.image-cover-256 img {
+  height: 256px;
+  object-fit: cover;
+}
+
+.image-cover-128x128 {
+  width: 128px;
+  object-fit: cover;
+}
+
+.image-rounded-32 img {
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  border-radius: 50%
+}
+
+.image-rounded-50 img {
+  border-radius: 50%
+}

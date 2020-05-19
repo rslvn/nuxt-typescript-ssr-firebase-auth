@@ -33,7 +33,9 @@ const config: Configuration = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    'assets/style'
+  ],
   env: {
     WEBSITE_URL: process.env.WEBSITE_URL as string,
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY as string,

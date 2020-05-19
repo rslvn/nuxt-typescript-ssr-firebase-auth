@@ -6,8 +6,8 @@
     </b-field>
 
     <b-field v-if="providerData.photoURL" :label="$t('provider.info.photoURL')" horizontal>
-      <figure class="image is-64x64">
-        <img :src="providerData.photoURL" alt="Picture of the provider">
+      <figure class="image-fill-64">
+        <img v-lazy="providerData.photoURL" :src="placeholder" alt="Picture of the provider" @error="imageLoadError">
       </figure>
     </b-field>
 
@@ -28,13 +28,21 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderData } from "~/types";
+  import { ProfileImagePlaceholder, ProviderData } from "~/types";
 
   @Component({
     components: {}
   })
   export default class ProviderInfo extends Vue {
     @Prop({ type: Object, required: false }) providerData !: ProviderData;
+
+    get placeholder() {
+      return ProfileImagePlaceholder
+    }
+
+    imageLoadError(event: any) {
+      event.target.src = ProfileImagePlaceholder
+    }
 
   }
 </script>

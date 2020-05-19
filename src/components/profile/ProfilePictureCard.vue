@@ -1,10 +1,9 @@
 <template>
   <div>
-    <figure class="image is-128x128">
-      <img
-           :src="user.profilePicture.src"
-           :alt="user.profilePicture.alt">
-    </figure>
+    <img class="image is-128x128" v-lazy=" user.profilePicture.src"
+         :src="placeholder"
+         :alt="user.profilePicture.alt"
+         @error="imageLoadError">
 
     <SingleFileUpload class="uploadButton" :parent-folder-ref="parentFolderRef"
                       :upload-completed="updateProfilePicture"/>
@@ -32,6 +31,10 @@
 
     get placeholder() {
       return ProfileImagePlaceholder
+    }
+
+    imageLoadError(event: any) {
+      event.target.src = ProfileImagePlaceholder
     }
   }
 </script>
