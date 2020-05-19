@@ -59,7 +59,7 @@ const messages = {
     loginForm: {
       title: 'Login',
       submit: 'Login',
-      forgetPassword: 'I forgot my password',
+      forgetPassword: 'forgot my password',
       noAccount: 'No account? SignUp!'
     },
     social: {

@@ -5,16 +5,14 @@
 
       <RememberMe v-if="showRememberMe" :value="rememberMe"/>
 
-      <client-only>
-        <div class="buttons">
-          <b-button v-for="provider in providers" :key="provider.providerType" :type="provider.colorType"
-                    :icon-left="provider.icon"
-                    expanded outlined
-                    @click="submit(provider.providerType)">
-            {{ $t('form.social.loginWith',getLangProviderOption(provider.providerType)) }}
-          </b-button>
-        </div>
-      </client-only>
+      <div class="buttons">
+        <b-button v-for="provider in providers" :key="provider.providerType" :type="provider.colorType"
+                  :icon-left="provider.icon"
+                  expanded outlined
+                  @click="submit(provider.providerType)">
+          {{ $t('form.social.loginWith',getLangProviderOption(provider.providerType)) }}
+        </b-button>
+      </div>
 
     </div>
   </div>

@@ -10,9 +10,7 @@
         </div>
 
         <div class="column is-half">
-          <client-only>
-            <RegisterForm :sign-up-with-email="handleSignUpWithEmail"/>
-          </client-only>
+          <RegisterForm :sign-up-with-email="handleSignUpWithEmail"/>
         </div>
 
       </div>
@@ -25,8 +23,8 @@
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
   import {
-    PageMeta,
     DefaultMeta,
+    PageMeta,
     ProviderType,
     RegistrationCredentials,
     StateNamespace,

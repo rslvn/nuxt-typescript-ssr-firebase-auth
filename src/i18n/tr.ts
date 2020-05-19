@@ -59,7 +59,7 @@ const messages = {
     loginForm: {
       title: 'Giris Yap',
       submit: 'Giris Yap',
-      forgetPassword: 'Parolami unuttum',
+      forgetPassword: 'parolami unuttum',
       noAccount: 'Hesabiniz yok mu? Kayit Ol!'
     },
     social: {
