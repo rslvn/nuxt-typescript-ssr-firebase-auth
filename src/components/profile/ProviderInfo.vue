@@ -6,7 +6,7 @@
     </b-field>
 
     <b-field v-if="providerData.photoURL" :label="$t('provider.info.photoURL')" horizontal>
-      <figure class="image-fill-64">
+      <figure class="cropped-64x64">
         <img v-lazy="providerData.photoURL" :src="placeholder" alt="Picture of the provider" @error="imageLoadError">
       </figure>
     </b-field>

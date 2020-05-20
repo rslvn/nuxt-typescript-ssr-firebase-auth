@@ -20,6 +20,7 @@
 
 .image-cover-128x128 {
   width: 128px;
+  height: 128px;
   object-fit: cover;
 }
 
@@ -33,3 +34,49 @@
 .image-rounded-50 img {
   border-radius: 50%
 }
+
+.profile_2 {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: solid 3px #000;
+}
+
+.profile_3 {
+  width: 120px;
+  height: 120px;
+  border-radius: 10px;
+  border: solid 3px #fff;
+  box-shadow: 0 0 3px 2px #ccc;
+}
+
+
+.cropped-64x64 {
+  width: 64px; /* width of container */
+  height: 64px; /* height of container */
+  overflow: hidden;
+}
+
+.cropped-256x256 {
+  width: 256px; /* width of container */
+  height: 256px; /* height of container */
+  overflow: hidden;
+}
+
+.cropped-rounded-32x32 {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.cropped-rounded-256x256 {
+  width: 256px; /* width of container */
+  height: 256px; /* height of container */
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+/*.cropped img {*/
+/*  margin: -10px 0px 0px -180px;*/
+/*}*/

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <img class="image is-128x128" v-lazy=" user.profilePicture.src"
-         :src="placeholder"
-         :alt="user.profilePicture.alt"
-         @error="imageLoadError">
+    <figure class="cropped-rounded-256x256">
+      <img v-lazy=" user.profilePicture.src"
+           :src="placeholder"
+           :alt="user.profilePicture.alt"
+           @error="imageLoadError">
+    </figure>
+
 
     <SingleFileUpload class="uploadButton" :parent-folder-ref="parentFolderRef"
                       :upload-completed="updateProfilePicture"/>
