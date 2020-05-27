@@ -1,11 +1,13 @@
 export interface Image {
     src: string;
-    alt: string
+    alt: string;
+    name?: string;
+    default?: boolean
 }
 
-export const AnonymousUserImage: Image = {
-    src: '/img/anonymous-user.svg',
-    alt: 'anonymous user picture'
+export const DefaultUserPhoto: Image = {
+    src: '/img/default-profile.svg',
+    alt: ' user default picture'
 }
 
 export interface ProviderData {
@@ -15,7 +17,7 @@ export interface ProviderData {
 export interface StoredUser {
     name: string
     email: string
-    profilePicture: Image
+    profilePhoto: Image
     userId: string,
     verified: boolean
     providers: ProviderData[]

@@ -2,7 +2,6 @@ import { NotificationMessage, NotificationState, RootState } from "~/types";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 
 export const state = (): NotificationState => ({
-  message: null
 });
 
 export const getters: GetterTree<NotificationState, RootState> = {

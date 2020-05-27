@@ -28,7 +28,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProfileImagePlaceholder, ProviderData } from "~/types";
+  import { ProfilePhotoPlaceholder, ProviderData } from "~/types";
 
   @Component({
     components: {}
@@ -37,11 +37,11 @@
     @Prop({ type: Object, required: false }) providerData !: ProviderData;
 
     get placeholder() {
-      return ProfileImagePlaceholder
+      return ProfilePhotoPlaceholder
     }
 
     imageLoadError(event: any) {
-      event.target.src = ProfileImagePlaceholder
+      event.target.src = ProfilePhotoPlaceholder
     }
 
   }

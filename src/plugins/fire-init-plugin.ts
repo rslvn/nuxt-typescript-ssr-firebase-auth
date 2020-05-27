@@ -42,5 +42,6 @@ export const storage: firebase.storage.Storage = firebase.storage()
 
 export const TaskEvent = firebase.storage.TaskEvent
 export const TaskState = firebase.storage.TaskState
+export const FieldValue = firebase.firestore.FieldValue;
 
 export default firebase

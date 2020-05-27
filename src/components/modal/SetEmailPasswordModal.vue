@@ -6,7 +6,7 @@
 
       <LoginForm v-if="showLogin && !!passwordProvider" :show-forget-password="false" :show-register-link="false"
                  :sign-in-with-email="reauthenticateWithCredential"
-                 :email="user.email" :remember-me="rememberMe" :show-remember-me="false"
+                 :email="storedUser.email" :remember-me="rememberMe" :show-remember-me="false"
                  :callback="loginSuccessCallback" class="has-margin-bottom-15"/>
 
       <SocialLogin v-if="showLogin && socialProviders.length > 0" :providers="linkedProviders"
@@ -16,7 +16,7 @@
                    :callback="loginSuccessCallback" :reauthenticate="true"/>
 
       <SetEmailPasswordForm v-if="!showLogin" :title="$t('provider.linkPasswordProvider.passwordForm.title')"
-                            :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: user.email})"
+                            :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: storedUser.email})"
                             :button-text="$t('provider.linkPasswordProvider.passwordForm.submit')"
                             :confirm-credentials="handleConfirmCredentials"/>
     </section>
@@ -50,7 +50,7 @@
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action reauthenticateWithCredential !: (credentials: LoginCredentials) => void;
 
-    @Prop({ type: Object, required: true }) user !: StoredUser;
+    @Prop({ type: Object, required: true }) storedUser !: StoredUser;
     @Prop({ type: Array, required: true }) linkedProviders !: ProviderConfig[];
     @Prop({ type: Function, required: true }) confirmCredentials !: (credentials: LoginCredentials) => void;
 

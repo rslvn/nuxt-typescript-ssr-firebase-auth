@@ -1,7 +1,8 @@
 <template>
   <div class="box">
 
-    <b-field v-for="(providerLink, key) in allProviders" :key="key" :label="providerLink.providerConfig.providerType"
+    <b-field v-for="(providerLink, key) in allProviders" :key="key"
+             :label="getProviderLabel(providerLink.providerConfig.providerType)"
              custom-class="is-medium" horizontal>
       <Provider :provider-config="providerLink.providerConfig"
                 :provider-data="providerLink.providerData"
@@ -28,14 +29,14 @@
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
-  import { getProviderOption } from "~/service/firebase-service";
+  import { getProviderOption } from "~/service/firebase/firebase-service";
 
   @Component({
     components: { Provider }
   })
   export default class ProviderList extends Vue {
 
-    @Prop({ type: Object, required: true }) user !: StoredUser;
+    @Prop({ type: Object, required: true }) storedUser !: StoredUser;
 
     @StateNamespace.auth.Action linkPassword !: (credentials: LoginCredentials) => Promise<void>;
     @StateNamespace.auth.Action linkSocialProvider !: () => Promise<void>;
@@ -43,7 +44,7 @@
 
     get allProviders(): ProviderLink[] {
       return SupportedProviders.map(providerConfig => {
-        let providerData = this.user.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType);
+        let providerData = this.storedUser.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType);
         let linked = !!providerData
         let method = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
         return {
@@ -64,7 +65,11 @@
     }
 
     isLinked(providerType: ProviderType): boolean {
-      return !!this.user.providers.find((providerData) => providerData.providerType === providerType)
+      return !!this.storedUser.providers.find((providerData) => providerData.providerType === providerType)
+    }
+
+    getProviderLabel(providerType: ProviderType) {
+      return this.$t('provider.label.' + providerType)
     }
 
     getLinkMethod(providerType: ProviderType) {
@@ -96,7 +101,7 @@
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
         props: {
-          user: this.user,
+          storedUser: this.storedUser,
           linkedProviders: this.linkedProviders,
           confirmCredentials: this.confirmCredentials
         }

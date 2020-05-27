@@ -35,8 +35,15 @@ export interface StorageRef {
   parameters?: any
 }
 
-export const ProfilePictureStorageRef: StorageRef = {
-  folderRef: 'user/:userId/profilePicture/',
+export const ProfilePhotoStorageRef: StorageRef = {
+  folderRef: 'user/:userId/profilePhoto/',
+  parameters: {
+    userId: ':userId'
+  }
+}
+
+export const CoverPhotoStorageRef: StorageRef = {
+  folderRef: 'user/:userId/coverPhoto/',
   parameters: {
     userId: ':userId'
   }
@@ -88,4 +95,33 @@ export interface ProviderLink {
   providerData?: ProviderData
   linked: boolean,
   method: () => void
+}
+
+/**
+ * firestore types
+ */
+
+export enum collection {
+  USER = 'user'
+}
+
+export interface Image {
+  src: string;
+  alt: string;
+  name?: string;
+  default?: boolean
+}
+
+export interface BaseCollection {
+  id?: string
+  createdAt?: Date
+  createdBy?: string
+  updatedAt?: Date
+  updatedBy?: string
+}
+
+export interface User extends BaseCollection {
+  name: string
+  surname?: string
+  coverPhoto: Image
 }

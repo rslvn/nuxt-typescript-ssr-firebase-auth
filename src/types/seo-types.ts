@@ -1,5 +1,4 @@
-import { Image } from "~/types/backend-types";
-
+import { Image } from "~/types/firebase-types";
 export interface PageMeta {
   title: string
   description: string

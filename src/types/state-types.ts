@@ -2,13 +2,13 @@ import { namespace } from "vuex-class";
 import { StoredUser } from "~/types/backend-types";
 
 export interface AuthState {
-  user: StoredUser | null,
+  storedUser?: StoredUser,
   forceLogout: boolean,
   rememberMe: boolean
 }
 
 export interface NotificationState {
-  message: NotificationMessage | null
+  message?: NotificationMessage
 }
 
 export interface LoadingState {
@@ -42,7 +42,7 @@ export const StateNamespace = {
 
 export const StoreConfig = {
   auth: {
-    setUser: 'auth/setUser',
+    setStoredUser: 'auth/setStoredUser',
     forceLogout: 'auth/forceLogout',
     logout: 'auth/logout',
     saveRememberMe: 'auth/saveRememberMe',

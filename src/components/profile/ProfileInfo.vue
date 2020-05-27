@@ -2,17 +2,17 @@
   <div class="box">
 
     <b-field :label="$t('card.user.userId')" horizontal>
-      <span>{{ user.userId }}</span>
+      <span>{{ storedUser.userId }}</span>
     </b-field>
 
     <b-field :label="$t('card.user.name')" label-position="on-border" horizontal>
-      <span>{{ user.name }}</span>
+      <span>{{ storedUser.name }}</span>
     </b-field>
 
-    <b-field v-if="user.email" :label="$t('card.user.email')" horizontal>
+    <b-field v-if="storedUser.email" :label="$t('card.user.email')" horizontal>
       <b-field grouped>
-        <span>{{ user.email }}</span>
-        <b-tooltip v-if="user.verified" :label="$t('card.user.mailVerified')">
+        <span>{{ storedUser.email }}</span>
+        <b-tooltip v-if="storedUser.verified" :label="$t('card.user.mailVerified')">
           <b-icon type="is-success"
                   class="has-margin-left-15"
                   pack="fas"
@@ -29,7 +29,7 @@
       </b-field>
     </b-field>
 
-    <b-field v-if="passwordProvider && !user.verified" horizontal>
+    <b-field v-if="passwordProvider && !storedUser.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"
@@ -50,7 +50,7 @@
     </b-field>
 
 
-    <b-field v-if="passwordProvider && user.verified" horizontal>
+    <b-field v-if="passwordProvider && storedUser.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"
@@ -83,7 +83,7 @@
   })
   export default class ProfileInfo extends Vue {
 
-    @Prop({ required: true }) user !: StoredUser
+    @Prop({ required: true }) storedUser !: StoredUser
 
     loading = false;
 
@@ -91,7 +91,7 @@
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.user.providers.find((providerData) => providerData.providerType === ProviderType.password) ?
+      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.password) ?
         SupportedProviders.find(provider => provider.providerType === ProviderType.password)
         : undefined
     }
@@ -112,7 +112,7 @@
         canCancel: true,
         onCancel: this.clearMessage,
         props: {
-          user: this.user,
+          storedUser: this.storedUser,
           linkedProviders: [this.passwordProvider],
           confirmCredentials: this.confirmCredentials
         }

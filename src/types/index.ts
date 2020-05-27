@@ -1,5 +1,5 @@
-import { Image } from '~/types/backend-types';
 import { CookieSerializeOptions } from "cookie";
+import { Image } from "~/types/firebase-types";
 
 export * from './backend-types'
 export * from './firebase-types'
@@ -21,7 +21,8 @@ export const SupportedLanguages: SupportedLanguage[] = [
     alias: 'EN',
     flag: {
       src: '/img/flag/rounded/uk.svg',
-      alt: 'England flag'
+      alt: 'England flag',
+      default: true
     }
   },
   {
@@ -30,7 +31,8 @@ export const SupportedLanguages: SupportedLanguage[] = [
     alias: 'TR',
     flag: {
       src: '/img/flag/rounded/tr.svg',
-      alt: 'Turkiye bayragi'
+      alt: 'Turkiye bayragi',
+      default: true
     }
   }
 ]
@@ -42,8 +44,6 @@ export enum AppCookie {
 
 export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
 
-export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none'}
+export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none' }
 
-export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true}
-
-export const ProfileImagePlaceholder = '/img/anonymous-user.svg'
+export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true }

@@ -1,5 +1,5 @@
 import { auth } from '~/plugins/fire-init-plugin'
-import { Plugin } from '@nuxt/types'
+import { NuxtAppOptions, Plugin } from '@nuxt/types'
 import { User } from 'firebase';
 import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
@@ -12,7 +12,7 @@ import {
   StoreConfig
 } from '~/types';
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service';
-import { getStoredUser } from '~/service/firebase-service';
+import { getStoredUser } from '~/service/firebase/firebase-service';
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -33,10 +33,14 @@ const getNextRoute = (route: Route): Location => {
   return { path: route.fullPath }
 }
 
-const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
-
+const setRememberMe = (store: Store<any>, app: NuxtAppOptions) => {
   let rememberMe = app.$cookies.get(AppCookie.rememberMe);
   store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
+}
+
+const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
+
+  setRememberMe(store, app);
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {
@@ -46,7 +50,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       }
 
       let storedUser = getStoredUser(firebaseUser)
-      store.commit(StoreConfig.auth.setUser, storedUser)
+      store.commit(StoreConfig.auth.setStoredUser, storedUser)
 
       if (firebaseUser) {
         // console.log('Firebase user: ', firebaseUser)

@@ -1,21 +1,17 @@
 <template>
   <div>
-    <div class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <TopNavbar/>
-            <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
-          </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <TopNavbar/>
+          <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
         </div>
       </div>
     </div>
-    <div class="section">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <nuxt/>
-          </div>
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <nuxt/>
         </div>
       </div>
     </div>

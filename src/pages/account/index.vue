@@ -1,5 +1,5 @@
 <template>
-  <Profile v-if="storedUser" :user="storedUser"/>
+  <Profile v-if="storedUser" :stored-user="storedUser"/>
 </template>
 
 <script lang="ts">

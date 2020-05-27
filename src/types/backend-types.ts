@@ -1,13 +1,16 @@
-import { ProviderType } from "~/types/firebase-types";
+import { Image, ProviderType } from "~/types/firebase-types";
 
-export interface Image {
-  src: string;
-  alt: string
-}
+export const ProfilePhotoPlaceholder = '/img/default-profile.svg'
+export const CoverPhotoPlaceholder = '/img/default-cover.jpg'
 
-export const AnonymousUserImage: Image = {
-  src: '/img/anonymous-user.svg',
-  alt: 'anonymous user picture'
+export const DefaultUserPhoto: Image = {
+  src: ProfilePhotoPlaceholder,
+  alt: 'default profile picture'
+};
+
+export const DefaultCoverPhoto: Image = {
+  src: CoverPhotoPlaceholder,
+  alt: 'default cover picture'
 };
 
 export interface ProviderData {
@@ -20,9 +23,10 @@ export interface ProviderData {
 }
 
 export interface StoredUser {
-  name: string | undefined
-  email: string
-  profilePicture: Image
+  name: string
+  email?: string
+  profilePicture?: Image
+  profilePhoto: Image
   userId: string,
   verified: boolean
   providers: ProviderData[]

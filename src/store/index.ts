@@ -17,7 +17,7 @@ export const actions: ActionTree<RootState, RootState> = {
           token
         })
         .then((response: AxiosResponse<StoredUser>) => {
-          commit(StoreConfig.auth.setUser, response.data)
+          commit(StoreConfig.auth.setStoredUser, response.data)
         })
         .catch((error: AxiosError) => {
           console.log('Error: ', error)

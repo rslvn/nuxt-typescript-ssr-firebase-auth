@@ -50,6 +50,10 @@
   box-shadow: 0 0 3px 2px #ccc;
 }
 
+.cropped-h512 {
+  height: 400px; /* height of container */
+  overflow: hidden;
+}
 
 .cropped-64x64 {
   width: 64px; /* width of container */
@@ -70,6 +74,20 @@
   border-radius: 50%;
 }
 
+.cropped-rounded-64x64 {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.cropped-rounded-128x128 {
+  width: 128px; /* width of container */
+  height: 128px; /* height of container */
+  overflow: hidden;
+  border-radius: 50%;
+}
+
 .cropped-rounded-256x256 {
   width: 256px; /* width of container */
   height: 256px; /* height of container */
@@ -79,4 +97,44 @@
 
 /*.cropped img {*/
 /*  margin: -10px 0px 0px -180px;*/
+/*}*/
+
+body { overflow-x: hidden; }
+
+@media (max-width: 732px) {
+  .cropped-rounded-256x256 {
+    width: 64px; /* width of container */
+    height: 64px; /* height of container */
+    overflow: hidden;
+    border-radius: 50%;
+  }
+  .is-ellipsis {
+    display: block;
+    width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .cropped-h512 {
+    height: 200px; /* height of container */
+    overflow: hidden;
+  }
+}
+
+/*@media screen and (max-width: 1024px) {*/
+/*  .columns {*/
+/*    margin-left: 0;*/
+/*    margin-right: 0;*/
+/*  }*/
+/*}*/
+
+/*@media screen and (min-width: 768px) {*/
+
+/*  .columns {*/
+/*    margin-left: -2rem;*/
+/*    margin-right: -2rem;*/
+/*    margin-top: -2rem;*/
+/*  }*/
+
 /*}*/

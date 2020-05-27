@@ -98,6 +98,12 @@ const messages = {
   },
 
   provider: {
+    label: {
+      password: 'Password',
+      google: { com: 'Google' },
+      twitter: { com: 'Twitter' },
+      facebook: { com: 'Facebook' }
+    },
     linkPasswordProvider: {
       socialLogin: {
         title: 'Social Login',

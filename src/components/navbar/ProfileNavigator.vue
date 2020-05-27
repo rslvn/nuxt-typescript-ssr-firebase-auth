@@ -4,7 +4,7 @@
     <template slot="label" class="is-grouped">
       <b-field grouped>
         <figure class="image is-32x32 has-margin-right-5">
-          <img :src="userPicture.src" :alt="userPicture.alt" @error="imageLoadError">
+          <img :src="profilePhoto.src" :alt="profilePhoto.alt" @error="imageLoadError">
         </figure>
         <span><b>{{ storedUser.name || storedUser.email }}</b></span>
       </b-field>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AnonymousUserImage, Image, ProfileImagePlaceholder, RouteType, StoredUser } from "~/types";
+  import { DefaultUserPhoto, Image, ProfilePhotoPlaceholder, RouteType, StoredUser } from "~/types";
 
   @Component({
     components: {}
@@ -38,12 +38,12 @@
     @Prop({ required: true }) storedUser !: StoredUser;
     @Prop({ type: Function, required: true }) logout !: () => void;
 
-    get userPicture(): Image {
-      return this.storedUser.profilePicture || AnonymousUserImage
+    get profilePhoto(): Image {
+      return this.storedUser.profilePhoto || DefaultUserPhoto
     }
 
     imageLoadError(event: any) {
-      event.target.src = ProfileImagePlaceholder
+      event.target.src = ProfilePhotoPlaceholder
     }
 
   }

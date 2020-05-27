@@ -1,11 +1,9 @@
 <template>
-  <b-field class="file">
-    <b-upload v-model="file" accept="image/*" :loading="loading">
-      <a class="button is-light">
-        <b-icon icon="camera"></b-icon>
-      </a>
-    </b-upload>
-  </b-field>
+  <b-upload v-model="file" accept="image/*" :loading="loading">
+    <a class="button is-light">
+      <b-icon icon="camera"></b-icon>
+    </a>
+  </b-upload>
 </template>
 
 <script lang="ts">
@@ -13,6 +11,7 @@
   import { getNewFileName } from '~/service/global-service'
   import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
   import { handleError } from '~/service/error-service'
+  import { Image } from "~/types";
 
   @Component({
     components: {}
@@ -20,16 +19,19 @@
   export default class SingleFileUpload extends Vue {
 
     @Prop({ type: String, required: true }) parentFolderRef !: string
-    @Prop({ type: Function, required: true }) uploadCompleted !: (fileUrl: string) => void
+    @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
+    @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
 
     loading = false
     file: File | null = null
-    uploadTask: firebase.storage.UploadTask | null = null
+    fileName = ''
+    uploadTask : firebase.storage.UploadTask | null = null
 
     @Watch('file')
     onFileChanged(file: File, oldFile: File) {
-      let fileName = this.parentFolderRef + getNewFileName(file.name);
-      this.uploadTask = storage.ref().child(fileName).put(file)
+      this.fileName = this.parentFolderRef + getNewFileName(file.name)
+      this.uploadTask = storage.ref().child(this.fileName).put(file)
+      console.log('onFileChanged: ', this.fileName)
     }
 
     @Watch('uploadTask')
@@ -47,8 +49,13 @@
         () => {
           this.uploadTask?.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              console.log('File available at', downloadURL)
-              this.uploadCompleted(downloadURL)
+              let image: Image = {
+                name: this.fileName,
+                src: downloadURL,
+                alt: this.getAltValue(this.file?.name || ''),
+              }
+
+              this.uploadCompleted(image)
             });
         });
     }

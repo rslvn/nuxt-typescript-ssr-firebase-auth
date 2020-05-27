@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div :class="{box: isLinked}">
     <ProviderInfo v-if="providerData" :provider-data="providerData"/>
 
     <b-field horizontal>
@@ -13,7 +13,8 @@
                   :class="isLinked ? '': 'has-text-black'"
                   :icon-right="providerConfig.icon" @click="submit" outlined>
         <span
-          class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}</span>
+          class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}
+        </span>
         </b-button>
       </b-tooltip>
     </b-field>

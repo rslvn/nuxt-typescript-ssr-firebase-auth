@@ -4,6 +4,8 @@ import {
   AppCookie,
   AuthState,
   cookieOptions,
+  DefaultCoverPhoto,
+  Image,
   LoginCredentials,
   ProviderData,
   ProviderType,
@@ -22,25 +24,25 @@ import {
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { getProviderData, getProviderOption } from "~/service/firebase-service";
+import { getProviderData, getProviderOption } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
+import { saveUser } from "~/service/firebase/firestore-service";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 
 export const state = (): AuthState => ({
-  user: null,
   forceLogout: false,
   rememberMe: true
 })
 
 export const getters: GetterTree<AuthState, RootState> = {
-  storedUser: (state) => state.user,
+  storedUser: (state) => state.storedUser,
   rememberMe: (state) => state.rememberMe
 }
 
 export const mutations: MutationTree<AuthState> = {
-  setUser(state, user: StoredUser) {
-    state.user = user
+  setStoredUser(state, storedUser: StoredUser) {
+    state.storedUser = storedUser
   },
   forceLogout(state, forceLogout: boolean) {
     state.forceLogout = forceLogout
@@ -49,39 +51,39 @@ export const mutations: MutationTree<AuthState> = {
     state.rememberMe = rememberMe
   },
   setVerified(state) {
-    if (state.user) {
-      state.user.verified = true
+    if (state.storedUser) {
+      state.storedUser.verified = true
     }
   },
   setName(state, name: string) {
-    if (state.user) {
-      state.user.name = name
+    if (state.storedUser) {
+      state.storedUser.name = name
     }
   },
-  setProfilePicture(state, profilePicture: string) {
-    if (state.user) {
-      state.user.profilePicture.src = profilePicture
+  setProfilePhoto(state, profilePhotoUrl: string) {
+    if (state.storedUser) {
+      state.storedUser.profilePhoto.src = profilePhotoUrl
     }
   },
   addProvider(state, providerData: ProviderData) {
-    if (state.user && providerData) {
-      state.user.providers.push(providerData)
+    if (state.storedUser && providerData) {
+      state.storedUser.providers.push(providerData)
     }
   },
   removeProvider(state, providerType: ProviderType) {
-    if (state.user) {
-      const index = state.user.providers.findIndex((providerData) => providerData.providerType === providerType)
+    if (state.storedUser) {
+      const index = state.storedUser.providers.findIndex((providerData) => providerData.providerType === providerType)
 
       if (index > -1) {
-        state.user.providers.splice(index, 1)
+        state.storedUser.providers.splice(index, 1)
       }
     }
   }
 }
 
 export const actions: ActionTree<AuthState, RootState> = {
-  async saveUser({ commit }, user: StoredUser) {
-    commit('setUser', user);
+  async saveUser({ commit }, storedUser: StoredUser) {
+    commit('setStoredUser', storedUser);
   },
   async saveRememberMe({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.rememberMe, rememberMe, cookieOptions)
@@ -118,7 +120,16 @@ export const actions: ActionTree<AuthState, RootState> = {
     await auth
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (userCredential: UserCredential) => {
-
+        // save user to db
+        await saveUser({
+          id: userCredential.user?.uid as string,
+          name: credentials.name,
+          coverPhoto: DefaultCoverPhoto
+        })
+        return userCredential;
+      })
+      .then(async (userCredential: UserCredential) => {
+        // update user display name on firebase authentication
         await userCredential?.user
           ?.updateProfile({
             displayName: credentials.name
@@ -126,7 +137,10 @@ export const actions: ActionTree<AuthState, RootState> = {
           .then(() => {
             commit('setName', credentials.name)
           })
-
+        return userCredential;
+      })
+      .then(async (userCredential: UserCredential) => {
+        // send verification mail
         await userCredential?.user?.sendEmailVerification()
           .then(() =>
             sendNotification(dispatch,
@@ -140,13 +154,13 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateProfilePicture({ commit }, profilePictureUrl: string) {
+  async updateProfilePhoto({ commit }, profilePhotoUrl: Image) {
     await auth.currentUser
       ?.updateProfile({
-        photoURL: profilePictureUrl
+        photoURL: profilePhotoUrl.src
       })
       .then(() => {
-        commit('setProfilePicture', profilePictureUrl)
+        commit('setProfilePhoto', profilePhotoUrl)
       })
   },
 
@@ -156,7 +170,12 @@ export const actions: ActionTree<AuthState, RootState> = {
     await auth.setPersistence(persistence)
       .then(async () => {
         await auth.signInWithPopup(authProvider)
-          .then(async () => {
+          .then(async (userCredential) => {
+            await saveUser({
+              id: userCredential.user?.uid as string,
+              name: userCredential.user?.displayName as string,
+              coverPhoto: DefaultCoverPhoto
+            })
             if (credentials.callback) {
               credentials.callback()
             }
