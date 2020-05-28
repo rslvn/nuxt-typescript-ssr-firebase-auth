@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <ProfileCover :cover-photo="coverPhoto" :stored-user="storedUser"/>
+      <CoverPhoto :stored-user="storedUser" :cover-photo="coverPhoto"/>
       <div class="has-margin-top-10 has-margin-bottom-10">
         <article class="media has-margin-left-5">
           <div class="media-left">
@@ -51,7 +51,6 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import {
-    DefaultCoverPhoto,
     Image,
     ProfilePhotoStorageRef,
     ProviderConfig,
@@ -62,17 +61,16 @@
   } from "~/types";
   import ProfileInfo from "~/components/profile/ProfileInfo.vue";
   import ProfilePhoto from "~/components/profile/ProfilePhoto.vue";
-  import ProfileCover from "~/components/profile/ProfileCover.vue";
+  import CoverPhoto from "~/components/profile/CoverPhoto.vue";
   import ProviderList from "~/components/profile/ProviderList.vue";
 
   @Component({
-    components: { ProfileCover, ProviderList, ProfilePhoto, ProfileInfo },
+    components: { CoverPhoto, ProfilePhoto, ProviderList, ProfileInfo },
   })
   export default class Profile extends Vue {
 
-    coverPhoto: Image = DefaultCoverPhoto
-
     @Prop({ required: true }) storedUser !: StoredUser;
+    @Prop({ required: true }) coverPhoto !: Image;
 
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
 

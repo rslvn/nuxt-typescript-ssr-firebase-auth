@@ -1,5 +1,5 @@
 import { User, UserInfo } from 'firebase'
-import { DefaultUserPhoto, ProviderData, ProviderType, StoredUser } from '~/types'
+import { DefaultCoverPhoto, DefaultProfilePhoto, ProviderData, ProviderType, StoredUser } from '~/types'
 
 export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
   return userInfo ? {
@@ -18,8 +18,8 @@ export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
       name: firebaseUser.displayName as string,
       email: firebaseUser.email as string,
       profilePhoto: {
-        src: firebaseUser.photoURL || DefaultUserPhoto.src,
-        alt: firebaseUser.displayName ? 'Picture of ' + firebaseUser.displayName : DefaultUserPhoto.alt
+        src: firebaseUser.photoURL || DefaultProfilePhoto.src,
+        alt: firebaseUser.displayName ? 'Picture of ' + firebaseUser.displayName : DefaultProfilePhoto.alt
       },
       userId: firebaseUser.uid,
       verified: firebaseUser.emailVerified,

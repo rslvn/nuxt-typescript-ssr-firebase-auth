@@ -15,9 +15,9 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
+  import { Context } from "@nuxt/types";
   import SetPasswordForm from "~/components/form/SetPasswordForm.vue";
   import { NotificationMessage, RouteParameters, StateNamespace } from "~/types";
-  import { Context } from "@nuxt/types";
   import { getWarningNotificationMessage } from "~/service/notification-service";
 
   @Component({

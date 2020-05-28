@@ -1,3 +1,5 @@
+import { BaseCollection } from "../../src/types";
+
 export interface Image {
     src: string;
     alt: string;
@@ -5,20 +7,23 @@ export interface Image {
     default?: boolean
 }
 
-export const DefaultUserPhoto: Image = {
-    src: '/img/default-profile.svg',
-    alt: ' user default picture'
-}
-
 export interface ProviderData {
     providerType: string
 }
 
-export interface StoredUser {
+export interface UserDTO {
     name: string
     email: string
     profilePhoto: Image
     userId: string,
     verified: boolean
     providers: ProviderData[]
+}
+
+export interface User extends BaseCollection {
+    id: string
+    name: string
+    surname: string
+    profilePhoto: Image
+    coverPhoto: Image
 }

@@ -121,7 +121,8 @@ export interface BaseCollection {
 }
 
 export interface User extends BaseCollection {
-  name: string
+  name?: string
   surname?: string
-  coverPhoto: Image
+  profilePhoto?: Image
+  coverPhoto?: Image
 }

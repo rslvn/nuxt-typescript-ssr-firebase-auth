@@ -10,7 +10,7 @@
       </b-field>
     </template>
 
-    <b-navbar-item tag="router-link" :to="accountRoute" active>
+    <b-navbar-item tag="router-link" :to="profileRoute" active>
       <b-icon pack="fas" icon="user"/>
       <span>{{$t('topNavbar.profile')}}</span>
     </b-navbar-item>
@@ -26,20 +26,20 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { DefaultUserPhoto, Image, ProfilePhotoPlaceholder, RouteType, StoredUser } from "~/types";
+  import { DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType, StoredUser } from "~/types";
 
   @Component({
     components: {}
   })
   export default class ProfileNavigator extends Vue {
 
-    accountRoute = RouteType.ACCOUNT;
+    profileRoute = RouteType.PROFILE;
 
     @Prop({ required: true }) storedUser !: StoredUser;
     @Prop({ type: Function, required: true }) logout !: () => void;
 
     get profilePhoto(): Image {
-      return this.storedUser.profilePhoto || DefaultUserPhoto
+      return this.storedUser.profilePhoto || DefaultProfilePhoto
     }
 
     imageLoadError(event: any) {

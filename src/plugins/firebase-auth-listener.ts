@@ -27,7 +27,7 @@ const getNextRoute = (route: Route): Location => {
   }
 
   if (authenticatedNotAllowed(route) || route.path == RouteType.ACTION.path) {
-    return RouteType.ACCOUNT
+    return RouteType.PROFILE
   }
 
   return { path: route.fullPath }

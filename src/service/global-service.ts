@@ -37,7 +37,7 @@ export const slugify = (text: string): string => {
 }
 
 export const authenticatedAllowed = (route: Route): boolean => {
-  return route.matched.some(record => record.path.startsWith(RouteType.ACCOUNT.path))
+  return route.matched.some(record => record.path.startsWith(RouteType.PROFILE.path))
 }
 
 export const authenticatedNotAllowed = (route: Route): boolean => {

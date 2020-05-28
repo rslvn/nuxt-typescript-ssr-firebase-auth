@@ -66,7 +66,10 @@ See the [Features](#features) for more functionalities
         - [x] the url same as hosting
         - [x] dynamic sitemap
     - [x] firebase-storage
-        - [x] profile picture
+        - [x] profile photo
+        - [x] cover photo
+    - [x] firestore
+        - [x] user collection
     - [x] firebase-auth
         - [x] firebase-auth password
             - [x] register

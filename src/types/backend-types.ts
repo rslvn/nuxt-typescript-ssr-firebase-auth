@@ -3,14 +3,16 @@ import { Image, ProviderType } from "~/types/firebase-types";
 export const ProfilePhotoPlaceholder = '/img/default-profile.svg'
 export const CoverPhotoPlaceholder = '/img/default-cover.jpg'
 
-export const DefaultUserPhoto: Image = {
+export const DefaultProfilePhoto: Image = {
   src: ProfilePhotoPlaceholder,
-  alt: 'default profile picture'
+  alt: 'default profile picture',
+  default: true
 };
 
 export const DefaultCoverPhoto: Image = {
   src: CoverPhotoPlaceholder,
-  alt: 'default cover picture'
+  alt: 'default cover picture',
+  default: true
 };
 
 export interface ProviderData {
@@ -25,8 +27,7 @@ export interface ProviderData {
 export interface StoredUser {
   name: string
   email?: string
-  profilePicture?: Image
-  profilePhoto: Image
+  profilePhoto?: Image
   userId: string,
   verified: boolean
   providers: ProviderData[]

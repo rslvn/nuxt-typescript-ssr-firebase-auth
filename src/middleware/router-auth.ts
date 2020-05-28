@@ -6,7 +6,7 @@ const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
   console.log('routerAuthMiddleware', route.fullPath, route.query, store.state.auth.storedUser)
   if (store.state.auth.storedUser) {
     if (authenticatedNotAllowed(route)) {
-      redirect(RouteType.ACCOUNT)
+      redirect(RouteType.PROFILE)
     }
   } else {
     if (authenticatedAllowed(route)) {

@@ -16,7 +16,8 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import {
-    DefaultUserPhoto,
+    DefaultProfilePhoto,
+    Image,
     ProfilePhotoPlaceholder,
     ProfilePhotoStorageRef,
     StateNamespace,
@@ -30,16 +31,15 @@
   export default class ProfilePhoto extends Vue {
 
     @Prop({ required: true }) storedUser !: StoredUser
-
-    @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
+    @StateNamespace.auth.Action updateProfilePhoto !: (profilePhoto: Image) => void;
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef
         .replace(ProfilePhotoStorageRef.parameters.userId, this.storedUser.userId)
     }
 
-    get profilePhoto(){
-      return this.storedUser.profilePhoto || this.storedUser.profilePicture || DefaultUserPhoto
+    get profilePhoto() {
+      return this.storedUser.profilePhoto || DefaultProfilePhoto
     }
 
     get placeholder() {
@@ -51,7 +51,7 @@
     }
 
     getProfilePhotoAltValue(fileName: string) {
-      return fileName;
+      return `Profile photo of ${this.storedUser.name} as ${fileName}`
     }
   }
 </script>

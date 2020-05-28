@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import admin from '../firebase-admin/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { addDecodedIdToken } from "../firebase-admin/firebase-admin-service";
-import { DefaultUserPhoto, ProviderType, StoredUser } from '../../types'
+import { collection, ProviderType, StoredUser, User } from '../../types'
 
 let service = '/auth';
 
@@ -28,29 +28,26 @@ router.post(service, async (req: Request, res: Response) => {
   }
 
   await addDecodedIdToken(req.body.token)
-    .then((decodedIdToken: admin.auth.DecodedIdToken) => {
+    .then(async (decodedIdToken: admin.auth.DecodedIdToken) => {
+      const user = await admin.firestore().collection(collection.USER).doc(decodedIdToken.sub).get().then((document) => {
+        return document.data() as User
+      })
+      if (!user) {
+        throw new Error('User not found by id: ' + decodedIdToken.sub)
+      }
 
-      const alt = decodedIdToken.name as string || decodedIdToken.email as string;
-
-      const profilePhoto = decodedIdToken.picture ?
-        {
-          src: decodedIdToken.picture,
-          alt: 'Picture of ' + alt
-        }
-        : DefaultUserPhoto
-
-      let user: StoredUser = {
+      const storedUser: StoredUser = {
         name: decodedIdToken.name,
         verified: decodedIdToken.email_verified as boolean,
         email: decodedIdToken.email as string,
-        profilePhoto: profilePhoto,
+        profilePhoto: user.profilePhoto,
         userId: decodedIdToken.sub,
         providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
       };
 
       console.log(service, 'returns user: ', user);
 
-      return res.status(200).json(user);
+      return res.status(200).json(storedUser);
     })
     .catch((error) => handleFirebaseError(res, error));
 });

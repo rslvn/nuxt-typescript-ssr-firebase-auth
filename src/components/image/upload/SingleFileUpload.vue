@@ -53,8 +53,8 @@
                 name: this.fileName,
                 src: downloadURL,
                 alt: this.getAltValue(this.file?.name || ''),
+                default: false
               }
-
               this.uploadCompleted(image)
             });
         });

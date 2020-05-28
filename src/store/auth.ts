@@ -5,6 +5,7 @@ import {
   AuthState,
   cookieOptions,
   DefaultCoverPhoto,
+  DefaultProfilePhoto,
   Image,
   LoginCredentials,
   ProviderData,
@@ -60,11 +61,12 @@ export const mutations: MutationTree<AuthState> = {
       state.storedUser.name = name
     }
   },
-  setProfilePhoto(state, profilePhotoUrl: string) {
+  setProfilePhoto(state, profilePhoto: Image) {
     if (state.storedUser) {
-      state.storedUser.profilePhoto.src = profilePhotoUrl
+      state.storedUser.profilePhoto = profilePhoto
     }
   },
+
   addProvider(state, providerData: ProviderData) {
     if (state.storedUser && providerData) {
       state.storedUser.providers.push(providerData)
@@ -124,6 +126,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         await saveUser({
           id: userCredential.user?.uid as string,
           name: credentials.name,
+          profilePhoto: DefaultProfilePhoto,
           coverPhoto: DefaultCoverPhoto
         })
         return userCredential;
@@ -154,14 +157,32 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateProfilePhoto({ commit }, profilePhotoUrl: Image) {
+  async updateProfilePhoto({ commit, dispatch }, profilePhoto: Image) {
     await auth.currentUser
       ?.updateProfile({
-        photoURL: profilePhotoUrl.src
+        photoURL: profilePhoto.src
       })
       .then(() => {
-        commit('setProfilePhoto', profilePhotoUrl)
+        saveUser({
+          id: auth.currentUser?.uid as string,
+          profilePhoto
+        })
       })
+      .then(() => {
+        commit('setProfilePhoto', profilePhoto)
+      })
+      .catch((error: Error) => handleError(dispatch, error))
+  },
+
+  async updateCoverPhoto({ commit, dispatch }, coverPhoto: Image) {
+    await saveUser({
+      id: auth.currentUser?.uid,
+      coverPhoto: coverPhoto
+    }).then((user) => {
+      console.log('updateCoverPhoto: ', user)
+      // commit('setCoverPhoto', coverPhoto);
+    })
+      .catch((error: Error) => handleError(dispatch, error))
   },
 
   async signInWithSocialProvider({ dispatch }, credentials: SocialLoginCredentials) {
@@ -174,6 +195,7 @@ export const actions: ActionTree<AuthState, RootState> = {
             await saveUser({
               id: userCredential.user?.uid as string,
               name: userCredential.user?.displayName as string,
+              profilePhoto: DefaultProfilePhoto,
               coverPhoto: DefaultCoverPhoto
             })
             if (credentials.callback) {

@@ -22,7 +22,7 @@ const set = async (collection: string, model: BaseCollection) => {
       // get updated doc
       return docRef.get()
         .then((doc) => {
-          return doc.data()
+          return doc.data() as BaseCollection
         }).catch((error) => {
           throw error;
         });
@@ -43,6 +43,16 @@ export const saveModel = async (collection: string, model: BaseCollection) => {
     add(collection, model)
 };
 
-export const saveUser = async (user: User) => {
-  return saveModel(collection.USER, user)
+export const getModelById = async (collection: string, id: string): Promise<BaseCollection> => {
+  return await firestore.collection(collection).doc(id).get().then((doc) => {
+    return doc.data() as BaseCollection
+  })
+}
+
+export const saveUser = async (user: User): Promise<User> => {
+  return await saveModel(collection.USER, user)
+};
+
+export const getUser = async (id: string): Promise<User> => {
+  return getModelById(collection.USER, id)
 };
