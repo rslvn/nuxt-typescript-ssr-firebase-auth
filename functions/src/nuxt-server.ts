@@ -47,8 +47,7 @@ app.use(handleRequest)
 
 const runtimeOpts: RuntimeOptions = {
     timeoutSeconds: 300,
-    memory: '2GB',
-    maxInstances: 1
+    memory: '2GB'
 }
 
 export const nuxtOnFunction = runWith(runtimeOpts)

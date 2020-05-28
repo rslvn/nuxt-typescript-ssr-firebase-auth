@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import { addDecodedIdToken } from '../service/firebase-admin-utils';
-import { User, UserDTO } from '../types'
+import { collection, User, UserDTO } from '../types'
 import admin from '../service/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { RuntimeOptions, runWith } from "firebase-functions";
@@ -31,7 +31,7 @@ router.post(service, async (req: Request, res: Response) => {
 
     return await addDecodedIdToken(req.body.token)
         .then(async (decodedIdToken: admin.auth.DecodedIdToken) => {
-            const user = await admin.firestore().doc(decodedIdToken.sub).get().then((document) => {
+            const user = await admin.firestore().collection(collection.USER).doc(decodedIdToken.sub).get().then((document) => {
                 return document.data() as User
             })
             if (!user) {
@@ -56,8 +56,7 @@ app.use('/api', router)
 
 const runtimeOpts: RuntimeOptions = {
     timeoutSeconds: 300,
-    memory: '1GB',
-    maxInstances: 1
+    memory: '1GB'
 }
 
 export const authApi = runWith(runtimeOpts)

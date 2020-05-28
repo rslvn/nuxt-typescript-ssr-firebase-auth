@@ -1,4 +1,6 @@
-import { BaseCollection } from "../../src/types";
+export enum collection {
+    USER = 'user'
+}
 
 export interface Image {
     src: string;
@@ -20,7 +22,7 @@ export interface UserDTO {
     providers: ProviderData[]
 }
 
-export interface User extends BaseCollection {
+export interface User {
     id: string
     name: string
     surname: string

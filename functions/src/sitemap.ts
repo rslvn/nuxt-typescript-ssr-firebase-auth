@@ -20,7 +20,7 @@ router.get(service, (req: Request, res: Response) => {
     }
 
     try {
-        const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app//' })
+        const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app/' })
         const pipeline = smStream.pipe(createGzip())
 
         smStream.write({ url: '/', changefreq: 'weekly', priority: 0.8 })
@@ -45,8 +45,7 @@ router.get(service, (req: Request, res: Response) => {
 app.use(router)
 
 const runtimeOpts: RuntimeOptions = {
-    timeoutSeconds: 300,
-    maxInstances: 1
+    timeoutSeconds: 300
 }
 
 export const sitemapApp = runWith(runtimeOpts)
