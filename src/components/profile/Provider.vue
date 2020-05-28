@@ -1,33 +1,30 @@
 <template>
-  <div :class="{box: isLinked}">
-    <ProviderInfo v-if="providerData" :provider-data="providerData"/>
-
-    <b-field horizontal>
+  <div class="box">
+    <div class="has-text-centered">
+      <h3> {{ getProviderLabel(providerConfig.providerType) }} </h3>
       <b-tooltip
-        :label="getLabel(providerConfig.providerType)"
+        :label="getTooltip(providerConfig.providerType)"
         :type="isLinked ? 'is-light': 'is-success'"
-        class="has-margin-top-10 is-right"
+        class="has-margin-top-10 has-margin-bottom-15 is-fullwidth"
         multilined>
 
         <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
                   :class="isLinked ? '': 'has-text-black'"
-                  :icon-right="providerConfig.icon" @click="submit" outlined>
+                  :icon-right="providerConfig.icon" @click="submit" outlined expanded>
         <span
           class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}
         </span>
         </b-button>
       </b-tooltip>
-    </b-field>
-
+    </div>
+    <ProviderInfo v-if="providerData" :provider-data="providerData"/>
   </div>
-
-
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderData, ProviderType } from "~/types";
-  import ProviderInfo from "~/components/profile/ProviderInfo.vue";
+  import { ProviderConfig, ProviderData, ProviderType } from '~/types';
+  import ProviderInfo from '~/components/profile/ProviderInfo.vue';
 
   @Component({
     components: { ProviderInfo }
@@ -60,11 +57,15 @@
       })
     }
 
-    getLabel(providerType: ProviderType) {
+    getTooltip(providerType: ProviderType) {
       let provider = providerType.replace('.com', '');
       return this.isLinked ?
         this.$t('provider.tooltip.linkedProvider', { provider }) :
         this.$t('provider.tooltip.unlinkedProvider', { provider });
+    }
+
+    getProviderLabel(providerType: ProviderType) {
+      return this.$t('provider.label.' + providerType)
     }
 
   }

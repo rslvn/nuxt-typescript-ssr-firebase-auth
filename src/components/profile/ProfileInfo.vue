@@ -75,8 +75,8 @@
     StateNamespace,
     StoredUser,
     SupportedProviders
-  } from "~/types";
-  import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
+  } from '~/types';
+  import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue';
 
   @Component({
     components: {}

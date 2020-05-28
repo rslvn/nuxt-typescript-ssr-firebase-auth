@@ -15,7 +15,7 @@ const messages = {
       confirmPasswordPlaceHolder: 'Re-enter password',
       rememberMe: 'Remember Me',
     },
-    cancel: 'Cancel'
+    cancel: 'Cancel',
   },
 
   topNavbar: {
@@ -23,17 +23,17 @@ const messages = {
     profile: 'Profile',
     register: 'Register',
     login: 'Login',
-    logout: 'Logout'
+    logout: 'Logout',
   },
 
   page: {
     home: {
       title: 'Welcome to Home',
-      goToSource: 'Go to source on <b>Github</b>'
+      goToSource: 'Go to source on <b>Github</b>',
     },
     action: {
-      processing: 'Processing... Please wait.'
-    }
+      processing: 'Processing... Please wait.',
+    },
   },
 
   notification: {
@@ -48,35 +48,35 @@ const messages = {
     unlinkNotAllowed: 'The last provider <b>{provider}</b> can not be unlinked',
     passwordUpdated: 'Your password updated successfully',
     missingActionCode: 'Action code is missing',
-    unknownAction: 'You are not allowed to execute that process'
+    unknownAction: 'You are not allowed to execute that process',
   },
 
   form: {
     forgetPassword: {
       title: 'Forget Password',
-      submit: 'Send Email'
+      submit: 'Send Email',
     },
     loginForm: {
       title: 'Login',
       submit: 'Login',
       forgetPassword: 'forgot my password',
-      noAccount: 'No account? SignUp!'
+      noAccount: 'No account? SignUp!',
     },
     social: {
       title: {
         login: 'Social Login',
-        register: 'Social Register'
+        register: 'Social Register',
       },
       loginWith: 'Login with {provider}',
     },
     resetPassword: {
       title: 'Reset Password',
-      submit: 'Change Password'
+      submit: 'Change Password',
     },
     registerForm: {
       title: 'Register',
       submit: 'Register',
-      hasAccount: 'Already has an account? Login!'
+      hasAccount: 'Already has an account? Login!',
     },
   },
 
@@ -90,11 +90,11 @@ const messages = {
       verifyButton: 'Verify Email',
       updatePasswordButton: 'Update Password',
       mailVerified: 'Email is verified',
-      mailNotVerified: 'Email is not verified'
+      mailNotVerified: 'Email is not verified',
     },
     linkedAccounts: {
-      title: 'Linked Accounts:'
-    }
+      title: 'Linked Accounts:',
+    },
   },
 
   provider: {
@@ -102,43 +102,44 @@ const messages = {
       password: 'Password',
       google: { com: 'Google' },
       twitter: { com: 'Twitter' },
-      facebook: { com: 'Facebook' }
+      facebook: { com: 'Facebook' },
     },
     linkPasswordProvider: {
       socialLogin: {
         title: 'Social Login',
       },
-      passwordForm:
-        {
-          title: 'Set Password',
-          description: 'Set a  password for <b>{email}</b>',
-          submit: 'Save Password'
-        }
+      passwordForm: {
+        title: 'Set Password',
+        description: 'Set a  password for <b>{email}</b>',
+        submit: 'Save Password',
+      },
     },
     submit: {
       link: 'Link',
-      unlink: 'Unlink'
+      unlink: 'Unlink',
     },
     info: {
       displayName: 'Display Name:',
       email: 'Email:',
       phoneNumber: 'Phone Number:',
-      photoURL: 'Photo',
-      uid: 'Id:'
+      photoURL: 'Photo:',
+      uid: 'Id:',
     },
     tooltip: {
-      linkedProvider: '{provider} provider is linked to your account. Click to unlink!',
-      unlinkedProvider: '{provider} provider is not linked to your account. Click to link!'
+      linkedProvider:
+        '{provider} provider is linked to your account. Click to unlink!',
+      unlinkedProvider:
+        '{provider} provider is not linked to your account. Click to link!',
     },
     dialog: {
       delete: {
         title: 'Delete {provider}',
-        message: 'Are you sure you want to <b>delete</b> {provider} from your account?<br>This action cannot be undone.',
-        confirm: 'Delete'
-      }
-    }
-  }
+        message:
+          'Are you sure you want to <b>delete</b> {provider} from your account?<br>This action cannot be undone.',
+        confirm: 'Delete',
+      },
+    },
+  },
+}
 
-};
-
-export default messages;
+export default messages

@@ -1,16 +1,12 @@
 <template>
-  <div class="box">
-
-    <b-field v-for="(providerLink, key) in allProviders" :key="key"
-             :label="getProviderLabel(providerLink.providerConfig.providerType)"
-             custom-class="is-medium" horizontal>
+  <div class="columns is-multiline">
+    <div class="column is-half-tablet is-one-quarter-desktop" v-for="(providerLink, key) in allProviders" :key="key">
       <Provider :provider-config="providerLink.providerConfig"
                 :provider-data="providerLink.providerData"
                 :is-linked="providerLink.linked"
                 :link-function="providerLink.method"
       />
-    </b-field>
-
+    </div>
   </div>
 </template>
 

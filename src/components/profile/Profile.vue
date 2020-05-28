@@ -12,19 +12,6 @@
               <p><strong>{{ storedUser.name }}</strong></p>
               <p>
                 <small>{{ storedUser.email }}</small>
-                <b-tooltip v-if="storedUser.verified" :label="$t('card.user.mailVerified')">
-                  <b-icon type="is-success"
-                          class="has-margin-left-15"
-                          pack="fas"
-                          icon="check"/>
-                </b-tooltip>
-
-                <b-tooltip v-else :label="$t('card.user.mailNotVerified')">
-                  <b-icon type="is-warning"
-                          class="has-margin-left-15"
-                          pack="fas"
-                          icon="exclamation-triangle"/>
-                </b-tooltip>
               </p>
             </div>
           </div>
@@ -32,19 +19,19 @@
       </div>
     </div>
 
-    <div class="columns">
+    <div class="columns is-centered">
 
-      <div class="column">
-        <h2 class="subtitle">{{$t('card.user.title')}}</h2>
+      <div class="column is-half">
+        <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
         <ProfileInfo :stored-user="storedUser"/>
       </div>
 
-      <div class="column">
-        <h2 class="subtitle">{{$t('card.linkedAccounts.title')}}</h2>
-        <ProviderList :stored-user="storedUser"/>
-      </div>
-
     </div>
+
+    <div class="columns is-centered">
+      <div class="column is-half"><h2 class="subtitle has-text-centered">{{$t('card.linkedAccounts.title')}}</h2></div>
+    </div>
+    <ProviderList :stored-user="storedUser"/>
   </div>
 </template>
 

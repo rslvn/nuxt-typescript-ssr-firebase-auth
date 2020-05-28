@@ -15,7 +15,7 @@ const messages = {
       confirmPasswordPlaceHolder: 'Parolanizi tekrar giriniz',
       rememberMe: 'Beni Hatirla',
     },
-    cancel: 'Iptal'
+    cancel: 'Iptal',
   },
 
   topNavbar: {
@@ -23,17 +23,17 @@ const messages = {
     profile: 'Hesap',
     register: 'Kayit Ol',
     login: 'Giris Yap',
-    logout: 'Cikis Yap'
+    logout: 'Cikis Yap',
   },
 
   page: {
     home: {
       title: 'Anasayfaya hosgeldiniz',
-      goToSource: ' <b>Github</b> uzerinde kaynak koda ulas'
+      goToSource: ' <b>Github</b> uzerinde kaynak koda ulas',
     },
     action: {
-      processing: 'Isleniyor... Lutfen bekleyiniz.'
-    }
+      processing: 'Isleniyor... Lutfen bekleyiniz.',
+    },
   },
 
   notification: {
@@ -54,30 +54,30 @@ const messages = {
   form: {
     forgetPassword: {
       title: 'Parolami unuttum',
-      submit: 'Mail Gonder'
+      submit: 'Mail Gonder',
     },
     loginForm: {
       title: 'Giris Yap',
       submit: 'Giris Yap',
       forgetPassword: 'parolami unuttum',
-      noAccount: 'Hesabiniz yok mu? Kayit Ol!'
+      noAccount: 'Hesabiniz yok mu? Kayit Ol!',
     },
     social: {
       title: {
         login: 'Sosyal Media ile Login',
-        register: 'Sosyal Medya'
+        register: 'Sosyal Medya',
       },
       loginWith: '{provider} ile Giris Yap',
     },
 
     resetPassword: {
       title: 'Parolami yenile',
-      submit: 'Parolami Degistir'
+      submit: 'Parolami Degistir',
     },
     registerForm: {
       title: 'Kayit Ol',
       submit: 'Kayit Ol',
-      hasAccount: 'Hesabiniz var mi? Giris Yap!'
+      hasAccount: 'Hesabiniz var mi? Giris Yap!',
     },
   },
 
@@ -89,11 +89,11 @@ const messages = {
       email: 'E-posta :',
       providers: 'Saglayicilar:',
       verifyButton: 'E-posta Dogrula',
-      updatePasswordButton: 'Parolayi guncelle'
+      updatePasswordButton: 'Parolayi guncelle',
     },
     linkedAccounts: {
-      title: 'Bagli Hesaplar:'
-    }
+      title: 'Bagli Hesaplar:',
+    },
   },
 
   provider: {
@@ -101,43 +101,42 @@ const messages = {
       password: 'Password',
       google: { com: 'Google' },
       twitter: { com: 'Twitter' },
-      facebook: { com: 'Facebook' }
+      facebook: { com: 'Facebook' },
     },
     linkPasswordProvider: {
       socialLogin: {
         title: 'Sosyal Medya Giris',
       },
-      passwordForm:
-        {
-          title: 'Parola Belirleme',
-          description: '<b>{email}</b> icin bir parola belirleyiniz',
-          submit: 'Parolayi Kaydet'
-        }
+      passwordForm: {
+        title: 'Parola Belirleme',
+        description: '<b>{email}</b> icin bir parola belirleyiniz',
+        submit: 'Parolayi Kaydet',
+      },
     },
     submit: {
       link: 'Bagla',
-      unlink: 'Baglantiyi kopar'
+      unlink: 'Baglantiyi kopar',
     },
     info: {
       displayName: 'Ad:',
       email: 'E-Posta:',
       phoneNumber: 'Telefon Numarasi:',
       photoURL: 'Fotograf:',
-      uid: 'Kimlik:'
+      uid: 'Kimlik:',
     },
     tooltip: {
       linkedProvider: '{provider} hesabiniza bagli. Baglantiyi kopar!',
-      unlinkedProvider: '{provider} hesabiniza bagli degil. Bagla!'
+      unlinkedProvider: '{provider} hesabiniza bagli degil. Bagla!',
     },
     dialog: {
       delete: {
-        title: '{provider}\'i Sil',
-        message: 'Hesabinizdan {provider}\'i silmek mi istiyorsunuz?<br>Bu islem geri alinamaz',
-        confirm: 'Delete'
-      }
-    }
-  }
+        title: "{provider}'i Sil",
+        message:
+          "Hesabinizdan {provider}'i silmek mi istiyorsunuz?<br>Bu islem geri alinamaz",
+        confirm: 'Delete',
+      },
+    },
+  },
+}
 
-};
-
-export default messages;
+export default messages
