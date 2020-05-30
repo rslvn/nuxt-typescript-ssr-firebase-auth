@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img ref="imageCropRef" :src="image.src" crossorigin>
+    <img ref="imageCropRef" class="img-container" :src="image.src" crossorigin>
     <slot name="preview"/>
   </div>
 </template>
