@@ -29,7 +29,8 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "nuxt-i18n",
-      "cookie-universal-nuxt"
+      "cookie-universal-nuxt",
+      "./vue-cropperjs.d.ts"
     ]
   },
   "exclude": [

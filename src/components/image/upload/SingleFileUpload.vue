@@ -1,8 +1,10 @@
 <template>
   <b-upload v-model="file" accept="image/*" :loading="loading">
-    <a class="button is-light">
-      <b-icon icon="camera"></b-icon>
-    </a>
+    <slot name="button">
+      <a class="button is-light">
+        <b-icon icon="camera"></b-icon>
+      </a>
+    </slot>
   </b-upload>
 </template>
 
@@ -25,7 +27,7 @@
     loading = false
     file: File | null = null
     fileName = ''
-    uploadTask : firebase.storage.UploadTask | null = null
+    uploadTask: firebase.storage.UploadTask | null = null
 
     @Watch('file')
     onFileChanged(file: File, oldFile: File) {
