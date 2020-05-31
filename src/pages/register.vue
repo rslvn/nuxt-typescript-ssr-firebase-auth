@@ -53,7 +53,7 @@
     }
 
     get providers() {
-      return SupportedProviders.filter(value => value.providerType !== ProviderType.password)
+      return SupportedProviders.filter(value => value.providerType !== ProviderType.PASSWORD)
     }
 
     noCallback() {

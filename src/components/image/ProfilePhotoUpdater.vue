@@ -19,36 +19,25 @@
       </div>
     </div>
 
-    <div v-if="previewSrc" class="columns">
-      <div class="column is-three-quarters-fullhd">
-        <div class="buttons is-centered">
-          <b-button>Kaydet</b-button>
-          <b-button>Cancel</b-button>
-        </div>
-      </div>
-    </div>
-
-    <div class="columns">
-      <div v-if="imageToCrop" class="column is-full-mobile is-three-quarters-fullhd">
-        <ImageCropper :image="imageToCrop" :preview="setPreview"/>
+    <div v-if="imageToCrop" class="columns is-half-height">
+      <div class="column is-full-mobile is-three-quarters-fullhd">
+        <ImageCropper :image="imageToCrop" :height="400" :width="400" :preview="setPreview" class="height-50vh"/>
       </div>
 
       <div v-if="previewSrc" class="columns is-vcentered">
         <div class="column has-text-centered">
-          <img v-if="previewSrc" :src="previewSrc" class="profile-200 has-margin-top-15"/>
-          <img v-if="previewSrc" :src="previewSrc" class="profile-200-round"/>
+          <h3 class="h3 has-margin-bottom-30">Preview</h3>
+          <img v-if="previewSrc" :src="previewSrc" class="profile-200"/>
+          <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15"/>
+          <div class="buttons is-centered has-margin-top-30">
+            <b-button>Save</b-button>
+            <b-button>Cancel</b-button>
+          </div>
         </div>
       </div>
     </div>
 
-    <div v-if="previewSrc" class="columns">
-      <div class="column is-three-quarters-fullhd">
-        <div class="buttons is-centered">
-          <b-button>Kaydet</b-button>
-          <b-button>Cancel</b-button>
-        </div>
-      </div>
-    </div>
+    <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"></b-loading>
   </div>
 </template>
 
@@ -63,13 +52,12 @@
   })
   export default class ProfilePhotoUpdater extends Vue {
     @Prop({ required: false }) image !: Image
-    // @Prop({ type: String, required: true }) parentFolderRef !: string
 
-    loading = false
+    isLoading = true
+    isFullPage = true
     file: File | null = null
     imageToCrop: Image | null = this.image || null
     previewSrc: string | null = null
-
 
     @Watch('file')
     onFileChanged(file: File, oldFile: File) {
@@ -79,11 +67,12 @@
         default: false,
         // name: this.parentFolderRef + getNewFileName(file.name)
         name: getNewFileName(file.name)
-      }
+      };
     }
 
     setPreview(croppedForPreview: string) {
       this.previewSrc = croppedForPreview
+      this.isLoading = false
     }
 
   }

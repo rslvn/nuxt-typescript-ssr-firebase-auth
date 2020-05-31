@@ -1,6 +1,6 @@
 import { Image, ProviderType } from "~/types/firebase-types";
 
-export const ProfilePhotoPlaceholder = '/img/default-profile.svg'
+export const ProfilePhotoPlaceholder = '/img/default-profile.png'
 export const CoverPhotoPlaceholder = '/img/default-cover.jpg'
 
 export const DefaultProfilePhoto: Image = {

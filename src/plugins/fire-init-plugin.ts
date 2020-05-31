@@ -2,10 +2,9 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
-import { ProviderType } from "~/types";
+import { ProviderType } from '~/types'
 
 if (!firebase.apps.length) {
-
   const config = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -14,7 +13,7 @@ if (!firebase.apps.length) {
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.FIREBASE_APP_ID,
-    measurementId: process.env.FIREBASE_MEASUREMENT_ID
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
   }
 
   firebase.initializeApp(config)
@@ -22,17 +21,19 @@ if (!firebase.apps.length) {
 
 export const getAuthProvider = (providerType: ProviderType) => {
   switch (providerType) {
-    case ProviderType.google:
-      return new firebase.auth.GoogleAuthProvider();
+    case ProviderType.GOOGLE:
+      return new firebase.auth.GoogleAuthProvider()
 
-    case ProviderType.twitter:
-      return new firebase.auth.TwitterAuthProvider();
+    case ProviderType.TWITTER:
+      return new firebase.auth.TwitterAuthProvider()
 
-    case ProviderType.facebook:
+    case ProviderType.FACEBOOK:
       return new firebase.auth.FacebookAuthProvider()
 
     default:
-      throw new Error('No social auth provider for provider type' + providerType);
+      throw new Error(
+        'No social auth provider for provider type' + providerType
+      )
   }
 }
 
@@ -42,6 +43,6 @@ export const storage: firebase.storage.Storage = firebase.storage()
 
 export const TaskEvent = firebase.storage.TaskEvent
 export const TaskState = firebase.storage.TaskState
-export const FieldValue = firebase.firestore.FieldValue;
+export const FieldValue = firebase.firestore.FieldValue
 
 export default firebase

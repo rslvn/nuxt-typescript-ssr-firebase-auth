@@ -1,6 +1,6 @@
 <template>
   <div class="card-image">
-    <figure class="image cropped-h512">
+    <figure class="has-max-height-500 crop-to-fit">
       <img v-lazy="computedCoverPhoto.src"
            :src="placeholder"
            :alt="computedCoverPhoto.alt"

@@ -2,7 +2,7 @@
   <div class="box">
 
     <b-field :label="$t('card.user.userId')" horizontal>
-      <span>{{ storedUser.userId }}</span>
+      <span> <small> {{ storedUser.userId }} </small></span>
     </b-field>
 
     <b-field :label="$t('card.user.name')" label-position="on-border" horizontal>
@@ -91,8 +91,8 @@
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.password) ?
-        SupportedProviders.find(provider => provider.providerType === ProviderType.password)
+      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
+        SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
     }
 

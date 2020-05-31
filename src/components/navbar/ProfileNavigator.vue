@@ -3,7 +3,7 @@
 
     <template slot="label" class="is-grouped">
       <b-field grouped>
-        <figure class="image is-32x32 has-margin-right-5">
+        <figure class="img-box-32 crop-to-fit img-rounded has-margin-right-5">
           <img :src="profilePhoto.src" :alt="profilePhoto.alt" @error="imageLoadError">
         </figure>
         <span><b>{{ storedUser.name || storedUser.email }}</b></span>

@@ -9,7 +9,7 @@
         multilined>
 
         <b-button :type="isLinked ? providerConfig.colorType: defaultType" :icon-pack="providerConfig.iconPack"
-                  :class="isLinked ? '': 'has-text-black'"
+                  :class="isLinked ? '' : 'has-text-black'"
                   :icon-right="providerConfig.icon" @click="submit" outlined expanded>
         <span
           class="has-margin-right-5"> {{ isLinked ? $t('provider.submit.unlink') : $t('provider.submit.link') }}

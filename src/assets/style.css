@@ -105,7 +105,9 @@
 /*  margin: -10px 0px 0px -180px;*/
 /*}*/
 
-body { overflow-x: hidden; }
+body {
+  overflow-x: hidden;
+}
 
 @media (max-width: 732px) {
   .cropped-rounded-256x256 {
@@ -114,6 +116,7 @@ body { overflow-x: hidden; }
     overflow: hidden;
     border-radius: 50%;
   }
+
   .is-ellipsis {
     display: block;
     width: 150px;
@@ -126,6 +129,59 @@ body { overflow-x: hidden; }
     height: 200px; /* height of container */
     overflow: hidden;
   }
+}
+
+.has-min-height-300 {
+  min-height: 500px !important;
+}
+
+.has-max-height-500 {
+  max-height: 500px !important;
+}
+
+.height-50vh {
+  max-width: 100%;
+  height: auto;
+  max-height: 50vh;
+  min-height: 50vh;
+}
+
+.height-75vh {
+  max-width: 100%;
+  height: auto;
+  max-height: 75vh;
+}
+
+.img-box-32 {
+  width: 32px;
+  height: 32px;
+}
+
+.img-box-128 {
+  width: 128px;
+  height: 128px;
+}
+
+.img-box-400 {
+  width: 400px;
+  height: 400px;
+}
+
+.crop-to-fit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.crop-to-fit img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
+}
+
+.img-rounded img {
+  border-radius: 50%;
 }
 
 /*@media screen and (max-width: 1024px) {*/

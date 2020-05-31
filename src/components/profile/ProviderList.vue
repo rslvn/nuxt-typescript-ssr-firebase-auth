@@ -69,7 +69,7 @@
     }
 
     getLinkMethod(providerType: ProviderType) {
-      return providerType === ProviderType.password ? this.showLinkPasswordModal : this.linkSocialProvider
+      return providerType === ProviderType.PASSWORD ? this.showLinkPasswordModal : this.linkSocialProvider
     }
 
     getUnlinkMethod() {

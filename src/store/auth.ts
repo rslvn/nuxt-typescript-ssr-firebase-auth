@@ -289,11 +289,11 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then((userCredential) => {
 
         let userInfo = userCredential.user?.providerData
-          ?.find((userInfo) => userInfo?.providerId == ProviderType.password)
+          ?.find((userInfo) => userInfo?.providerId == ProviderType.PASSWORD)
 
         commit('addProvider', getProviderData(userInfo))
 
-        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.password)))
+        showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.PASSWORD)))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },

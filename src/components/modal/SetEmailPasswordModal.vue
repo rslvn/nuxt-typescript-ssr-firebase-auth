@@ -55,11 +55,11 @@
     @Prop({ type: Function, required: true }) confirmCredentials !: (credentials: LoginCredentials) => void;
 
     get socialProviders() {
-      return this.linkedProviders.filter(provider => provider.providerType !== ProviderType.password)
+      return this.linkedProviders.filter(provider => provider.providerType !== ProviderType.PASSWORD)
     }
 
     get passwordProvider() {
-      return this.linkedProviders.find(provider => provider.providerType === ProviderType.password)
+      return this.linkedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
     }
 
     loginSuccessCallback() {

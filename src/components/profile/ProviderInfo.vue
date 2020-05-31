@@ -1,7 +1,7 @@
 <template>
   <div class="has-text-centered-mobile">
     <b-field :label="$t('provider.info.uid')" horizontal>
-      <span>{{ providerData.uid }}</span>
+      <span> <small> {{ providerData.uid }} </small> </span>
     </b-field>
 
     <b-field :label="$t('provider.info.photoURL')" horizontal>

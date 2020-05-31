@@ -67,8 +67,8 @@
     }
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.password) ?
-        SupportedProviders.find(provider => provider.providerType === ProviderType.password)
+      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
+        SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
     }
 

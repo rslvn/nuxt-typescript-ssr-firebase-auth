@@ -25,13 +25,13 @@ export interface LoginCredentials {
 }
 
 export interface SocialLoginCredentials {
-  providerType: ProviderType,
+  providerType: ProviderType
   rememberMe: boolean
   callback?: () => void
 }
 
 export interface StorageRef {
-  folderRef: string,
+  folderRef: string
   parameters?: any
 }
 
@@ -50,66 +50,67 @@ export const CoverPhotoStorageRef: StorageRef = {
 }
 
 export enum ProviderType {
-  password = 'password',
-  google = 'google.com',
-  twitter = 'twitter.com',
-  facebook = 'facebook.com',
+  PASSWORD = 'password',
+  GOOGLE = 'google.com',
+  TWITTER = 'twitter.com',
+  FACEBOOK = 'facebook.com',
 }
 
 export interface ProviderConfig {
   providerType: ProviderType
   colorType: string
   icon: string
-  iconPack: string,
+  iconPack: string
 }
 
 export const SupportedProviders: ProviderConfig[] = [
   {
-    providerType: ProviderType.password,
+    providerType: ProviderType.PASSWORD,
     colorType: 'is-primary',
     icon: 'at',
-    iconPack: 'fas'
+    iconPack: 'fas',
   },
   {
-    providerType: ProviderType.google,
+    providerType: ProviderType.GOOGLE,
     colorType: 'is-danger',
     icon: 'google',
-    iconPack: 'fab'
+    iconPack: 'fab',
   },
   {
-    providerType: ProviderType.twitter,
+    providerType: ProviderType.TWITTER,
     colorType: 'is-info',
     icon: 'twitter',
-    iconPack: 'fab'
+    iconPack: 'fab',
   },
   {
-    providerType: ProviderType.facebook,
+    providerType: ProviderType.FACEBOOK,
     colorType: 'is-link',
     icon: 'facebook',
-    iconPack: 'fab'
+    iconPack: 'fab',
   },
 ];
 
 export interface ProviderLink {
   providerConfig: ProviderConfig
   providerData?: ProviderData
-  linked: boolean,
+  linked: boolean
   method: () => void
 }
 
 /**
  * firestore types
  */
-
 export enum collection {
-  USER = 'user'
+  USER = 'user',
 }
 
 export interface Image {
-  src: string;
-  alt: string;
-  name?: string;
+  id?: string
+  src: string
+  alt: string
+  name?: string
   default?: boolean
+  preview?: Image
 }
 
 export interface BaseCollection {
