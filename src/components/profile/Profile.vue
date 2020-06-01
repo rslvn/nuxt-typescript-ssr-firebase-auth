@@ -57,8 +57,8 @@
   export default class Profile extends Vue {
 
     @Prop({ required: true }) storedUser !: StoredUser;
-    @Prop({ required: true }) coverPhoto !: Image;
 
+    @StateNamespace.profile.Getter coverPhoto !: Image;
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
 
     get parentFolderRef() {

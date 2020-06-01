@@ -1,10 +1,15 @@
 import { namespace } from "vuex-class";
 import { StoredUser } from "~/types/backend-types";
+import { Image } from '~/types/firebase-types';
 
 export interface AuthState {
   storedUser?: StoredUser,
   forceLogout: boolean,
   rememberMe: boolean
+}
+
+export interface ProfileState {
+  coverPhoto?: Image
 }
 
 export interface NotificationState {
@@ -16,9 +21,10 @@ export interface LoadingState {
 }
 
 export interface RootState {
-  auth?: AuthState,
+  auth?: AuthState
   notification?: NotificationState
   loading?: LoadingState
+  profile?: ProfileState
 }
 
 export interface NotificationMessage {
@@ -38,6 +44,7 @@ export const StateNamespace = {
   auth: namespace('auth'),
   notification: namespace('notification'),
   loading: namespace('loading'),
+  profile: namespace('profile'),
 };
 
 export const StoreConfig = {

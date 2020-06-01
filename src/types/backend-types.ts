@@ -28,7 +28,7 @@ export interface StoredUser {
   name: string
   email?: string
   profilePhoto?: Image
-  userId: string,
+  userId: string
   verified: boolean
   providers: ProviderData[]
 }

@@ -174,17 +174,6 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateCoverPhoto({ commit, dispatch }, coverPhoto: Image) {
-    await saveUser({
-      id: auth.currentUser?.uid,
-      coverPhoto: coverPhoto
-    }).then((user) => {
-      console.log('updateCoverPhoto: ', user)
-      // commit('setCoverPhoto', coverPhoto);
-    })
-      .catch((error: Error) => handleError(dispatch, error))
-  },
-
   async signInWithSocialProvider({ dispatch }, credentials: SocialLoginCredentials) {
     let authProvider = getAuthProvider(credentials.providerType);
     let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
