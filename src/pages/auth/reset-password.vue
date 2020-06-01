@@ -38,7 +38,7 @@
     }
 
     async asyncData({ query }: Context) {
-      let actionCode = (query[RouteParameters.actionCode] as string)?.trim();
+      let actionCode = (query[RouteParameters.ACTION_CODE] as string)?.trim();
 
       return {
         actionCode

@@ -4,14 +4,17 @@
         <h1 class="title">{{ $t('page.home.title') }}</h1>
       </div>
       <div class="columns is-centered">
-        <a class="box" href="https://github.com/rslvn/nuxt-typescript-ssr-firebase-auth">
-          <b-icon
-            pack="fab"
-            icon="github"
-            size="is-large">
-          </b-icon>
-          <span v-html="$t('page.home.goToSource')" />
-        </a>
+        <div class="column is-one-quarter-fullhd">
+          <a class="box has-text-centered" href="https://github.com/rslvn/nuxt-typescript-ssr-firebase-auth">
+            <b-icon
+              pack="fab"
+              icon="github"
+              size="is-large">
+            </b-icon>
+            <span v-html="$t('page.home.goToSource')" />
+          </a>
+        </div>
+
       </div>
     </div>
 </template>

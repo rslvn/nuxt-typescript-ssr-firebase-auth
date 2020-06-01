@@ -152,6 +152,12 @@ body {
   max-height: 75vh;
 }
 
+.height-95vh {
+  max-width: 100%;
+  height: auto;
+  max-height: 95vh;
+}
+
 .img-box-32 {
   width: 32px;
   height: 32px;

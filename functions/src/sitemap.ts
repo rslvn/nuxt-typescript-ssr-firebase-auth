@@ -4,6 +4,17 @@ import { createGzip } from 'zlib'
 import { RuntimeOptions, runWith } from "firebase-functions";
 
 const service = '/sitemap.xml';
+
+const staticRoutes = [
+    '/',
+    '/terms',
+    '/privacy-policy',
+    '/register',
+    '/login',
+    '/crop',
+    '/lightbox'
+]
+
 const app = express();
 const router = Router();
 
@@ -23,11 +34,7 @@ router.get(service, (req: Request, res: Response) => {
         const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app/' })
         const pipeline = smStream.pipe(createGzip())
 
-        smStream.write({ url: '/', changefreq: 'weekly', priority: 0.8 })
-        smStream.write({ url: '/terms', changefreq: 'weekly', priority: 0.8 })
-        smStream.write({ url: '/privacy-policy', changefreq: 'weekly', priority: 0.8 })
-        smStream.write({ url: '/register', changefreq: 'weekly', priority: 0.8 })
-        smStream.write({ url: '/login', changefreq: 'weekly', priority: 0.8 })
+        staticRoutes.forEach((route) => smStream.write({ url: route, changefreq: 'weekly', priority: 0.8 }))
         smStream.end()
 
         // cache the response

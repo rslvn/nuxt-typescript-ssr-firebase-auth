@@ -82,7 +82,7 @@
                 this.$router.replace({
                   ...RouteType.RESET_PASSWORD,
                   query: {
-                    [RouteParameters.actionCode]: this.actionCode
+                    [RouteParameters.ACTION_CODE]: this.actionCode
                   }
                 });
               }

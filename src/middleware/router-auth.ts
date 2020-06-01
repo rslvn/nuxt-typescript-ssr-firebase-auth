@@ -16,7 +16,7 @@ const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
       redirect({
         ...RouteType.LOGIN,
         query: {
-          [RouteQueryParameters.next]: route.fullPath,
+          [RouteQueryParameters.NEXT]: route.fullPath,
         },
       })
     }

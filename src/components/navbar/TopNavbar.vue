@@ -15,7 +15,18 @@
       >
         <strong>{{$t('topNavbar.home')}}</strong>
       </b-navbar-item>
-
+      <b-navbar-item
+        :to="routeType.LIGHT_BOX"
+        tag="router-link"
+      >
+        Lightbox
+      </b-navbar-item>
+      <b-navbar-item
+        :to="routeType.CORP"
+        tag="router-link"
+      >
+        Crop
+      </b-navbar-item>
     </template>
 
     <template slot="end">

@@ -6,12 +6,14 @@ export const RouteType = {
   ACTION: { path: '/auth/action' },
   FORGET_PASSWORD: { path: '/auth/forget-password' },
   RESET_PASSWORD: { path: '/auth/reset-password' },
+  CORP: { path: '/crop' },
+  LIGHT_BOX: { path: '/lightbox' },
 };
 
 export enum RouteParameters {
-  actionCode = 'actionCode'
+  ACTION_CODE = 'ACTION_CODE',
 }
 
 export enum RouteQueryParameters {
-  next = 'next'
+  NEXT = 'NEXT',
 }
