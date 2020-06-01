@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div>
-      <CoverPhoto :stored-user="storedUser" :cover-photo="coverPhoto"/>
+    <CoverPhoto :stored-user="storedUser" :cover-photo="coverPhoto"/>
+
+    <div class="container">
       <div class="has-margin-top-10 has-margin-bottom-10">
         <article class="media has-margin-left-5">
           <div class="media-left">
@@ -18,7 +19,6 @@
         </article>
       </div>
     </div>
-
     <div class="columns is-centered">
 
       <div class="column is-half">

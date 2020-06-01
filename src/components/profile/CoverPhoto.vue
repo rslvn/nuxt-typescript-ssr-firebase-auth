@@ -1,23 +1,24 @@
 <template>
-  <div class="card-image">
-    <figure class="has-max-height-500 crop-to-fit">
+  <div class="container">
+    <div class="card-image has-cursor-pointer has-max-height-500 crop-to-fit" @click="showLightbox">
       <img v-lazy="coverPhoto.src"
            :src="placeholder"
            :alt="coverPhoto.alt"
            @error="imageLoadError">
-    </figure>
-    <div class="is-overlay is-pulled-right has-margin-5">
-      <SingleFileUpload :parent-folder-ref="parentFolderRef"
-                        :upload-completed="updateCoverPhoto"
-                        :get-alt-value="getCoverImageAltName"/>
     </div>
+
+    <SingleFileUpload class="is-overlay-left" :parent-folder-ref="parentFolderRef"
+                      :upload-completed="updateCoverPhoto"
+                      :get-alt-value="getCoverImageAltName"/>
   </div>
+
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, StoredUser } from "~/types";
+  import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, StoredUser } from '~/types';
   import SingleFileUpload from '~/components/image/upload/SingleFileUpload.vue';
+  import Lightbox from '~/components/image/lightbox/Lightbox.vue';
 
   @Component({
     components: { SingleFileUpload }
@@ -44,6 +45,20 @@
 
     getCoverImageAltName(fileName: string) {
       return `Cover photo of ${this.storedUser.name}`
+    }
+
+    showLightbox() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: Lightbox,
+        hasModalCard: false,
+        trapFocus: true,
+        canCancel: true,
+        props: {
+          images: [this.coverPhoto],
+          initialIndex: 20,
+        }
+      })
     }
   }
 </script>

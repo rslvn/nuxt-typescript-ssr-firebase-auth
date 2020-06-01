@@ -14,7 +14,6 @@
             <span v-html="$t('page.home.goToSource')" />
           </a>
         </div>
-
       </div>
     </div>
 </template>

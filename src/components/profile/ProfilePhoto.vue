@@ -1,13 +1,15 @@
 <template>
   <div>
-    <SingleFileUpload class="is-relative is-pulled-right" :parent-folder-ref="parentFolderRef"
-                      :upload-completed="updateProfilePhoto" :get-alt-value="getProfilePhotoAltValue"/>
-    <div class="cropped-rounded-128x128">
+    <div class="cropped-rounded-128x128 has-cursor-pointer" @click="showLightbox">
       <img v-lazy="profilePhoto.src"
            :src="placeholder"
            :alt="profilePhoto.alt"
            @error="imageLoadError">
+
     </div>
+
+    <SingleFileUpload class="is-overlay-left" :parent-folder-ref="parentFolderRef"
+                      :upload-completed="updateProfilePhoto" :get-alt-value="getProfilePhotoAltValue"/>
 
   </div>
 
@@ -24,6 +26,7 @@
     StoredUser
   } from "~/types";
   import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
+  import Lightbox from '~/components/image/lightbox/Lightbox.vue';
 
   @Component({
     components: { SingleFileUpload }
@@ -53,5 +56,20 @@
     getProfilePhotoAltValue(fileName: string) {
       return `Profile photo of ${this.storedUser.name} as ${fileName}`
     }
+
+    showLightbox() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: Lightbox,
+        hasModalCard: false,
+        trapFocus: true,
+        canCancel: true,
+        props: {
+          images: [this.profilePhoto],
+          initialIndex: 20,
+        }
+      })
+    }
+
   }
 </script>

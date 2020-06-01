@@ -1,3 +1,7 @@
+.is-clickable {
+  cursor: pointer;
+}
+
 .image-fill-32 img {
   height: 32px;
   object-fit: fill;
@@ -206,3 +210,17 @@ body {
 /*  }*/
 
 /*}*/
+
+.is-overlay-right {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+  z-index: 3 !important;
+}
+
+.is-overlay-left {
+  position: absolute !important;
+  top: 5px !important;
+  left: 5px !important;
+  z-index: 3 !important;
+}
