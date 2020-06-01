@@ -8,7 +8,9 @@ export const RouteType = {
   RESET_PASSWORD: { path: '/auth/reset-password' },
   CORP: { path: '/crop' },
   LIGHT_BOX: { path: '/lightbox' },
-};
+  TERMS: { path: '/terms' },
+  PRIVACY_POLICY: { path: '/privacy-policy' },
+}
 
 export enum RouteParameters {
   ACTION_CODE = 'ACTION_CODE',

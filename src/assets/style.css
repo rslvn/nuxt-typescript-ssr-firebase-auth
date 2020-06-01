@@ -105,12 +105,28 @@
   border-radius: 50%;
 }
 
-/*.cropped img {*/
-/*  margin: -10px 0px 0px -180px;*/
-/*}*/
+html {
+  height: 100%;
+}
 
 body {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
   overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 100px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 @media (max-width: 732px) {

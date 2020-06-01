@@ -35,6 +35,15 @@ const messages = {
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.',
     },
+    terms: {
+      title: 'Sozlesme',
+    },
+    privacyAndPolicy: {
+      title: 'Gizlilik Ve Prensipler',
+    },
+    footer: {
+      copyRight: '&copy; Telif Hakki 2020,',
+    },
   },
 
   notification: {

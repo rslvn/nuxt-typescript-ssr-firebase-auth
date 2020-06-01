@@ -8,13 +8,22 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container ">
       <div class="columns">
         <div class="column">
           <nuxt/>
         </div>
       </div>
     </div>
+    <footer class="has-margin-bottom-30">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <AppFooter/>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -23,9 +32,10 @@
   import TopNavbar from '../components/navbar/TopNavbar.vue'
   import TopNotification from '~/components/notification/TopNotification.vue'
   import { NotificationMessage, StateNamespace } from '~/types'
+  import AppFooter from '~/components/footer/AppFooter.vue';
 
   @Component({
-    components: { TopNotification, TopNavbar }
+    components: { AppFooter, TopNotification, TopNavbar }
   })
   export default class defaultLayout extends Vue {
     @StateNamespace.notification.Getter getMessage!: NotificationMessage;

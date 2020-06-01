@@ -35,6 +35,15 @@ const messages = {
     action: {
       processing: 'Processing... Please wait.',
     },
+    terms: {
+      title: 'Terms',
+    },
+    privacyAndPolicy: {
+      title: 'Privacy And Policy',
+    },
+    footer: {
+      copyRight: '&copy; Copyright 2020, ',
+    },
   },
 
   notification: {

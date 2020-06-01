@@ -9,11 +9,24 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
+  import { DefaultMeta, PageMeta, RouteType } from '~/types';
+  import { getHead } from '~/service/seo-service';
 
   @Component({
     components: { Lightbox }
   })
   export default class lightbox extends Vue {
+
+    pageMeta: PageMeta = {
+      ...DefaultMeta,
+      title: `Lightbox | ${DefaultMeta.title}`,
+      url: `${DefaultMeta.url}${RouteType.LIGHT_BOX.path}`
+    }
+
+    head() {
+      return getHead(this.pageMeta)
+    }
+
     get images() {
       return [
         {
