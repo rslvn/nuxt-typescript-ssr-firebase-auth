@@ -16,6 +16,7 @@ const messages = {
       rememberMe: 'Remember Me',
     },
     cancel: 'Cancel',
+    save: 'Save',
   },
 
   topNavbar: {
@@ -138,6 +139,14 @@ const messages = {
           'Are you sure you want to <b>delete</b> {provider} from your account?<br>This action cannot be undone.',
         confirm: 'Delete',
       },
+    },
+  },
+  image: {
+    crop: {
+      preview: 'Preview',
+    },
+    upload: {
+      dragAndDropButton: 'Drop your files here or click to upload',
     },
   },
 }

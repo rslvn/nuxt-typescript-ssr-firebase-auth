@@ -16,6 +16,7 @@ const messages = {
       rememberMe: 'Beni Hatirla',
     },
     cancel: 'Iptal',
+    save: 'Kaydet',
   },
 
   topNavbar: {
@@ -135,6 +136,14 @@ const messages = {
           "Hesabinizdan {provider}'i silmek mi istiyorsunuz?<br>Bu islem geri alinamaz",
         confirm: 'Delete',
       },
+    },
+  },
+  image: {
+    crop: {
+      preview: 'On Izleme',
+    },
+    upload: {
+      dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak',
     },
   },
 }

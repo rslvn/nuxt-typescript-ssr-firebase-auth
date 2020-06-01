@@ -12,7 +12,7 @@
                   size="is-large">
                 </b-icon>
               </p>
-              <p>Drop your files here or click to upload</p>
+              <p>{{ $t('image.upload.dragAndDropButton')}}</p>
             </div>
           </section>
         </b-upload>
@@ -26,12 +26,12 @@
 
       <div v-if="previewSrc" class="columns is-vcentered">
         <div class="column has-text-centered">
-          <h3 class="h3 has-margin-bottom-30">Preview</h3>
+          <h3 class="h3 has-margin-bottom-30">{{ $t('image.crop.preview')}}</h3>
           <img v-if="previewSrc" :src="previewSrc" class="profile-200"/>
           <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15"/>
           <div class="buttons is-centered has-margin-top-30">
-            <b-button>Save</b-button>
-            <b-button>Cancel</b-button>
+            <b-button>{{ $t('common.save')}}</b-button>
+            <b-button>{{ $t('common.cancel')}}</b-button>
           </div>
         </div>
       </div>
