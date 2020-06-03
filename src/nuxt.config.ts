@@ -27,8 +27,8 @@ const config: Configuration = {
   /*
    ** Customize the progress-bar color
    */
-  // loading: { color: '#fff' },
-  loading: './components/Loading.vue',
+  loading: { color: '#9400d3' },
+  // loading: './components/Loading.vue',
 
   /*
    ** Global CSS

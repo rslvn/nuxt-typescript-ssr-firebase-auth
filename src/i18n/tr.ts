@@ -143,7 +143,7 @@ const messages = {
         title: "{provider}'i Sil",
         message:
           "Hesabinizdan {provider}'i silmek mi istiyorsunuz?<br>Bu islem geri alinamaz",
-        confirm: 'Delete',
+        confirm: 'Sil',
       },
     },
   },
