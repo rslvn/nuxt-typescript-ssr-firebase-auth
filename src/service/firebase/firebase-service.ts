@@ -36,15 +36,10 @@ export const getProviderOption = (provider: ProviderType) => {
 
 export const decodeToken = (token: string): StoredUser => {
   let decodedToken: any = jwtDecode(token);
-  // console.log('DECODE >>>', decodedToken)
-
   let profilePhoto: Image = {
     src: decodedToken.picture,
     alt: `Cover photo of ${decodedToken.name}`
   }
-
-  console.log('Providers', decodedToken.firebase?.identities)
-
   let providers: ProviderData[] = Object.keys(decodedToken.firebase?.identities).map((provider: string) => {
     return {
       providerType: provider as ProviderType

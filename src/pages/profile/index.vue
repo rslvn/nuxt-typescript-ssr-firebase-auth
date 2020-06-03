@@ -23,16 +23,6 @@
           }
         })
     }
-
-    // async asyncData({}: Context) {
-    //   getUser(this.storedUser.userId)
-    //     .then((user: User) => {
-    //       return {
-    //         coverPhoto: user.coverPhoto
-    //       }
-    //     })
-    // }
-
   }
 </script>
 

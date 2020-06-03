@@ -30,31 +30,31 @@
     get images() {
       return [
         {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fautumn-219972.jpg?alt=media&token=4e4c295f-2300-44b8-8611-12c7ffd262cf',
-          alt: 'lightbox picture'
-        },
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fbarley-5233734.jpg?alt=media&token=8ea1baf6-be24-4165-851f-ce423c58f0d6',
-          alt: 'lightbox picture'
-        },
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fbee-5219887.jpg?alt=media&token=f9142449-181d-42f3-8d8c-aa39fe81561b',
-          alt: 'lightbox picture'
-        },
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fdandelion-445228.jpg?alt=media&token=d0afbf98-8e01-4d2a-87ae-88558bb8363b',
-          alt: 'lightbox picture'
-        },
-        {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Ffall-1072821_1920.jpg?alt=media&token=e5fd527c-ccd5-4aa9-973f-3e25c6df5ee0',
-          alt: 'lightbox picture'
-        },
-        {
           src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fhorse-430441_640.jpg?alt=media&token=dcc95b74-99e8-40b4-bad3-cca6e0077dd3',
           alt: 'lightbox picture'
         },
         {
-          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fsunset-2021266.jpg?alt=media&token=373932d9-fb0f-44f7-965f-bc6a4f8cc9f3',
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Flilac-flower-5239959_640.jpg?alt=media&token=5c3d6615-164d-413f-bea3-700457992ad1',
+          alt: 'lightbox picture'
+        },
+        {
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fpoppy-5239343_1280.jpg?alt=media&token=e94e6cb8-3d1f-418b-aca0-b4857d6467bb',
+          alt: 'lightbox picture'
+        },
+        {
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fbattle-5200951_1280.jpg?alt=media&token=795c632c-e1f3-4ba2-bf09-29238ec4f927',
+          alt: 'lightbox picture'
+        },
+        {
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Ffantasy-5238022_1280.jpg?alt=media&token=4d791d12-d037-42b9-ba27-f7b4e52d4048',
+          alt: 'lightbox picture'
+        },
+        {
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fballoon-hot-air-5232909_1280.jpg?alt=media&token=bc5fe2df-b2bb-4f57-b482-93ded819a96a',
+          alt: 'lightbox picture'
+        },
+        {
+          src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fautumn-219972.jpg?alt=media&token=4e4c295f-2300-44b8-8611-12c7ffd262cf',
           alt: 'lightbox picture'
         },
         {
