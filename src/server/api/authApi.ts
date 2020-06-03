@@ -45,8 +45,6 @@ router.post(service, async (req: Request, res: Response) => {
         providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
       };
 
-      console.log(service, 'returns user: ', user);
-
       return res.status(200).json(storedUser);
     })
     .catch((error) => handleFirebaseError(res, error));

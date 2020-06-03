@@ -166,11 +166,13 @@ create a `development` branch and use that branch for development. Create a new 
 
 ### dotenv
 
-create `.env` file with below content
+create `.env` file with below content or rename `.env.template` file
 
 ```.env
+WEBSITE_URL=https://nuxt-ts-firebase-auth-ssr.firebaseapp.com
 # axios config
-API_URL= https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/api
+#API_URL=http://localhost:3000/api
+API_URL=https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/api
 
 # firebase config
 FIREBASE_API_KEY= ***

@@ -34,7 +34,7 @@ const getNextRoute = (route: Route): Location => {
 }
 
 const setRememberMe = (store: Store<any>, app: NuxtAppOptions) => {
-  let rememberMe = app.$cookies.get(AppCookie.rememberMe);
+  let rememberMe = app.$cookies.get(AppCookie.REMEMBER_ME);
   store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
 }
 
@@ -56,12 +56,12 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
         // console.log('Firebase user: ', firebaseUser)
         let cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
         firebaseUser.getIdToken()
-          .then((token: string) => app.$cookies.set(AppCookie.token, token, cookieOptions))
+          .then((token: string) => app.$cookies.set(AppCookie.TOKEN, token, cookieOptions))
 
         redirect(getNextRoute(route))
 
       } else {
-        app.$cookies.remove(AppCookie.token);
+        app.$cookies.remove(AppCookie.TOKEN);
         if (authenticatedAllowed(route)) {
           redirect(RouteType.LOGIN)
         }

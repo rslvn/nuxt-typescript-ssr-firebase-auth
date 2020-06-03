@@ -1,5 +1,6 @@
 import { User, UserInfo } from 'firebase'
-import { DefaultCoverPhoto, DefaultProfilePhoto, ProviderData, ProviderType, StoredUser } from '~/types'
+import jwtDecode from 'jwt-decode'
+import { DefaultProfilePhoto, Image, ProviderData, ProviderType, StoredUser } from '~/types'
 
 export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
   return userInfo ? {
@@ -30,5 +31,31 @@ export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
 export const getProviderOption = (provider: ProviderType) => {
   return {
     provider: provider.replace('.com', '')
+  }
+}
+
+export const decodeToken = (token: string): StoredUser => {
+  let decodedToken: any = jwtDecode(token);
+  // console.log('DECODE >>>', decodedToken)
+
+  let profilePhoto: Image = {
+    src: decodedToken.picture,
+    alt: `Cover photo of ${decodedToken.name}`
+  }
+
+  console.log('Providers', decodedToken.firebase?.identities)
+
+  let providers: ProviderData[] = Object.keys(decodedToken.firebase?.identities).map((provider: string) => {
+    return {
+      providerType: provider as ProviderType
+    }
+  })
+
+  return {
+    userId: decodedToken.user_id as string,
+    name: decodedToken.name as string,
+    verified: decodedToken.email_verified as boolean,
+    profilePhoto,
+    providers
   }
 }

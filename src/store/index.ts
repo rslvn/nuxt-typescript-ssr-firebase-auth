@@ -8,6 +8,7 @@ import {
   StoreConfig,
   StoredUser,
 } from '../types'
+import { decodeToken } from '~/service/firebase/firebase-service';
 
 export const state = (): RootState => ({})
 
@@ -18,7 +19,7 @@ export const actions: ActionTree<RootState, RootState> = {
       `>>>>>>>>>> nuxtServerInit loading: ${state?.loading?.loading} mode: ${process?.mode} for path: ${route.path}`
     )
 
-    const token = app.$cookies.get(AppCookie.token)
+    const token = app.$cookies.get(AppCookie.TOKEN)
     if (token) {
       return await app.$axios
         .post(ApiConfig.auth, {
@@ -28,10 +29,12 @@ export const actions: ActionTree<RootState, RootState> = {
           commit(StoreConfig.auth.setStoredUser, response.data)
         })
         .catch((error: AxiosError) => {
-          console.log('Error: ', error)
-          if (error?.response?.status !== 401) {
+          if (error?.response?.status === 401) {
+            commit(StoreConfig.auth.setStoredUser, decodeToken(token))
+          } else {
+            console.log('Error: ', error)
             commit(StoreConfig.auth.forceLogout, true)
-            app.$cookies.remove(AppCookie.token)
+            app.$cookies.remove(AppCookie.TOKEN)
           }
         })
         .then(() => commit(StoreConfig.loading.setLoading, false))

@@ -38,8 +38,8 @@ export const SupportedLanguages: SupportedLanguage[] = [
 ]
 
 export enum AppCookie {
-  token = '__session',
-  rememberMe = 'rememberMe'
+  TOKEN = '__session',
+  REMEMBER_ME = 'rememberMe'
 }
 
 export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }

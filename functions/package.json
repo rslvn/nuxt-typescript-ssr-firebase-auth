@@ -28,6 +28,7 @@
     "firebase": "^7.14.2",
     "firebase-admin": "^8.11.0",
     "firebase-functions": "^3.6.1",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "nuxt": "^2.12.2",
     "nuxt-i18n": "^6.10.1",

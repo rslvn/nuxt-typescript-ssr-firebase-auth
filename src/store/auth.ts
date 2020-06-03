@@ -88,7 +88,7 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('setStoredUser', storedUser);
   },
   async saveRememberMe({ commit }, rememberMe: boolean) {
-    this.$cookies.set(AppCookie.rememberMe, rememberMe, cookieOptions)
+    this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe);
   },
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
