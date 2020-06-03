@@ -2,7 +2,6 @@ import { Configuration } from '@nuxt/types'
 
 require('dotenv').config({ path: '.env' })
 
-// export default {
 const config: Configuration = {
   mode: 'universal',
   /*

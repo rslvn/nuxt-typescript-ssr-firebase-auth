@@ -1,3 +1,27 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  display: block;
+  height: 100px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .is-clickable {
   cursor: pointer;
 }
@@ -103,30 +127,6 @@
   height: 256px; /* height of container */
   overflow: hidden;
   border-radius: 50%;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  min-height: 100%;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  overflow-x: hidden;
-}
-
-body::after {
-  content: '';
-  display: block;
-  height: 100px;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 
 @media (max-width: 732px) {
@@ -239,4 +239,12 @@ footer {
   top: 5px !important;
   left: 5px !important;
   z-index: 3 !important;
+}
+
+.is-overlay-hover:hover .is-disabled-till-hover {
+  display: block;
+}
+
+.is-disabled-till-hover {
+  display: none;
 }

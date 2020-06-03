@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="is-overlay-hover">
     <div class="cropped-rounded-128x128 has-cursor-pointer" @click="showLightbox">
       <img v-lazy="profilePhoto.src"
            :src="placeholder"
@@ -8,7 +8,7 @@
 
     </div>
 
-    <SingleFileUpload class="is-overlay-left" :parent-folder-ref="parentFolderRef"
+    <SingleFileUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"
                       :upload-completed="updateProfilePhoto" :get-alt-value="getProfilePhotoAltValue"/>
 
   </div>
