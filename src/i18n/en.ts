@@ -43,7 +43,7 @@ const messages = {
     },
     lightbox: {
       title: 'Responsive Masonry with Lightbox',
-      subtitle: 'Sample Photos'
+      subtitle: 'Sample hotos'
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',

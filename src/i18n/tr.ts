@@ -41,7 +41,10 @@ const messages = {
     privacyAndPolicy: {
       title: 'Gizlilik Ve Prensipler',
     },
-    footer: {
+    lightbox: {
+      title: 'Lightbox ile Responsive Masonry',
+      subtitle: 'Ornek fotograflar'
+    },    footer: {
       copyRight: '&copy; Telif Hakki 2020,',
     },
   },
