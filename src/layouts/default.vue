@@ -15,8 +15,8 @@
         </div>
       </div>
     </div>
-    <footer class="has-margin-bottom-30">
-      <div class="container">
+    <footer class="has-margin-top-10">
+      <div class="container is-gapless">
         <div class="columns is-vcentered">
           <div class="column">
             <AppFooter/>

@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column has-text-centered">
+      <div class="column has-text-centered is-paddingless is-marginless">
         <h1 class="title">{{$t('page.lightbox.title')}}</h1>
         <h2 class="subtitle has-margin-15">{{$t('page.lightbox.subtitle')}}</h2>
       </div>
     </div>
     <div class="columns is-multiline is-gapless">
       <div v-for="(image,index) in images" :key="index"
-           class="column is-4-desktop is-half-tablet is-full-mobile has-cursor-pointer"
+           class="column is-one-quarter-desktop is-one-quarter-fullhd is-half-tablet is-full-mobile has-cursor-pointer"
            @click="showLightbox(index)">
-        <img class="image-fit-cover has-min-height-350" :src="image.src" :alt="image.alt">
+        <img class="image-fit-cover has-min-height-300" :src="image.src" :alt="image.alt">
       </div>
     </div>
   </div>
