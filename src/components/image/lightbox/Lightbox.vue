@@ -1,6 +1,6 @@
 <template>
   <div>
-    <figure class="height-75vh crop-to-fit">
+    <figure class="crop-to-fit">
       <img :src="image.src" :alt="image.alt">
     </figure>
 
