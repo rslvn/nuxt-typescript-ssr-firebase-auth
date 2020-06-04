@@ -2,11 +2,10 @@
   <b-navbar-dropdown :boxed="true">
 
     <template slot="label" class="is-grouped">
-      <b-field grouped>
-        <figure class="img-box-32 crop-to-fit img-rounded has-margin-right-5">
-          <img :src="profilePhoto.src" :alt="profilePhoto.alt" @error="imageLoadError">
-        </figure>
-        <span><b>{{ storedUser.name || storedUser.email }}</b></span>
+      <b-field>
+        <img class="image-fit-cover rounded-50 square-28" :src="profilePhoto.src" :alt="profilePhoto.alt"
+             @error="imageLoadError">
+        <span class="has-margin-left-5"><b>{{ storedUser.name || storedUser.email }}</b></span>
       </b-field>
     </template>
 

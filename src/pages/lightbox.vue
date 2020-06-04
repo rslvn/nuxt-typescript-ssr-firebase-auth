@@ -10,7 +10,7 @@
       <div v-for="(image,index) in images" :key="index"
            class="column is-4-desktop is-half-tablet is-full-mobile has-cursor-pointer"
            @click="showLightbox(index)">
-        <img class="object-fit_cover has-min-height-350" :src="image.src" :alt="image.alt">
+        <img class="image-fit-cover has-min-height-350" :src="image.src" :alt="image.alt">
       </div>
     </div>
   </div>

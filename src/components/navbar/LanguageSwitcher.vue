@@ -2,9 +2,7 @@
   <b-navbar-dropdown>
 
     <template slot="label">
-      <figure class="image is-32x32">
-        <img :src="activeLanguage.flag.src" :alt="activeLanguage.flag.alt">
-      </figure>
+        <img class="image-fit-cover square-28" :src="activeLanguage.flag.src" :alt="activeLanguage.flag.alt">
     </template>
 
     <b-navbar-item v-for="(language,index) in languages" :key="index" :active="activeLanguage.code === language.code"

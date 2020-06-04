@@ -1,7 +1,7 @@
 <template>
   <div class="is-overlay-hover">
-    <div class="cropped-rounded-128x128 has-cursor-pointer" @click="showLightbox">
-      <img v-lazy="profilePhoto.src"
+    <div class="has-cursor-pointer" @click="showLightbox">
+      <img class="image-fit-cover rounded-50 square-128" v-lazy="profilePhoto.src"
            :src="placeholder"
            :alt="profilePhoto.alt"
            @error="imageLoadError">

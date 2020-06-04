@@ -5,9 +5,8 @@
     </b-field>
 
     <b-field :label="$t('provider.info.photoURL')" horizontal>
-      <figure class="image container cropped-64x64">
-        <img v-lazy="providerData.photoURL" :src="placeholder" alt="Picture of the provider" @error="imageLoadError">
-      </figure>
+      <img class="image-fit-cover square-64" v-lazy="providerData.photoURL" :src="placeholder"
+           alt="Picture of the provider" @error="imageLoadError">
     </b-field>
 
     <b-field :label="$t('provider.info.displayName')" horizontal>

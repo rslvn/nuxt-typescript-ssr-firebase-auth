@@ -244,6 +244,40 @@ footer {
   height: 300px;
 }
 
-.object-fit_cover {
+.image-fit-cover {
   object-fit: cover;
+}
+
+.rounded-50 {
+  border-radius: 50%;
+}
+
+.square-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.square-28 {
+  width: 28px;
+  height: 28px;
+}
+
+.square-32 {
+  width: 32px;
+  height: 32px;
+}
+
+.square-64 {
+  width: 64px;
+  height: 64px;
+}
+
+.square-128 {
+  width: 128px;
+  height: 128px;
+}
+
+.square-400 {
+  width: 400px;
+  height: 400px;
 }
