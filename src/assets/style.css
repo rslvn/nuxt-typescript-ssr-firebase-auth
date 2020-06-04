@@ -22,10 +22,6 @@ footer {
   width: 100%;
 }
 
-.is-clickable {
-  cursor: pointer;
-}
-
 .image-fill-32 img {
   height: 32px;
   object-fit: fill;
@@ -150,11 +146,6 @@ footer {
     overflow: hidden;
   }
 }
-
-.has-min-height-300 {
-  min-height: 500px !important;
-}
-
 .has-max-height-500 {
   max-height: 500px !important;
 }
@@ -247,4 +238,12 @@ footer {
 
 .is-disabled-till-hover {
   display: none;
+}
+
+.height-300 {
+  height: 300px;
+}
+
+.object-fit_cover {
+  object-fit: cover;
 }

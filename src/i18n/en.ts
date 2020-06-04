@@ -41,6 +41,10 @@ const messages = {
     privacyAndPolicy: {
       title: 'Privacy And Policy',
     },
+    lightbox: {
+      title: 'Responsive Masonry with Lightbox',
+      subtitle: 'Sample Photos'
+    },
     footer: {
       copyRight: '&copy; Copyright 2020, ',
     },
