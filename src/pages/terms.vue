@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <div class="columns is-centered has-margin-bottom-50">
-      <h1 class="title">{{ $t('page.terms.title') }}</h1>
+    <div class="columns has-margin-bottom-50">
+      <div class="column has-text-centered">
+        <h1 class="title">{{ $t('page.terms.title') }}</h1>
+      </div>
     </div>
   </div>
 </template>

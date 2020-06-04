@@ -11,7 +11,7 @@
     <div class="container ">
       <div class="columns">
         <div class="column">
-          <nuxt/>
+          <nuxt class="has-margin-5-mobile has-margin-5-tablet"/>
         </div>
       </div>
     </div>

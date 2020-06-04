@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="container">
+      <div class="columns has-margin-bottom-50">
+        <div class="column has-text-centered">
+          <h1 class="title">{{ $t('page.crop.title') }}</h1>
+        </div>
+      </div>
+    </div>
     <ProfilePhotoUpdater :image="image"/>
   </div>
 </template>

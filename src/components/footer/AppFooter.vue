@@ -1,11 +1,14 @@
 <template>
-  <div>
-    <p class="has-margin-left-15"><small v-html="$t('page.footer.copyRight')"></small>
-      <a :href="routeType.HOME.path">nuxt-typescript-ssr-firebase-auth</a>
-    </p>
-
-    <a class="is-pulled-right has-margin-left-10 has-margin-right-15" :href="routeType.TERMS.path"> {{ $t('page.terms.title') }}</a>
-    <a class="is-pulled-right" :href="routeType.PRIVACY_POLICY.path">{{ $t('page.privacyAndPolicy.title') }}</a>
+  <div class="columns has-text-centered is-gapless">
+    <div class="column is-6">
+      <p class="has-margin-left-15"><small v-html="$t('page.footer.copyRight')"></small>
+        <a :href="routeType.HOME.path">nuxt-typescript-ssr-firebase-auth</a>
+      </p>
+    </div>
+    <div class="column is-6">
+      <a class="has-margin-left-10 has-margin-right-15" :href="routeType.TERMS.path"> {{ $t('page.terms.title') }}</a>
+      <a :href="routeType.PRIVACY_POLICY.path">{{ $t('page.privacyAndPolicy.title') }}</a>
+    </div>
   </div>
 </template>
 
@@ -17,7 +20,6 @@
     components: {}
   })
   export default class AppFooter extends Vue {
-
     routeType = RouteType
   }
 </script>

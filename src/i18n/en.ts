@@ -41,6 +41,9 @@ const messages = {
     privacyAndPolicy: {
       title: 'Privacy And Policy',
     },
+    crop: {
+      title: 'Crop',
+    },
     lightbox: {
       title: 'Responsive Masonry with Lightbox',
       subtitle: 'Sample hotos'

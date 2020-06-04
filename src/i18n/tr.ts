@@ -41,6 +41,9 @@ const messages = {
     privacyAndPolicy: {
       title: 'Gizlilik Ve Prensipler',
     },
+    crop: {
+      title: 'Crop',
+    },
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar'
