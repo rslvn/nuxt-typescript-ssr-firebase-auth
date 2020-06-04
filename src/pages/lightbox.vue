@@ -1,9 +1,8 @@
 <template>
-  <div class="has-text-centered">
-    <button class="button is-primary is-medium"
-            @click="showLightbox">
-      Launch image modal
-    </button>
+  <div class="masonry">
+    <div v-for="(image,index) in images" :key="index" class="item has-cursor-pointer" @click="showLightbox(index)">
+      <img :src="image.src" :alt="image.alt"/>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -72,7 +71,7 @@
       ]
     }
 
-    showLightbox() {
+    showLightbox(index: number) {
       this.$buefy.modal.open({
         parent: this,
         component: Lightbox,
@@ -81,9 +80,23 @@
         canCancel: true,
         props: {
           images: this.images,
-          initialIndex: 20,
+          initialIndex: index,
         }
       })
     }
   }
 </script>
+<style scoped>
+  .masonry { /* Masonry container */
+    column-count: 4;
+    column-gap: 1em;
+  }
+
+  .item { /* Masonry bricks or child elements */
+    background-color: #eee;
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+  }
+
+</style>
