@@ -1,21 +1,20 @@
 <template>
-  <b-navbar-dropdown>
+  <b-navbar-dropdown :boxed="true" :close-on-click="true">
 
     <template slot="label">
-        <img class="image-fit-cover square-28" :src="activeLanguage.flag.src" :alt="activeLanguage.flag.alt">
+      <img class="image-fit-cover square-28" :src="activeLanguage.flag.src" :alt="activeLanguage.flag.alt">
     </template>
 
     <b-navbar-item v-for="(language,index) in languages" :key="index" :active="activeLanguage.code === language.code"
                    @click="changeLocale(language)">
-      <div class="media">
-        <figure class="image is-32x32 media-left">
-          <img :src="language.flag.src" :alt="language.flag.alt">
-        </figure>
-        <div class="media-content">
-          <h3>{{ language.name}}</h3>
-        </div>
-      </div>
+      <b-field>
+<!--        <figure class="image is-32x32 media-left">-->
+          <img class="square-28 has-margin-right-5" :src="language.flag.src" :alt="language.flag.alt">
+<!--        </figure>-->
+        <p>{{ language.name}}</p>
+      </b-field>
     </b-navbar-item>
+
   </b-navbar-dropdown>
 </template>
 

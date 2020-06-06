@@ -30,12 +30,13 @@
     </template>
 
     <template slot="end">
-      <b-navbar-item tag="div">
-        <LanguageSwitcher/>
-      </b-navbar-item>
-      <b-navbar-item tag="div">
-        <ProfileNavigator v-if="storedUser" :stored-user="storedUser" :logout="logout"/>
-        <div v-else class="buttons">
+
+      <LanguageSwitcher/>
+
+      <ProfileNavigator v-if="storedUser" :stored-user="storedUser" :logout="logout"/>
+
+      <b-navbar-item v-else tag="div">
+        <div class="buttons">
           <b-button tag="router-link"
                     :to="routeType.REGISTER"
                     type="is-primary">

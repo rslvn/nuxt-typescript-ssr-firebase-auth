@@ -62,6 +62,14 @@
       </div>
     </b-field>
 
+    <b-field v-if="passwordProvider && storedUser.verified" horizontal>
+      <div class="buttons">
+        <b-button icon-pack="fas"
+                  icon-left="user-edit">
+          Settings
+        </b-button>
+      </div>
+    </b-field>
 
   </div>
 </template>
