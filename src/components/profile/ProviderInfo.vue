@@ -32,6 +32,7 @@
     components: {}
   })
   export default class ProviderInfo extends Vue {
+
     @Prop({ type: Object, required: false }) providerData !: ProviderData;
 
     get placeholder() {

@@ -1,4 +1,4 @@
-import { DefaultCoverPhoto, Image, ProfileState, RootState } from '~/types'
+import { DefaultCoverPhoto, Image, ProfileState, RootState, StoreConfig, User } from '~/types'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { saveUser } from '~/service/firebase/firestore-service'
 import { auth } from '~/plugins/fire-init-plugin'
@@ -19,9 +19,11 @@ export const mutations: MutationTree<ProfileState> = {
 }
 
 export const actions: ActionTree<ProfileState, RootState> = {
+
   async saveCoverPhoto({ commit }, coverPhoto: Image) {
     commit('setCoverPhoto', coverPhoto)
   },
+
   async updateCoverPhoto({ commit, dispatch }, coverPhoto: Image) {
     await saveUser({
       id: auth.currentUser?.uid,
@@ -32,4 +34,15 @@ export const actions: ActionTree<ProfileState, RootState> = {
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
+
+  async saveUser({ commit, dispatch }, user: User) {
+    saveUser(user)
+      .then((savedUser: User) => {
+        dispatch(StoreConfig.auth.saveName, savedUser.name, {
+          root: true
+        })
+      })
+      .catch((error: Error) => handleError(dispatch, error))
+  }
+
 }

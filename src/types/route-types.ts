@@ -3,6 +3,7 @@ export const RouteType = {
   LOGIN: { path: '/login' },
   REGISTER: { path: '/register' },
   PROFILE: { path: '/profile' },
+  PROFILE_SETTINGS: { path: '/profile/settings' },
   ACTION: { path: '/auth/action' },
   FORGET_PASSWORD: { path: '/auth/forget-password' },
   RESET_PASSWORD: { path: '/auth/reset-password' },

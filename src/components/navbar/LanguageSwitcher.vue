@@ -8,9 +8,7 @@
     <b-navbar-item v-for="(language,index) in languages" :key="index" :active="activeLanguage.code === language.code"
                    @click="changeLocale(language)">
       <b-field>
-<!--        <figure class="image is-32x32 media-left">-->
-          <img class="square-28 has-margin-right-5" :src="language.flag.src" :alt="language.flag.alt">
-<!--        </figure>-->
+        <img class="square-28 has-margin-right-5" :src="language.flag.src" :alt="language.flag.alt">
         <p>{{ language.name}}</p>
       </b-field>
     </b-navbar-item>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CoverPhoto :stored-user="storedUser" :cover-photo="coverPhoto"/>
+    <CoverPhoto :stored-user="storedUser" :cover-photo="user.coverPhoto"/>
 
     <div class="container">
       <div class="has-margin-top-10 has-margin-bottom-10">
@@ -23,7 +23,7 @@
 
       <div class="column is-half">
         <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
-        <ProfileInfo :stored-user="storedUser"/>
+        <ProfileInfo :stored-user="storedUser" :user="user"/>
       </div>
 
     </div>
@@ -44,7 +44,7 @@
     ProviderType,
     StateNamespace,
     StoredUser,
-    SupportedProviders
+    SupportedProviders, User
   } from "~/types";
   import ProfileInfo from "~/components/profile/ProfileInfo.vue";
   import ProfilePhoto from "~/components/profile/ProfilePhoto.vue";
@@ -57,8 +57,8 @@
   export default class Profile extends Vue {
 
     @Prop({ required: true }) storedUser !: StoredUser;
+    @Prop({ required: true }) user !: User;
 
-    @StateNamespace.profile.Getter coverPhoto !: Image;
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
 
     get parentFolderRef() {

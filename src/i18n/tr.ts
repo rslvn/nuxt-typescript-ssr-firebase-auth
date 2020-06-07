@@ -7,6 +7,8 @@ const messages = {
     field: {
       name: 'Ad',
       namePlaceHolder: 'adinizi giriniz',
+      surname: 'Soyad',
+      surnamePlaceHolder: 'Soyadinizi giriniz',
       email: 'E-Posta',
       emailPlaceHolder: 'E-posta adresinizi giriniz',
       password: 'Parola',
@@ -85,7 +87,6 @@ const messages = {
       },
       loginWith: '{provider} ile Giris Yap',
     },
-
     resetPassword: {
       title: 'Parolami yenile',
       submit: 'Parolami Degistir',
@@ -94,6 +95,10 @@ const messages = {
       title: 'Kayit Ol',
       submit: 'Kayit Ol',
       hasAccount: 'Hesabiniz var mi? Giris Yap!',
+    },
+    profileUpdate: {
+      title: 'Kullanici Bilgilerini Guncelle',
+      submit: 'Guncelle'
     },
   },
 

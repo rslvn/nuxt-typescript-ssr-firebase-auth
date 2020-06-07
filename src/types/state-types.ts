@@ -53,6 +53,7 @@ export const StoreConfig = {
     forceLogout: 'auth/forceLogout',
     logout: 'auth/logout',
     saveRememberMe: 'auth/saveRememberMe',
+    saveName: 'auth/saveName',
   },
   notification: {
     saveMessage: 'notification/saveMessage',

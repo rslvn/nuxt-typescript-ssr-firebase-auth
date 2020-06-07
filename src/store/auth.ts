@@ -84,13 +84,27 @@ export const mutations: MutationTree<AuthState> = {
 }
 
 export const actions: ActionTree<AuthState, RootState> = {
+
   async saveUser({ commit }, storedUser: StoredUser) {
     commit('setStoredUser', storedUser);
   },
+
   async saveRememberMe({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe);
   },
+
+  async saveName({ commit }, name: string) {
+    console.log('saveName called')
+    await auth?.currentUser
+      ?.updateProfile({
+        displayName: name
+      })
+      .then(() => {
+        commit('setName', name)
+      })
+  },
+
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
     let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
     await auth.setPersistence(persistence)
@@ -133,13 +147,8 @@ export const actions: ActionTree<AuthState, RootState> = {
       })
       .then(async (userCredential: UserCredential) => {
         // update user display name on firebase authentication
-        await userCredential?.user
-          ?.updateProfile({
-            displayName: credentials.name
-          })
-          .then(() => {
-            commit('setName', credentials.name)
-          })
+        await dispatch('saveName', credentials.name)
+
         return userCredential;
       })
       .then(async (userCredential: UserCredential) => {

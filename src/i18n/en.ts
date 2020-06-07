@@ -7,6 +7,8 @@ const messages = {
     field: {
       name: 'Name',
       namePlaceHolder: 'enter your name',
+      surname: 'Surname',
+      surnamePlaceHolder: 'enter your surname',
       email: 'Email',
       emailPlaceHolder: 'enter your email',
       password: 'Password',
@@ -95,6 +97,10 @@ const messages = {
       submit: 'Register',
       hasAccount: 'Already has an account? Login!',
     },
+    profileUpdate: {
+      title: 'User Update',
+      submit: 'Update'
+    },
   },
 
   card: {
@@ -102,6 +108,7 @@ const messages = {
       title: 'Account Info:',
       userId: 'Id:',
       name: 'Name:',
+      surname: 'Surname',
       email: 'Email: ',
       providers: 'Providers:',
       verifyButton: 'Verify Email',

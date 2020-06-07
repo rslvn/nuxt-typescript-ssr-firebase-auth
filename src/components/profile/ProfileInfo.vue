@@ -9,6 +9,10 @@
       <span>{{ storedUser.name }}</span>
     </b-field>
 
+    <b-field :label="$t('card.user.surname')" label-position="on-border" horizontal>
+      <span>{{ user.surname }}</span>
+    </b-field>
+
     <b-field v-if="storedUser.email" :label="$t('card.user.email')" horizontal>
       <b-field grouped>
         <span>{{ storedUser.email }}</span>
@@ -64,8 +68,12 @@
 
     <b-field v-if="passwordProvider && storedUser.verified" horizontal>
       <div class="buttons">
-        <b-button icon-pack="fas"
-                  icon-left="user-edit">
+        <b-button tag="router-link"
+                  :to="profileSettingsRoute"
+                  type="is-primary"
+                  icon-pack="fas"
+                  icon-left="user-edit"
+                  outlined>
           Settings
         </b-button>
       </div>
@@ -80,9 +88,11 @@
     LoginCredentials,
     ProviderConfig,
     ProviderType,
+    RouteType,
     StateNamespace,
     StoredUser,
-    SupportedProviders
+    SupportedProviders,
+    User
   } from '~/types';
   import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue';
 
@@ -92,8 +102,10 @@
   export default class ProfileInfo extends Vue {
 
     @Prop({ required: true }) storedUser !: StoredUser
+    @Prop({ required: true }) user !: User;
 
     loading = false;
+    profileSettingsRoute = RouteType.PROFILE_SETTINGS
 
     @StateNamespace.notification.Action clearMessage !: () => void;
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>

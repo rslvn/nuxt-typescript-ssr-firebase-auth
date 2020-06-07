@@ -7,7 +7,7 @@ body {
   padding: 0;
   margin: 0;
   position: relative;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 
 body::after {
@@ -22,6 +22,14 @@ footer {
   width: 100%;
 }
 
+.has-margin-3 {
+  margin: 3px !important;
+}
+
+.has-margin-bottom-3 {
+  margin-bottom: 3px !important;
+}
+
 .profile-28-round {
   width: 28px;
   height: 28px;
@@ -30,9 +38,9 @@ footer {
   box-shadow: 0 0 3px 2px #ccc;
 }
 
-.profile-150-round {
-  width: 150px;
-  height: 150px;
+.profile-128-round {
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   border: solid 1px #0a0a0a;
   box-shadow: 0 0 3px 2px #ccc;
@@ -83,8 +91,6 @@ footer {
   min-width: 100%;
   min-height: 100%
 }
-
-
 
 .is-overlay-right {
   position: absolute !important;
@@ -144,6 +150,11 @@ footer {
 .square-400 {
   width: 400px;
   height: 400px;
+}
+
+has-border-and-shadow {
+  border: solid 1px #0a0a0a;
+  box-shadow: 0 0 3px 2px #ccc;
 }
 
 @media (max-width: 732px) {
