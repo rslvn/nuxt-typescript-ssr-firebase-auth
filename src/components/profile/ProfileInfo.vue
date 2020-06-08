@@ -5,12 +5,16 @@
       <span> <small> {{ storedUser.userId }} </small></span>
     </b-field>
 
-    <b-field :label="$t('card.user.name')" label-position="on-border" horizontal>
+    <b-field :label="$t('card.user.name')" horizontal>
       <span>{{ storedUser.name }}</span>
     </b-field>
 
-    <b-field :label="$t('card.user.surname')" label-position="on-border" horizontal>
+    <b-field :label="$t('card.user.surname')" horizontal>
       <span>{{ user.surname }}</span>
+    </b-field>
+
+    <b-field :label="$t('card.user.biography')" horizontal>
+      <span>{{ user.biography }}</span>
     </b-field>
 
     <b-field v-if="storedUser.email" :label="$t('card.user.email')" horizontal>
@@ -66,7 +70,7 @@
       </div>
     </b-field>
 
-    <b-field v-if="passwordProvider && storedUser.verified" horizontal>
+    <b-field horizontal>
       <div class="buttons">
         <b-button tag="router-link"
                   :to="profileSettingsRoute"
@@ -74,7 +78,7 @@
                   icon-pack="fas"
                   icon-left="user-edit"
                   outlined>
-          Settings
+          {{ $t('card.user.settingsButton') }}
         </b-button>
       </div>
     </b-field>

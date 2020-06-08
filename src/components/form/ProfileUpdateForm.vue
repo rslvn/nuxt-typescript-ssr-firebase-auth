@@ -23,11 +23,27 @@
           class="has-margin-bottom-5"
         />
 
+        <BInputWithValidation
+          v-model="updatedUser.biography"
+          inputType="textarea"
+          :label="$t('common.field.biography')"
+          :placeholder="$t('common.field.biographyPlaceHolder')"
+          rules=""
+          vid="name"
+          class="has-margin-bottom-5"
+        />
+
         <div class="buttons">
           <b-button type="is-primary" icon-pack="fas"
                     icon-left="user-edit"
                     @click="passes(submit)">
             {{ $t('form.profileUpdate.submit')}}
+          </b-button>
+
+          <b-button type="is-primary" icon-pack="fas"
+                    icon-left="user-edit"
+                    @click="gotoProfile" outlined>
+            {{ $t('common.back')}}
           </b-button>
         </div>
 
@@ -59,8 +75,12 @@
     submit() {
       this.saveUser(this.updatedUser)
         .then(() => {
-          this.$router.replace(RouteType.PROFILE)
+          this.gotoProfile()
         })
+    }
+
+    gotoProfile() {
+      this.$router.replace(RouteType.PROFILE)
     }
 
   }

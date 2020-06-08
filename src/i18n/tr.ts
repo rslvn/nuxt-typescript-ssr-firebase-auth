@@ -11,6 +11,8 @@ const messages = {
       surnamePlaceHolder: 'Soyadinizi giriniz',
       email: 'E-Posta',
       emailPlaceHolder: 'E-posta adresinizi giriniz',
+      biography: 'Biyografi',
+      biographyPlaceHolder: 'Biyografinizi giriniz',
       password: 'Parola',
       passwordPlaceHolder: 'Parolanizi giriniz',
       confirmPassword: 'Parola Tekrar',
@@ -19,6 +21,7 @@ const messages = {
     },
     cancel: 'Iptal',
     save: 'Kaydet',
+    back: 'Geri',
   },
 
   topNavbar: {
@@ -49,7 +52,7 @@ const messages = {
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar'
-    },    footer: {
+    }, footer: {
       copyRight: '&copy; Telif Hakki 2020,',
     },
   },
@@ -104,13 +107,18 @@ const messages = {
 
   card: {
     user: {
-      title: 'Hesap Bilgileri:',
-      userId: 'Kimlik:',
-      name: 'Ad :',
-      email: 'E-posta :',
-      providers: 'Saglayicilar:',
+      title: 'Hesap Bilgileri',
+      userId: 'Kimlik',
+      name: 'Ad',
+      surname: 'Soyad',
+      email: 'E-posta',
+      biography: 'Biyografi',
+      providers: 'Saglayicilar',
       verifyButton: 'E-posta Dogrula',
       updatePasswordButton: 'Parolayi guncelle',
+      mailVerified: 'E-posta dogrulandi',
+      mailNotVerified: 'E-posta dogrulanmadi',
+      settingsButton: 'Ayarlar',
     },
     linkedAccounts: {
       title: 'Bagli Hesaplar:',

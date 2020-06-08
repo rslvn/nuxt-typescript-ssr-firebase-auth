@@ -8,7 +8,7 @@
     </div>
 
     <SingleFileUpload class="is-overlay-left" :parent-folder-ref="parentFolderRef"
-                      :upload-completed="updateCoverPhoto"
+                      :upload-completed="uploadCompleted"
                       :get-alt-value="getCoverImageAltName"/>
   </div>
 
@@ -19,6 +19,7 @@
   import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, StoredUser } from '~/types';
   import SingleFileUpload from '~/components/image/upload/SingleFileUpload.vue';
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
+  import { profilePhotoObservable } from '~/service/rx-service';
 
   @Component({
     components: { SingleFileUpload }
@@ -28,7 +29,7 @@
     @Prop({ required: true }) storedUser !: StoredUser
     @Prop({ required: true }) coverPhoto !: Image
 
-    @StateNamespace.profile.Action updateCoverPhoto !: (coverPhoto: Image) => void;
+    @StateNamespace.profile.Action updateCoverPhoto !: (coverPhoto: Image) => Promise<void>;
 
     get parentFolderRef() {
       return CoverPhotoStorageRef.folderRef
@@ -60,5 +61,11 @@
         }
       })
     }
+
+    uploadCompleted(image: Image) {
+      this.updateCoverPhoto(image)
+        .then(() => profilePhotoObservable.next(image))
+    }
+
   }
 </script>

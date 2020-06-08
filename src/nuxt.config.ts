@@ -57,6 +57,7 @@ const config: Configuration = {
     '~/plugins/vee-validate-plugin',
     { src: '~/plugins/i18n-plugin' },
     '~/plugins/vue-lazyload-plugin',
+    '~/plugins/rxjs-plugin',
   ],
   router: {
     middleware: ['clear-messages', 'router-auth']

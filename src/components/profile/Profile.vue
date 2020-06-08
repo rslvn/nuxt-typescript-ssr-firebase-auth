@@ -44,7 +44,8 @@
     ProviderType,
     StateNamespace,
     StoredUser,
-    SupportedProviders, User
+    SupportedProviders,
+    User
   } from "~/types";
   import ProfileInfo from "~/components/profile/ProfileInfo.vue";
   import ProfilePhoto from "~/components/profile/ProfilePhoto.vue";

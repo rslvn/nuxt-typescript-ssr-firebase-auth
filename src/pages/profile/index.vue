@@ -7,6 +7,7 @@
   import Profile from '~/components/profile/Profile.vue';
   import { Image, StateNamespace, StoredUser, User } from '~/types';
   import { getUser } from '~/service/firebase/firestore-service';
+  import { profilePhotoObservable } from '~/service/rx-service';
 
   @Component({
     components: { Profile },
@@ -18,13 +19,16 @@
     @StateNamespace.auth.Getter storedUser !: StoredUser;
     @StateNamespace.profile.Action saveCoverPhoto !: (coverPhoto: Image) => {};
 
-    async created() {
-      await getUser(this.storedUser.userId)
+    created() {
+      this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
+        if (this.user) {
+          this.user.coverPhoto = image;
+        }
+      })
+
+      getUser(this.storedUser.userId)
         .then((user: User) => {
           this.user = user;
-          // if (user?.coverPhoto) {
-          //   this.saveCoverPhoto(user.coverPhoto as Image)
-          // }
         })
     }
   }

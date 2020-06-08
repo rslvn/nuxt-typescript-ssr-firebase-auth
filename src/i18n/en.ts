@@ -11,6 +11,8 @@ const messages = {
       surnamePlaceHolder: 'enter your surname',
       email: 'Email',
       emailPlaceHolder: 'enter your email',
+      biography: 'Biography',
+      biographyPlaceHolder: 'enter your biography',
       password: 'Password',
       passwordPlaceHolder: 'Enter password',
       confirmPassword: 'Confirm Password',
@@ -19,6 +21,7 @@ const messages = {
     },
     cancel: 'Cancel',
     save: 'Save',
+    back: 'Back',
   },
 
   topNavbar: {
@@ -105,16 +108,18 @@ const messages = {
 
   card: {
     user: {
-      title: 'Account Info:',
-      userId: 'Id:',
-      name: 'Name:',
+      title: 'Account Info',
+      userId: 'Id',
+      name: 'Name',
       surname: 'Surname',
-      email: 'Email: ',
-      providers: 'Providers:',
+      email: 'Email',
+      biography: 'Biography',
+      providers: 'Providers',
       verifyButton: 'Verify Email',
       updatePasswordButton: 'Update Password',
       mailVerified: 'Email is verified',
       mailNotVerified: 'Email is not verified',
+      settingsButton: 'Settings',
     },
     linkedAccounts: {
       title: 'Linked Accounts:',
