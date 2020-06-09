@@ -32,8 +32,9 @@ import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 
 export const state = (): AuthState => ({
+  storedUser: undefined,
   forceLogout: false,
-  rememberMe: true
+  rememberMe: true,
 })
 
 export const getters: GetterTree<AuthState, RootState> = {

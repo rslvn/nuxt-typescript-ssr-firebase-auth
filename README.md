@@ -104,12 +104,13 @@ See the [Features](#features) for more functionalities
     - [x] lazy load (vue-lazyload)
     - [x] crop with cropperjs
     - [x] lightbox with buefy/bulma
-- [x] dotenv
 - [x] custom error page - simple
 - [x] global notification
 - [x] toaster notification
 - [x] tooltips
-- [x] force logout if token is invalid
+- [x] force logout if token is invalid    
+- [x] dotenv
+- [x] rxJS
 - [x] uuid
 - [x] slug
 - [ ] better formatting

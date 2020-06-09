@@ -42,8 +42,8 @@ export enum AppCookie {
   REMEMBER_ME = 'rememberMe'
 }
 
-export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax' }
+export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax', path: '/' }
 
-export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none' }
+export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none', path: '/' }
 
-export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true }
+export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true, path: '/' }

@@ -49,6 +49,8 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
         return resolve()
       }
 
+      console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
+
       let storedUser = getStoredUser(firebaseUser)
       store.commit(StoreConfig.auth.setStoredUser, storedUser)
 

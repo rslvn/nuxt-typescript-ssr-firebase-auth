@@ -15,9 +15,7 @@ export const state = (): RootState => ({})
 export const actions: ActionTree<RootState, RootState> = {
   async nuxtServerInit({ commit, dispatch, state }, { route, app }: Context) {
     commit(StoreConfig.loading.setLoading, true)
-    console.log(
-      `>>>>>>>>>> nuxtServerInit loading: ${state?.loading?.loading} mode: ${process?.mode} for path: ${route.path}`
-    )
+    console.log(`>>>>>>>>>> nuxtServerInit for path: ${route.path}`)
 
     const token = app.$cookies.get(AppCookie.TOKEN)
     if (token) {
@@ -27,7 +25,7 @@ export const actions: ActionTree<RootState, RootState> = {
           token,
         })
         .then((response: AxiosResponse<StoredUser>) => {
-          console.log('decoed User on Server')
+          console.log('decoded User on Server')
           commit(StoreConfig.auth.setStoredUser, response.data)
         })
         .catch((error: AxiosError) => {
@@ -41,6 +39,8 @@ export const actions: ActionTree<RootState, RootState> = {
           }
         })
         .then(() => commit(StoreConfig.loading.setLoading, false))
+    } else {
+      console.log('No token')
     }
     return dispatch(StoreConfig.loading.saveLoading, false)
   },
