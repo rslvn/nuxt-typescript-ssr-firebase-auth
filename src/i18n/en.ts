@@ -5,6 +5,7 @@ const messages = {
 
   common: {
     field: {
+      id: 'Id',
       name: 'Name',
       namePlaceHolder: 'enter your name',
       surname: 'Surname',
@@ -109,10 +110,6 @@ const messages = {
   card: {
     user: {
       title: 'Account Info',
-      userId: 'Id',
-      name: 'Name',
-      surname: 'Surname',
-      email: 'Email',
       biography: 'Biography',
       providers: 'Providers',
       verifyButton: 'Verify Email',

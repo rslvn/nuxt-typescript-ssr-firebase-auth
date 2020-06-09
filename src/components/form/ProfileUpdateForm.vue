@@ -5,13 +5,30 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
+        <BInputNoValidation
+          v-model="updatedUser.id"
+          :label="$t('common.field.id')"
+          :disabled="true"
+          label-position="on-border"
+          class="has-margin-bottom-15"
+        />
+
+        <BInputNoValidation
+          v-model="updatedUser.email"
+          :label="$t('common.field.email')"
+          :disabled="true"
+          label-position="on-border"
+          class="has-margin-bottom-5"
+        />
+
         <BInputWithValidation
           v-model="updatedUser.name"
           :label="$t('common.field.name')"
           :placeholder="$t('common.field.namePlaceHolder')"
           rules="required|min:4"
           vid="name"
-          class="has-margin-bottom-5"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -19,8 +36,9 @@
           :label="$t('common.field.surname')"
           :placeholder="$t('common.field.surnamePlaceHolder')"
           rules="required|min:4"
-          vid="name"
-          class="has-margin-bottom-5"
+          vid="surname"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -29,8 +47,9 @@
           :label="$t('common.field.biography')"
           :placeholder="$t('common.field.biographyPlaceHolder')"
           rules=""
-          vid="name"
-          class="has-margin-bottom-5"
+          label-position="on-border"
+          vid="biography"
+          class="has-margin-5"
         />
 
         <div class="buttons">
@@ -41,7 +60,7 @@
           </b-button>
 
           <b-button type="is-primary" icon-pack="fas"
-                    icon-left="user-edit"
+                    icon-left="arrow-left"
                     @click="gotoProfile" outlined>
             {{ $t('common.back')}}
           </b-button>
@@ -57,9 +76,10 @@
   import { ValidationObserver } from "vee-validate";
   import { RouteType, StateNamespace, User } from '~/types';
   import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
+  import BInputNoValidation from '~/components/ui/input/BInputNoValidation.vue';
 
   @Component({
-    components: { ValidationObserver, BInputWithValidation }
+    components: { BInputNoValidation, ValidationObserver, BInputWithValidation }
   })
   export default class ProfileUpdateForm extends Vue {
 

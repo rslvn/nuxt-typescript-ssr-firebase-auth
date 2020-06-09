@@ -5,6 +5,7 @@ const messages = {
 
   common: {
     field: {
+      id: 'Kimlik',
       name: 'Ad',
       namePlaceHolder: 'adinizi giriniz',
       surname: 'Soyad',
@@ -108,10 +109,6 @@ const messages = {
   card: {
     user: {
       title: 'Hesap Bilgileri',
-      userId: 'Kimlik',
-      name: 'Ad',
-      surname: 'Soyad',
-      email: 'E-posta',
       biography: 'Biyografi',
       providers: 'Saglayicilar',
       verifyButton: 'E-posta Dogrula',

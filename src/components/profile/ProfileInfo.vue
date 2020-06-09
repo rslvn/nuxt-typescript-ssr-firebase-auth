@@ -1,15 +1,15 @@
 <template>
   <div class="box">
 
-    <b-field :label="$t('card.user.userId')" horizontal>
+    <b-field :label="$t('common.field.id')" horizontal>
       <span> <small> {{ storedUser.userId }} </small></span>
     </b-field>
 
-    <b-field :label="$t('card.user.name')" horizontal>
+    <b-field :label="$t('common.field.name')" horizontal>
       <span>{{ storedUser.name }}</span>
     </b-field>
 
-    <b-field :label="$t('card.user.surname')" horizontal>
+    <b-field :label="$t('common.field.surname')" horizontal>
       <span>{{ user.surname }}</span>
     </b-field>
 
@@ -17,7 +17,7 @@
       <span>{{ user.biography }}</span>
     </b-field>
 
-    <b-field v-if="storedUser.email" :label="$t('card.user.email')" horizontal>
+    <b-field v-if="storedUser.email" :label="$t('common.field.email')" horizontal>
       <b-field grouped>
         <span>{{ storedUser.email }}</span>
         <b-tooltip v-if="storedUser.verified" :label="$t('card.user.mailVerified')">

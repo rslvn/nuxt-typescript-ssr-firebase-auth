@@ -1,16 +1,21 @@
-import { firestore } from "~/plugins/fire-init-plugin";
-import { BaseCollection, collection, User } from "~/types";
+import { auth, firestore } from "~/plugins/fire-init-plugin";
+import { BaseModel, collection, User } from "~/types";
 
-const updateModelDates = (model: BaseCollection) => {
+const updateBaseModel = (model: BaseModel) => {
   let date = new Date()
   if (!model.createdAt) {
     model.createdAt = date
   }
   model.updatedAt = date;
+
+  if (!model.createdBy) {
+    model.createdBy = auth.currentUser?.uid
+  }
+  model.updatedBy = auth.currentUser?.uid
 };
 
-const set = async (collection: string, model: BaseCollection) => {
-  updateModelDates(model);
+const set = async (collection: string, model: BaseModel) => {
+  updateBaseModel(model);
 
   let docRef = firestore.collection(collection).doc(model.id);
 
@@ -22,7 +27,7 @@ const set = async (collection: string, model: BaseCollection) => {
       // get updated doc
       return docRef.get()
         .then((doc) => {
-          return doc.data() as BaseCollection
+          return doc.data() as BaseModel
         }).catch((error) => {
           throw error;
         });
@@ -30,22 +35,22 @@ const set = async (collection: string, model: BaseCollection) => {
     })
 };
 
-const add = async (collection: string, model: BaseCollection) => {
+const add = async (collection: string, model: BaseModel) => {
   let docRef = firestore.collection(collection).doc();
   model.id = docRef.id;
 
   return set(collection, model);
 };
 
-export const saveModel = async (collection: string, model: BaseCollection) => {
+export const saveModel = async (collection: string, model: BaseModel) => {
   return model.id ?
     set(collection, model) :
     add(collection, model)
 };
 
-export const getModelById = async (collection: string, id: string): Promise<BaseCollection> => {
+export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
   return await firestore.collection(collection).doc(id).get().then((doc) => {
-    return doc.data() as BaseCollection
+    return doc.data() as BaseModel
   })
 }
 

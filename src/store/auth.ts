@@ -140,6 +140,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         await saveUser({
           id: userCredential.user?.uid as string,
           name: credentials.name,
+          email: credentials.email,
           profilePhoto: DefaultProfilePhoto,
           coverPhoto: DefaultCoverPhoto
         })
@@ -284,13 +285,19 @@ export const actions: ActionTree<AuthState, RootState> = {
     let authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password);
 
     return auth.currentUser?.linkWithCredential(authCredential)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
+        await saveUser({
+          id: userCredential.user?.uid as string,
+          email: userCredential.user?.email as string
+        })
+        return userCredential
 
+      }).then(async (userCredential) => {
         let userInfo = userCredential.user?.providerData
           ?.find((userInfo) => userInfo?.providerId == ProviderType.PASSWORD)
-
         commit('addProvider', getProviderData(userInfo))
 
+      }).then(async () => {
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.PASSWORD)))
       })
       .catch((error: Error) => handleError(dispatch, error))

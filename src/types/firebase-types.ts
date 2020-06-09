@@ -97,15 +97,7 @@ export interface ProviderLink {
   method: () => void
 }
 
-/**
- * firestore types
- */
-export enum collection {
-  USER = 'user',
-}
-
 export interface Image {
-  id?: string
   src: string
   alt: string
   name?: string
@@ -113,7 +105,14 @@ export interface Image {
   preview?: Image
 }
 
-export interface BaseCollection {
+/**
+ * firestore collection models
+ */
+export enum collection {
+  USER = 'user',
+}
+
+export interface BaseModel {
   id?: string
   createdAt?: Date
   createdBy?: string
@@ -121,9 +120,10 @@ export interface BaseCollection {
   updatedBy?: string
 }
 
-export interface User extends BaseCollection {
+export interface User extends BaseModel {
   name?: string
   surname?: string
+  email?: string
   biography ?: string
   profilePhoto?: Image
   coverPhoto?: Image

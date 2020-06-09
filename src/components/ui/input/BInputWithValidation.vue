@@ -12,6 +12,7 @@
       :message="errors"
       :horizontal="horizontal"
       :label="$attrs.label"
+      :label-position="labelPosition"
     >
       <b-input
         v-bind="$attrs"
@@ -38,6 +39,7 @@
     @Prop({ type: String, required: true }) vid !: string;
     @Prop({ type: String, required: true }) rules !: string;
     @Prop({ type: String, required: false, default: 'text' }) inputType !: string;
+    @Prop({ type: String, required: false, default: '' }) labelPosition !: string;
     @Prop({ type: String, required: false, default: 'some@domain.com' }) placeholder !: string;
     @Prop({ type: Boolean, required: false, default: false }) horizontal !: boolean;
     @Prop({ type: Boolean, required: false, default: false }) disabled !: boolean;
