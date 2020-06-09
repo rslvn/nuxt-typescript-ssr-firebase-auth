@@ -1,5 +1,5 @@
 <template>
-  <b-upload v-model="file" accept="image/*" :loading="loading">
+  <b-upload v-model="file" accept="image/*">
     <slot name="button">
       <a class="button is-light">
         <b-icon icon="camera"></b-icon>
@@ -13,7 +13,7 @@
   import { getNewFileName } from '~/service/global-service'
   import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
   import { handleError } from '~/service/error-service'
-  import { Image } from "~/types";
+  import { Image, StateNamespace } from "~/types";
 
   @Component({
     components: {}
@@ -24,16 +24,17 @@
     @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
     @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
 
-    loading = false
     file: File | null = null
     fileName = ''
     uploadTask: firebase.storage.UploadTask | null = null
 
+    @StateNamespace.loading.Mutation setLoading !: (loading: boolean) => void;
+
     @Watch('file')
     onFileChanged(file: File, oldFile: File) {
+      this.setLoading(true);
       this.fileName = this.parentFolderRef + getNewFileName(file.name)
       this.uploadTask = storage.ref().child(this.fileName).put(file)
-      console.log('onFileChanged: ', this.fileName)
     }
 
     @Watch('uploadTask')
@@ -58,6 +59,7 @@
                 default: false
               }
               this.uploadCompleted(image)
+              this.setLoading(false)
             });
         });
     }

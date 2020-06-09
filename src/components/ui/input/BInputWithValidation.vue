@@ -4,7 +4,7 @@
     :name="$attrs.name || $attrs.label"
     :rules="rules"
     v-slot="{ errors, valid }"
-    validate="blur"
+    validate="input"
   >
     <b-field
       v-bind="$attrs"
