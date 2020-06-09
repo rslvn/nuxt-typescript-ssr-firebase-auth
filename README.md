@@ -52,12 +52,6 @@ See the [Features](#features) for more functionalities
 |<img width="1604" alt="" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fprofile.png?alt=media&token=d650a96f-a7de-47ae-8666-78d730ff28fd"> |  <img width="1604" alt="" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Flightbox.png?alt=media&token=853b84a1-454c-48ff-a560-e6a740402b1b">|<img width="1604" alt="" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fcrop.png?alt=media&token=e3d72dca-08c4-444e-b02d-b81ce8667101">|
 |<img width="1604" alt="" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Flogin.png?alt=media&token=00b53ac5-27ca-49f3-8104-165d32e56d7d">  |  <img width="1604" alt="screen shot 2017-08-07 at 12 18 15 pm" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fregister.png?alt=media&token=aa2c9807-b456-41f3-a7ea-12eacb239e7e">||
 
-![login screen](doc/login.png) 
----
-![register screen](doc/register.png) 
----
-![account sc](doc/account.png) 
-
 ## DETAILED DOCUMENTATION
 > Coming soon
 
