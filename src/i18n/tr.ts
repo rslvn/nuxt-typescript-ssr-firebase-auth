@@ -10,10 +10,12 @@ const messages = {
       namePlaceHolder: 'adinizi giriniz',
       surname: 'Soyad',
       surnamePlaceHolder: 'Soyadinizi giriniz',
-      email: 'E-Posta',
+      email: 'Email',
       emailPlaceHolder: 'E-posta adresinizi giriniz',
       biography: 'Biyografi',
       biographyPlaceHolder: 'Biyografinizi giriniz',
+      phone: 'Telefon',
+      photo: 'Foto',
       password: 'Parola',
       passwordPlaceHolder: 'Parolanizi giriniz',
       confirmPassword: 'Parola Tekrar',
@@ -22,7 +24,9 @@ const messages = {
     },
     cancel: 'Iptal',
     save: 'Kaydet',
+    delete: 'Sil',
     back: 'Geri',
+    settings: 'Ayarlar',
   },
 
   topNavbar: {
@@ -109,13 +113,11 @@ const messages = {
   card: {
     user: {
       title: 'Hesap Bilgileri',
-      biography: 'Biyografi',
       providers: 'Saglayicilar',
       verifyButton: 'E-posta Dogrula',
       updatePasswordButton: 'Parolayi guncelle',
       mailVerified: 'E-posta dogrulandi',
       mailNotVerified: 'E-posta dogrulanmadi',
-      settingsButton: 'Ayarlar',
     },
     linkedAccounts: {
       title: 'Bagli Hesaplar:',
@@ -142,13 +144,6 @@ const messages = {
     submit: {
       link: 'Bagla',
       unlink: 'Baglantiyi kopar',
-    },
-    info: {
-      displayName: 'Ad:',
-      email: 'E-Posta:',
-      phoneNumber: 'Telefon Numarasi:',
-      photoURL: 'Fotograf:',
-      uid: 'Kimlik:',
     },
     tooltip: {
       linkedProvider: '{provider} hesabiniza bagli. Baglantiyi kopar!',

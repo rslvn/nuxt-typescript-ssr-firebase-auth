@@ -13,7 +13,7 @@
       <span>{{ user.surname }}</span>
     </b-field>
 
-    <b-field :label="$t('card.user.biography')" horizontal>
+    <b-field :label="$t('common.field.biography')" horizontal>
       <span>{{ user.biography }}</span>
     </b-field>
 
@@ -78,7 +78,7 @@
                   icon-pack="fas"
                   icon-left="user-edit"
                   outlined>
-          {{ $t('card.user.settingsButton') }}
+          {{ $t('common.settings') }}
         </b-button>
       </div>
     </b-field>

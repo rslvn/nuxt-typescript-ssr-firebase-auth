@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="has-text-centered">
-      <h3> {{ getProviderLabel(providerConfig.providerType) }} </h3>
+      <h3 class="subtitle"> {{ getProviderLabel(providerConfig.providerType) }} </h3>
       <b-tooltip
         :label="getTooltip(providerConfig.providerType)"
         :type="isLinked ? 'is-light': 'is-success'"
