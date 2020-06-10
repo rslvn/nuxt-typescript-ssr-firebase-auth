@@ -12,7 +12,7 @@ import {
   StoreConfig
 } from '~/types';
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service';
-import { getStoredUser } from '~/service/firebase/firebase-service';
+import { getAuthUser } from '~/service/firebase/firebase-service';
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -51,8 +51,8 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
 
       console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
 
-      let storedUser = getStoredUser(firebaseUser)
-      store.commit(StoreConfig.auth.setStoredUser, storedUser)
+      let authUser = getAuthUser(firebaseUser)
+      store.commit(StoreConfig.auth.setAuthUser, authUser)
 
       if (firebaseUser) {
         // console.log('Firebase user: ', firebaseUser)

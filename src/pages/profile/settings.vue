@@ -12,7 +12,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import ProfileUpdateForm from '~/components/form/ProfileUpdateForm.vue';
   import { getUser } from '~/service/firebase/firestore-service';
-  import { StateNamespace, StoredUser, User } from '~/types';
+  import { AuthUser, StateNamespace, User } from '~/types';
 
   @Component({
     components: { ProfileUpdateForm }
@@ -21,13 +21,12 @@
 
     user: User | null = null
 
-    @StateNamespace.auth.Getter storedUser !: StoredUser;
+    @StateNamespace.auth.Getter authUser !: AuthUser;
 
     async created() {
-      await getUser(this.storedUser.userId)
+      await getUser(this.authUser.userId)
         .then((user: User) => {
           this.user = user
-          console.log('settings: ', this.user)
         })
     }
 

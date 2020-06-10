@@ -33,7 +33,7 @@
 
       <LanguageSwitcher/>
 
-      <ProfileNavigator v-if="storedUser" :stored-user="storedUser" :logout="logout"/>
+      <ProfileNavigator v-if="authUser" :auth-user="authUser" :logout="logout"/>
 
       <b-navbar-item v-else tag="div">
         <div class="buttons">
@@ -57,7 +57,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { RouteType, StateNamespace, StoredUser } from "~/types";
+  import { RouteType, StateNamespace, AuthUser } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
 
@@ -66,7 +66,7 @@
   })
   export default class TopNavbar extends Vue {
 
-    @StateNamespace.auth.Getter storedUser !: StoredUser;
+    @StateNamespace.auth.Getter authUser !: AuthUser;
     @StateNamespace.auth.Action logout!: () => void;
 
     get routeType() {

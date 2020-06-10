@@ -23,7 +23,7 @@
     ProfilePhotoPlaceholder,
     ProfilePhotoStorageRef,
     StateNamespace,
-    StoredUser
+    AuthUser
   } from "~/types";
   import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
@@ -33,16 +33,16 @@
   })
   export default class ProfilePhoto extends Vue {
 
-    @Prop({ required: true }) storedUser !: StoredUser
+    @Prop({ required: true }) authUser !: AuthUser
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhoto: Image) => void;
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef
-        .replace(ProfilePhotoStorageRef.parameters.userId, this.storedUser.userId)
+        .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
     }
 
     get profilePhoto() {
-      return this.storedUser.profilePhoto || DefaultProfilePhoto
+      return this.authUser.profilePhoto || DefaultProfilePhoto
     }
 
     get placeholder() {
@@ -54,7 +54,7 @@
     }
 
     getProfilePhotoAltValue(fileName: string) {
-      return `Profile photo of ${this.storedUser.name} as ${fileName}`
+      return `Profile photo of ${this.authUser.name} as ${fileName}`
     }
 
     showLightbox() {

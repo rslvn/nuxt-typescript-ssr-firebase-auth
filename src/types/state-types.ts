@@ -1,9 +1,9 @@
 import { namespace } from "vuex-class";
-import { StoredUser } from "~/types/backend-types";
+import { AuthUser } from "~/types/backend-types";
 import { Image } from '~/types/firebase-types';
 
 export interface AuthState {
-  storedUser?: StoredUser,
+  authUser?: AuthUser,
   forceLogout: boolean,
   rememberMe: boolean
 }
@@ -49,7 +49,7 @@ export const StateNamespace = {
 
 export const StoreConfig = {
   auth: {
-    setStoredUser: 'auth/setStoredUser',
+    setAuthUser: 'auth/setAuthUser',
     forceLogout: 'auth/forceLogout',
     logout: 'auth/logout',
     saveRememberMe: 'auth/saveRememberMe',

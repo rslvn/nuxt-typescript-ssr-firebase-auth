@@ -1,11 +1,11 @@
 <template>
-  <Profile v-if="storedUser && user" :stored-user="storedUser" :user="user"/>
+  <Profile v-if="authUser && user" :auth-user="authUser" :user="user"/>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import Profile from '~/components/profile/Profile.vue';
-  import { Image, StateNamespace, StoredUser, User } from '~/types';
+  import { Image, StateNamespace, AuthUser, User } from '~/types';
   import { getUser } from '~/service/firebase/firestore-service';
   import { profilePhotoObservable } from '~/service/rx-service';
 
@@ -16,7 +16,7 @@
 
     user: User | null = null
 
-    @StateNamespace.auth.Getter storedUser !: StoredUser;
+    @StateNamespace.auth.Getter authUser !: AuthUser;
     @StateNamespace.profile.Action saveCoverPhoto !: (coverPhoto: Image) => {};
 
     created() {
@@ -26,7 +26,7 @@
         }
       })
 
-      getUser(this.storedUser.userId)
+      getUser(this.authUser.userId)
         .then((user: User) => {
           this.user = user;
         })

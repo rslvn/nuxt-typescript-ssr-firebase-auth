@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express';
 import { addDecodedIdToken } from '../service/firebase-admin-utils';
-import { collection, User, UserDTO } from '../types'
+import { collection, User, UserDto } from '../types'
 import admin from '../service/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { RuntimeOptions, runWith } from "firebase-functions";
@@ -38,7 +38,7 @@ router.post(service, async (req: Request, res: Response) => {
                 throw new Error('User not found by id: ' + decodedIdToken.sub)
             }
 
-            const storedUser: UserDTO = {
+            const userDto: UserDto = {
                 name: decodedIdToken.name,
                 verified: decodedIdToken.email_verified as boolean,
                 email: decodedIdToken.email as string,
@@ -47,7 +47,7 @@ router.post(service, async (req: Request, res: Response) => {
                 providers: [{ providerType: decodedIdToken.firebase.sign_in_provider }]
             };
 
-            return res.status(200).json(storedUser);
+            return res.status(200).json(userDto);
         })
         .catch((error) => handleFirebaseError(res, error, '/api' + service));
 });

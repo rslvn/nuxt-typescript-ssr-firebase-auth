@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import admin from '../firebase-admin/firebase-admin-init';
 import { FirebaseError } from "firebase-admin";
 import { addDecodedIdToken } from "../firebase-admin/firebase-admin-service";
-import { collection, ProviderType, StoredUser, User } from '../../types'
+import { AuthUser, collection, ProviderType, User } from '../../types'
 
 let service = '/auth';
 
@@ -29,14 +29,17 @@ router.post(service, async (req: Request, res: Response) => {
 
   await addDecodedIdToken(req.body.token)
     .then(async (decodedIdToken: admin.auth.DecodedIdToken) => {
-      const user = await admin.firestore().collection(collection.USER).doc(decodedIdToken.sub).get().then((document) => {
+      const user = await admin.firestore()
+        .collection(collection.USER)
+        .doc(decodedIdToken.sub)
+        .get().then((document) => {
         return document.data() as User
       })
       if (!user) {
         throw new Error('User not found by id: ' + decodedIdToken.sub)
       }
 
-      const storedUser: StoredUser = {
+      const authUser: AuthUser = {
         name: decodedIdToken.name,
         verified: decodedIdToken.email_verified as boolean,
         email: decodedIdToken.email as string,
@@ -45,7 +48,7 @@ router.post(service, async (req: Request, res: Response) => {
         providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
       };
 
-      return res.status(200).json(storedUser);
+      return res.status(200).json(authUser);
     })
     .catch((error) => handleFirebaseError(res, error));
 });

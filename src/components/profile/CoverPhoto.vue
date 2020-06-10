@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, StoredUser } from '~/types';
+  import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, AuthUser } from '~/types';
   import SingleFileUpload from '~/components/image/upload/SingleFileUpload.vue';
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import { profilePhotoObservable } from '~/service/rx-service';
@@ -26,14 +26,14 @@
   })
   export default class ProfileCover extends Vue {
 
-    @Prop({ required: true }) storedUser !: StoredUser
+    @Prop({ required: true }) authUser !: AuthUser
     @Prop({ required: true }) coverPhoto !: Image
 
     @StateNamespace.profile.Action updateCoverPhoto !: (coverPhoto: Image) => Promise<void>;
 
     get parentFolderRef() {
       return CoverPhotoStorageRef.folderRef
-        .replace(CoverPhotoStorageRef.parameters.userId, this.storedUser.userId)
+        .replace(CoverPhotoStorageRef.parameters.userId, this.authUser.userId)
     }
 
     get placeholder() {
@@ -45,7 +45,7 @@
     }
 
     getCoverImageAltName(fileName: string) {
-      return `Cover photo of ${this.storedUser.name}`
+      return `Cover photo of ${this.authUser.name}`
     }
 
     showLightbox() {

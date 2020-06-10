@@ -13,7 +13,7 @@ export interface ProviderData {
     providerType: string
 }
 
-export interface UserDTO {
+export interface UserDto {
     name: string
     email: string
     profilePhoto: Image

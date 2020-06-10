@@ -24,7 +24,7 @@ export interface ProviderData {
   uid?: string
 }
 
-export interface StoredUser {
+export interface AuthUser {
   name: string
   email?: string
   profilePhoto?: Image

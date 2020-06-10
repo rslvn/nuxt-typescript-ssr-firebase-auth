@@ -6,7 +6,7 @@ import {
   AppCookie,
   RootState,
   StoreConfig,
-  StoredUser,
+  AuthUser,
 } from '../types'
 import { decodeToken } from '~/service/firebase/firebase-service';
 
@@ -24,14 +24,14 @@ export const actions: ActionTree<RootState, RootState> = {
         .post(ApiConfig.auth, {
           token,
         })
-        .then((response: AxiosResponse<StoredUser>) => {
+        .then((response: AxiosResponse<AuthUser>) => {
           console.log('decoded User on Server')
-          commit(StoreConfig.auth.setStoredUser, response.data)
+          commit(StoreConfig.auth.setAuthUser, response.data)
         })
         .catch((error: AxiosError) => {
           if (error?.response?.status === 401) {
             console.log('Token DECODED')
-            commit(StoreConfig.auth.setStoredUser, decodeToken(token))
+            commit(StoreConfig.auth.setAuthUser, decodeToken(token))
           } else {
             console.log('Error: ', error)
             commit(StoreConfig.auth.forceLogout, true)

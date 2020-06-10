@@ -14,7 +14,7 @@ import {
   RootState,
   RouteType,
   SocialLoginCredentials,
-  StoredUser
+  AuthUser
 } from '~/types'
 import { auth, getAuthProvider } from '~/plugins/fire-init-plugin'
 import {
@@ -34,19 +34,19 @@ import Persistence = firebase.auth.Auth.Persistence;
 import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
 export const state = (): AuthState => ({
-  storedUser: undefined,
+  authUser: undefined,
   forceLogout: false,
   rememberMe: true,
 })
 
 export const getters: GetterTree<AuthState, RootState> = {
-  storedUser: (state) => state.storedUser,
+  authUser: (state) => state.authUser,
   rememberMe: (state) => state.rememberMe
 }
 
 export const mutations: MutationTree<AuthState> = {
-  setStoredUser(state, storedUser: StoredUser) {
-    state.storedUser = storedUser
+  setAuthUser(state, authUser: AuthUser) {
+    state.authUser = authUser
   },
   forceLogout(state, forceLogout: boolean) {
     state.forceLogout = forceLogout
@@ -55,32 +55,32 @@ export const mutations: MutationTree<AuthState> = {
     state.rememberMe = rememberMe
   },
   setVerified(state) {
-    if (state.storedUser) {
-      state.storedUser.verified = true
+    if (state.authUser) {
+      state.authUser.verified = true
     }
   },
   setName(state, name: string) {
-    if (state.storedUser) {
-      state.storedUser.name = name
+    if (state.authUser) {
+      state.authUser.name = name
     }
   },
   setProfilePhoto(state, profilePhoto: Image) {
-    if (state.storedUser) {
-      state.storedUser.profilePhoto = profilePhoto
+    if (state.authUser) {
+      state.authUser.profilePhoto = profilePhoto
     }
   },
 
   addProvider(state, providerData: ProviderData) {
-    if (state.storedUser && providerData) {
-      state.storedUser.providers.push(providerData)
+    if (state.authUser && providerData) {
+      state.authUser.providers.push(providerData)
     }
   },
   removeProvider(state, providerType: ProviderType) {
-    if (state.storedUser) {
-      const index = state.storedUser.providers.findIndex((providerData) => providerData.providerType === providerType)
+    if (state.authUser) {
+      const index = state.authUser.providers.findIndex((providerData) => providerData.providerType === providerType)
 
       if (index > -1) {
-        state.storedUser.providers.splice(index, 1)
+        state.authUser.providers.splice(index, 1)
       }
     }
   }
@@ -88,8 +88,8 @@ export const mutations: MutationTree<AuthState> = {
 
 export const actions: ActionTree<AuthState, RootState> = {
 
-  async saveUser({ commit }, storedUser: StoredUser) {
-    commit('setStoredUser', storedUser);
+  async saveUser({ commit }, authUser: AuthUser) {
+    commit('setAuthUser', authUser);
   },
 
   async saveRememberMe({ commit }, rememberMe: boolean) {

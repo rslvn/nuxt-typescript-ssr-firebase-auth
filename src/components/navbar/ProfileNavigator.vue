@@ -5,7 +5,7 @@
       <b-field>
         <img class="image-fit-cover rounded-50 square-28" :src="profilePhoto.src" :alt="profilePhoto.alt"
              @error="imageLoadError">
-        <span class="has-margin-left-5"><b>{{ storedUser.name || storedUser.email }}</b></span>
+        <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
       </b-field>
     </template>
 
@@ -26,7 +26,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType, StoredUser } from "~/types";
+  import { DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType, AuthUser } from "~/types";
 
   @Component({
     components: {}
@@ -35,11 +35,11 @@
 
     profileRoute = RouteType.PROFILE;
 
-    @Prop({ required: true }) storedUser !: StoredUser;
+    @Prop({ required: true }) authUser !: AuthUser;
     @Prop({ type: Function, required: true }) logout !: () => void;
 
     get profilePhoto(): Image {
-      return this.storedUser.profilePhoto || DefaultProfilePhoto
+      return this.authUser.profilePhoto || DefaultProfilePhoto
     }
 
     imageLoadError(event: any) {

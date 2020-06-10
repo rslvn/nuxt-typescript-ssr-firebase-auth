@@ -21,7 +21,7 @@
     ProviderLink,
     ProviderType,
     StateNamespace,
-    StoredUser,
+    AuthUser,
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
@@ -32,7 +32,7 @@
   })
   export default class ProviderList extends Vue {
 
-    @Prop({ type: Object, required: true }) storedUser !: StoredUser;
+    @Prop({ type: Object, required: true }) authUser !: AuthUser;
 
     @StateNamespace.auth.Action linkPassword !: (credentials: LoginCredentials) => Promise<void>;
     @StateNamespace.auth.Action linkSocialProvider !: () => Promise<void>;
@@ -40,7 +40,7 @@
 
     get allProviders(): ProviderLink[] {
       return SupportedProviders.map(providerConfig => {
-        let providerData = this.storedUser.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType);
+        let providerData = this.authUser.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType);
         let linked = !!providerData
         let method = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
         return {
@@ -61,7 +61,7 @@
     }
 
     isLinked(providerType: ProviderType): boolean {
-      return !!this.storedUser.providers.find((providerData) => providerData.providerType === providerType)
+      return !!this.authUser.providers.find((providerData) => providerData.providerType === providerType)
     }
 
     getProviderLabel(providerType: ProviderType) {
@@ -97,7 +97,7 @@
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
         props: {
-          storedUser: this.storedUser,
+          authUser: this.authUser,
           linkedProviders: this.linkedProviders,
           confirmCredentials: this.confirmCredentials
         }

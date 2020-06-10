@@ -1,18 +1,18 @@
 <template>
   <div>
-    <CoverPhoto :stored-user="storedUser" :cover-photo="user.coverPhoto"/>
+    <CoverPhoto :auth-user="authUser" :cover-photo="user.coverPhoto"/>
 
     <div class="container">
       <div class="has-margin-top-10 has-margin-bottom-10">
         <article class="media has-margin-left-5">
           <div class="media-left">
-            <ProfilePhoto :stored-user="storedUser"/>
+            <ProfilePhoto :auth-user="authUser"/>
           </div>
           <div class="media-content">
             <div class="content">
-              <p><strong>{{ storedUser.name }}</strong></p>
+              <p><strong>{{ authUser.name }}</strong></p>
               <p>
-                <small>{{ storedUser.email }}</small>
+                <small>{{ authUser.email }}</small>
               </p>
             </div>
           </div>
@@ -23,7 +23,7 @@
 
       <div class="column is-half">
         <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
-        <ProfileInfo :stored-user="storedUser" :user="user"/>
+        <ProfileInfo :auth-user="authUser" :user="user"/>
       </div>
 
     </div>
@@ -31,7 +31,7 @@
     <div class="columns is-centered">
       <div class="column is-half"><h2 class="subtitle has-text-centered">{{$t('card.linkedAccounts.title')}}</h2></div>
     </div>
-    <ProviderList :stored-user="storedUser"/>
+    <ProviderList :auth-user="authUser"/>
   </div>
 </template>
 
@@ -43,7 +43,7 @@
     ProviderConfig,
     ProviderType,
     StateNamespace,
-    StoredUser,
+    AuthUser,
     SupportedProviders,
     User
   } from "~/types";
@@ -57,18 +57,18 @@
   })
   export default class Profile extends Vue {
 
-    @Prop({ required: true }) storedUser !: StoredUser;
+    @Prop({ required: true }) authUser !: AuthUser;
     @Prop({ required: true }) user !: User;
 
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef
-        .replace(ProfilePhotoStorageRef.parameters.userId, this.storedUser.userId)
+        .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
     }
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
+      return this.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
         SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
     }

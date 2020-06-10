@@ -2,11 +2,11 @@
   <div class="box">
 
     <b-field :label="$t('common.field.id')" horizontal>
-      <span> <small> {{ storedUser.userId }} </small></span>
+      <span> <small> {{ authUser.userId }} </small></span>
     </b-field>
 
     <b-field :label="$t('common.field.name')" horizontal>
-      <span>{{ storedUser.name }}</span>
+      <span>{{ authUser.name }}</span>
     </b-field>
 
     <b-field :label="$t('common.field.surname')" horizontal>
@@ -17,10 +17,10 @@
       <span>{{ user.biography }}</span>
     </b-field>
 
-    <b-field v-if="storedUser.email" :label="$t('common.field.email')" horizontal>
+    <b-field v-if="authUser.email" :label="$t('common.field.email')" horizontal>
       <b-field grouped>
-        <span>{{ storedUser.email }}</span>
-        <b-tooltip v-if="storedUser.verified" :label="$t('card.user.mailVerified')">
+        <span>{{ authUser.email }}</span>
+        <b-tooltip v-if="authUser.verified" :label="$t('card.user.mailVerified')">
           <b-icon type="is-success"
                   class="has-margin-left-15"
                   pack="fas"
@@ -37,7 +37,7 @@
       </b-field>
     </b-field>
 
-    <b-field v-if="passwordProvider && !storedUser.verified" horizontal>
+    <b-field v-if="passwordProvider && !authUser.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"
@@ -58,7 +58,7 @@
     </b-field>
 
 
-    <b-field v-if="passwordProvider && storedUser.verified" horizontal>
+    <b-field v-if="passwordProvider && authUser.verified" horizontal>
       <div class="buttons">
         <b-button
           type="is-primary"
@@ -94,7 +94,7 @@
     ProviderType,
     RouteType,
     StateNamespace,
-    StoredUser,
+    AuthUser,
     SupportedProviders,
     User
   } from '~/types';
@@ -105,7 +105,7 @@
   })
   export default class ProfileInfo extends Vue {
 
-    @Prop({ required: true }) storedUser !: StoredUser
+    @Prop({ required: true }) authUser !: AuthUser
     @Prop({ required: true }) user !: User;
 
     loading = false;
@@ -115,7 +115,7 @@
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
 
     get passwordProvider(): ProviderConfig | undefined {
-      return this.storedUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
+      return this.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
         SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
     }
@@ -136,7 +136,7 @@
         canCancel: true,
         onCancel: this.clearMessage,
         props: {
-          storedUser: this.storedUser,
+          authUser: this.authUser,
           linkedProviders: [this.passwordProvider],
           confirmCredentials: this.confirmCredentials
         }

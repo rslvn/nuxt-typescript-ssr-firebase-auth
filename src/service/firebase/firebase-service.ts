@@ -1,6 +1,6 @@
 import { User, UserInfo } from 'firebase'
 import jwtDecode from 'jwt-decode'
-import { DefaultProfilePhoto, Image, ProviderData, ProviderType, StoredUser } from '~/types'
+import { DefaultProfilePhoto, Image, ProviderData, ProviderType, AuthUser } from '~/types'
 
 export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
   return userInfo ? {
@@ -13,7 +13,7 @@ export const getProviderData = (userInfo: UserInfo | null | undefined): Provider
   } : null
 }
 
-export const getStoredUser = (firebaseUser: User | null): StoredUser | null => {
+export const getAuthUser = (firebaseUser: User | null): AuthUser | null => {
   return firebaseUser
     ? {
       name: firebaseUser.displayName as string,
@@ -34,7 +34,7 @@ export const getProviderOption = (provider: ProviderType) => {
   }
 }
 
-export const decodeToken = (token: string): StoredUser => {
+export const decodeToken = (token: string): AuthUser => {
   let decodedToken: any = jwtDecode(token);
   let profilePhoto: Image = {
     src: decodedToken.picture,
