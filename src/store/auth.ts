@@ -27,9 +27,11 @@ import {
 } from '~/service/notification-service'
 import { getProviderData, getProviderOption } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
-import { saveUser } from "~/service/firebase/firestore-service";
+import { getUser, saveUser } from "~/service/firebase/firestore-service";
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
+import Persistence = firebase.auth.Auth.Persistence;
+import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
 export const state = (): AuthState => ({
   storedUser: undefined,
@@ -95,37 +97,32 @@ export const actions: ActionTree<AuthState, RootState> = {
     commit('setRememberMe', rememberMe);
   },
 
-  async saveName({ commit }, name: string) {
-    console.log('saveName called')
+  async saveName({ dispatch, commit }, name: string) {
     await auth?.currentUser
       ?.updateProfile({
         displayName: name
       })
-      .then(() => {
-        commit('setName', name)
-      })
+      .then(() => commit('setName', name))
   },
 
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
-    let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+    let persistence = credentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION;
     await auth.setPersistence(persistence)
       .then(async () => {
-        await auth
-          .signInWithEmailAndPassword(credentials.email, credentials.password)
+        await auth.signInWithEmailAndPassword(credentials.email, credentials.password)
           .then(() => {
             if (credentials.callback) {
               credentials.callback()
             }
           })
-          .catch((error: Error) => handleError(dispatch, error))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
   async reauthenticateWithCredential({ dispatch }, credentials: LoginCredentials) {
-    let authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password);
+    let authCredential = EmailAuthProvider.credential(credentials.email, credentials.password);
     await auth.currentUser?.reauthenticateWithCredential(authCredential)
-      .then(async () => {
+      .then(() => {
         if (credentials.callback) {
           credentials.callback()
         }
@@ -179,28 +176,36 @@ export const actions: ActionTree<AuthState, RootState> = {
           profilePhoto
         })
       })
-      .then(() => {
-        commit('setProfilePhoto', profilePhoto)
-      })
+      .then(() => commit('setProfilePhoto', profilePhoto))
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signInWithSocialProvider({ dispatch }, credentials: SocialLoginCredentials) {
-    let authProvider = getAuthProvider(credentials.providerType);
-    let persistence = credentials.rememberMe ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+  async signInWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
+    let persistence = socialLoginCredentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION;
     await auth.setPersistence(persistence)
       .then(async () => {
         await auth.signInWithPopup(authProvider)
           .then(async (userCredential) => {
-            await saveUser({
-              id: userCredential.user?.uid as string,
-              name: userCredential.user?.displayName as string,
-            })
-            if (credentials.callback) {
-              credentials.callback()
-            }
+            await getUser(userCredential.user?.uid as string)
+              .then((user) => !!user)
+              .then(async (userExists) => {
+                if (userExists) {
+                  return;
+                }
+                await saveUser({
+                  id: userCredential.user?.uid as string,
+                  name: userCredential.user?.displayName as string,
+                  profilePhoto: DefaultProfilePhoto,
+                  coverPhoto: DefaultCoverPhoto,
+                })
+              })
+              .then(() => {
+                if (socialLoginCredentials.callback) {
+                  socialLoginCredentials.callback()
+                }
+              })
           })
-          .catch((error: Error) => handleError(dispatch, error))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
