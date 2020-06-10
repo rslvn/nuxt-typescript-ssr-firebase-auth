@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="container">
-      <div class="columns is-flex">
+      <div class="columns">
 
         <div class="column">
           <SocialLogin :title="$t('form.social.title.login')" :remember-me="rememberMe" :providers="providers"
