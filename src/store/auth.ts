@@ -195,8 +195,6 @@ export const actions: ActionTree<AuthState, RootState> = {
             await saveUser({
               id: userCredential.user?.uid as string,
               name: userCredential.user?.displayName as string,
-              profilePhoto: DefaultProfilePhoto,
-              coverPhoto: DefaultCoverPhoto
             })
             if (credentials.callback) {
               credentials.callback()
