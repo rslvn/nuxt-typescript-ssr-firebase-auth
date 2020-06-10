@@ -46,6 +46,7 @@
     "nuxt-i18n": "^6.12.2",
     "nuxt-property-decorator": "^2.7.2",
     "rxjs": "^6.5.5",
+    "sitemap": "^6.1.5",
     "slug": "^3.3.0",
     "vee-validate": "^3.3.2",
     "vue-cropperjs": "^4.1.0",

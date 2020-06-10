@@ -104,6 +104,7 @@ See the [Features](#features) for more functionalities
     - [x] lazy load (vue-lazyload)
     - [x] crop with cropperjs
     - [x] lightbox with buefy/bulma
+    - [x] hover button on profile photo
 - [x] custom error page - simple
 - [x] global notification
 - [x] toaster notification

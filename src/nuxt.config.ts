@@ -122,7 +122,8 @@ const config: Configuration = {
     baseURL: process.env.API_URL
   },
   serverMiddleware: [
-    '~/server/api'
+    '~/server/api',
+    '~/server/api/sitemap'
   ],
 
   /*
