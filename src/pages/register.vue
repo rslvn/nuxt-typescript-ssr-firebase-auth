@@ -1,15 +1,15 @@
 <template>
   <section class="section">
-    <div class="container is-fullhd">
-      <div class="columns is-centered">
+    <div class="container">
+      <div class="columns">
 
-        <div class="column is-half">
+        <div class="column">
           <SocialLogin :title="$t('form.social.title.register')" :remember-me="rememberMe" :providers="providers"
                        :callback="noCallback"
                        :reauthenticate="false"/>
         </div>
 
-        <div class="column is-half">
+        <div class="column">
           <RegisterForm :sign-up-with-email="handleSignUpWithEmail"/>
         </div>
 

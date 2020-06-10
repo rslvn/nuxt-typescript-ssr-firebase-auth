@@ -9,6 +9,7 @@
         <b-button v-for="provider in providers" :key="provider.providerType" :type="provider.colorType"
                   :icon-left="provider.icon"
                   expanded outlined
+                  class="has-margin-bottom-15"
                   @click="submit(provider.providerType)">
           {{ $t('form.social.loginWith',getLangProviderOption(provider.providerType)) }}
         </b-button>

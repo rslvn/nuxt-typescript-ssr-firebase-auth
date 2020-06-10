@@ -11,6 +11,8 @@
           :placeholder="$t('common.field.namePlaceHolder')"
           rules="required|min:4"
           vid="name"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -20,6 +22,8 @@
           input-type="email"
           rules="required|email"
           vid="email"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -29,6 +33,8 @@
           input-type="password"
           rules="required|min:4|confirmed:confirmPassword"
           vid="password"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -38,6 +44,8 @@
           input-type="password"
           rules="required"
           vid="confirmPassword"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <div class="buttons">

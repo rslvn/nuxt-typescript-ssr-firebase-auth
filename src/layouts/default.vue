@@ -11,12 +11,13 @@
     <div class="container ">
       <div class="columns">
         <div class="column">
-          <nuxt class="has-margin-5-mobile has-margin-5-tablet"/>
+          <nuxt
+            class="has-margin-left-5-mobile has-margin-right-5-mobile has-margin-left-5-tablet has-margin-right-5-tablet"/>
         </div>
       </div>
     </div>
-    <footer class="has-margin-top-10">
-      <div class="container is-gapless">
+    <footer>
+      <div class="container">
         <div class="columns is-vcentered">
           <div class="column">
             <AppFooter/>

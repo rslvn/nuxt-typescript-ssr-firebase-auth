@@ -12,6 +12,8 @@
           rules="required|email"
           vid="email"
           :disabled="!!email"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <BInputWithValidation
@@ -21,6 +23,8 @@
           :placeholder="$t('common.field.passwordPlaceHolder')"
           rules="required"
           vid="password"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <RememberMe v-if="showRememberMe" :value="rememberMe"/>
