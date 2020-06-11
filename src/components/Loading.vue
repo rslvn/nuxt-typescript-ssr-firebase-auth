@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts">
+
   import { Component, Vue } from 'nuxt-property-decorator';
   import { StateNamespace } from "~/types";
 

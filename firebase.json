@@ -2,12 +2,12 @@
   "functions": {
     "source": "functions",
     "predeploy": [
-      "npm run predeploy:function"
+      "npm run build"
     ]
   },
   "hosting": {
     "predeploy": [
-      "npm run predeploy:hosting"
+      "npm run hosting"
     ],
     "public": "public",
     "ignore": [
