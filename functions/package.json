@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "prebuild": "rm -rf lib .nuxt && cp -r ../src/.nuxt . && npm run lint",
+    "prebuild": "npm run lint && rm -rf lib .nuxt && cp -r ../src/.nuxt .",
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "serve": "npm run build && firebase emulators:start",

@@ -26,11 +26,12 @@
 ### deploy all
     firebase deploy
     
-> `firebase deploy --only functions` can not work properly. `.nuxt` is mandatory to run `nuxtOnFunction` function.
+> `firebase deploy --only functions` may not work properly. `.nuxt` is mandatory to run `nuxtOnFunction` function.
     
 ### deploy nuxtOnFunction
     firebase deploy --only functions:nuxtOnFunction
-
+    firebase deploy --only hosting
+    
 ### deploy authApi
     firebase deploy --only functions:authApi
     
