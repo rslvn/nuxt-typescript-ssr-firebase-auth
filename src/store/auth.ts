@@ -88,10 +88,6 @@ export const mutations: MutationTree<AuthState> = {
 
 export const actions: ActionTree<AuthState, RootState> = {
 
-  async saveUser({ commit }, authUser: AuthUser) {
-    commit('setAuthUser', authUser);
-  },
-
   async saveRememberMe({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe);

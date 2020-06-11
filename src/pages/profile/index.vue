@@ -17,7 +17,6 @@
     user: User | null = null
 
     @StateNamespace.auth.Getter authUser !: AuthUser;
-    @StateNamespace.profile.Action saveCoverPhoto !: (coverPhoto: Image) => {};
 
     created() {
       this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {

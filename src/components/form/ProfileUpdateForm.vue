@@ -86,14 +86,10 @@
     @Prop({ required: true }) user !: User
     updatedUser = this.user
 
-    @StateNamespace.profile.Action saveUser !: (user: User) => Promise<void>;
-
-    created() {
-      console.log('ProfileUpdateForm: ', this.updatedUser)
-    }
+    @StateNamespace.profile.Action updateUser !: (user: User) => Promise<void>;
 
     submit() {
-      this.saveUser(this.updatedUser)
+      this.updateUser(this.updatedUser)
         .then(() => {
           this.gotoProfile()
         })

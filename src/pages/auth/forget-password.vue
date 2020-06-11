@@ -14,10 +14,10 @@
   export default class ForgetPassword extends Vue {
 
     @StateNamespace.auth.Action sendPasswordResetEmail !: (code: any) => Promise<boolean>;
-    @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
 
     handleSendPasswordResetEmail(emailAddress: string) {
-      this.clearMessage();
+      this.clearNotificationMessage();
       this.sendPasswordResetEmail(emailAddress);
     }
   }

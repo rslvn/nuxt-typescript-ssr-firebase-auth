@@ -12,7 +12,7 @@ const toasterConfig = {
 };
 
 export const sendNotification = async (dispatch: Dispatch, notificationMessage: NotificationMessage) => {
-  await dispatch(StoreConfig.notification.saveMessage, notificationMessage, {
+  await dispatch(StoreConfig.notification.saveNotificationMessage, notificationMessage, {
     root: true
   })
 };

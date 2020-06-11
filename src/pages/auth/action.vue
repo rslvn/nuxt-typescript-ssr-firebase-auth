@@ -46,7 +46,7 @@
 
     @StateNamespace.auth.Action handleVerifyEmail !: (actionCode: string) => Promise<any>;
     @StateNamespace.auth.Action handleVerifyPasswordResetCode !: (actionCode: string) => Promise<boolean>;
-    @StateNamespace.notification.Action saveMessage !: (notificationMessage: NotificationMessage) => {};
+    @StateNamespace.notification.Action saveNotificationMessage !: (notificationMessage: NotificationMessage) => {};
 
     async asyncData({ query }: Context) {
       let action = (query[FirebaseAuthActionParams.ACTION] as string)?.trim();
@@ -61,7 +61,7 @@
     mounted() {
       if (!this.action || !this.actionCode) {
         this.isLoading = false
-        this.saveMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
+        this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
         return;
       }
 
@@ -91,7 +91,7 @@
 
         default:
           this.isLoading = false
-          this.saveMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
+          this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
       }
     }
   }

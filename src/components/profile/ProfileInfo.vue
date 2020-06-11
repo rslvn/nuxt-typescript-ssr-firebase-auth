@@ -111,7 +111,7 @@
     loading = false;
     profileSettingsRoute = RouteType.PROFILE_SETTINGS
 
-    @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
 
     get passwordProvider(): ProviderConfig | undefined {
@@ -134,7 +134,7 @@
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
         canCancel: true,
-        onCancel: this.clearMessage,
+        onCancel: this.clearNotificationMessage,
         props: {
           authUser: this.authUser,
           linkedProviders: [this.passwordProvider],

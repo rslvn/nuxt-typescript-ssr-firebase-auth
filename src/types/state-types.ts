@@ -9,11 +9,10 @@ export interface AuthState {
 }
 
 export interface ProfileState {
-  coverPhoto?: Image
 }
 
 export interface NotificationState {
-  message?: NotificationMessage
+  notificationMessage?: NotificationMessage
 }
 
 export interface LoadingState {
@@ -56,8 +55,8 @@ export const StoreConfig = {
     saveName: 'auth/saveName',
   },
   notification: {
-    saveMessage: 'notification/saveMessage',
-    clearMessage: 'notification/clearMessage'
+    saveNotificationMessage: 'notification/saveNotificationMessage',
+    clearNotificationMessage: 'notification/clearNotificationMessage'
   },
   loading: {
     saveLoading: 'loading/saveLoading',

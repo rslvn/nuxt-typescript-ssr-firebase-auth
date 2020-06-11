@@ -12,7 +12,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
+          <TopNotification v-if="notificationMessage" :notification-message="notificationMessage" :closed="clearNotificationMessage"/>
           <nuxt/>
         </div>
       </div>
@@ -30,8 +30,8 @@
     components: { ActionTopNavbar, TopNotification }
   })
   export default class defaultLayout extends Vue {
-    @StateNamespace.notification.Getter getMessage!: NotificationMessage;
-    @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.notification.Getter notificationMessage!: NotificationMessage;
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
   }
 
 </script>

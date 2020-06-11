@@ -38,10 +38,10 @@
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signInWithEmail !: (credentials: LoginCredentials) => void;
-    @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
 
     handleSignInWithEmail(credentials: LoginCredentials) {
-      this.clearMessage();
+      this.clearNotificationMessage();
       this.signInWithEmail(credentials);
     }
 

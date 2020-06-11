@@ -29,11 +29,11 @@
     actionCode: string = '';
 
     @StateNamespace.auth.Action confirmPasswordReset !: (code: any) => {};
-    @StateNamespace.notification.Action clearMessage !: () => void;
-    @StateNamespace.notification.Action saveMessage !: (notificationMessage: NotificationMessage) => {};
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
+    @StateNamespace.notification.Action saveNotificationMessage !: (notificationMessage: NotificationMessage) => {};
 
     handleConfirmPasswordReset(password: string) {
-      this.clearMessage();
+      this.clearNotificationMessage();
       this.confirmPasswordReset({ password, actionCode: this.actionCode })
     }
 
@@ -47,7 +47,7 @@
 
     mounted() {
       if (!this.actionCode) {
-        this.saveMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
+        this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
       }
     }
 

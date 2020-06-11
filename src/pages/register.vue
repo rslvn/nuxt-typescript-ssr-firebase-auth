@@ -45,10 +45,10 @@
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => void;
-    @StateNamespace.notification.Action clearMessage  !: () => void;
+    @StateNamespace.notification.Action clearNotificationMessage  !: () => void;
 
     handleSignUpWithEmail(credentials: RegistrationCredentials) {
-      this.clearMessage();
+      this.clearNotificationMessage();
       this.signUpWithEmail(credentials);
     }
 

@@ -2,7 +2,7 @@
   <div class="modal-card">
     <section class="modal-card-body">
 
-      <TopNotification v-if="getMessage" :notification-message="getMessage" :closed="clearMessage"/>
+      <TopNotification v-if="notificationMessage" :notification-message="notificationMessage" :closed="clearNotificationMessage"/>
 
       <LoginForm v-if="showLogin && !!passwordProvider" :show-forget-password="false" :show-register-link="false"
                  :sign-in-with-email="reauthenticateWithCredential"
@@ -45,8 +45,8 @@
 
     showLogin = true
 
-    @StateNamespace.notification.Getter getMessage!: NotificationMessage;
-    @StateNamespace.notification.Action clearMessage !: () => void;
+    @StateNamespace.notification.Getter notificationMessage!: NotificationMessage;
+    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action reauthenticateWithCredential !: (credentials: LoginCredentials) => void;
 
@@ -63,7 +63,7 @@
     }
 
     loginSuccessCallback() {
-      this.clearMessage();
+      this.clearNotificationMessage();
       this.showLogin = false;
     }
 

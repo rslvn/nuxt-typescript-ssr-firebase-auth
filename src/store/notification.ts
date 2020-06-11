@@ -1,23 +1,25 @@
 import { NotificationMessage, NotificationState, RootState } from '~/types'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 
-export const state = (): NotificationState => ({})
+export const state = (): NotificationState => ({
+  notificationMessage: undefined
+})
 
 export const getters: GetterTree<NotificationState, RootState> = {
-  getMessage: (state) => state.message,
+  notificationMessage: (state) => state.notificationMessage,
 }
 
 export const mutations: MutationTree<NotificationState> = {
-  setMessage(state, message: NotificationMessage) {
-    state.message = message
+  setNotificationMessage(state, notificationMessage: NotificationMessage) {
+    state.notificationMessage = notificationMessage
   },
 }
 
 export const actions: ActionTree<NotificationState, RootState> = {
-  async saveMessage({ commit }, message: NotificationMessage) {
-    commit('setMessage', message)
+  async saveNotificationMessage({ commit }, notificationMessage: NotificationMessage) {
+    commit('setNotificationMessage', notificationMessage)
   },
-  async clearMessage({ commit }) {
-    commit('setMessage', null)
+  async clearNotificationMessage({ commit }) {
+    commit('setNotificationMessage', null)
   },
 }
