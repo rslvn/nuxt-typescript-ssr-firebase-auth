@@ -12,7 +12,8 @@ const staticRoutes = [
     '/register',
     '/login',
     '/crop',
-    '/lightbox'
+    '/lightbox',
+    '/images'
 ]
 
 const app = express();

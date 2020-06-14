@@ -60,7 +60,11 @@ const messages = {
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar'
-    }, footer: {
+    },
+    images: {
+      title: 'Kare Gorseller'
+    },
+    footer: {
       copyRight: '&copy; Telif Hakki 2020,',
     },
   },

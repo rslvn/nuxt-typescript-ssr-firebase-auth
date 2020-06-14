@@ -61,6 +61,9 @@ const messages = {
       title: 'Responsive Masonry with Lightbox',
       subtitle: 'Sample hotos'
     },
+    images: {
+      title: 'Square Image'
+    },
     footer: {
       copyRight: '&copy; Copyright 2020, ',
     },

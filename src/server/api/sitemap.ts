@@ -1,4 +1,4 @@
-import express,{ Request, Response, Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createGzip } from 'zlib'
 
@@ -11,7 +11,8 @@ const staticRoutes = [
   '/register',
   '/login',
   '/crop',
-  '/lightbox'
+  '/lightbox',
+  '/images'
 ]
 
 const app = express();
@@ -37,7 +38,7 @@ router.get(service, (req: Request, res: Response) => {
     smStream.end()
 
     // cache the response
-    streamToPromise(pipeline).then((sm: Buffer) => sitemap = sm).catch((error:Error) => console.log(error))
+    streamToPromise(pipeline).then((sm: Buffer) => sitemap = sm).catch((error: Error) => console.log(error))
     // stream write the response
     pipeline.pipe(res).on('error', (e: Error) => {
       throw e
