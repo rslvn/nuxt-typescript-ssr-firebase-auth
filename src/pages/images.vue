@@ -9,12 +9,12 @@
 
       <div class="column">
         <div>{{ $t('page.images.roundedNoBorder')}}</div>
-        <BackgroundSquareImage :image="image" rounded="true" size="200" auto-margin="true"/>
+        <BackgroundSquareImage :image="image" :rounded="true" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">
         <div>{{ $t('page.images.squareNoBorder')}}</div>
-        <BackgroundSquareImage :image="image" rounded="false" size="200" auto-margin="true"/>
+        <BackgroundSquareImage :image="image" :rounded="false" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">

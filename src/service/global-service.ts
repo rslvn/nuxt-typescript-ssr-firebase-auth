@@ -38,6 +38,10 @@ export const slugify = (text: string): string => {
   return slug(text, slugDelimiter)
 }
 
+export const toBoolean = (value : string| boolean): boolean =>{
+  return typeof value === 'boolean' ? value : JSON.parse(value);
+}
+
 export const authenticatedAllowed = (route: Route): boolean => {
   return route.matched.some((record) =>
     record.path.startsWith(RouteType.PROFILE.path)

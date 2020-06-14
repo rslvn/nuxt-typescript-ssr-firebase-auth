@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="rounded" class="circle" :style="borderStyle">
+  <div v-if="isRounded" class="circle" :style="borderStyle">
     <div class="bg-image rounded-50" :style="imageStyle"></div>
   </div>
 
@@ -13,6 +13,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { Image } from '~/types';
+  import { toBoolean } from '~/service/global-service';
 
   @Component({
     components: {}
@@ -21,18 +22,30 @@
 
     @Prop({ required: true }) image !: Image
     @Prop({ type: [Number, String], required: true }) size !: number
-    @Prop({ type: [Boolean, String], required: false, default: false }) rounded !: boolean
+    @Prop({ type: [Boolean, String], required: false, default: false }) rounded !: boolean | string
     @Prop({ type: [Number, String], required: false, default: 0 }) border !: number
     @Prop({ type: String, required: false, default: '#eee' }) borderColor !: string
-    @Prop({ type: [Boolean, String], required: false, default: true }) borderInside !: boolean
-    @Prop({ type: [Boolean, String], required: false, default: false }) autoMargin !: boolean
+    @Prop({ type: [Boolean, String], required: false, default: true }) borderInside !: boolean | string
+    @Prop({ type: [Boolean, String], required: false, default: false }) autoMargin !: boolean | string
+
+    get isRounded() {
+      return toBoolean(this.rounded);
+    }
+
+    get isAutoMargin() {
+      return toBoolean(this.autoMargin);
+    }
+
+    get isBorderInside() {
+      return toBoolean(this.borderInside);
+    }
 
     get imageSizePx() {
-      return this.borderInside ? `${this.size - 2 * this.border}px` : `${this.size}px`
+      return this.isBorderInside ? `${this.size - 2 * this.border}px` : `${this.size}px`
     }
 
     get bodeSizerPx() {
-      return this.borderInside ? `${(this.size)}px` : `${(this.size + 2 * this.border)}px`
+      return this.isBorderInside ? `${(this.size)}px` : `${(this.size + 2 * this.border)}px`
     }
 
     get imageStyle() {
@@ -56,11 +69,11 @@
     }
 
     get marginByBorder() {
-      return this.border <= 0 && this.autoMargin ? { margin: '1em auto' } : {}
+      return this.border <= 0 && this.isAutoMargin ? { margin: '1em auto' } : {}
     }
 
     get margin() {
-      return this.autoMargin ? { margin: '1em auto' } : {}
+      return this.isAutoMargin ? { margin: '1em auto' } : {}
     }
 
   }
