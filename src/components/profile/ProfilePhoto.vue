@@ -1,7 +1,7 @@
 <template>
   <div class="is-overlay-hover">
     <div class="has-cursor-pointer" @click="showLightbox">
-      <BackgroundSquareImage :image="profilePhoto" :size="150" :rounded="true" :border-inside="true" border="3"/>
+      <BackgroundSquareImage :image="profilePhoto" size="150" rounded="true" border-inside="true" border="3"/>
     </div>
 
     <SingleFileUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"

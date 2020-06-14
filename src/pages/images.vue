@@ -1,30 +1,31 @@
 <template>
   <div class="container">
-    <div class="columns multiline" v-for="(image,index) in images" :key="index">
+    <div class="columns has-text-centered" v-for="(image,index) in images" :key="index">
 
       <div class="column">
-        <div class="subtitle">Original</div>
-        <img :src="image.src" :width="200" :height="200">
+        <div>{{ $t('page.images.original')}}</div>
+        <img :src="image.src" :alt="image.alt">
       </div>
 
       <div class="column">
-        <div class="subtitle">Rounded No Border</div>
-        <BackgroundSquareImage :image="image" :rounded="true" :size="200"/>
+        <div>{{ $t('page.images.roundedNoBorder')}}</div>
+        <BackgroundSquareImage :image="image" rounded="true" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">
-        <div class="subtitle">Square No Border</div>
-        <BackgroundSquareImage :image="image" :rounded="false" :size="200"/>
+        <div>{{ $t('page.images.squareNoBorder')}}</div>
+        <BackgroundSquareImage :image="image" rounded="false" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">
-        <div class="subtitle">Rounded With Border</div>
-        <BackgroundSquareImage :image="image" :rounded="true" :size="200" :border="20"/>
+        <div>{{ $t('page.images.roundedWithBorder')}}</div>
+        <BackgroundSquareImage :image="image" rounded="true" size="200" border="10" auto-margin="true"/>
       </div>
 
       <div class="column">
-        <div class="subtitle">Square With Color</div>
-        <BackgroundSquareImage :image="image" :rounded="false" :size="200" :border="5" border-color="cyan"/>
+        <div>{{ $t('page.images.squareWithBorder')}}</div>
+        <BackgroundSquareImage :image="image" rounded="false" size="200" border="5" border-color="cyan"
+                               auto-margin="true"/>
       </div>
 
     </div>
@@ -42,14 +43,14 @@
   })
   export default class images extends Vue {
 
-    pageMeta: PageMeta = {
-      ...DefaultMeta,
-      title: this.$t('page.images.title') as string,
-      url: `${DefaultMeta.url}${RouteType.CORP.path}`
-    }
-
     head() {
-      return getHead(this.pageMeta)
+      let pageMeta: PageMeta = {
+        ...DefaultMeta,
+        title: this.$t('page.images.title') as string,
+        url: `${DefaultMeta.url}${RouteType.IMAGES.path}`
+      }
+
+      return getHead(pageMeta)
     }
 
     get images() {

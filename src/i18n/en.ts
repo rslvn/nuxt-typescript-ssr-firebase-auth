@@ -62,7 +62,12 @@ const messages = {
       subtitle: 'Sample hotos'
     },
     images: {
-      title: 'Square Image'
+      title: 'Square Image',
+      original: 'Original',
+      roundedNoBorder: 'Borderless Round',
+      squareNoBorder: 'Borderless Square',
+      roundedWithBorder: 'Round With Border',
+      squareWithBorder: 'Square With Border'
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',

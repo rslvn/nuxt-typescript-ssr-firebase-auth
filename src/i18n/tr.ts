@@ -62,7 +62,12 @@ const messages = {
       subtitle: 'Ornek fotograflar'
     },
     images: {
-      title: 'Kare Gorseller'
+      title: 'Kare Gorseller',
+      original: 'Orjinal',
+      roundedNoBorder: 'Cercevesiz Yuvarlak',
+      squareNoBorder: 'Cercevesiz Kare',
+      roundedWithBorder: 'Cerceveli Yuvarlak',
+      squareWithBorder: 'Cerceveli Kare'
     },
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',

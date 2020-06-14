@@ -20,11 +20,12 @@
   export default class BackgroundSquareImage extends Vue {
 
     @Prop({ required: true }) image !: Image
-    @Prop({ type: Number, required: true }) size !: number
-    @Prop({ type: Boolean, required: false, default: false }) rounded !: boolean
-    @Prop({ type: Number, required: false, default: 0 }) border !: number
+    @Prop({ type: [Number, String], required: true }) size !: number
+    @Prop({ type: [Boolean, String], required: false, default: false }) rounded !: boolean
+    @Prop({ type: [Number, String], required: false, default: 0 }) border !: number
     @Prop({ type: String, required: false, default: '#eee' }) borderColor !: string
-    @Prop({ type: Boolean, required: false, default: true }) borderInside !: boolean
+    @Prop({ type: [Boolean, String], required: false, default: true }) borderInside !: boolean
+    @Prop({ type: [Boolean, String], required: false, default: false }) autoMargin !: boolean
 
     get imageSizePx() {
       return this.borderInside ? `${this.size - 2 * this.border}px` : `${this.size}px`
@@ -39,6 +40,7 @@
         'background-image': `url('${this.image.src}')`,
         height: this.imageSizePx,
         width: this.imageSizePx,
+        ...this.marginByBorder
       }
     }
 
@@ -48,10 +50,17 @@
           height: this.bodeSizerPx,
           width: this.bodeSizerPx,
           border: `${this.border}px solid ${this.borderColor}`,
+          ...this.margin
         } :
-        {
-          margin: '1em auto'
-        }
+        {}
+    }
+
+    get marginByBorder() {
+      return this.border <= 0 && this.autoMargin ? { margin: '1em auto' } : {}
+    }
+
+    get margin() {
+      return this.autoMargin ? { margin: '1em auto' } : {}
     }
 
   }
@@ -67,7 +76,7 @@
 
   .circle {
     display: block;
-    margin: 1em auto;
+    /*margin: 1em auto;*/
     background-size: cover;
     background-repeat: no-repeat;
     /*background-position: center center;*/
