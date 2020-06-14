@@ -8,8 +8,8 @@
     </div>
 
     <SingleValidatedImageUpload class="is-overlay-left"
-                                label="profile photo"
                                 rules="size:2048"
+                                :label="$t('common.field.coverPhoto')"
                                 :parent-folder-ref="parentFolderRef"
                                 :upload-completed="uploadCompleted"
                                 :get-alt-value="getCoverImageAltName"/>

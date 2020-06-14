@@ -5,8 +5,8 @@
     </div>
 
     <SingleValidatedImageUpload class="is-overlay-left is-disabled-till-hover"
-                                label="profile photo"
                                 rules="size:2048"
+                                :label="$t('common.field.profilePhoto')"
                                 :parent-folder-ref="parentFolderRef"
                                 :upload-completed="updateProfilePhoto"
                                 :get-alt-value="getProfilePhotoAltValue"/>

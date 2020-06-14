@@ -21,6 +21,8 @@ const messages = {
       confirmPassword: 'Confirm Password',
       confirmPasswordPlaceHolder: 'Re-enter password',
       rememberMe: 'Remember Me',
+      profilePhoto: 'profile photo',
+      coverPhoto: 'cover photo'
     },
     cancel: 'Cancel',
     save: 'Save',

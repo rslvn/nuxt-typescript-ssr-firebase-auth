@@ -21,6 +21,8 @@ const messages = {
       confirmPassword: 'Parola Tekrar',
       confirmPasswordPlaceHolder: 'Parolanizi tekrar giriniz',
       rememberMe: 'Beni Hatirla',
+      profilePhoto: 'Profil fotografi',
+      coverPhoto: 'Kapak fotografi'
     },
     cancel: 'Iptal',
     save: 'Kaydet',
