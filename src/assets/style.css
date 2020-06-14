@@ -116,6 +116,7 @@ footer {
 
 .image-fit-cover {
   object-fit: cover;
+  object-position: center;
 }
 
 .rounded-50 {
@@ -152,7 +153,7 @@ footer {
   height: 400px;
 }
 
-has-border-and-shadow {
+.has-border-and-shadow {
   border: solid 1px #0a0a0a;
   box-shadow: 0 0 3px 2px #ccc;
 }

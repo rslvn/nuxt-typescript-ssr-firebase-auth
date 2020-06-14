@@ -15,18 +15,28 @@
       >
         <strong>{{$t('topNavbar.home')}}</strong>
       </b-navbar-item>
+
       <b-navbar-item
         :to="routeType.LIGHT_BOX"
         tag="router-link"
       >
-        Lightbox
+        {{ $t('topNavbar.lightbox')}}
       </b-navbar-item>
+
       <b-navbar-item
         :to="routeType.CORP"
         tag="router-link"
       >
-        Crop
+        {{ $t('topNavbar.crop')}}
       </b-navbar-item>
+
+      <b-navbar-item
+        :to="routeType.IMAGES"
+        tag="router-link"
+      >
+        {{ $t('topNavbar.images')}}
+      </b-navbar-item>
+
     </template>
 
     <template slot="end">
@@ -57,7 +67,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { RouteType, StateNamespace, AuthUser } from "~/types";
+  import { AuthUser, RouteType, StateNamespace } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
 

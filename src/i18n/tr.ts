@@ -31,6 +31,9 @@ const messages = {
 
   topNavbar: {
     home: 'Anasayfa',
+    lightbox: 'Isik Kutusu',
+    crop: 'Gorsel Kesme',
+    images: 'Kare Gorsel',
     profile: 'Hesap',
     register: 'Kayit Ol',
     login: 'Giris Yap',

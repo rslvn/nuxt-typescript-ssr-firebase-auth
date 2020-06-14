@@ -31,6 +31,9 @@ const messages = {
 
   topNavbar: {
     home: 'Home',
+    lightbox: 'Lightbox',
+    crop: 'Image Crop',
+    images: 'Square Images',
     profile: 'Profile',
     register: 'Register',
     login: 'Login',

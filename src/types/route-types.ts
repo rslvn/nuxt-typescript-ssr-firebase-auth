@@ -8,6 +8,7 @@ export const RouteType = {
   FORGET_PASSWORD: { path: '/auth/forget-password' },
   RESET_PASSWORD: { path: '/auth/reset-password' },
   CORP: { path: '/crop' },
+  IMAGES: { path: '/images' },
   LIGHT_BOX: { path: '/lightbox' },
   TERMS: { path: '/terms' },
   PRIVACY_POLICY: { path: '/privacy-policy' },

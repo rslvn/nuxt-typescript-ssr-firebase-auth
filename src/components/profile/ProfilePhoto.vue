@@ -1,11 +1,7 @@
 <template>
   <div class="is-overlay-hover">
     <div class="has-cursor-pointer" @click="showLightbox">
-      <img class="image-fit-cover profile-128-round" v-lazy="profilePhoto.src"
-           :src="placeholder"
-           :alt="profilePhoto.alt"
-           @error="imageLoadError">
-
+      <BackgroundSquareImage :image="profilePhoto" :size="150" :rounded="true" :border-inside="true" border="3"/>
     </div>
 
     <SingleFileUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"
@@ -18,18 +14,19 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import {
+    AuthUser,
     DefaultProfilePhoto,
     Image,
     ProfilePhotoPlaceholder,
     ProfilePhotoStorageRef,
-    StateNamespace,
-    AuthUser
+    StateNamespace
   } from "~/types";
   import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
+  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: { SingleFileUpload }
+    components: { BackgroundSquareImage, SingleFileUpload }
   })
   export default class ProfilePhoto extends Vue {
 
