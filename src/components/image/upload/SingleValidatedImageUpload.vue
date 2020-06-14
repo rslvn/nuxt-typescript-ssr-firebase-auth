@@ -1,11 +1,11 @@
 <template>
   <ValidationProvider
     :vid="vid"
-    :name="$attrs.name || $attrs.label"
+    :name="label"
     :rules="rules"
     ref="provider"
   >
-    <b-upload v-model="file">
+    <b-upload v-model="file" accept="image/*">
       <slot name="button">
         <a class="button is-light">
           <b-icon icon="camera"></b-icon>
@@ -17,11 +17,13 @@
 
 <script lang="ts">
   import { Component, Prop, Ref, Vue, Watch } from 'nuxt-property-decorator'
-  import { TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
+  import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
   import { handleError } from '~/service/error-service'
   import { Image, StateNamespace } from "~/types";
   import { ValidationProvider } from "vee-validate";
   import { ValidationResult } from 'vee-validate/dist/types/types';
+  import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
+  import { getNewFileName } from '~/service/global-service';
 
   @Component({
     components: { ValidationProvider }
@@ -30,11 +32,12 @@
 
     @Ref('provider') readonly provider !: any
 
+    @Prop({ type: String, required: true }) label !: string
     @Prop({ type: String, required: true }) parentFolderRef !: string
-    @Prop({ type: String, required: true }) vid !: string;
-    @Prop({ type: String, required: true }) rules !: string;
     @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
     @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
+    @Prop({ type: String, required: false, default: '' }) rules !: string;
+    @Prop({ type: String, required: false, default: 'uploadFile' }) vid !: string;
 
     file: File | null = null
     fileName = ''
@@ -44,13 +47,23 @@
 
     @Watch('file')
     async onFileChanged(file: File, oldFile: File) {
+      if (!file) {
+        return
+      }
+
       let { valid, errors } = await this.provider?.validate() as ValidationResult;
+      if (!valid) {
+        showErrorToaster(errors[0])
+        this.file = null
+        return
+      }
 
-      console.log('Valid >>> ', valid, 'errors: ', errors, 'type of', typeof this.provider)
+      this.setLoading(true);
 
-      // this.setLoading(true);
-      // this.fileName = this.parentFolderRef + getNewFileName(file.name)
-      // this.uploadTask = storage.ref().child(this.fileName).put(file)
+      let delimiter = this.parentFolderRef.endsWith('/') ? '' : '/';
+      this.fileName = `${this.parentFolderRef}${delimiter}${getNewFileName(file.name)}`
+
+      this.uploadTask = storage.ref().child(this.fileName).put(file)
     }
 
     @Watch('uploadTask')
@@ -58,10 +71,13 @@
       this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
           switch (snapshot.state) {
-            case TaskState.PAUSED: // or 'paused'
-              break;
             case TaskState.RUNNING: // or 'running'
               break;
+            case TaskState.SUCCESS: // or 'running'
+              break;
+            default:
+              showWarningToaster(`upload status: ${snapshot.state}`)
+              this.setLoading(false);
           }
         },
         this.handleFireStorageError,

@@ -7,22 +7,25 @@
            @error="imageLoadError">
     </div>
 
-    <SingleImageUpload class="is-overlay-left" :parent-folder-ref="parentFolderRef"
-                      :upload-completed="uploadCompleted"
-                      :get-alt-value="getCoverImageAltName"/>
+    <SingleValidatedImageUpload class="is-overlay-left"
+                                label="profile photo"
+                                rules="size:2048"
+                                :parent-folder-ref="parentFolderRef"
+                                :upload-completed="uploadCompleted"
+                                :get-alt-value="getCoverImageAltName"/>
   </div>
 
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace, AuthUser } from '~/types';
-  import SingleImageUpload from '~/components/image/upload/SingleImageUpload.vue';
+  import { AuthUser, CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace } from '~/types';
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import { profilePhotoObservable } from '~/service/rx-service';
+  import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue';
 
   @Component({
-    components: { SingleImageUpload }
+    components: { SingleValidatedImageUpload }
   })
   export default class ProfileCover extends Vue {
 

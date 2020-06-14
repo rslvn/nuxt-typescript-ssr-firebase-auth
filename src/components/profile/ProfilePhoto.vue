@@ -4,11 +4,13 @@
       <BackgroundSquareImage :image="profilePhoto" size="150" rounded="true" border-inside="true" border="3"/>
     </div>
 
-    <SingleImageUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"
-                      :upload-completed="updateProfilePhoto" :get-alt-value="getProfilePhotoAltValue"/>
-
+    <SingleValidatedImageUpload class="is-overlay-left is-disabled-till-hover"
+                                label="profile photo"
+                                rules="size:2048"
+                                :parent-folder-ref="parentFolderRef"
+                                :upload-completed="updateProfilePhoto"
+                                :get-alt-value="getProfilePhotoAltValue"/>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -21,12 +23,12 @@
     ProfilePhotoStorageRef,
     StateNamespace
   } from "~/types";
-  import SingleImageUpload from "~/components/image/upload/SingleImageUpload.vue";
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
+  import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue';
 
   @Component({
-    components: { BackgroundSquareImage, SingleImageUpload }
+    components: { SingleValidatedImageUpload, BackgroundSquareImage }
   })
   export default class ProfilePhoto extends Vue {
 

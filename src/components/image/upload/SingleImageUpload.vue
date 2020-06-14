@@ -33,7 +33,10 @@
     @Watch('file')
     onFileChanged(file: File, oldFile: File) {
       this.setLoading(true);
-      this.fileName = this.parentFolderRef + getNewFileName(file.name)
+
+      let delimiter = this.parentFolderRef.endsWith('/') ? '' : '/';
+      this.fileName = `${this.parentFolderRef}${delimiter}${getNewFileName(file.name)}`
+
       this.uploadTask = storage.ref().child(this.fileName).put(file)
     }
 
