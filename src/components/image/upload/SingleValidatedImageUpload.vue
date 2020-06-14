@@ -1,26 +1,38 @@
 <template>
-  <b-upload v-model="file" accept="image/*">
-    <slot name="button">
-      <a class="button is-light">
-        <b-icon icon="camera"></b-icon>
-      </a>
-    </slot>
-  </b-upload>
+  <ValidationProvider
+    :vid="vid"
+    :name="$attrs.name || $attrs.label"
+    :rules="rules"
+    ref="provider"
+  >
+    <b-upload v-model="file">
+      <slot name="button">
+        <a class="button is-light">
+          <b-icon icon="camera"></b-icon>
+        </a>
+      </slot>
+    </b-upload>
+  </ValidationProvider>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
-  import { getNewFileName } from '~/service/global-service'
-  import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
+  import { Component, Prop, Ref, Vue, Watch } from 'nuxt-property-decorator'
+  import { TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
   import { handleError } from '~/service/error-service'
   import { Image, StateNamespace } from "~/types";
+  import { ValidationProvider } from "vee-validate";
+  import { ValidationResult } from 'vee-validate/dist/types/types';
 
   @Component({
-    components: {}
+    components: { ValidationProvider }
   })
-  export default class SingleFileUpload extends Vue {
+  export default class SingleFileUploadWithValidation extends Vue {
+
+    @Ref('provider') readonly provider !: any
 
     @Prop({ type: String, required: true }) parentFolderRef !: string
+    @Prop({ type: String, required: true }) vid !: string;
+    @Prop({ type: String, required: true }) rules !: string;
     @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
     @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
 
@@ -31,10 +43,14 @@
     @StateNamespace.loading.Mutation setLoading !: (loading: boolean) => void;
 
     @Watch('file')
-    onFileChanged(file: File, oldFile: File) {
-      this.setLoading(true);
-      this.fileName = this.parentFolderRef + getNewFileName(file.name)
-      this.uploadTask = storage.ref().child(this.fileName).put(file)
+    async onFileChanged(file: File, oldFile: File) {
+      let { valid, errors } = await this.provider?.validate() as ValidationResult;
+
+      console.log('Valid >>> ', valid, 'errors: ', errors, 'type of', typeof this.provider)
+
+      // this.setLoading(true);
+      // this.fileName = this.parentFolderRef + getNewFileName(file.name)
+      // this.uploadTask = storage.ref().child(this.fileName).put(file)
     }
 
     @Watch('uploadTask')

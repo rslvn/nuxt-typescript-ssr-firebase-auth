@@ -4,7 +4,7 @@
       <BackgroundSquareImage :image="profilePhoto" size="150" rounded="true" border-inside="true" border="3"/>
     </div>
 
-    <SingleFileUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"
+    <SingleImageUpload class="is-overlay-left is-disabled-till-hover" :parent-folder-ref="parentFolderRef"
                       :upload-completed="updateProfilePhoto" :get-alt-value="getProfilePhotoAltValue"/>
 
   </div>
@@ -21,12 +21,12 @@
     ProfilePhotoStorageRef,
     StateNamespace
   } from "~/types";
-  import SingleFileUpload from "~/components/image/upload/SingleFileUpload.vue";
+  import SingleImageUpload from "~/components/image/upload/SingleImageUpload.vue";
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: { BackgroundSquareImage, SingleFileUpload }
+    components: { BackgroundSquareImage, SingleImageUpload }
   })
   export default class ProfilePhoto extends Vue {
 
