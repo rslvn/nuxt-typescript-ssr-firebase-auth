@@ -3,8 +3,9 @@
 
     <template slot="label" class="is-grouped">
       <b-field>
-        <img class="image-fit-cover rounded-50 square-28" :src="profilePhoto.src" :alt="profilePhoto.alt"
-             @error="imageLoadError">
+        <background-square-image :image="profilePhoto" size="28" rounded="true" />
+<!--        <img class="image-fit-cover rounded-50 square-28" :src="profilePhoto.src" :alt="profilePhoto.alt"-->
+<!--             @error="imageLoadError">-->
         <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
       </b-field>
     </template>
@@ -27,9 +28,10 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType, AuthUser } from "~/types";
+  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: {}
+    components: { BackgroundSquareImage }
   })
   export default class ProfileNavigator extends Vue {
 
