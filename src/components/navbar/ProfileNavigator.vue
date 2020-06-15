@@ -3,9 +3,7 @@
 
     <template slot="label" class="is-grouped">
       <b-field>
-        <background-square-image :image="profilePhoto" size="28" rounded="true" />
-<!--        <img class="image-fit-cover rounded-50 square-28" :src="profilePhoto.src" :alt="profilePhoto.alt"-->
-<!--             @error="imageLoadError">-->
+        <BackgroundSquareImage :image-url="profilePhoto.src" size="28" rounded="true"/>
         <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
       </b-field>
     </template>
@@ -27,7 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType, AuthUser } from "~/types";
+  import { AuthUser, DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType } from "~/types";
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
@@ -47,6 +45,5 @@
     imageLoadError(event: any) {
       event.target.src = ProfilePhotoPlaceholder
     }
-
   }
 </script>

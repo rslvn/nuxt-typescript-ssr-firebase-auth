@@ -9,22 +9,22 @@
 
       <div class="column">
         <div>{{ $t('page.images.roundedNoBorder')}}</div>
-        <BackgroundSquareImage :image="image" :rounded="true" size="200" auto-margin="true"/>
+        <BackgroundSquareImage :image-url="image.src" :rounded="true" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">
         <div>{{ $t('page.images.squareNoBorder')}}</div>
-        <BackgroundSquareImage :image="image" :rounded="false" size="200" auto-margin="true"/>
+        <BackgroundSquareImage :image-url="image.src" :rounded="false" size="200" auto-margin="true"/>
       </div>
 
       <div class="column">
         <div>{{ $t('page.images.roundedWithBorder')}}</div>
-        <BackgroundSquareImage :image="image" rounded="true" size="200" border="10" auto-margin="true"/>
+        <BackgroundSquareImage :image-url="image.src" rounded="true" size="200" border="10" auto-margin="true"/>
       </div>
 
       <div class="column">
         <div>{{ $t('page.images.squareWithBorder')}}</div>
-        <BackgroundSquareImage :image="image" rounded="false" size="200" border="5" border-color="cyan"
+        <BackgroundSquareImage :image-url="image.src" rounded="false" size="200" border="5" border-color="cyan"
                                auto-margin="true"/>
       </div>
 

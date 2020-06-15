@@ -29,7 +29,7 @@
   @Component({
     components: { ProviderInfo }
   })
-  export default class Provider extends Vue {
+  export default class ProviderCard extends Vue {
 
     defaultType = 'is-light';
 

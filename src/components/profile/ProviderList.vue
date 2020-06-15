@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-multiline">
     <div class="column is-half-tablet is-one-quarter-desktop" v-for="(providerLink, key) in allProviders" :key="key">
-      <Provider :provider-config="providerLink.providerConfig"
+      <ProviderCard :provider-config="providerLink.providerConfig"
                 :provider-data="providerLink.providerData"
                 :is-linked="providerLink.linked"
                 :link-function="providerLink.method"
@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import Provider from "~/components/profile/Provider.vue";
+  import ProviderCard from "~/components/card/ProviderCard.vue";
   import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
   import {
     LoginCredentials,
@@ -28,7 +28,7 @@
   import { getProviderOption } from "~/service/firebase/firebase-service";
 
   @Component({
-    components: { Provider }
+    components: { ProviderCard }
   })
   export default class ProviderList extends Vue {
 

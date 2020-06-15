@@ -12,7 +12,6 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { Image } from '~/types';
   import { toBoolean } from '~/service/global-service';
 
   @Component({
@@ -20,7 +19,7 @@
   })
   export default class BackgroundSquareImage extends Vue {
 
-    @Prop({ required: true }) image !: Image
+    @Prop({ type: String, required: true }) imageUrl !: string
     @Prop({ type: [Number, String], required: true }) size !: number
     @Prop({ type: [Boolean, String], required: false, default: false }) rounded !: boolean | string
     @Prop({ type: [Number, String], required: false, default: 0 }) border !: number
@@ -50,7 +49,7 @@
 
     get imageStyle() {
       return {
-        'background-image': `url('${this.image.src}')`,
+        'background-image': `url('${this.imageUrl}')`,
         height: this.imageSizePx,
         width: this.imageSizePx,
         ...this.marginByBorder
