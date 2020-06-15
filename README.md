@@ -96,6 +96,7 @@ See the [Features](#features) for more functionalities
 - [x] vee-validate
     - [x] integration with nuxt-i18n
     - [x] custom validation for image
+    - [x] switch language by queryParam `lang`
 - [x] SEO
     - [x] Google meta
     - [x] Facebook meta

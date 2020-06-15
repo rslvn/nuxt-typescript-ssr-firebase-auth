@@ -9,7 +9,7 @@ for (let [rule, validation] of Object.entries(rules)) {
   })
 }
 
-const setLangFromQuery = (langQuery: string, app: NuxtAppOptions) => {
+const setLanguageFromQuery = (langQuery: string, app: NuxtAppOptions) => {
   if (!langQuery) {
     return
   }
@@ -34,7 +34,7 @@ const veeValidatePlugin: Plugin = ({ app, query }) => {
   // };
 
   let langQuery = query[QueryParameters.LANG] as string
-  setLangFromQuery(langQuery, app)
+  setLanguageFromQuery(langQuery, app)
 
   configure({
     // @ts-ignore
