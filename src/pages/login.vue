@@ -22,19 +22,21 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import LoginForm from "~/components/form/LoginForm.vue";
-  import { PageMeta, DefaultMeta, LoginCredentials, ProviderType, StateNamespace, SupportedProviders } from "~/types";
+  import {
+    DefaultMeta,
+    LoginCredentials,
+    PageMeta,
+    ProviderType,
+    RouteType,
+    StateNamespace,
+    SupportedProviders
+  } from "~/types";
   import { getHead } from "~/service/seo-service";
 
   @Component({
     components: { SocialLogin, LoginForm },
   })
   export default class login extends Vue {
-
-    pageMeta: PageMeta = {
-      ...DefaultMeta,
-      title: 'Login | ' + DefaultMeta.title,
-      url: DefaultMeta.url + '/login'
-    }
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signInWithEmail !: (credentials: LoginCredentials) => void;
@@ -53,7 +55,13 @@
     }
 
     head() {
-      return getHead(this.pageMeta)
+      let pageMeta: PageMeta = {
+        title: `${this.$t('page.login.title')} | ${DefaultMeta.title}`,
+        url: `${DefaultMeta.url}${RouteType.LOGIN.path}`,
+        description: this.$t('page.login.description') as string,
+        image: DefaultMeta.image
+      }
+      return getHead(pageMeta)
     }
 
   }

@@ -47,6 +47,32 @@ const messages = {
       title: 'Anasayfaya hosgeldiniz',
       goToSource: ' <b>Github</b> uzerinde kaynak koda ulas',
     },
+    lightbox: {
+      title: 'Lightbox ile Responsive Masonry',
+      subtitle: 'Ornek fotograflar',
+      description: 'Nuxt ve typascript ile hazirlanmis, lightbox icin ornek bir sayfadir',
+    },
+    crop: {
+      title: 'Crop',
+      description: 'Nuxt ve typascript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
+    },
+    images: {
+      title: 'Kare Gorseller',
+      description: 'Nuxt ve typascript ile hazirlanmis, kare/yuvarlak arkaplan resimler icin ornek bir sayfadir',
+      original: 'Orjinal',
+      roundedNoBorder: 'Cercevesiz Yuvarlak',
+      squareNoBorder: 'Cercevesiz Kare',
+      roundedWithBorder: 'Cerceveli Yuvarlak',
+      squareWithBorder: 'Cerceveli Kare'
+    },
+    register: {
+      title: 'Kayit Ol',
+      description: 'Nuxt ve typascript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
+    },
+    login: {
+      title: 'Giris Yap',
+      description: 'Nuxt ve typascript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
+    },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.',
     },
@@ -55,21 +81,6 @@ const messages = {
     },
     privacyAndPolicy: {
       title: 'Gizlilik Ve Prensipler',
-    },
-    crop: {
-      title: 'Crop',
-    },
-    lightbox: {
-      title: 'Lightbox ile Responsive Masonry',
-      subtitle: 'Ornek fotograflar'
-    },
-    images: {
-      title: 'Kare Gorseller',
-      original: 'Orjinal',
-      roundedNoBorder: 'Cercevesiz Yuvarlak',
-      squareNoBorder: 'Cercevesiz Kare',
-      roundedWithBorder: 'Cerceveli Yuvarlak',
-      squareWithBorder: 'Cerceveli Kare'
     },
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',

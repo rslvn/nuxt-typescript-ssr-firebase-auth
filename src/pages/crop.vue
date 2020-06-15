@@ -25,14 +25,14 @@
 
     image = DefaultProfilePhoto
 
-    pageMeta: PageMeta = {
-      ...DefaultMeta,
-      title: `Crop Image | ${DefaultMeta.title}`,
-      url: `${DefaultMeta.url}${RouteType.CORP.path}`
-    }
-
     head() {
-      return getHead(this.pageMeta)
+      let pageMeta: PageMeta = {
+        title: `${this.$t('page.crop.title')} | ${DefaultMeta.title}`,
+        url: `${DefaultMeta.url}${RouteType.CROP.path}`,
+        description: this.$t('page.crop.description') as string,
+        image: DefaultMeta.image
+      }
+      return getHead(pageMeta)
     }
   }
 </script>

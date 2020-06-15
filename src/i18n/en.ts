@@ -47,6 +47,32 @@ const messages = {
       title: 'Welcome to Home',
       goToSource: 'Go to source on <b>Github</b>',
     },
+    lightbox: {
+      title: 'Responsive Masonry with Lightbox',
+      subtitle: 'Sample photos',
+      description: 'Sample page for lightbox in nuxt and typescript with bulma'
+    },
+    crop: {
+      title: 'Crop',
+      description: 'Sample page for cropperjs in nuxt and typescript with bulma'
+    },
+    images: {
+      title: 'Square Image',
+      description: 'Sample page for square/round background images in nuxt and typescript',
+      original: 'Original',
+      roundedNoBorder: 'Borderless Round',
+      squareNoBorder: 'Borderless Square',
+      roundedWithBorder: 'Round With Border',
+      squareWithBorder: 'Square With Border'
+    },
+    register: {
+      title: 'Register',
+      description: 'Sample page for registration in nuxt and typescript with bulma'
+    },
+    login: {
+      title: 'Login',
+      description: 'Sample page for login in nuxt and typescript with bulma'
+    },
     action: {
       processing: 'Processing... Please wait.',
     },
@@ -55,21 +81,6 @@ const messages = {
     },
     privacyAndPolicy: {
       title: 'Privacy And Policy',
-    },
-    crop: {
-      title: 'Crop',
-    },
-    lightbox: {
-      title: 'Responsive Masonry with Lightbox',
-      subtitle: 'Sample hotos'
-    },
-    images: {
-      title: 'Square Image',
-      original: 'Original',
-      roundedNoBorder: 'Borderless Round',
-      squareNoBorder: 'Borderless Square',
-      roundedWithBorder: 'Round With Border',
-      squareWithBorder: 'Square With Border'
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',

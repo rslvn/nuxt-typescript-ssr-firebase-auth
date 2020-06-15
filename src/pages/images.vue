@@ -45,11 +45,11 @@
 
     head() {
       let pageMeta: PageMeta = {
-        ...DefaultMeta,
-        title: this.$t('page.images.title') as string,
-        url: `${DefaultMeta.url}${RouteType.IMAGES.path}`
+        title: `${this.$t('page.images.title')} | ${DefaultMeta.title}`,
+        url: `${DefaultMeta.url}${RouteType.IMAGES.path}`,
+        description: this.$t('page.images.description') as string,
+        image: DefaultMeta.image
       }
-
       return getHead(pageMeta)
     }
 

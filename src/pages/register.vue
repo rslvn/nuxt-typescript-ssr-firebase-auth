@@ -27,6 +27,7 @@
     PageMeta,
     ProviderType,
     RegistrationCredentials,
+    RouteType,
     StateNamespace,
     SupportedProviders
   } from "~/types";
@@ -36,12 +37,6 @@
     components: { SocialLogin, RegisterForm },
   })
   export default class register extends Vue {
-
-    pageMeta: PageMeta = {
-      ...DefaultMeta,
-      title: 'Register | ' + DefaultMeta.title,
-      url: DefaultMeta.url + '/register'
-    }
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => void;
@@ -60,7 +55,13 @@
     }
 
     head() {
-      return getHead(this.pageMeta)
+      let pageMeta: PageMeta = {
+        title: `${this.$t('page.register.title')} | ${DefaultMeta.title}`,
+        url: `${DefaultMeta.url}${RouteType.REGISTER.path}`,
+        description: this.$t('page.register.description') as string,
+        image: DefaultMeta.image
+      }
+      return getHead(pageMeta)
     }
 
   }

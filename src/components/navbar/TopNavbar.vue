@@ -24,7 +24,7 @@
       </b-navbar-item>
 
       <b-navbar-item
-        :to="routeType.CORP"
+        :to="routeType.CROP"
         tag="router-link"
       >
         {{ $t('topNavbar.crop')}}

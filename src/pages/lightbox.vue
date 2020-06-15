@@ -25,15 +25,14 @@
     components: { Lightbox }
   })
   export default class lightbox extends Vue {
-
-    pageMeta: PageMeta = {
-      ...DefaultMeta,
-      title: `Lightbox | ${DefaultMeta.title}`,
-      url: `${DefaultMeta.url}${RouteType.LIGHT_BOX.path}`
-    }
-
     head() {
-      return getHead(this.pageMeta)
+      let pageMeta: PageMeta = {
+        title: `${this.$t('page.lightbox.title')} | ${DefaultMeta.title}`,
+        url: `${DefaultMeta.url}${RouteType.LIGHT_BOX.path}`,
+        description: this.$t('page.lightbox.description') as string,
+        image: DefaultMeta.image
+      }
+      return getHead(pageMeta)
     }
 
     get images() {
