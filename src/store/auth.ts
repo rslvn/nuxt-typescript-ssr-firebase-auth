@@ -3,6 +3,7 @@ import firebase from 'firebase'
 import {
   AppCookie,
   AuthState,
+  AuthUser,
   cookieOptions,
   DefaultCoverPhoto,
   DefaultProfilePhoto,
@@ -13,8 +14,7 @@ import {
   RegistrationCredentials,
   RootState,
   RouteType,
-  SocialLoginCredentials,
-  AuthUser
+  SocialLoginCredentials
 } from '~/types'
 import { auth, getAuthProvider } from '~/plugins/fire-init-plugin'
 import {
@@ -81,6 +81,14 @@ export const mutations: MutationTree<AuthState> = {
 
       if (index > -1) {
         state.authUser.providers.splice(index, 1)
+      }
+    }
+  },
+  updateProviderPhoto(state, photoUrl: string) {
+    if (state.authUser) {
+      let provider = state.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD)
+      if (provider) {
+        provider.photoURL = photoUrl
       }
     }
   }
@@ -173,6 +181,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         })
       })
       .then(() => commit('setProfilePhoto', profilePhoto))
+      .then(() => commit('updateProviderPhoto', profilePhoto.src))
       .catch((error: Error) => handleError(dispatch, error))
   },
 
