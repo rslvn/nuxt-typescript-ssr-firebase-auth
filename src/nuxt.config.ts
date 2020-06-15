@@ -55,7 +55,6 @@ const config: Configuration = {
     { src: '~/plugins/firebase-auth-listener', ssr: false },
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
-    { src: '~/plugins/i18n-plugin' },
     '~/plugins/vue-lazyload-plugin',
     '~/plugins/rxjs-plugin',
   ],

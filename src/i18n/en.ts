@@ -50,39 +50,39 @@ const messages = {
     lightbox: {
       title: 'Responsive Masonry with Lightbox',
       subtitle: 'Sample photos',
-      description: 'Sample page for lightbox in nuxt and typescript with bulma'
+      description: 'A sample lightbox page in nuxt and typescript with bulma'
     },
     crop: {
       title: 'Crop',
-      description: 'Sample page for cropperjs in nuxt and typescript with bulma'
+      description: 'A sample cropperjs page in nuxt and typescript with bulma'
     },
     images: {
       title: 'Square Image',
-      description: 'Sample page for square/round background images in nuxt and typescript',
+      description: 'A sample square/round background images page in nuxt and typescript',
       original: 'Original',
       roundedNoBorder: 'Borderless Round',
       squareNoBorder: 'Borderless Square',
       roundedWithBorder: 'Round With Border',
-      squareWithBorder: 'Square With Border'
+      squareWithBorder: 'Square With Border',
     },
     register: {
       title: 'Register',
-      description: 'Sample page for registration in nuxt and typescript with bulma'
+      description: 'A sample registration page in nuxt and typescript with bulma'
     },
     login: {
       title: 'Login',
-      description: 'Sample page for login in nuxt and typescript with bulma'
+      description: 'A sample login page in nuxt and typescript with bulma',
     },
     action: {
       processing: 'Processing... Please wait.',
     },
     terms: {
       title: 'Terms',
-      description: 'Sample page for terms in nuxt and typescript'
+      description: 'A sample terms page in nuxt and typescript',
     },
     privacyAndPolicy: {
       title: 'Privacy And Policy',
-      description: 'Sample page for privacy and policy in nuxt and typescript'
+      description: 'A sample privacy and policy page in nuxt and typescript',
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',
@@ -133,7 +133,7 @@ const messages = {
     },
     profileUpdate: {
       title: 'User Update',
-      submit: 'Update'
+      submit: 'Update',
     },
   },
 
