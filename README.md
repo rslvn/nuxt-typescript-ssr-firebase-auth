@@ -67,6 +67,7 @@ See the [Features](#features) for more functionalities
     - [x] firebase-storage
         - [x] profile photo
         - [x] cover photo
+        - [x] upload single validated image
     - [x] firestore
         - [x] user collection
     - [x] firebase-auth
@@ -94,6 +95,7 @@ See the [Features](#features) for more functionalities
     - [x] Turkish
 - [x] vee-validate
     - [x] integration with nuxt-i18n
+    - [x] custom validation for image
 - [x] SEO
     - [x] Google meta
     - [x] Facebook meta
@@ -105,6 +107,7 @@ See the [Features](#features) for more functionalities
     - [x] crop with cropperjs
     - [x] lightbox with buefy/bulma
     - [x] hover button on profile photo
+    - [x] square/round background image
 - [x] custom error page - simple
 - [x] global notification
 - [x] toaster notification
