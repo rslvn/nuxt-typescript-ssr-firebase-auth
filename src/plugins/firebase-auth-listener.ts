@@ -5,7 +5,7 @@ import { Store } from 'vuex';
 import { Location, Route } from 'vue-router';
 import {
   AppCookie,
-  RouteQueryParameters,
+  QueryParameters,
   Routes,
   sessionCookieOptionsDev,
   sessionCookieOptionsProd,
@@ -21,7 +21,7 @@ const logout = (store: Store<any>) => {
 }
 
 const getNextRoute = (route: Route): Location => {
-  let path: string = route.query[RouteQueryParameters.NEXT] as string;
+  let path: string = route.query[QueryParameters.NEXT] as string;
   if (path) {
     return { path }
   }

@@ -34,9 +34,10 @@ export const Routes = {
 }
 
 export enum RouteParameters {
-  ACTION_CODE = 'ACTION_CODE',
+  ACTION_CODE = 'actionCode',
 }
 
-export enum RouteQueryParameters {
-  NEXT = 'NEXT',
+export enum QueryParameters {
+  NEXT = 'next',
+  LANG = 'lang',
 }

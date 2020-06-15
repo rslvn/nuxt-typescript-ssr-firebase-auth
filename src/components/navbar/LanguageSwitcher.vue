@@ -31,7 +31,6 @@
       return SupportedLanguages.find(value => value.code === this.$i18n.locale);
     }
 
-
     changeLocale(language: SupportedLanguage) {
       if (this.$i18n.locale === language.code) {
         return

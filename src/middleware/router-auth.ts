@@ -1,5 +1,5 @@
 import { Middleware } from '@nuxt/types'
-import { RouteQueryParameters, Routes } from '~/types'
+import { QueryParameters, Routes } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed, } from '~/service/global-service'
 
 const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
@@ -13,7 +13,7 @@ const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
       redirect({
         ...Routes.LOGIN,
         query: {
-          [RouteQueryParameters.NEXT]: route.fullPath,
+          [QueryParameters.NEXT]: route.fullPath,
         },
       })
     }
