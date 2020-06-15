@@ -22,16 +22,8 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import SocialLogin from "~/components/form/SocialLogin.vue";
   import RegisterForm from "~/components/form/RegisterForm.vue";
-  import {
-    DefaultMeta,
-    PageMeta,
-    ProviderType,
-    RegistrationCredentials,
-    RouteType,
-    StateNamespace,
-    SupportedProviders
-  } from "~/types";
-  import { getHead } from "~/service/seo-service";
+  import { ProviderType, RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from "~/types";
+  import { getHeadByRouteType } from "~/service/seo-service";
 
   @Component({
     components: { SocialLogin, RegisterForm },
@@ -55,13 +47,7 @@
     }
 
     head() {
-      let pageMeta: PageMeta = {
-        title: `${this.$t('page.register.title')} | ${DefaultMeta.title}`,
-        url: `${DefaultMeta.url}${RouteType.REGISTER.path}`,
-        description: this.$t('page.register.description') as string,
-        image: DefaultMeta.image
-      }
-      return getHead(pageMeta)
+      return getHeadByRouteType(Routes.REGISTER, this)
     }
 
   }

@@ -6,7 +6,7 @@ import { Location, Route } from 'vue-router';
 import {
   AppCookie,
   RouteQueryParameters,
-  RouteType,
+  Routes,
   sessionCookieOptionsDev,
   sessionCookieOptionsProd,
   StoreConfig
@@ -26,8 +26,8 @@ const getNextRoute = (route: Route): Location => {
     return { path }
   }
 
-  if (authenticatedNotAllowed(route) || route.path == RouteType.ACTION.path) {
-    return RouteType.PROFILE
+  if (authenticatedNotAllowed(route) || route.path == Routes.ACTION.path) {
+    return Routes.PROFILE
   }
 
   return { path: route.fullPath }
@@ -65,7 +65,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       } else {
         app.$cookies.remove(AppCookie.TOKEN);
         if (authenticatedAllowed(route)) {
-          redirect(RouteType.LOGIN)
+          redirect(Routes.LOGIN)
         }
       }
       resolve()

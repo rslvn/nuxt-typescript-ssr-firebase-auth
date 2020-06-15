@@ -13,7 +13,7 @@ import {
   ProviderType,
   RegistrationCredentials,
   RootState,
-  RouteType,
+  Routes,
   SocialLoginCredentials
 } from '~/types'
 import { auth, getAuthProvider } from '~/plugins/fire-init-plugin'
@@ -339,7 +339,7 @@ export const actions: ActionTree<AuthState, RootState> = {
   async logout({ dispatch, commit }) {
     return await auth.signOut()
       .then(() => {
-        this.$router.push(RouteType.LOGIN)
+        this.$router.push(Routes.LOGIN)
         commit('forceLogout', false);
       })
       .catch((error: Error) => handleError(dispatch, error))

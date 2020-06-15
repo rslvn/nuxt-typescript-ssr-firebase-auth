@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, RouteType } from "~/types";
+  import { AuthUser, DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, Routes } from "~/types";
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
@@ -33,7 +33,7 @@
   })
   export default class ProfileNavigator extends Vue {
 
-    profileRoute = RouteType.PROFILE;
+    profileRoute = Routes.PROFILE;
 
     @Prop({ required: true }) authUser !: AuthUser;
     @Prop({ type: Function, required: true }) logout !: () => void;

@@ -78,9 +78,11 @@ const messages = {
     },
     terms: {
       title: 'Terms',
+      description: 'Sample page for terms in nuxt and typescript'
     },
     privacyAndPolicy: {
       title: 'Privacy And Policy',
+      description: 'Sample page for privacy and policy in nuxt and typescript'
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',

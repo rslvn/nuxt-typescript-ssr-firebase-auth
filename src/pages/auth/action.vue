@@ -27,7 +27,7 @@
     FirebaseAuthActionParams,
     NotificationMessage,
     RouteParameters,
-    RouteType,
+    Routes,
     StateNamespace
   } from "~/types";
   import { getWarningNotificationMessage } from "~/service/notification-service";
@@ -80,7 +80,7 @@
               this.isLoading = false;
               if (validActionCode) {
                 this.$router.replace({
-                  ...RouteType.RESET_PASSWORD,
+                  ...Routes.RESET_PASSWORD,
                   query: {
                     [RouteParameters.ACTION_CODE]: this.actionCode
                   }

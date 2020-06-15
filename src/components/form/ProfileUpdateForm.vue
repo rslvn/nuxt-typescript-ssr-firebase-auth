@@ -74,7 +74,7 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
-  import { RouteType, StateNamespace, User } from '~/types';
+  import { Routes, StateNamespace, User } from '~/types';
   import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
   import BInputNoValidation from '~/components/ui/input/BInputNoValidation.vue';
 
@@ -96,7 +96,7 @@
     }
 
     gotoProfile() {
-      this.$router.replace(RouteType.PROFILE)
+      this.$router.replace(Routes.PROFILE)
     }
 
   }

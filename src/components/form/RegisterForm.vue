@@ -60,7 +60,7 @@
       <nuxt-link
         tag="a"
         class="button-outline"
-        :to="routeType.LOGIN"
+        :to="routes.LOGIN"
       >
         {{ $t('form.registerForm.hasAccount')}}
       </nuxt-link>
@@ -72,7 +72,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { RegistrationCredentials, RouteType } from "~/types";
+  import { RegistrationCredentials, Routes } from "~/types";
   import { ValidationObserver } from "vee-validate";
   import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
 
@@ -92,8 +92,8 @@
 
     @Prop({ type: Function, required: true }) signUpWithEmail !: (credentials: RegistrationCredentials) => void;
 
-    get routeType() {
-      return RouteType
+    get routes() {
+      return Routes
     }
 
     submit() {

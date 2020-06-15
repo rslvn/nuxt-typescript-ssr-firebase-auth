@@ -27,11 +27,11 @@
     LoginCredentials,
     PageMeta,
     ProviderType,
-    RouteType,
+    Routes,
     StateNamespace,
     SupportedProviders
   } from "~/types";
-  import { getHead } from "~/service/seo-service";
+  import { getHead, getHeadByRouteType } from "~/service/seo-service";
 
   @Component({
     components: { SocialLogin, LoginForm },
@@ -55,13 +55,7 @@
     }
 
     head() {
-      let pageMeta: PageMeta = {
-        title: `${this.$t('page.login.title')} | ${DefaultMeta.title}`,
-        url: `${DefaultMeta.url}${RouteType.LOGIN.path}`,
-        description: this.$t('page.login.description') as string,
-        image: DefaultMeta.image
-      }
-      return getHead(pageMeta)
+      return getHeadByRouteType(Routes.LOGIN, this)
     }
 
   }

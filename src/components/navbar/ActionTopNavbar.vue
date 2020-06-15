@@ -1,7 +1,7 @@
 <template>
   <b-navbar>
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="routeType.HOME">
+      <b-navbar-item tag="router-link" :to="routes.HOME">
         <img
           src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
           alt="Lightweight UI components for Vue.js based on Bulma"
@@ -10,7 +10,7 @@
     </template>
     <template slot="start">
       <b-navbar-item
-        :to="routeType.HOME"
+        :to="routes.HOME"
         tag="router-link"
       >
         <strong>{{$t('topNavbar.home')}}</strong>
@@ -25,11 +25,11 @@
       <b-navbar-item tag="div">
         <div class="buttons">
 
-          <a class="button is-primary" :href="routeType.REGISTER.path">
+          <a class="button is-primary" :href="routes.REGISTER.path">
             <strong>{{$t('topNavbar.register')}}</strong>
           </a>
 
-          <a class="button is-primary" :href="routeType.LOGIN.path">
+          <a class="button is-primary" :href="routes.LOGIN.path">
             <strong>{{$t('topNavbar.login')}}</strong>
           </a>
         </div>
@@ -41,15 +41,15 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { RouteType } from "~/types";
+  import { Routes } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
 
   @Component({
     components: { LanguageSwitcher }
   })
   export default class TopNavbar extends Vue {
-    get routeType() {
-      return RouteType
+    get routes() {
+      return Routes
     }
 
   }

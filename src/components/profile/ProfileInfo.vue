@@ -92,7 +92,7 @@
     LoginCredentials,
     ProviderConfig,
     ProviderType,
-    RouteType,
+    Routes,
     StateNamespace,
     AuthUser,
     SupportedProviders,
@@ -109,7 +109,7 @@
     @Prop({ required: true }) user !: User;
 
     loading = false;
-    profileSettingsRoute = RouteType.PROFILE_SETTINGS
+    profileSettingsRoute = Routes.PROFILE_SETTINGS
 
     @StateNamespace.notification.Action clearNotificationMessage !: () => void;
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>

@@ -1,7 +1,7 @@
 <template>
   <b-navbar>
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="routeType.HOME">
+      <b-navbar-item tag="router-link" :to="routes.HOME">
         <img
           src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
           alt="Lightweight UI components for Vue.js based on Bulma"
@@ -10,28 +10,28 @@
     </template>
     <template slot="start">
       <b-navbar-item
-        :to="routeType.HOME"
+        :to="routes.HOME"
         tag="router-link"
       >
         <strong>{{$t('topNavbar.home')}}</strong>
       </b-navbar-item>
 
       <b-navbar-item
-        :to="routeType.LIGHT_BOX"
+        :to="routes.LIGHT_BOX"
         tag="router-link"
       >
         {{ $t('topNavbar.lightbox')}}
       </b-navbar-item>
 
       <b-navbar-item
-        :to="routeType.CROP"
+        :to="routes.CROP"
         tag="router-link"
       >
         {{ $t('topNavbar.crop')}}
       </b-navbar-item>
 
       <b-navbar-item
-        :to="routeType.IMAGES"
+        :to="routes.IMAGES"
         tag="router-link"
       >
         {{ $t('topNavbar.images')}}
@@ -48,13 +48,13 @@
       <b-navbar-item v-else tag="div">
         <div class="buttons">
           <b-button tag="router-link"
-                    :to="routeType.REGISTER"
+                    :to="routes.REGISTER"
                     type="is-primary">
             <strong>{{$t('topNavbar.register')}}</strong>
           </b-button>
 
           <b-button tag="router-link"
-                    :to="routeType.LOGIN"
+                    :to="routes.LOGIN"
                     type="is-primary">
             <strong>{{$t('topNavbar.login')}}</strong>
           </b-button>
@@ -67,7 +67,7 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, RouteType, StateNamespace } from "~/types";
+  import { AuthUser, Routes, StateNamespace } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
 
@@ -79,8 +79,8 @@
     @StateNamespace.auth.Getter authUser !: AuthUser;
     @StateNamespace.auth.Action logout!: () => void;
 
-    get routeType() {
-      return RouteType
+    get routes() {
+      return Routes
     }
 
   }

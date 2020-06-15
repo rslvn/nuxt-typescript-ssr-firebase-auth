@@ -2,7 +2,7 @@ import moment from 'moment'
 import slug from 'slug'
 import { v4 as uuidv4 } from 'uuid'
 import { Route } from 'vue-router'
-import { RouteType } from '~/types'
+import { Routes } from '~/types'
 
 let timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
 const slugDelimiter = '-'
@@ -44,15 +44,15 @@ export const toBoolean = (value : string| boolean): boolean =>{
 
 export const authenticatedAllowed = (route: Route): boolean => {
   return route.matched.some((record) =>
-    record.path.startsWith(RouteType.PROFILE.path)
+    record.path.startsWith(Routes.PROFILE.path)
   )
 }
 
 export const authenticatedNotAllowed = (route: Route): boolean => {
   return (
-    route.path == RouteType.LOGIN.path ||
-    route.path == RouteType.REGISTER.path ||
-    route.path == RouteType.FORGET_PASSWORD.path ||
-    route.path == RouteType.RESET_PASSWORD.path
+    route.path == Routes.LOGIN.path ||
+    route.path == Routes.REGISTER.path ||
+    route.path == Routes.FORGET_PASSWORD.path ||
+    route.path == Routes.RESET_PASSWORD.path
   )
 }

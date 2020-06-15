@@ -30,7 +30,7 @@
         <RememberMe v-if="showRememberMe" :value="rememberMe"/>
 
         <b-button v-if="showForgetPassword" tag="router-link"
-                  :to="routeType.FORGET_PASSWORD"
+                  :to="routes.FORGET_PASSWORD"
                   type="is-text"
                   class="has-text-primary is-pulled-right">
           {{ $t('form.loginForm.forgetPassword')}}
@@ -47,7 +47,7 @@
       <nuxt-link
         tag="a"
         class="button-outline"
-        :to="routeType.REGISTER"
+        :to="routes.REGISTER"
       >
         {{ $t('form.loginForm.noAccount')}}
       </nuxt-link>
@@ -58,7 +58,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { LoginCredentials, RouteType } from "~/types";
+  import { LoginCredentials, Routes } from "~/types";
   import { ValidationObserver } from "vee-validate";
   import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
   import RememberMe from "~/components/ui/RememberMe.vue";
@@ -87,8 +87,8 @@
       callback: this.callback
     }
 
-    get routeType() {
-      return RouteType
+    get routes() {
+      return Routes
     }
 
     submit() {

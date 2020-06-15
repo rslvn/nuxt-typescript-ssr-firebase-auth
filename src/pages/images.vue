@@ -35,8 +35,8 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
-  import { DefaultMeta, PageMeta, RouteType } from '~/types';
-  import { getHead } from '~/service/seo-service';
+  import { Routes } from '~/types';
+  import { getHeadByRouteType } from '~/service/seo-service';
 
   @Component({
     components: { BackgroundSquareImage }
@@ -44,13 +44,7 @@
   export default class images extends Vue {
 
     head() {
-      let pageMeta: PageMeta = {
-        title: `${this.$t('page.images.title')} | ${DefaultMeta.title}`,
-        url: `${DefaultMeta.url}${RouteType.IMAGES.path}`,
-        description: this.$t('page.images.description') as string,
-        image: DefaultMeta.image
-      }
-      return getHead(pageMeta)
+      return getHeadByRouteType(Routes.IMAGES, this)
     }
 
     get images() {
