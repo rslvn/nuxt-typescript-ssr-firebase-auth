@@ -4,8 +4,9 @@
       <div class="columns">
 
         <div class="column">
-          <SocialLogin :title="$t('form.social.title.register')" :remember-me="rememberMe" :providers="providers"
-                       :callback="noCallback"
+          <SocialLogin :title="$t('form.social.title.register')"
+                       :remember-me="rememberMe"
+                       :providers="providers"
                        :reauthenticate="false"/>
         </div>
 
@@ -20,10 +21,10 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import SocialLogin from "~/components/form/SocialLogin.vue";
-  import RegisterForm from "~/components/form/RegisterForm.vue";
-  import { ProviderType, RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from "~/types";
-  import { getHeadByRouteType } from "~/service/seo-service";
+  import SocialLogin from '~/components/form/SocialLogin.vue';
+  import RegisterForm from '~/components/form/RegisterForm.vue';
+  import { ProviderType, RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from '~/types';
+  import { getHeadByRouteType } from '~/service/seo-service';
 
   @Component({
     components: { SocialLogin, RegisterForm },
@@ -41,9 +42,6 @@
 
     get providers() {
       return SupportedProviders.filter(value => value.providerType !== ProviderType.PASSWORD)
-    }
-
-    noCallback() {
     }
 
     head() {

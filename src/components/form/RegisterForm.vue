@@ -72,9 +72,9 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { RegistrationCredentials, Routes } from "~/types";
-  import { ValidationObserver } from "vee-validate";
-  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
+  import { ValidationObserver } from 'vee-validate';
+  import { RegistrationCredentials, Routes } from '~/types';
+  import BInputWithValidation from '~/components/ui/input/BInputWithValidation.vue';
 
   @Component({
     components: {
