@@ -5,22 +5,26 @@
       <p><span v-html="description"></span></p>
       <br v-if="description">
       <ValidationObserver v-slot="{ passes }" tag="form">
-        <BInputWithValidation
+        <InputWithValidation
           v-model="password"
           input-type="password"
           :label="$t('common.field.password')"
           :placeholder="$t('common.field.passwordPlaceHolder')"
           rules="required|min:4|confirmed:confirmedPassword"
           vid="password"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="confirmedPassword"
           input-type="password"
           :label="$t('common.field.confirmPassword')"
           :placeholder="$t('common.field.confirmPasswordPlaceHolder')"
           rules="required"
           vid="confirmedPassword"
+          label-position="on-border"
+          class="has-margin-5"
         />
 
         <div class="buttons">
@@ -37,12 +41,12 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
-  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
+  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
 
   @Component({
     components: {
       ValidationObserver,
-      BInputWithValidation
+      InputWithValidation
     }
   })
   export default class SetPasswordForm extends Vue {

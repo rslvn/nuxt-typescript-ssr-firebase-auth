@@ -23,7 +23,7 @@
   @Component({
     components: {}
   })
-  export default class BInputWithNoValidation extends Vue {
+  export default class InputWithNoValidation extends Vue {
     @Prop({ type: String, required: false, default: '' }) type !: string;
     @Prop({ type: String, required: false, default: 'text' }) inputType !: string;
     @Prop({ type: String, required: false, default: '' }) labelPosition !: string;

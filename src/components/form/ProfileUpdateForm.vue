@@ -5,7 +5,7 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <BInputNoValidation
+        <InputNoValidation
           v-model="updatedUser.id"
           :label="$t('common.field.id')"
           :disabled="true"
@@ -13,7 +13,7 @@
           class="has-margin-bottom-15"
         />
 
-        <BInputNoValidation
+        <InputNoValidation
           v-model="updatedUser.email"
           :label="$t('common.field.email')"
           :disabled="true"
@@ -21,7 +21,7 @@
           class="has-margin-bottom-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="updatedUser.username"
           :label="$t('common.field.username')"
           :placeholder="$t('common.field.usernamePlaceHolder')"
@@ -31,7 +31,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="updatedUser.name"
           :label="$t('common.field.name')"
           :placeholder="$t('common.field.namePlaceHolder')"
@@ -41,7 +41,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="updatedUser.surname"
           :label="$t('common.field.surname')"
           :placeholder="$t('common.field.surnamePlaceHolder')"
@@ -51,7 +51,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="updatedUser.biography"
           inputType="textarea"
           :label="$t('common.field.biography')"
@@ -85,11 +85,11 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
   import { Routes, StateNamespace, User } from '~/types';
-  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
-  import BInputNoValidation from '~/components/ui/input/BInputNoValidation.vue';
+  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
+  import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
 
   @Component({
-    components: { BInputNoValidation, ValidationObserver, BInputWithValidation }
+    components: { InputNoValidation, ValidationObserver, InputWithValidation }
   })
   export default class ProfileUpdateForm extends Vue {
 

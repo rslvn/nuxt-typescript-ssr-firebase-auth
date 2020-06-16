@@ -5,7 +5,7 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="credentials.name"
           :label="$t('common.field.name')"
           :placeholder="$t('common.field.namePlaceHolder')"
@@ -15,7 +15,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceHolder')"
@@ -26,7 +26,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="credentials.password"
           :label="$t('common.field.password')"
           :placeholder="$t('common.field.passwordPlaceHolder')"
@@ -37,7 +37,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="confirmPassword"
           :label="$t('common.field.confirmPassword')"
           :placeholder="$t('common.field.confirmPasswordPlaceHolder')"
@@ -74,12 +74,12 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from 'vee-validate';
   import { RegistrationCredentials, Routes } from '~/types';
-  import BInputWithValidation from '~/components/ui/input/BInputWithValidation.vue';
+  import InputWithValidation from '~/components/ui/input/InputWithValidation.vue';
 
   @Component({
     components: {
       ValidationObserver,
-      BInputWithValidation
+      InputWithValidation
     }
   })
   export default class RegisterForm extends Vue {

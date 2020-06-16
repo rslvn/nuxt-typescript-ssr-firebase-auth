@@ -5,7 +5,7 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceHolder')"
@@ -16,7 +16,7 @@
           class="has-margin-5"
         />
 
-        <BInputWithValidation
+        <InputWithValidation
           v-model="credentials.password"
           input-type="password"
           :label="$t('common.field.password')"
@@ -60,14 +60,14 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { LoginCredentials, Routes } from "~/types";
   import { ValidationObserver } from "vee-validate";
-  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
+  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
   import RememberMe from "~/components/ui/RememberMe.vue";
 
   @Component({
     components: {
       RememberMe,
       ValidationObserver,
-      BInputWithValidation
+      InputWithValidation
     }
   })
   export default class LoginForm extends Vue {

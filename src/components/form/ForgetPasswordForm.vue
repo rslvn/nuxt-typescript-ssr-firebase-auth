@@ -8,12 +8,14 @@
           <h3 class="title has-text-centered has-text-dark">{{$t('form.forgetPassword.title')}}</h3>
           <div class="box">
             <ValidationObserver v-slot="{ passes }" tag="form" slim>
-              <BInputWithValidation
+              <InputWithValidation
                 v-model="emailAddress"
                 :label="$t('common.field.email')"
                 :placeholder="$t('common.field.emailPlaceHolder')"
                 rules="required|email"
                 vid="email"
+                label-position="on-border"
+                class="has-margin-5"
               />
 
               <div class="buttons">
@@ -37,10 +39,10 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
-  import BInputWithValidation from "~/components/ui/input/BInputWithValidation.vue";
+  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
 
   @Component({
-    components: { BInputWithValidation, ValidationObserver }
+    components: { InputWithValidation, ValidationObserver }
   })
   export default class LoginForm extends Vue {
     emailAddress = '';

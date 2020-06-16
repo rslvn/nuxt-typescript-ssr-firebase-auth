@@ -35,7 +35,7 @@
   @Component({
     components: { ValidationProvider }
   })
-  export default class BInputWithValidation extends Vue {
+  export default class InputWithValidation extends Vue {
     @Prop({ type: String, required: true }) vid !: string;
     @Prop({ type: String, required: true }) rules !: string;
     @Prop({ type: String, required: false, default: 'text' }) inputType !: string;
