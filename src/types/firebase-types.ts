@@ -21,13 +21,11 @@ export interface LoginCredentials {
   email: string
   password: string
   rememberMe: boolean
-  callback?: () => void
 }
 
 export interface SocialLoginCredentials {
   providerType: ProviderType
   rememberMe: boolean
-  callback?: () => void
 }
 
 export interface StorageRef {
@@ -124,7 +122,7 @@ export interface User extends BaseModel {
   name?: string
   surname?: string
   email?: string
-  biography ?: string
+  biography?: string
   profilePhoto?: Image
   coverPhoto?: Image
 }

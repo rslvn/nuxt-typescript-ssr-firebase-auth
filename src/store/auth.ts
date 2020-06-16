@@ -28,6 +28,7 @@ import {
 import { getProviderData, getProviderOption } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
 import { getUser, saveUser } from "~/service/firebase/firestore-service";
+import { reauthenticateObservable } from '~/service/rx-service';
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 import Persistence = firebase.auth.Auth.Persistence;
@@ -114,11 +115,6 @@ export const actions: ActionTree<AuthState, RootState> = {
     await auth.setPersistence(persistence)
       .then(async () => {
         await auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-          .then(() => {
-            if (credentials.callback) {
-              credentials.callback()
-            }
-          })
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
@@ -127,9 +123,7 @@ export const actions: ActionTree<AuthState, RootState> = {
     let authCredential = EmailAuthProvider.credential(credentials.email, credentials.password);
     await auth.currentUser?.reauthenticateWithCredential(authCredential)
       .then(() => {
-        if (credentials.callback) {
-          credentials.callback()
-        }
+        reauthenticateObservable.next()
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
@@ -205,11 +199,6 @@ export const actions: ActionTree<AuthState, RootState> = {
                   coverPhoto: DefaultCoverPhoto,
                 })
               })
-              .then(() => {
-                if (socialLoginCredentials.callback) {
-                  socialLoginCredentials.callback()
-                }
-              })
           })
       })
       .catch((error: Error) => handleError(dispatch, error))
@@ -218,10 +207,8 @@ export const actions: ActionTree<AuthState, RootState> = {
   async reauthenticateWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
     let authProvider = getAuthProvider(socialLoginCredentials.providerType);
     await auth.currentUser?.reauthenticateWithPopup(authProvider)
-      .then(async () => {
-        if (socialLoginCredentials.callback) {
-          socialLoginCredentials.callback()
-        }
+      .then( () => {
+        reauthenticateObservable.next()
       })
       .catch((error: Error) => handleError(dispatch, error))
   },

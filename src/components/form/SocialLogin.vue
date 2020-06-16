@@ -33,7 +33,6 @@
     @Prop({ type: String, required: true }) title !: string
     @Prop({ type: Boolean, required: true }) rememberMe !: boolean
     @Prop({ type: Array, required: true }) providers !: ProviderConfig[]
-    @Prop({ type: Function, required: true }) callback !: () => void
     @Prop({ type: Boolean, required: true }) reauthenticate !: boolean
     @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
 
@@ -56,7 +55,6 @@
       return {
         providerType,
         rememberMe: this.rememberMe,
-        callback: this.callback
       }
     }
 

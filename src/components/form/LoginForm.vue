@@ -73,7 +73,6 @@
   export default class LoginForm extends Vue {
 
     @Prop({ type: Function, required: true }) signInWithEmail !: (credentials: LoginCredentials) => void
-    @Prop({ type: Function, required: true }) callback !: () => void
     @Prop({ type: String, default: '' }) email !: string
     @Prop({ type: Boolean, required: true }) rememberMe !: boolean
     @Prop({ type: Boolean, default: true }) showForgetPassword !: boolean
@@ -84,7 +83,6 @@
       email: this.email || '',
       password: '',
       rememberMe: this.rememberMe,
-      callback: this.callback
     }
 
     get routes() {
