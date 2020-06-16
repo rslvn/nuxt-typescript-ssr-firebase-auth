@@ -133,10 +133,12 @@ export const actions: ActionTree<AuthState, RootState> = {
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (userCredential: UserCredential) => {
         // save user to db
+        let id = userCredential.user?.uid as string;
         await saveUser({
-          id: userCredential.user?.uid as string,
+          id,
           name: credentials.name,
           email: credentials.email,
+          username: id,
           profilePhoto: DefaultProfilePhoto,
           coverPhoto: DefaultCoverPhoto
         })
@@ -192,9 +194,11 @@ export const actions: ActionTree<AuthState, RootState> = {
                 if (userExists) {
                   return;
                 }
+                let id = userCredential.user?.uid as string;
                 await saveUser({
-                  id: userCredential.user?.uid as string,
+                  id,
                   name: userCredential.user?.displayName as string,
+                  username: id,
                   profilePhoto: DefaultProfilePhoto,
                   coverPhoto: DefaultCoverPhoto,
                 })
@@ -207,7 +211,7 @@ export const actions: ActionTree<AuthState, RootState> = {
   async reauthenticateWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
     let authProvider = getAuthProvider(socialLoginCredentials.providerType);
     await auth.currentUser?.reauthenticateWithPopup(authProvider)
-      .then( () => {
+      .then(() => {
         reauthenticateObservable.next()
       })
       .catch((error: Error) => handleError(dispatch, error))

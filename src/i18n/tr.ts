@@ -6,6 +6,8 @@ const messages = {
   common: {
     field: {
       id: 'Kimlik',
+      username: 'Kullanici Adi',
+      usernamePlaceHolder: 'kullanici adi giriniz',
       name: 'Ad',
       namePlaceHolder: 'adinizi giriniz',
       surname: 'Soyad',

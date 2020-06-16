@@ -6,6 +6,8 @@ const messages = {
   common: {
     field: {
       id: 'Id',
+      username: 'Username',
+      usernamePlaceHolder: 'enter your username',
       name: 'Name',
       namePlaceHolder: 'enter your name',
       surname: 'Surname',

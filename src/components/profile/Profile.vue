@@ -10,9 +10,9 @@
           </div>
           <div class="media-content">
             <div class="content">
-              <p><strong>{{ authUser.name }}</strong></p>
-              <p>
-                <small>{{ authUser.email }}</small>
+              <p><strong>{{ fullName }}</strong></p>
+              <p v-if="user.username">
+                <small>@{{ user.username }}</small>
               </p>
             </div>
           </div>
@@ -38,12 +38,11 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import {
-    Image,
+    AuthUser,
     ProfilePhotoStorageRef,
     ProviderConfig,
     ProviderType,
     StateNamespace,
-    AuthUser,
     SupportedProviders,
     User
   } from "~/types";
@@ -61,6 +60,10 @@
     @Prop({ required: true }) user !: User;
 
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhotoUrl: string) => void;
+
+    get fullName() {
+      return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
+    }
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef

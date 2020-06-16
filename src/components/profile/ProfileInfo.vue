@@ -5,6 +5,10 @@
       <span> <small> {{ authUser.userId }} </small></span>
     </b-field>
 
+    <b-field :label="$t('common.field.username')" horizontal>
+      <span>{{ user.username }}</span>
+    </b-field>
+
     <b-field :label="$t('common.field.name')" horizontal>
       <span>{{ authUser.name }}</span>
     </b-field>
@@ -89,12 +93,12 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import {
+    AuthUser,
     LoginCredentials,
     ProviderConfig,
     ProviderType,
     Routes,
     StateNamespace,
-    AuthUser,
     SupportedProviders,
     User
   } from '~/types';

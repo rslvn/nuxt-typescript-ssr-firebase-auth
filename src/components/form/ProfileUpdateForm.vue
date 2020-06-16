@@ -22,6 +22,16 @@
         />
 
         <BInputWithValidation
+          v-model="updatedUser.username"
+          :label="$t('common.field.username')"
+          :placeholder="$t('common.field.usernamePlaceHolder')"
+          rules="required|min:4"
+          vid="username"
+          label-position="on-border"
+          class="has-margin-5"
+        />
+
+        <BInputWithValidation
           v-model="updatedUser.name"
           :label="$t('common.field.name')"
           :placeholder="$t('common.field.namePlaceHolder')"

@@ -119,6 +119,7 @@ export interface BaseModel {
 }
 
 export interface User extends BaseModel {
+  username?: string
   name?: string
   surname?: string
   email?: string
