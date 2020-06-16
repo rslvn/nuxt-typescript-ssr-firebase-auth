@@ -1,7 +1,10 @@
 import tr from 'vee-validate/dist/locale/tr.json'
 
 const messages = {
-  validation: tr.messages,
+  validation: {
+    ...tr.messages,
+    username: '{field} zaten alinmis',
+  },
 
   common: {
     field: {

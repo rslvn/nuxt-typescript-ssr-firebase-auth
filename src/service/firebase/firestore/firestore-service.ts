@@ -1,5 +1,5 @@
 import { auth, firestore } from "~/plugins/fire-init-plugin";
-import { BaseModel, collection, User } from "~/types";
+import { BaseModel } from "~/types";
 
 const updateBaseModel = (model: BaseModel) => {
   let date = new Date()
@@ -54,10 +54,25 @@ export const getModelById = async (collection: string, id: string): Promise<Base
   })
 }
 
-export const saveUser = async (user: User): Promise<User> => {
-  return await saveModel(collection.USER, user)
+export const getModelByField = async (collection: string, field: string, value: any): Promise<BaseModel | null> => {
+  return await firestore.collection(collection).where(field, "==", value).get()
+    .then((querySnapshot) => {
+      return querySnapshot.size > 0 ? querySnapshot.docs[0].data() : null
+    })
 };
 
-export const getUser = async (id: string): Promise<User> => {
-  return getModelById(collection.USER, id)
+export const getModelsByField = async (collection: string, field: string, value: any): Promise<BaseModel[]> => {
+  return await firestore.collection(collection).where(field, "==", value).get()
+    .then((querySnapshot) => {
+      let docs: BaseModel[] = [];
+
+      querySnapshot.forEach(function (doc) {
+        docs.push(doc.data())
+      });
+
+      return docs
+    })
 };
+
+
+

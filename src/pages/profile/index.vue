@@ -6,8 +6,8 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import Profile from '~/components/profile/Profile.vue';
   import { Image, StateNamespace, AuthUser, User } from '~/types';
-  import { getUser } from '~/service/firebase/firestore-service';
   import { profilePhotoObservable } from '~/service/rx-service';
+  import { getUser } from '~/service/firebase/firestore';
 
   @Component({
     components: { Profile },

@@ -1,8 +1,8 @@
 import { Image, ProfileState, RootState, StoreConfig, User } from '~/types'
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import { saveUser } from '~/service/firebase/firestore-service'
 import { auth } from '~/plugins/fire-init-plugin'
 import { handleError } from '~/service/error-service'
+import { saveUser } from '~/service/firebase/firestore';
 
 export const state = (): ProfileState => ({})
 

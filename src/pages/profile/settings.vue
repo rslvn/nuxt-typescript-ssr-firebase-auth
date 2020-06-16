@@ -11,8 +11,8 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import ProfileUpdateForm from '~/components/form/ProfileUpdateForm.vue';
-  import { getUser } from '~/service/firebase/firestore-service';
   import { AuthUser, StateNamespace, User } from '~/types';
+  import { getUser } from '~/service/firebase/firestore';
 
   @Component({
     components: { ProfileUpdateForm }

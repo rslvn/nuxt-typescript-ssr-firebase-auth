@@ -1,8 +1,10 @@
 import en from 'vee-validate/dist/locale/en.json'
 
 const messages = {
-  validation: en.messages,
-
+  validation: {
+    ...en.messages,
+    username: '{field} is already taken',
+  },
   common: {
     field: {
       id: 'Id',

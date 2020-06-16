@@ -2,6 +2,7 @@ import { NuxtAppOptions, Plugin } from '@nuxt/types'
 import { configure, extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
 import { QueryParameters, SupportedLanguages } from '~/types';
+import { getUserByUsername } from '~/service/firebase/firestore';
 
 for (let [rule, validation] of Object.entries(rules)) {
   extend(rule, {
@@ -36,6 +37,16 @@ const veeValidatePlugin: Plugin = ({ app, query }) => {
   let langQuery = query[QueryParameters.LANG] as string
   setLanguageFromQuery(langQuery, app)
 
+  // CUSTOM RULES
+  extend('username', {
+    message: (field, params) => app.i18n.t('validation.username', { field }) as string,
+    validate: (value, params: any) => getUserByUsername(value)
+      .then((user) => {
+          return user ? user.id === params[0] : true
+        }
+      )
+  })
+
   configure({
     // @ts-ignore
     defaultMessage: (field: string, values: Record<string, any>) => {
@@ -44,5 +55,34 @@ const veeValidatePlugin: Plugin = ({ app, query }) => {
     },
   })
 }
+
+
+// CUSTOM RULES
+
+// const username: ValidationRule = () => {
+//   return {
+//     //@ts-ignore
+//     // message(field: any, params: any, data: { message: any; }) {
+//     //   return (data && data.message) || 'Something went wrong';
+//     // },
+//     validate(value: any) {
+//
+
+//
+//       // return new Promise(resolve => {
+//       //
+//       //   if(getUserByUsername(value)){
+//       //
+//       //   }
+//       //
+//       //   console.log('>>> username rule called')
+//       //   resolve({
+//       //     valid: !!g,
+//       //     data: value !== 'trigger' ? undefined : { message: 'Not this value' }
+//       //   });
+//       // });
+//     }
+//   }
+// };
 
 export default veeValidatePlugin

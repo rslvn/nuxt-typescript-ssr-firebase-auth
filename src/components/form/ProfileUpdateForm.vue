@@ -25,7 +25,7 @@
           v-model="updatedUser.username"
           :label="$t('common.field.username')"
           :placeholder="$t('common.field.usernamePlaceHolder')"
-          rules="required|min:4"
+          :rules="`required|min:4|username:${updatedUser.id}`"
           vid="username"
           label-position="on-border"
           class="has-margin-5"

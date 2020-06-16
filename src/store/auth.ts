@@ -27,8 +27,8 @@ import {
 } from '~/service/notification-service'
 import { getProviderData, getProviderOption } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
-import { getUser, saveUser } from "~/service/firebase/firestore-service";
 import { reauthenticateObservable } from '~/service/rx-service';
+import { getUser, saveUser } from '~/service/firebase/firestore';
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 import Persistence = firebase.auth.Auth.Persistence;
