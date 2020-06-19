@@ -1,5 +1,4 @@
 import { NextFunction, Request, RequestHandler, Response, Router } from 'express';
-import { FirebaseError } from 'firebase-admin';
 import { OK } from 'http-status-codes'
 import admin from '../firebase-admin/firebase-admin-init';
 import {
@@ -9,7 +8,7 @@ import {
   validateClaimsAndGet
 } from '../firebase-admin/firebase-admin-service';
 import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../../types'
-import { handleFirebaseError, handleGenericError } from '../handler/error-handler';
+import { handleApiErrors } from '../handler/error-handler';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 
 const getTokenFromRequest = async (req: Request) => {
@@ -40,8 +39,7 @@ const tokenHandler: RequestHandler = async (req: Request, res: Response, next: N
           next()
         })
     })
-    .catch((error: FirebaseError) => handleFirebaseError(res, error))
-    .catch()
+    .catch((error) => handleApiErrors(res, error))
 }
 
 const healthyHandler: RequestHandler = (req, res) => {
@@ -59,8 +57,7 @@ const verifyHandler: RequestHandler = async (req, res) => {
       return res.status(OK).json(authUser);
 
     })
-    .catch((error: FirebaseError) => handleFirebaseError(res, error))
-    .catch((error: Error) => handleGenericError(res, error))
+    .catch((error) => handleApiErrors(res, error))
 }
 
 const claimsHandler: RequestHandler = async (req, res) => {
@@ -81,8 +78,7 @@ const claimsHandler: RequestHandler = async (req, res) => {
       return res.status(OK).end();
 
     })
-    .catch((error: FirebaseError) => handleFirebaseError(res, error))
-    .catch((error: Error) => handleGenericError(res, error))
+    .catch((error) => handleApiErrors(res, error))
 }
 
 const router = Router();

@@ -13,7 +13,6 @@ export const setCustomClaims = async (uid: string, firebaseClaims: FirebaseClaim
   await admin.auth().setCustomUserClaims(uid, firebaseClaims);
 }
 
-
 export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {
   let username = decodedIdToken[FirebaseClaimKey.USERNAME]
   if (username) {
