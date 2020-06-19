@@ -29,10 +29,21 @@ export interface AuthUser {
   email?: string
   profilePhoto?: Image
   userId: string
+  username: string
   verified: boolean
   providers: ProviderData[]
 }
 
 export const ApiConfig = {
-  auth: '/auth/'
+  auth: {
+    healthy: '/auth/healthy',
+    verify: '/auth/verify',
+    claims: '/auth/claims',
+  }
+}
+
+export enum ApiErrorCode {
+  INTERNAL_ERROR = 'Internal Error',
+  FORBIDDEN = 'Forbidden',
+  BAD_REQUEST = 'Bad Request'
 }

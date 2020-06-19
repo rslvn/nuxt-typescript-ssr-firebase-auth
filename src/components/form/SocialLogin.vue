@@ -24,6 +24,7 @@
   import { ProviderConfig, ProviderType, SocialLoginCredentials, StateNamespace } from "~/types";
   import { getProviderOption } from "~/service/firebase/firebase-service";
   import RememberMe from "~/components/ui/RememberMe.vue";
+  import { reloadUserFromDatabase } from '~/service/rx-service';
 
   @Component({
     components: { RememberMe }
@@ -36,7 +37,7 @@
     @Prop({ type: Boolean, required: true }) reauthenticate !: boolean
     @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
 
-    @StateNamespace.auth.Action signInWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
+    @StateNamespace.auth.Action signInWithSocialProvider !: (credentials: SocialLoginCredentials) => Promise<void>;
     @StateNamespace.auth.Action reauthenticateWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
 
     get providerType() {
@@ -61,7 +62,8 @@
     submit(providerType: ProviderType) {
       return this.reauthenticate ?
         this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType)) :
-        this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType));
+        this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
+          .then(() => reloadUserFromDatabase.next());
     }
 
   }

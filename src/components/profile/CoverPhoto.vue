@@ -7,7 +7,8 @@
            @error="imageLoadError">
     </div>
 
-    <SingleValidatedImageUpload class="is-overlay-left"
+    <SingleValidatedImageUpload v-if="isMyProfile"
+                                class="is-overlay-left"
                                 rules="size:2048"
                                 :label="$t('common.field.coverPhoto')"
                                 :parent-folder-ref="parentFolderRef"
@@ -29,6 +30,7 @@
   })
   export default class ProfileCover extends Vue {
 
+    @Prop({ type: Boolean, required: true }) isMyProfile !: boolean
     @Prop({ required: true }) authUser !: AuthUser
     @Prop({ required: true }) coverPhoto !: Image
 

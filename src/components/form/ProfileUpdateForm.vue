@@ -71,7 +71,7 @@
 
           <b-button type="is-primary" icon-pack="fas"
                     icon-left="arrow-left"
-                    @click="gotoProfile" outlined>
+                    @click="gotoProfile(user.username)" outlined>
             {{ $t('common.back')}}
           </b-button>
         </div>
@@ -88,6 +88,7 @@
   import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
   import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
   import FieldWithValue from '~/components/ui/FieldWithValue.vue';
+  import { getUserRoute } from '~/service/global-service';
 
   @Component({
     components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
@@ -102,12 +103,12 @@
     submit() {
       this.updateUser(this.updatedUser)
         .then(() => {
-          this.gotoProfile()
+          this.gotoProfile(this.updatedUser.username as string)
         })
     }
 
-    gotoProfile() {
-      this.$router.replace(Routes.PROFILE)
+    gotoProfile(username: string) {
+      this.$router.replace(getUserRoute(Routes.U, username))
     }
 
   }

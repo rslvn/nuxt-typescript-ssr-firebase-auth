@@ -1,6 +1,7 @@
 import { User, UserInfo } from 'firebase'
 import jwtDecode from 'jwt-decode'
-import { DefaultProfilePhoto, Image, ProviderData, ProviderType, AuthUser } from '~/types'
+import { AuthUser, DefaultProfilePhoto, FirebaseClaimKey, Image, ProviderData, ProviderType } from '~/types'
+import { auth } from '~/plugins/fire-init-plugin';
 
 export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
   return userInfo ? {
@@ -13,19 +14,19 @@ export const getProviderData = (userInfo: UserInfo | null | undefined): Provider
   } : null
 }
 
-export const getAuthUser = (firebaseUser: User | null): AuthUser | null => {
-  return firebaseUser
-    ? {
-      name: firebaseUser.displayName as string,
-      email: firebaseUser.email as string,
-      profilePhoto: {
-        src: firebaseUser.photoURL || DefaultProfilePhoto.src,
-        alt: firebaseUser.displayName ? 'Picture of ' + firebaseUser.displayName : DefaultProfilePhoto.alt
-      },
-      userId: firebaseUser.uid,
-      verified: firebaseUser.emailVerified,
-      providers: firebaseUser.providerData?.filter(value => !!value).map((value) => getProviderData(value)) as ProviderData[]
-    } : null
+export const getAuthUser = (firebaseUser: User): AuthUser => {
+  return {
+    name: firebaseUser.displayName as string,
+    email: firebaseUser.email as string,
+    profilePhoto: {
+      src: firebaseUser.photoURL || DefaultProfilePhoto.src,
+      alt: firebaseUser.displayName ? 'Picture of ' + firebaseUser.displayName : DefaultProfilePhoto.alt
+    },
+    userId: firebaseUser.uid,
+    username: '',
+    verified: firebaseUser.emailVerified,
+    providers: firebaseUser.providerData?.filter(value => !!value).map((value) => getProviderData(value)) as ProviderData[]
+  }
 };
 
 export const getProviderOption = (provider: ProviderType) => {
@@ -36,21 +37,40 @@ export const getProviderOption = (provider: ProviderType) => {
 
 export const decodeToken = (token: string): AuthUser => {
   let decodedToken: any = jwtDecode(token);
+  let name = decodedToken[FirebaseClaimKey.NAME] as string
   let profilePhoto: Image = {
-    src: decodedToken.picture,
-    alt: `Cover photo of ${decodedToken.name}`
+    src: decodedToken[FirebaseClaimKey.PICTURE],
+    alt: `Cover photo of ${name}`
   }
-  let providers: ProviderData[] = Object.keys(decodedToken.firebase?.identities).map((provider: string) => {
+  let providers: ProviderData[] = Object.keys(decodedToken[FirebaseClaimKey.FIREBASE]?.identities).map((provider: string) => {
     return {
       providerType: provider as ProviderType
     }
   })
 
   return {
-    userId: decodedToken.user_id as string,
-    name: decodedToken.name as string,
-    verified: decodedToken.email_verified as boolean,
+    userId: decodedToken[FirebaseClaimKey.USER_ID] as string,
+    username: decodedToken[FirebaseClaimKey.USERNAME] as string,
+    name,
+    email: decodedToken[FirebaseClaimKey.EMAIL] as string,
+    verified: decodedToken[FirebaseClaimKey.EMAIL_VERIFIED] as boolean,
     profilePhoto,
     providers
   }
+}
+
+export const refreshToken = async () => {
+  await auth.currentUser?.getIdToken(true)
+}
+
+export const updateProfileName = async (displayName: string) => {
+  await auth.currentUser?.updateProfile({ displayName })
+}
+
+export const updateProfilePhotoUrl = async (photoURL: string) => {
+  await auth.currentUser?.updateProfile({ photoURL })
+}
+
+export const updateProfile = async (displayName: string, photoURL: string) => {
+  await auth.currentUser?.updateProfile({ displayName, photoURL })
 }

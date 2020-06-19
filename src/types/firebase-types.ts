@@ -1,4 +1,4 @@
-import { ProviderData } from "~/types/backend-types";
+import { ProviderData } from "~/types/api-types";
 
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
@@ -23,9 +23,28 @@ export interface LoginCredentials {
   rememberMe: boolean
 }
 
+export interface AuthProfile {
+  name?: string
+  profilePhoto?: Image
+}
+
 export interface SocialLoginCredentials {
   providerType: ProviderType
   rememberMe: boolean
+}
+
+export enum FirebaseClaimKey {
+  USER_ID = 'user_id',
+  USERNAME = 'username',
+  NAME = 'name',
+  EMAIL = 'email',
+  EMAIL_VERIFIED = 'email_verified',
+  PICTURE = 'picture',
+  FIREBASE = 'firebase',
+}
+
+export interface FirebaseClaims {
+  [FirebaseClaimKey.USERNAME]: string
 }
 
 export interface StorageRef {

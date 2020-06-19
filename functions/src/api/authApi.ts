@@ -2,9 +2,9 @@ import express, { Request, Response, Router } from 'express';
 import { addDecodedIdToken } from '../service/firebase-admin-utils';
 import { collection, User, UserDto } from '../types'
 import admin from '../service/firebase-admin-init';
-import { FirebaseError } from "firebase-admin";
-import { RuntimeOptions, runWith } from "firebase-functions";
-import cookieParser from "cookie-parser";
+import { FirebaseError } from 'firebase-admin';
+import { RuntimeOptions, runWith } from 'firebase-functions';
+import cookieParser from 'cookie-parser';
 
 const service = '/auth';
 

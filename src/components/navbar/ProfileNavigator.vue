@@ -3,12 +3,12 @@
 
     <template slot="label" class="is-grouped">
       <b-field>
-        <BackgroundSquareImage :image-url="profilePhoto.src" size="28" rounded="true"/>
+        <BackgroundSquareImage :image-url="profilePhoto" size="28" rounded="true"/>
         <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
       </b-field>
     </template>
 
-    <b-navbar-item tag="router-link" :to="profileRoute" active>
+    <b-navbar-item tag="router-link" :to="profileRoute">
       <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
       <p>{{$t('topNavbar.profile')}}</p>
     </b-navbar-item>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, DefaultProfilePhoto, Image, ProfilePhotoPlaceholder, Routes } from "~/types";
+  import { AuthUser, DefaultProfilePhoto } from "~/types";
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
@@ -33,17 +33,22 @@
   })
   export default class ProfileNavigator extends Vue {
 
-    profileRoute = Routes.PROFILE;
+    // profileRoute = Routes.PROFILE;
 
     @Prop({ required: true }) authUser !: AuthUser;
     @Prop({ type: Function, required: true }) logout !: () => void;
 
-    get profilePhoto(): Image {
-      return this.authUser.profilePhoto || DefaultProfilePhoto
+    get profilePhoto() {
+      return this.authUser?.profilePhoto?.src || DefaultProfilePhoto.src
     }
 
-    imageLoadError(event: any) {
-      event.target.src = ProfilePhotoPlaceholder
+    get profileRoute() {
+      return {
+        name: 'u-username',
+        params:
+          { username: this.authUser.username }
+      }
     }
+
   }
 </script>

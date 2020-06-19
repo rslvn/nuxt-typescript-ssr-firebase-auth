@@ -1,7 +1,7 @@
 import { CookieSerializeOptions } from "cookie";
 import { Image } from "~/types/firebase-types";
 
-export * from './backend-types'
+export * from './api-types'
 export * from './firebase-types'
 export * from './state-types'
 export * from './route-types'

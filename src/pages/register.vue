@@ -25,6 +25,7 @@
   import RegisterForm from '~/components/form/RegisterForm.vue';
   import { ProviderType, RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
+  import { reloadUserFromDatabase } from '~/service/rx-service';
 
   @Component({
     components: { SocialLogin, RegisterForm },
@@ -32,12 +33,13 @@
   export default class register extends Vue {
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
-    @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => void;
+    @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => Promise<void>;
     @StateNamespace.notification.Action clearNotificationMessage  !: () => void;
 
     handleSignUpWithEmail(credentials: RegistrationCredentials) {
       this.clearNotificationMessage();
-      this.signUpWithEmail(credentials);
+      this.signUpWithEmail(credentials)
+        .then(() => reloadUserFromDatabase.next());
     }
 
     get providers() {

@@ -1,12 +1,7 @@
 <template>
   <b-navbar>
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="routes.HOME">
-        <img
-          src="https://raw.githubusercontent.com/buefy/buefy/dev/static/img/buefy-logo.png"
-          alt="Lightweight UI components for Vue.js based on Bulma"
-        >
-      </b-navbar-item>
+      <Logo/>
     </template>
     <template slot="start">
       <b-navbar-item
@@ -35,6 +30,13 @@
         tag="router-link"
       >
         {{ $t('topNavbar.images')}}
+      </b-navbar-item>
+
+      <b-navbar-item
+        :to="routes.PROFILE"
+        tag="router-link"
+      >
+        Profile
       </b-navbar-item>
 
     </template>
@@ -70,9 +72,10 @@
   import { AuthUser, Routes, StateNamespace } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
+  import Logo from '~/components/navbar/Logo.vue';
 
   @Component({
-    components: { ProfileNavigator, LanguageSwitcher }
+    components: { Logo, ProfileNavigator, LanguageSwitcher }
   })
   export default class TopNavbar extends Vue {
 

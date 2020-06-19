@@ -40,6 +40,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^7.15.0",
     "firebase-admin": "^8.12.1",
+    "http-status-codes": "^1.4.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.26.0",
     "nuxt": "^2.12.2",
