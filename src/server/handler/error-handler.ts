@@ -1,12 +1,9 @@
 import { Response } from 'express'
-import { FirebaseError } from 'firebase-admin'
+import { FirebaseError } from 'firebase-admin';
 import { BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, UNAUTHORIZED } from 'http-status-codes'
 import { ApiErrorCode } from '../../types'
 
-export const handleFirebaseError = (
-  response: Response,
-  error: FirebaseError
-) => {
+const handleFirebaseError = (response: Response, error: FirebaseError) => {
   console.error('Firebase error', error);
   switch (error?.code) {
     case 'auth/id-token-expired':
@@ -33,4 +30,14 @@ export const handleGenericError = (response: Response, error: Error) => {
     default:
       response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
   }
+}
+
+export const handleApiErrors = (response: Response, error: Error | FirebaseError) => {
+  isFirebaseError(error)
+    ? handleFirebaseError(response, error as FirebaseError)
+    : handleGenericError(response, error as Error)
+}
+
+const isFirebaseError = (error: any) => {
+  return !!error.code
 }
