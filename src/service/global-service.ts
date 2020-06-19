@@ -43,7 +43,9 @@ export const toBoolean = (value: string | boolean): boolean => {
 }
 
 export const authenticatedAllowed = (route: Route): boolean => {
-  return route.matched.some((record) => record.path.startsWith(Routes.U.path))
+  return route.matched.some((record) =>
+    record.path.startsWith(Routes.PROFILE_DYNAMIC.path) ||
+    record.path.startsWith(Routes.PROFILE.path))
 }
 
 export const authenticatedNotAllowed = (route: Route): boolean => {

@@ -103,6 +103,7 @@
     User
   } from '~/types';
   import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue';
+  import { getUserRoute } from '~/service/global-service';
 
   @Component({
     components: {}
@@ -124,7 +125,7 @@
     }
 
     get profileSettingsRoute() {
-      return { ...Routes.U_SETTINGS, params: { username: this.authUser.username } }
+      return getUserRoute(Routes.PROFILE_SETTINGS, this.authUser.username)
     }
 
     @StateNamespace.auth.Action updatePassword !: (password: string) => void;

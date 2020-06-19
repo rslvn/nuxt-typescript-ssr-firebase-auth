@@ -1,56 +1,61 @@
-import express, { Request, Response, Router } from 'express';
-import { SitemapStream, streamToPromise } from 'sitemap';
+import express, { Request, RequestHandler, Response, Router } from 'express'
+import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
-
-const service = '/sitemap.xml';
+import { Routes } from '../../types'
+import { handleGenericError } from '../handler/error-handler'
 
 const staticRoutes = [
-  '/',
-  '/terms',
-  '/privacy-policy',
-  '/register',
-  '/login',
-  '/crop',
-  '/lightbox',
-  '/images'
+  Routes.HOME.path,
+  Routes.TERMS.path,
+  Routes.PRIVACY_POLICY.path,
+  Routes.REGISTER.path,
+  Routes.LOGIN.path,
+  Routes.CROP.path,
+  Routes.LIGHT_BOX.path,
+  Routes.IMAGES.path,
 ]
 
-const app = express();
-const router = Router();
+let sitemap: Buffer | null = null
 
-let sitemap: Buffer | null = null;
-
-router.get(service, (req: Request, res: Response) => {
-  console.log(req.originalUrl, ' called (get)');
-  res.header('Content-Type', 'application/xml');
-  res.header('Content-Encoding', 'gzip');
+const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
+  console.log(`${req.originalUrl} - called`)
+  res.header('Content-Type', 'application/xml')
+  res.header('Content-Encoding', 'gzip')
 
   if (sitemap) {
     res.send(sitemap)
     return
   }
 
-  try {
-    const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app/' })
-    const pipeline = smStream.pipe(createGzip())
+  await Promise.resolve()
+    .then(() => {
+      const hostname = req.protocol + '://' + req.get('host')
+      const smStream = new SitemapStream({ hostname })
+      const pipeline = smStream.pipe(createGzip())
 
-    staticRoutes.forEach((route) => smStream.write({ url: route, changefreq: 'weekly', priority: 0.8 }))
-    smStream.end()
+      staticRoutes.forEach((route) =>
+        smStream.write({ url: route, changefreq: 'weekly', priority: 0.8 })
+      )
+      smStream.end()
 
-    // cache the response
-    streamToPromise(pipeline).then((sm: Buffer) => sitemap = sm).catch((error: Error) => console.log(error))
-    // stream write the response
-    pipeline.pipe(res).on('error', (e: Error) => {
-      throw e
+      // cache the response
+      streamToPromise(pipeline)
+        .then((sm: Buffer) => (sitemap = sm))
+        .catch((error: Error) => console.log(error))
+      // stream write the response
+      pipeline.pipe(res).on('error', (e: Error) => {
+        throw e
+      })
     })
-  } catch (e) {
-    console.error(e)
-    res.status(500).end()
-  }
-});
+    .catch((error) => handleGenericError(res, error))
+}
 
+const app = express()
+const router = Router()
+
+router.get('/sitemap.xml', sitemapHandler)
 app.use(router)
 
 export default {
-  handler: app
+  handler: app,
 }

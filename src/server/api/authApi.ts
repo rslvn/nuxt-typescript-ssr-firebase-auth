@@ -1,81 +1,16 @@
 import { NextFunction, Request, RequestHandler, Response, Router } from 'express';
-import admin from '../firebase-admin/firebase-admin-init';
 import { FirebaseError } from 'firebase-admin';
-import { BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, OK, UNAUTHORIZED } from 'http-status-codes'
-import { getDecodedIdToken, getUser, setCustomClaims } from '../firebase-admin/firebase-admin-service';
+import { OK } from 'http-status-codes'
+import admin from '../firebase-admin/firebase-admin-init';
 import {
-  ApiConfig,
-  ApiErrorCode,
-  AppCookie,
-  AuthUser,
-  FirebaseClaimKey,
-  FirebaseClaims,
-  ProviderType
-} from '../../types'
+  getDecodedIdToken,
+  setCustomClaims,
+  toAuthUser,
+  validateClaimsAndGet
+} from '../firebase-admin/firebase-admin-service';
+import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../../types'
+import { handleFirebaseError, handleGenericError } from '../handler/error-handler';
 import DecodedIdToken = admin.auth.DecodedIdToken;
-
-const handleFirebaseError = (response: Response, error: FirebaseError) => {
-  console.error('Firebase error', error);
-  switch (error?.code) {
-    case 'auth/id-token-expired':
-      response.status(UNAUTHORIZED).send('re-authentication required')
-      break
-
-    default:
-      response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
-  }
-};
-
-const handleError = (response: Response, error: Error) => {
-  console.error('Error occurred', error);
-
-  switch (error.message) {
-    case ApiErrorCode.FORBIDDEN:
-      response.status(FORBIDDEN).send(error.message)
-      break
-
-    case ApiErrorCode.BAD_REQUEST:
-      response.status(BAD_REQUEST).send(error.message)
-      break
-
-    default:
-      response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
-  }
-};
-
-const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {
-  let username = decodedIdToken[FirebaseClaimKey.USERNAME]
-  if (username) {
-    return { username }
-  }
-
-  let user = await getUser(decodedIdToken.sub)
-  if (!user) {
-    throw new Error('User not found by id: ' + decodedIdToken.sub)
-  }
-
-  username = (user.username || user.id) as string
-  let firebaseClaims = { username }
-
-  await setCustomClaims(decodedIdToken.sub, firebaseClaims)
-
-  return firebaseClaims
-}
-
-const toAuthUser = (decodedIdToken: DecodedIdToken, firebaseClaims: FirebaseClaims): AuthUser => {
-  return {
-    name: decodedIdToken.name,
-    verified: decodedIdToken.email_verified as boolean,
-    email: decodedIdToken.email as string,
-    profilePhoto: {
-      src: decodedIdToken.picture as string,
-      alt: `Profile photo of ${firebaseClaims[FirebaseClaimKey.USERNAME]}`
-    },
-    userId: decodedIdToken.sub,
-    username: firebaseClaims[FirebaseClaimKey.USERNAME],
-    providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
-  };
-}
 
 const getTokenFromRequest = async (req: Request) => {
   let token = req.headers.authorization && req.headers.authorization.startsWith('Bearer ') ?
@@ -92,7 +27,7 @@ const getDecodedIdTokenFromRequest = async (req: Request) => {
 }
 
 const tokenHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('tokenHandler called')
+  console.log(`${req.originalUrl} - tokenHandler called`)
   await getTokenFromRequest(req)
     .then(async (token: string) => {
       if (!token) {
@@ -125,7 +60,7 @@ const verifyHandler: RequestHandler = async (req, res) => {
 
     })
     .catch((error: FirebaseError) => handleFirebaseError(res, error))
-    .catch((error: Error) => handleError(res, error))
+    .catch((error: Error) => handleGenericError(res, error))
 }
 
 const claimsHandler: RequestHandler = async (req, res) => {
@@ -143,11 +78,11 @@ const claimsHandler: RequestHandler = async (req, res) => {
 
       await setCustomClaims(decodedIdToken.sub, firebaseClaims)
 
-      return res.status(OK).json();
+      return res.status(OK).end();
 
     })
     .catch((error: FirebaseError) => handleFirebaseError(res, error))
-    .catch((error: Error) => handleError(res, error))
+    .catch((error: Error) => handleGenericError(res, error))
 }
 
 const router = Router();

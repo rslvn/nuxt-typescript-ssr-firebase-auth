@@ -25,15 +25,14 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, DefaultProfilePhoto } from "~/types";
+  import { AuthUser, DefaultProfilePhoto, Routes } from "~/types";
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
+  import { getUserRoute } from '~/service/global-service';
 
   @Component({
     components: { BackgroundSquareImage }
   })
   export default class ProfileNavigator extends Vue {
-
-    // profileRoute = Routes.PROFILE;
 
     @Prop({ required: true }) authUser !: AuthUser;
     @Prop({ type: Function, required: true }) logout !: () => void;
@@ -43,11 +42,7 @@
     }
 
     get profileRoute() {
-      return {
-        name: 'u-username',
-        params:
-          { username: this.authUser.username }
-      }
+      return getUserRoute(Routes.PROFILE_DYNAMIC,this.authUser.username)
     }
 
   }

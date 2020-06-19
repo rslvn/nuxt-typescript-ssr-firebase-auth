@@ -39,7 +39,7 @@ export const ApiConfig = {
     healthy: '/auth/healthy',
     verify: '/auth/verify',
     claims: '/auth/claims',
-  }
+  },
 }
 
 export enum ApiErrorCode {

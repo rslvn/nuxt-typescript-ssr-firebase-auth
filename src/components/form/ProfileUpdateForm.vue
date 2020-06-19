@@ -108,7 +108,7 @@
     }
 
     gotoProfile(username: string) {
-      this.$router.replace(getUserRoute(Routes.U, username))
+      this.$router.replace(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
 
   }

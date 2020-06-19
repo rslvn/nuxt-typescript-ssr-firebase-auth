@@ -21,6 +21,7 @@ const handleFirebaseError = (response: Response, error: FirebaseError, servicePa
     });
 };
 
+
 router.post(service, async (req: Request, res: Response) => {
 
     console.log(req.originalUrl, ' called (post)');
