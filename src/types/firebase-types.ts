@@ -23,6 +23,11 @@ export interface LoginCredentials {
   rememberMe: boolean
 }
 
+export interface AuthProfile {
+  name?: string
+  profilePhoto?: Image
+}
+
 export interface SocialLoginCredentials {
   providerType: ProviderType
   rememberMe: boolean
