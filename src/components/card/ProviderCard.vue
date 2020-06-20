@@ -17,17 +17,17 @@
         </b-button>
       </b-tooltip>
     </div>
-    <ProviderInfo v-if="providerData" :provider-data="providerData"/>
+    <ProviderInfoCard v-if="providerData" :provider-data="providerData"/>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { ProviderConfig, ProviderData, ProviderType } from '~/types';
-  import ProviderInfo from '~/components/profile/ProviderInfo.vue';
+  import ProviderInfoCard from '~/components/card/ProviderInfoCard.vue';
 
   @Component({
-    components: { ProviderInfo }
+    components: { ProviderInfoCard }
   })
   export default class ProviderCard extends Vue {
 

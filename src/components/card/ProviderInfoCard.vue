@@ -5,7 +5,7 @@
     </b-field>
 
     <b-field :label="$t('common.field.photo')" horizontal>
-      <BackgroundSquareImage :image-url="providerData.photoURL" size="64" auto-margin="true"/>
+      <BackgroundSquareImage :image-url="imageUrl" size="64" auto-margin="true"/>
     </b-field>
 
     <b-field :label="$t('common.field.name')" horizontal>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProfilePhotoPlaceholder, ProviderData } from '~/types';
+  import { DefaultProfilePhoto, ProfilePhotoPlaceholder, ProviderData } from '~/types';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
@@ -35,12 +35,8 @@
 
     @Prop({ type: Object, required: false }) providerData !: ProviderData;
 
-    get placeholder() {
-      return ProfilePhotoPlaceholder
-    }
-
-    imageLoadError(event: any) {
-      event.target.src = ProfilePhotoPlaceholder
+    get imageUrl() {
+      return this.providerData.photoURL || DefaultProfilePhoto.src
     }
 
   }
