@@ -57,6 +57,7 @@ See the [Features](#features) for more functionalities
 
 ## Features
 - [x] nuxtjs - universal mode
+    - [x] dynamic profile page with username
 - [x] typescript
 - [x] firebase
     - [x] firebase-hosting
@@ -89,6 +90,7 @@ See the [Features](#features) for more functionalities
         - [x] link/unlink twitter authenticator
         - [x] link/unlink facebook authenticator
         - [x] remember me
+        - [x] user custom claims
 - [x] buefy
 - [x] nuxt-i18n
     - [x] English
@@ -119,7 +121,7 @@ See the [Features](#features) for more functionalities
 - [x] uuid
 - [x] slug
 - [ ] better formatting
-- [ ] backend-frontend types in a npm package
+- [ ] backend contracts in a npm package
 
 Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more coming functionality
 
@@ -163,7 +165,7 @@ TBD
 - - https://firebase.google.com/docs/auth/custom-email-handler
 
 #### development env
-create a `development` branch and use that branch for development. Create a new project on firebase and setup `development' branch with the new firebase project
+create a `development` branch and use that branch for development. Create a new project on firebase and setup `development` branch with the new firebase project
 > don't confuse yourself to work on multi-environment in one repository/branch
 
 
@@ -175,8 +177,10 @@ create `.env` file with below content or rename `.env.template` file
 
 ```.env
 WEBSITE_URL=https://nuxt-ts-firebase-auth-ssr.firebaseapp.com
+
 # axios config
 #API_URL=http://localhost:3000/api
+#API_URL=http://localhost:5000/api
 API_URL=https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/api
 
 # firebase config
@@ -192,8 +196,7 @@ FIREBASE_MEASUREMENT_ID= ***
 
 ## Build & Run & Deploy
 
-A global `package.json` has been created to manage easy build and deployment.
-All `predeploy` refer to scripts `package.json` in `predeploy`
+the root `package.json` has been created to manage build and deployment easily. 
 
 ### install dependencies
 ```bash
@@ -208,40 +211,44 @@ $ firebase deploy
 ```
 
 ### run locally with firebase
+The following command prepares what are necessary to run the application locally. It builds `src` and `function` and generates the `public` folder.
 
     $ npm run build
-
-or
-
-    $ npm run predeploy:function && npm run predeploy:hosting
     
 and then 
 
     $ firebase serve
+    
 > you will see the links as output of the command
 
-### for locally development
+### for `local` development
 
 #### hosting on local and api on firebase
 
-first, deploy functions to firebase
-```bash
-$ npm run predeploy:function
-$ firebase deploy --only functions
-```
+Firstly, deploy functions to firebase
+
+    $firebase deploy --only functions:apiApp
 
 and then 
+
+> be sure the API_URL configured as `firebase-functions` like `API_URL=https://nuxt-ts-firebase-auth-ssr.firebaseapp.com/api`
+
 ```bash
 cd src
 npm run dev
 ```
 
-#### hosting and api on local
+#### hosting and APIs on local
+
+It is possible to run the project as just a `nuxt` application. With the following instructions, `firebase-function` is never be in use
+
+> Ignore `functions`, just work on `src`
 
 ##### enable nuxt `serverMiddleware` in `src/nuxt.config.ts`
 ```typescript
   serverMiddleware: [
-     '~/server/api'
+    '~/server/api',
+    '~/server/sitemap'
    ],
 ```
 

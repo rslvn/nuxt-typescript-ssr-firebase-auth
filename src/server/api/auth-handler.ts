@@ -7,9 +7,9 @@ import {
   setCustomClaims,
   toAuthUser,
   validateClaimsAndGet
-} from '../firebase-admin/firebase-admin-service';
+} from '../service/firebase-admin-service';
 import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../../types'
-import { handleApiErrors } from '../handler/error-handler';
+import { handleApiErrors } from '../service/api-error-service';
 
 const getTokenFromRequest = async (req: Request) => {
   let token = req.headers.authorization && req.headers.authorization.startsWith('Bearer ') ?

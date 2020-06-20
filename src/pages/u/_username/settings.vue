@@ -14,9 +14,11 @@
   import { AuthUser, RouteParameters, StateNamespace, User } from '~/types';
   import { getUserByUsername } from '~/service/firebase/firestore';
   import { Context } from '@nuxt/types';
+  import userPrivateMiddleware from '~/middleware/user-private';
 
   @Component({
-    components: { ProfileUpdateForm }
+    components: { ProfileUpdateForm },
+    middleware: [userPrivateMiddleware]
   })
   export default class settings extends Vue {
 
@@ -37,6 +39,13 @@
       }
 
       let user = await getUserByUsername(username)
+      if (!user) {
+        error({
+          message: app.i18n.t('page.notFound') as string,
+          path: route.fullPath,
+          statusCode: 404
+        })
+      }
 
       return {
         user

@@ -2,7 +2,7 @@ import express, { Request, RequestHandler, Response, Router } from 'express';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createGzip } from 'zlib'
 import { RuntimeOptions, runWith } from "firebase-functions";
-import { handleGenericError } from './service/error-service';
+import { handleGenericError } from './service/api-error-service';
 
 const staticRoutes = [
     '/',

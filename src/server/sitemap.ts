@@ -2,7 +2,7 @@ import express, { Request, RequestHandler, Response, Router } from 'express'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
 import { Routes } from '../types'
-import { handleGenericError } from './handler/error-handler'
+import { handleGenericError } from './service/api-error-service'
 
 const staticRoutes = [
   Routes.HOME.path,

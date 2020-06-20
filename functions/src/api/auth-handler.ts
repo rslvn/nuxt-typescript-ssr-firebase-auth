@@ -8,7 +8,7 @@ import {
     validateClaimsAndGet
 } from '../service/firebase-admin-service';
 import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../types'
-import { handleApiErrors } from '../service/error-service';
+import { handleApiErrors } from '../service/api-error-service';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 
 const getTokenFromRequest = async (req: Request) => {

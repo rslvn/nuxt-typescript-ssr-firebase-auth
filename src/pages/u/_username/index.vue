@@ -20,7 +20,7 @@
     @StateNamespace.auth.Getter authUser !: AuthUser;
 
     async asyncData({ params, error, route, app }: Context) {
-      let username = params[RouteParameters.USERNAME]
+      const username = params[RouteParameters.USERNAME]
 
       if (!username) {
         error({
@@ -31,7 +31,14 @@
         return
       }
 
-      let user = await getUserByUsername(username)
+      const user = await getUserByUsername(username)
+      if(!user){
+        error({
+          message: app.i18n.t('page.notFound') as string,
+          path: route.fullPath,
+          statusCode: 404
+        })
+      }
 
       return {
         user
