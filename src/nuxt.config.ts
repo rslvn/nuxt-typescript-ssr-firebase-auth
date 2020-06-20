@@ -122,7 +122,7 @@ const config: Configuration = {
   },
   serverMiddleware: [
     '~/server/api',
-    '~/server/api/sitemap'
+    '~/server/sitemap'
   ],
 
   /*

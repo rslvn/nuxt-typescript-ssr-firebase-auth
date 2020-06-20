@@ -6,7 +6,7 @@
     </b-field>
 
     <b-field :label="$t('common.field.username')" horizontal>
-      <span>{{ user.username }}</span>
+      <span><small>{{ user.username }} </small></span>
     </b-field>
 
     <b-field :label="$t('common.field.name')" horizontal>
@@ -103,6 +103,7 @@
     User
   } from '~/types';
   import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue';
+  import { getUserRoute } from '~/service/global-service';
 
   @Component({
     components: {}
@@ -113,7 +114,6 @@
     @Prop({ required: true }) user !: User;
 
     loading = false;
-    profileSettingsRoute = Routes.PROFILE_SETTINGS
 
     @StateNamespace.notification.Action clearNotificationMessage !: () => void;
     @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
@@ -122,6 +122,10 @@
       return this.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
         SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
+    }
+
+    get profileSettingsRoute() {
+      return getUserRoute(Routes.PROFILE_SETTINGS, this.authUser.username)
     }
 
     @StateNamespace.auth.Action updatePassword !: (password: string) => void;

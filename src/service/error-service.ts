@@ -1,5 +1,5 @@
-import { Dispatch } from "vuex";
-import { errorToNotificationMessage, sendNotification } from "~/service/notification-service";
+import { Dispatch } from 'vuex'
+import { errorToNotificationMessage, sendNotification } from '~/service/notification-service'
 
 const sendErrorNotification = async (dispatch: Dispatch, error: Error) => {
   await sendNotification(dispatch, errorToNotificationMessage(error))

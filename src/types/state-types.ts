@@ -1,6 +1,5 @@
 import { namespace } from "vuex-class";
-import { AuthUser } from "~/types/backend-types";
-import { Image } from '~/types/firebase-types';
+import { AuthUser } from "~/types/api-types";
 
 export interface AuthState {
   authUser?: AuthUser,
@@ -59,7 +58,6 @@ export const StoreConfig = {
     clearNotificationMessage: 'notification/clearNotificationMessage'
   },
   loading: {
-    saveLoading: 'loading/saveLoading',
     setLoading: 'loading/setLoading'
   }
 }

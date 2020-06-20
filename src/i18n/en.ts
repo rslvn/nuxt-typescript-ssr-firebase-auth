@@ -91,6 +91,7 @@ const messages = {
     footer: {
       copyRight: '&copy; Copyright 2020, ',
     },
+    notFound: 'Page not found',
   },
 
   notification: {

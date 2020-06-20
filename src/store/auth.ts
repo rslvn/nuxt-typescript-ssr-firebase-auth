@@ -25,10 +25,11 @@ import {
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { getProviderData, getProviderOption } from "~/service/firebase/firebase-service";
+import { getProviderData, getProviderOption, refreshToken, updateProfile } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
 import { reauthenticateObservable } from '~/service/rx-service';
 import { getUser, saveUser } from '~/service/firebase/firestore';
+import { authClaims } from '~/service/api-service';
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 import Persistence = firebase.auth.Auth.Persistence;
@@ -47,6 +48,9 @@ export const getters: GetterTree<AuthState, RootState> = {
 
 export const mutations: MutationTree<AuthState> = {
   setAuthUser(state, authUser: AuthUser) {
+    if (authUser && !authUser.profilePhoto) {
+      authUser.profilePhoto = DefaultProfilePhoto
+    }
     state.authUser = authUser
   },
   forceLogout(state, forceLogout: boolean) {
@@ -65,9 +69,14 @@ export const mutations: MutationTree<AuthState> = {
       state.authUser.name = name
     }
   },
+
   setProfilePhoto(state, profilePhoto: Image) {
     if (state.authUser) {
       state.authUser.profilePhoto = profilePhoto
+      let provider = state.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD)
+      if (provider) {
+        provider.photoURL = profilePhoto.src
+      }
     }
   },
 
@@ -85,14 +94,6 @@ export const mutations: MutationTree<AuthState> = {
       }
     }
   },
-  updateProviderPhoto(state, photoUrl: string) {
-    if (state.authUser) {
-      let provider = state.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD)
-      if (provider) {
-        provider.photoURL = photoUrl
-      }
-    }
-  }
 }
 
 export const actions: ActionTree<AuthState, RootState> = {
@@ -103,7 +104,7 @@ export const actions: ActionTree<AuthState, RootState> = {
   },
 
   async saveName({ dispatch, commit }, name: string) {
-    await auth?.currentUser
+    await auth.currentUser
       ?.updateProfile({
         displayName: name
       })
@@ -134,6 +135,10 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(async (userCredential: UserCredential) => {
         // save user to db
         let id = userCredential.user?.uid as string;
+        await updateProfile(credentials.name, DefaultProfilePhoto.src)
+          .then(async () => await authClaims(this.$axios, id))
+          .then(() => refreshToken())
+
         await saveUser({
           id,
           name: credentials.name,
@@ -142,11 +147,6 @@ export const actions: ActionTree<AuthState, RootState> = {
           profilePhoto: DefaultProfilePhoto,
           coverPhoto: DefaultCoverPhoto
         })
-        return userCredential;
-      })
-      .then(async (userCredential: UserCredential) => {
-        // update user display name on firebase authentication
-        await dispatch('saveName', credentials.name)
 
         return userCredential;
       })
@@ -177,7 +177,6 @@ export const actions: ActionTree<AuthState, RootState> = {
         })
       })
       .then(() => commit('setProfilePhoto', profilePhoto))
-      .then(() => commit('updateProviderPhoto', profilePhoto.src))
       .catch((error: Error) => handleError(dispatch, error))
   },
 
@@ -188,18 +187,28 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(async () => {
         await auth.signInWithPopup(authProvider)
           .then(async (userCredential) => {
-            await getUser(userCredential.user?.uid as string)
+            let id = userCredential.user?.uid as string;
+            await getUser(id)
               .then((user) => !!user)
               .then(async (userExists) => {
                 if (userExists) {
                   return;
                 }
-                let id = userCredential.user?.uid as string;
+
+                let name = userCredential.user?.displayName as string
+                let photo = userCredential.user?.photoURL as string
+
+                await authClaims(this.$axios, id)
+                  .then(() => refreshToken())
+
                 await saveUser({
                   id,
-                  name: userCredential.user?.displayName as string,
+                  name,
                   username: id,
-                  profilePhoto: DefaultProfilePhoto,
+                  profilePhoto: {
+                    src: photo,
+                    alt: `Profile photo of ${name}`
+                  },
                   coverPhoto: DefaultCoverPhoto,
                 })
               })

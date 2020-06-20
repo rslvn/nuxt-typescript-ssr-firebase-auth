@@ -20,6 +20,6 @@ export const actions: ActionTree<NotificationState, RootState> = {
     commit('setNotificationMessage', notificationMessage)
   },
   async clearNotificationMessage({ commit }) {
-    commit('setNotificationMessage', null)
+    commit('setNotificationMessage', undefined)
   },
 }

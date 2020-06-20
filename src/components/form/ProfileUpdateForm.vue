@@ -5,20 +5,20 @@
 
       <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <InputNoValidation
-          v-model="updatedUser.id"
+        <FieldWithValue
+          :value="updatedUser.id"
           :label="$t('common.field.id')"
           :disabled="true"
           label-position="on-border"
           class="has-margin-bottom-15"
         />
 
-        <InputNoValidation
-          v-model="updatedUser.email"
+        <FieldWithValue
+          :value="updatedUser.email"
           :label="$t('common.field.email')"
           :disabled="true"
           label-position="on-border"
-          class="has-margin-bottom-5"
+          class="has-margin-bottom-15"
         />
 
         <InputWithValidation
@@ -71,7 +71,7 @@
 
           <b-button type="is-primary" icon-pack="fas"
                     icon-left="arrow-left"
-                    @click="gotoProfile" outlined>
+                    @click="gotoProfile(user.username)" outlined>
             {{ $t('common.back')}}
           </b-button>
         </div>
@@ -87,9 +87,11 @@
   import { Routes, StateNamespace, User } from '~/types';
   import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
   import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
+  import FieldWithValue from '~/components/ui/FieldWithValue.vue';
+  import { getUserRoute } from '~/service/global-service';
 
   @Component({
-    components: { InputNoValidation, ValidationObserver, InputWithValidation }
+    components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
   })
   export default class ProfileUpdateForm extends Vue {
 
@@ -101,12 +103,12 @@
     submit() {
       this.updateUser(this.updatedUser)
         .then(() => {
-          this.gotoProfile()
+          this.gotoProfile(this.updatedUser.username as string)
         })
     }
 
-    gotoProfile() {
-      this.$router.replace(Routes.PROFILE)
+    gotoProfile(username: string) {
+      this.$router.replace(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
 
   }

@@ -90,6 +90,7 @@ const messages = {
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',
     },
+    notFound: 'Sayfa bulunamadi',
   },
 
   notification: {

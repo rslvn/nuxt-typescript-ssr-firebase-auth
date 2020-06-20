@@ -4,7 +4,8 @@
       <BackgroundSquareImage :image-url="profilePhoto.src" size="150" rounded="true" border-inside="true" border="3"/>
     </div>
 
-    <SingleValidatedImageUpload class="is-overlay-left is-disabled-till-hover"
+    <SingleValidatedImageUpload v-if="isMyProfile"
+                                class="is-overlay-left is-disabled-till-hover"
                                 rules="size:2048"
                                 :label="$t('common.field.profilePhoto')"
                                 :parent-folder-ref="parentFolderRef"
@@ -32,16 +33,15 @@
   })
   export default class ProfilePhoto extends Vue {
 
+    @Prop({ type: Boolean, required: true }) isMyProfile !: boolean
     @Prop({ required: true }) authUser !: AuthUser
+    @Prop({ required: true }) profilePhoto !: Image
+
     @StateNamespace.auth.Action updateProfilePhoto !: (profilePhoto: Image) => void;
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef
         .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
-    }
-
-    get profilePhoto() {
-      return this.authUser.profilePhoto || DefaultProfilePhoto
     }
 
     get placeholder() {

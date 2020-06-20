@@ -56,33 +56,4 @@ const veeValidatePlugin: Plugin = ({ app, query }) => {
   })
 }
 
-
-// CUSTOM RULES
-
-// const username: ValidationRule = () => {
-//   return {
-//     //@ts-ignore
-//     // message(field: any, params: any, data: { message: any; }) {
-//     //   return (data && data.message) || 'Something went wrong';
-//     // },
-//     validate(value: any) {
-//
-
-//
-//       // return new Promise(resolve => {
-//       //
-//       //   if(getUserByUsername(value)){
-//       //
-//       //   }
-//       //
-//       //   console.log('>>> username rule called')
-//       //   resolve({
-//       //     valid: !!g,
-//       //     data: value !== 'trigger' ? undefined : { message: 'Not this value' }
-//       //   });
-//       // });
-//     }
-//   }
-// };
-
 export default veeValidatePlugin

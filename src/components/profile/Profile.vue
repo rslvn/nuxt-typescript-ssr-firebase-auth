@@ -1,12 +1,12 @@
 <template>
   <div>
-    <CoverPhoto :auth-user="authUser" :cover-photo="user.coverPhoto"/>
+    <CoverPhoto :is-my-profile="isMyProfile" :auth-user="authUser" :cover-photo="user.coverPhoto"/>
 
     <div class="container">
       <div class="has-margin-top-10 has-margin-bottom-10">
         <article class="media has-margin-left-5">
           <div class="media-left">
-            <ProfilePhoto :auth-user="authUser"/>
+            <ProfilePhoto :is-my-profile="isMyProfile" :auth-user="authUser" :profile-photo="user.profilePhoto"/>
           </div>
           <div class="media-content">
             <div class="content">
@@ -19,19 +19,25 @@
         </article>
       </div>
     </div>
-    <div class="columns is-centered">
+    <template v-if="isMyProfile">
 
-      <div class="column is-half">
-        <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
-        <ProfileInfo :auth-user="authUser" :user="user"/>
+      <div class="columns is-centered">
+
+        <div class="column is-half">
+          <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
+          <ProfileInfo :auth-user="authUser" :user="user"/>
+        </div>
+
       </div>
 
-    </div>
+      <div class="columns is-centered">
+        <div class="column is-half"><h2 class="subtitle has-text-centered">{{$t('card.linkedAccounts.title')}}</h2>
+        </div>
+      </div>
 
-    <div class="columns is-centered">
-      <div class="column is-half"><h2 class="subtitle has-text-centered">{{$t('card.linkedAccounts.title')}}</h2></div>
-    </div>
-    <ProviderList :auth-user="authUser"/>
+      <ProviderList :auth-user="authUser"/>
+    </template>
+
   </div>
 </template>
 
@@ -63,6 +69,10 @@
 
     get fullName() {
       return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
+    }
+
+    get isMyProfile() {
+      return this.authUser.userId === this.user.id
     }
 
     get parentFolderRef() {
