@@ -1,6 +1,7 @@
 import express, { Router } from 'express'
 import cookieParser from 'cookie-parser'
 import { json } from 'body-parser'
+import cors from 'cors'
 import { RuntimeOptions, runWith } from 'firebase-functions'
 import { ApiConfig } from '../types';
 import { claimsHandler, healthyHandler, tokenHandler, verifyHandler } from './auth-handler';
@@ -13,7 +14,8 @@ router.post(ApiConfig.auth.claims, tokenHandler, claimsHandler)
 const app = express()
 app.use(cookieParser())
 app.use(json())
-app.use('/api',router)
+app.use(cors({ origin: true }))
+app.use('/api', router)
 
 const runtimeOpts: RuntimeOptions = {
     timeoutSeconds: 300,

@@ -4,6 +4,7 @@ import { createGzip } from 'zlib'
 import { RuntimeOptions, runWith } from "firebase-functions";
 import { handleGenericError } from './service/api-error-service';
 
+const hostname = 'https://nuxt-ts-firebase-auth-ssr.web.app/'
 const staticRoutes = [
     '/',
     '/terms',
@@ -28,7 +29,6 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
 
     await Promise.resolve()
         .then(() => {
-            const hostname = req.protocol + '://' + req.get('host')
             const smStream = new SitemapStream({ hostname })
             const pipeline = smStream.pipe(createGzip())
 
