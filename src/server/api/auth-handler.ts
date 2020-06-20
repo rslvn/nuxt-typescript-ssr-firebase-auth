@@ -1,6 +1,7 @@
-import { NextFunction, Request, RequestHandler, Response, Router } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { OK } from 'http-status-codes'
-import admin from '../firebase-admin/firebase-admin-init';
+import admin from 'firebase-admin';
+import DecodedIdToken = admin.auth.DecodedIdToken;
 import {
   getDecodedIdToken,
   setCustomClaims,
@@ -9,7 +10,6 @@ import {
 } from '../firebase-admin/firebase-admin-service';
 import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../../types'
 import { handleApiErrors } from '../handler/error-handler';
-import DecodedIdToken = admin.auth.DecodedIdToken;
 
 const getTokenFromRequest = async (req: Request) => {
   let token = req.headers.authorization && req.headers.authorization.startsWith('Bearer ') ?
@@ -25,7 +25,7 @@ const getDecodedIdTokenFromRequest = async (req: Request) => {
   return req.user as DecodedIdToken
 }
 
-const tokenHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+export const tokenHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
   console.log(`${req.originalUrl} - tokenHandler called`)
   await getTokenFromRequest(req)
     .then(async (token: string) => {
@@ -42,12 +42,12 @@ const tokenHandler: RequestHandler = async (req: Request, res: Response, next: N
     .catch((error) => handleApiErrors(res, error))
 }
 
-const healthyHandler: RequestHandler = (req, res) => {
+export const healthyHandler: RequestHandler = (req, res) => {
   console.log(ApiConfig.auth.healthy, ' headers: ', req.headers)
   return res.status(OK).send('OK')
 }
 
-const verifyHandler: RequestHandler = async (req, res) => {
+export const verifyHandler: RequestHandler = async (req, res) => {
   console.log('verifyHandler called')
   await getDecodedIdTokenFromRequest(req)
     .then(async (decodedIdToken) => {
@@ -60,7 +60,7 @@ const verifyHandler: RequestHandler = async (req, res) => {
     .catch((error) => handleApiErrors(res, error))
 }
 
-const claimsHandler: RequestHandler = async (req, res) => {
+export const claimsHandler: RequestHandler = async (req, res) => {
   console.log('claimsHandler called')
   await getDecodedIdTokenFromRequest(req)
     .then(async (decodedIdToken) => {
@@ -80,10 +80,3 @@ const claimsHandler: RequestHandler = async (req, res) => {
     })
     .catch((error) => handleApiErrors(res, error))
 }
-
-const router = Router();
-router.get(ApiConfig.auth.healthy, healthyHandler);
-router.get(ApiConfig.auth.verify, tokenHandler, verifyHandler);
-router.post(ApiConfig.auth.claims, tokenHandler, claimsHandler);
-
-export default router;

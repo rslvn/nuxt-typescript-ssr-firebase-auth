@@ -55,7 +55,7 @@ const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
     })
 }
 
-let cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
+const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
 

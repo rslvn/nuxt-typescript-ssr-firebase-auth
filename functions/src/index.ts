@@ -1,3 +1,3 @@
 export { nuxtOnFunction } from './nuxt-server'
-export { authApi } from './api/authApi'
+export { apiApp } from './api'
 export { sitemapApp } from './sitemap'

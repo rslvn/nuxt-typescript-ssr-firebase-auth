@@ -18,7 +18,7 @@
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "authApi"
+        "function": "apiApp"
       },
       {
         "source": "/sitemap.xml",
