@@ -3,8 +3,8 @@ import { SitemapStream, streamToPromise } from 'sitemap';
 import { createGzip } from 'zlib'
 import { RuntimeOptions, runWith } from "firebase-functions";
 import { handleGenericError } from './service/api-error-service';
+import { config } from './config';
 
-const hostname = 'https://nuxt-ts-firebase-auth-ssr.web.app/'
 const staticRoutes = [
     '/',
     '/terms',
@@ -29,7 +29,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
 
     await Promise.resolve()
         .then(() => {
-            const smStream = new SitemapStream({ hostname })
+            const smStream = new SitemapStream({ hostname: config.WEBSITE_URL })
             const pipeline = smStream.pipe(createGzip())
 
             staticRoutes.forEach((route) =>

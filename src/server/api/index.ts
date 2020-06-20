@@ -1,8 +1,9 @@
 import express, { Router } from 'express'
-import { json } from 'body-parser'
 import cookieParser from 'cookie-parser'
-import { claimsHandler, healthyHandler, tokenHandler, verifyHandler } from './auth-handler'
+import { json } from 'body-parser'
+import cors from 'cors'
 import { ApiConfig } from '../../types'
+import { claimsHandler, healthyHandler, tokenHandler, verifyHandler } from './auth-handler'
 
 const router = Router()
 router.get(ApiConfig.auth.healthy, healthyHandler)
@@ -12,6 +13,7 @@ router.post(ApiConfig.auth.claims, tokenHandler, claimsHandler)
 const app = express()
 app.use(json())
 app.use(cookieParser())
+app.use(cors({ origin: true }))
 app.use(router)
 
 export default {
