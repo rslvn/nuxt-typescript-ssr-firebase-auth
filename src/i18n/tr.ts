@@ -42,6 +42,7 @@ const messages = {
     crop: 'Gorsel Kesme',
     images: 'Kare Gorsel',
     profile: 'Hesap',
+    profileDynamic: 'Hesap (Dinamic)',
     register: 'Kayit Ol',
     login: 'Giris Yap',
     logout: 'Cikis Yap',

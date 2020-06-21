@@ -37,7 +37,7 @@
 
 # nuxt-typescript-ssr-firebase-auth
 
-[![BUILD](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth.svg?style=svg)](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth)
+[![BUILD](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth.svg?style=shield)](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth)
 
 `nuxt generate` is really sucks!!! We lost `nuxtServerInit`, dynamic routing stuff etc. We need a good alternative to deploy our applications to the cloud without VPS and SSL configuration.
 

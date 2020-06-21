@@ -32,13 +32,6 @@
         {{ $t('topNavbar.images')}}
       </b-navbar-item>
 
-      <b-navbar-item
-        :to="routes.PROFILE"
-        tag="router-link"
-      >
-        Profile
-      </b-navbar-item>
-
     </template>
 
     <template slot="end">

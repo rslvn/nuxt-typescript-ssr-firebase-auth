@@ -8,6 +8,11 @@
       </b-field>
     </template>
 
+    <b-navbar-item tag="router-link" :to="dynamicProfileRoute">
+      <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
+      <p>{{$t('topNavbar.profileDynamic')}}</p>
+    </b-navbar-item>
+
     <b-navbar-item tag="router-link" :to="profileRoute">
       <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
       <p>{{$t('topNavbar.profile')}}</p>
@@ -42,7 +47,11 @@
     }
 
     get profileRoute() {
-      return getUserRoute(Routes.PROFILE_DYNAMIC,this.authUser.username)
+      return Routes.PROFILE
+    }
+
+    get dynamicProfileRoute() {
+      return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
     }
 
   }
