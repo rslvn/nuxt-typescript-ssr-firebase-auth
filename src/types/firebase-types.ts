@@ -117,6 +117,34 @@ export interface Image {
   preview?: Image
 }
 
+export enum PrivacyType {
+  PRIVATE = 'private',
+  PUBLIC = 'public'
+}
+
+export interface PrivacyConfig {
+  privacyType: PrivacyType
+  colorType: string
+  icon: string
+  type: string
+  iconPack?: string
+}
+
+export const PrivacyList: PrivacyConfig[] = [
+  {
+    privacyType: PrivacyType.PRIVATE,
+    colorType: 'is-danger',
+    icon: 'account-remove-outline',
+    type: 'is-danger'
+  },
+  {
+    privacyType: PrivacyType.PUBLIC,
+    colorType: 'is-primary',
+    icon: 'earth',
+    type: 'is-primary'
+  }
+]
+
 /**
  * firestore collection models
  */
@@ -137,6 +165,7 @@ export interface User extends BaseModel {
   name?: string
   surname?: string
   email?: string
+  privacy?: PrivacyType
   biography?: string
   profilePhoto?: Image
   coverPhoto?: Image

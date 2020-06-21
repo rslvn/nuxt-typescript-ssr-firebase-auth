@@ -24,14 +24,14 @@
     <b-field v-if="authUser.email" :label="$t('common.field.email')" horizontal>
       <b-field grouped>
         <span>{{ authUser.email }}</span>
-        <b-tooltip v-if="authUser.verified" :label="$t('card.user.mailVerified')">
+        <b-tooltip v-if="authUser.verified" :label="$t('profile.card.info.mailVerified')">
           <b-icon type="is-success"
                   class="has-margin-left-15"
                   pack="fas"
                   icon="check"/>
         </b-tooltip>
 
-        <b-tooltip v-else :label="$t('card.user.mailNotVerified')">
+        <b-tooltip v-else :label="$t('profile.card.info.mailNotVerified')">
           <b-icon type="is-warning"
                   class="has-margin-left-15"
                   pack="fas"
@@ -48,7 +48,7 @@
           @click="submit"
           :disabled="loading"
         >
-          {{ $t('card.user.verifyButton') }}
+          {{ $t('profile.card.info.verifyButton') }}
         </b-button>
 
         <b-button
@@ -68,7 +68,7 @@
           type="is-primary"
           @click="showSetPasswordModal"
         >
-          {{ $t('card.user.updatePasswordButton') }}
+          {{ $t('profile.card.info.updatePasswordButton') }}
         </b-button>
 
       </div>
