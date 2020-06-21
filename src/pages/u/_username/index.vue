@@ -5,7 +5,7 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import Profile from '~/components/profile/Profile.vue';
-  import { AuthUser, Image, RouteParameters, StateNamespace, User } from '~/types';
+  import { AuthUser, Image, PrivacyType, RouteParameters, StateNamespace, User } from '~/types';
   import { profilePhotoObservable } from '~/service/rx-service';
   import { getUserByUsername } from '~/service/firebase/firestore';
   import { Context } from '@nuxt/types';
@@ -19,7 +19,7 @@
 
     @StateNamespace.auth.Getter authUser !: AuthUser;
 
-    async asyncData({ params, error, route, app }: Context) {
+    async asyncData({ params, error, route, app, store }: Context) {
       const username = params[RouteParameters.USERNAME]
 
       if (!username) {
@@ -32,7 +32,16 @@
       }
 
       const user = await getUserByUsername(username)
-      if(!user){
+      if (!user) {
+        error({
+          message: app.i18n.t('page.notFound') as string,
+          path: route.fullPath,
+          statusCode: 404
+        })
+      }
+
+      if ((store.state?.auth?.authUser as AuthUser)?.username !== username
+        && ((!user?.privacy || user?.privacy === PrivacyType.PRIVATE))) {
         error({
           message: app.i18n.t('page.notFound') as string,
           path: route.fullPath,

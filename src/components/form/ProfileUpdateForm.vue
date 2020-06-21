@@ -21,6 +21,13 @@
           class="has-margin-bottom-15"
         />
 
+        <PrivacyDropdown v-model="updatedUser.privacy"
+                         :label="$t('common.field.privacy')"
+                         rules="required"
+                         label-position="on-border"
+                         vid="privacy"
+                         class="has-margin-5"/>
+
         <InputWithValidation
           v-model="updatedUser.username"
           :label="$t('common.field.username')"
@@ -95,9 +102,10 @@
     sendNotification
   } from '~/service/notification-service';
   import { handleError } from '~/service/error-service';
+  import PrivacyDropdown from '~/components/ui/dropdown/PrivacyDropdown.vue';
 
   @Component({
-    components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
+    components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
   })
   export default class ProfileUpdateForm extends Vue {
 
@@ -116,7 +124,8 @@
           if (!savedUser) {
             return
           }
-          await this.$router.replace(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string))
+          await this.$router.replace(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string)).catch(() => {
+          })
           await sendNotification(this.$store.dispatch, getSuccessNotificationMessage(this.$t('notification.profile.updated')))
         })
         .catch((error: Error) =>

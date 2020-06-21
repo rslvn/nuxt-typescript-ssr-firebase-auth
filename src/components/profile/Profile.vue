@@ -11,8 +11,14 @@
           <div class="media-content">
             <div class="content">
               <p><strong>{{ fullName }}</strong></p>
-              <p v-if="user.username">
-                <small>@{{ user.username }}</small>
+              <p><small>@{{ user.username }}</small></p>
+              <p>
+                <b-tooltip :label="$t(`privacy.${userPrivacyConfig.privacyType}.description`)">
+                <b-taglist attached>
+                  <b-tag :type="userPrivacyConfig.type">{{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}</b-tag>
+                  <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}</b-tag>
+                </b-taglist>
+                </b-tooltip>
               </p>
             </div>
           </div>
@@ -24,14 +30,15 @@
       <div class="columns is-centered">
 
         <div class="column is-half">
-          <h2 class="subtitle has-text-centered">{{$t('card.user.title')}}</h2>
+          <h2 class="subtitle has-text-centered">{{$t('profile.card.info.title')}}</h2>
           <ProfileInfo :auth-user="authUser" :user="user"/>
         </div>
 
       </div>
 
       <div class="columns is-centered">
-        <div class="column is-half"><h2 class="subtitle has-text-centered">{{$t('card.linkedAccounts.title')}}</h2>
+        <div class="column is-half"><h2 class="subtitle has-text-centered">
+          {{$t('profile.card.linkedAccounts.title')}}</h2>
         </div>
       </div>
 
@@ -43,15 +50,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import {
-    AuthUser,
-    ProfilePhotoStorageRef,
-    ProviderConfig,
-    ProviderType,
-    StateNamespace,
-    SupportedProviders,
-    User
-  } from "~/types";
+  import { AuthUser, PrivacyList, PrivacyType, StateNamespace, User } from "~/types";
   import ProfileInfo from "~/components/profile/ProfileInfo.vue";
   import ProfilePhoto from "~/components/profile/ProfilePhoto.vue";
   import CoverPhoto from "~/components/profile/CoverPhoto.vue";
@@ -75,15 +74,12 @@
       return this.authUser.userId === this.user.id
     }
 
-    get parentFolderRef() {
-      return ProfilePhotoStorageRef.folderRef
-        .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
+    get userPrivacy() {
+      return this.user.privacy || PrivacyType.PRIVATE
     }
 
-    get passwordProvider(): ProviderConfig | undefined {
-      return this.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
-        SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
-        : undefined
+    get userPrivacyConfig() {
+      return PrivacyList.find((privacyConfig) => privacyConfig.privacyType === this.userPrivacy)
     }
 
   }

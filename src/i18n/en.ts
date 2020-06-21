@@ -26,7 +26,8 @@ const messages = {
       confirmPasswordPlaceHolder: 'Re-enter password',
       rememberMe: 'Remember Me',
       profilePhoto: 'profile photo',
-      coverPhoto: 'cover photo'
+      coverPhoto: 'cover photo',
+      privacy: 'Privacy',
     },
     cancel: 'Cancel',
     save: 'Save',
@@ -95,6 +96,21 @@ const messages = {
     notFound: 'Page not found',
   },
 
+  profile: {
+    card: {
+      info: {
+        title: 'Account Info',
+        verifyButton: 'Verify Email',
+        updatePasswordButton: 'Update Password',
+        mailVerified: 'Email is verified',
+        mailNotVerified: 'Email is not verified',
+      },
+      linkedAccounts: {
+        title: 'Linked Accounts',
+      },
+    },
+  },
+
   notification: {
     verifyMailSent: 'Verification mail has been sent to {email}',
     verifyMailNotSent: 'Verification mail can not sent to {email}',
@@ -147,20 +163,6 @@ const messages = {
     },
   },
 
-  card: {
-    user: {
-      title: 'Account Info',
-      providers: 'Providers',
-      verifyButton: 'Verify Email',
-      updatePasswordButton: 'Update Password',
-      mailVerified: 'Email is verified',
-      mailNotVerified: 'Email is not verified',
-    },
-    linkedAccounts: {
-      title: 'Linked Accounts:',
-    },
-  },
-
   provider: {
     label: {
       password: 'Password',
@@ -197,6 +199,7 @@ const messages = {
       },
     },
   },
+
   image: {
     crop: {
       preview: 'Preview',
@@ -204,6 +207,20 @@ const messages = {
     upload: {
       dragAndDropButton: 'Drop your files here or click to upload',
     },
+  },
+
+  privacy: {
+    private: {
+      title: 'Private',
+      subtitle: 'No one can see',
+      description: 'No one can see any data of you',
+    },
+    public: {
+      title: 'Public',
+      subtitle: 'Everyone can see',
+      description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo',
+    },
+    notSelected: 'Select visibility',
   },
 }
 

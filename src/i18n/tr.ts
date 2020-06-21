@@ -27,7 +27,8 @@ const messages = {
       confirmPasswordPlaceHolder: 'Parolanizi tekrar giriniz',
       rememberMe: 'Beni Hatirla',
       profilePhoto: 'Profil fotografi',
-      coverPhoto: 'Kapak fotografi'
+      coverPhoto: 'Kapak fotografi',
+      privacy: 'Gizlilik',
     },
     cancel: 'Iptal',
     save: 'Kaydet',
@@ -46,6 +47,21 @@ const messages = {
     register: 'Kayit Ol',
     login: 'Giris Yap',
     logout: 'Cikis Yap',
+  },
+
+  profile: {
+    card: {
+      info: {
+        title: 'Hesap Bilgileri',
+        verifyButton: 'E-posta Dogrula',
+        updatePasswordButton: 'Parolayi guncelle',
+        mailVerified: 'E-posta dogrulandi',
+        mailNotVerified: 'E-posta dogrulanmadi',
+      },
+      linkedAccounts: {
+        title: 'Bagli Hesaplar',
+      },
+    },
   },
 
   page: {
@@ -146,20 +162,6 @@ const messages = {
     },
   },
 
-  card: {
-    user: {
-      title: 'Hesap Bilgileri',
-      providers: 'Saglayicilar',
-      verifyButton: 'E-posta Dogrula',
-      updatePasswordButton: 'Parolayi guncelle',
-      mailVerified: 'E-posta dogrulandi',
-      mailNotVerified: 'E-posta dogrulanmadi',
-    },
-    linkedAccounts: {
-      title: 'Bagli Hesaplar:',
-    },
-  },
-
   provider: {
     label: {
       password: 'Password',
@@ -201,6 +203,19 @@ const messages = {
     upload: {
       dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak',
     },
+  },
+  privacy: {
+    private: {
+      title: 'Gizli',
+      subtitle: 'Kimse goremez',
+      description: 'Kimse size ait her hangi bir bilgiye ulasamaz',
+    },
+    public: {
+      title: 'Herkese Acik',
+      subtitle: 'Herkes gorebilir',
+      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgilerinize gorebilir. ornegin isim, kullanici adi, profil ve kapak fotografi',
+    },
+    notSelected: 'Gizliligi belirle',
   },
 }
 
