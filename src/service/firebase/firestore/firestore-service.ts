@@ -1,18 +1,24 @@
-import { auth, firestore } from "~/plugins/fire-init-plugin";
-import { BaseModel } from "~/types";
+import { auth, firestore } from '~/plugins/fire-init-plugin'
+import { BaseModel } from '~/types'
 
 const updateBaseModel = (model: BaseModel) => {
   let date = new Date()
   if (!model.createdAt) {
     model.createdAt = date
+  } else {
+    // never overwrite createdAt
+    delete model.createdAt
   }
   model.updatedAt = date;
 
   if (!model.createdBy) {
     model.createdBy = auth.currentUser?.uid
+  } else {
+    // never overwrite createdBy
+    delete model.createdBy
   }
   model.updatedBy = auth.currentUser?.uid
-};
+}
 
 const set = async (collection: string, model: BaseModel) => {
   updateBaseModel(model);

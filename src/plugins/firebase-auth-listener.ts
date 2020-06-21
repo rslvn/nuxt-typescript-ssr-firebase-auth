@@ -46,7 +46,7 @@ const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
   }
   firebaseUser?.getIdTokenResult()
     .then((idTokenResult) => {
-      let authUser = getAuthUser(firebaseUser) as AuthUser
+      const authUser = getAuthUser(firebaseUser) as AuthUser
       if (authUser) {
         console.log('idTokenResult.claims', idTokenResult.claims)
         authUser.username = idTokenResult.claims[FirebaseClaimKey.USERNAME]

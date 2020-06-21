@@ -107,6 +107,10 @@ const messages = {
     passwordUpdated: 'Your password updated successfully',
     missingActionCode: 'Action code is missing',
     unknownAction: 'You are not allowed to execute that process',
+    profile: {
+      updated: 'Your profile updated successfully',
+      updateFailed: 'Your profile could not be updated',
+    },
   },
 
   form: {

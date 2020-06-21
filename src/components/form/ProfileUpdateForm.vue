@@ -89,6 +89,12 @@
   import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
   import FieldWithValue from '~/components/ui/FieldWithValue.vue';
   import { getUserRoute } from '~/service/global-service';
+  import {
+    getDangerNotificationMessage,
+    getSuccessNotificationMessage,
+    sendNotification
+  } from '~/service/notification-service';
+  import { handleError } from '~/service/error-service';
 
   @Component({
     components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
@@ -98,13 +104,25 @@
     @Prop({ required: true }) user !: User
     updatedUser = this.user
 
-    @StateNamespace.profile.Action updateUser !: (user: User) => Promise<void>;
+    @StateNamespace.profile.Action updateUser !: (user: User) => Promise<User>;
+    @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
 
     submit() {
-      this.updateUser(this.updatedUser)
-        .then(() => {
-          this.gotoProfile(this.updatedUser.username as string)
+      this.saveLoading(true)
+        .then(async () => {
+          return await this.updateUser(this.updatedUser)
         })
+        .then(async (savedUser: User) => {
+          if (!savedUser) {
+            return
+          }
+          await this.$router.replace(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string))
+          await sendNotification(this.$store.dispatch, getSuccessNotificationMessage(this.$t('notification.profile.updated')))
+        })
+        .catch((error: Error) =>
+          handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
+        )
+        .then(() => this.saveLoading(false))
     }
 
     gotoProfile(username: string) {
