@@ -1,6 +1,7 @@
 version: 2
 jobs:
-  build:
+
+  deploy_master:
     docker:
       - image: circleci/node:10.16.3
     steps:
@@ -9,7 +10,7 @@ jobs:
           name: Add env
           command: |
             echo "WEBSITE_URL=$WEBSITE_URL"> src/.env
-            echo "API_URL=API_URL"> src/.env
+            echo "API_URL=API_URL">> src/.env
             echo "FIREBASE_API_KEY=$FIREBASE_API_KEY" >> src/.env
             echo "FIREBASE_AUTH_DOMAIN=$FIREBASE_AUTH_DOMAIN" >> src/.env
             echo "FIREBASE_DATABASE_URL=$FIREBASE_DATABASE_URL" >> src/.env
@@ -33,9 +34,9 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  build-and-deploy:
     jobs:
-      - deploy_dev:
+      - deploy_master:
           filters:
             branches:
-              only: develop
+              only: master
