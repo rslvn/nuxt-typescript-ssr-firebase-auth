@@ -1,6 +1,6 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { ApiConfig, AuthUser } from '~/types';
-import { AxiosResponse } from 'axios';
+import { ApiConfig, AuthUser } from '~/types'
+import { AxiosResponse } from 'axios'
 
 export const authVerify = async (axios: NuxtAxiosInstance) => {
   return await axios
