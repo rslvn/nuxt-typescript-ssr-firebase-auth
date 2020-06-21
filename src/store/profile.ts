@@ -14,19 +14,19 @@ export const mutations: MutationTree<ProfileState> = {}
 
 export const actions: ActionTree<ProfileState, RootState> = {
   async updateCoverPhoto({ commit, dispatch }, coverPhoto: Image) {
-    await saveUser({
+    return await saveUser({
       id: auth.currentUser?.uid,
       coverPhoto: coverPhoto,
     }).catch((error: Error) => handleError(dispatch, error))
   },
 
   async updateUser({ commit, dispatch }, user: User) {
-    await saveUser(user)
+    return await saveUser(user)
       .then(async (savedUser: User) => {
         await updateProfileName(savedUser.name as string)
           .then(async () => await authClaims(this.$axios, savedUser.username as string))
           .then(() => refreshToken())
+        return savedUser
       })
-      .catch((error: Error) => handleError(dispatch, error))
   },
 }

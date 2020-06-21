@@ -106,6 +106,10 @@ const messages = {
     passwordUpdated: 'Parolaniz basarili bir sekilde guncellendi.',
     missingActionCode: 'Action kodu yok',
     unknownAction: 'BU aksiyonu yurutmek icin yetkiniz yok',
+    profile: {
+      updated: 'Profiliniz basari ile guncellendi',
+      updateFailed: 'Profiliniz guncellenemedi',
+    },
   },
 
   form: {
