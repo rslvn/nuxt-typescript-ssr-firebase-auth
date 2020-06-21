@@ -41,6 +41,7 @@ const messages = {
     crop: 'Image Crop',
     images: 'Square Images',
     profile: 'Profile',
+    profileDynamic: 'Profile Dynamic',
     register: 'Register',
     login: 'Login',
     logout: 'Logout',
