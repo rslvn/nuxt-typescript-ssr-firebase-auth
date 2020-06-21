@@ -27,9 +27,6 @@ jobs:
           name: Install src dependencies
           command: npm --prefix src install
       - run:
-          name: build
-          command: npm run build
-      - run:
           name: deploy to Firebase Hosting
           command: ./src/node_modules/.bin/firebase deploy --project=$FIREBASE_PROJECT_ID --token=$FIREBASE_CI_TOKEN
 
