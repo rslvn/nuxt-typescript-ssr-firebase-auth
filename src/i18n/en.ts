@@ -108,7 +108,7 @@ const messages = {
     missingActionCode: 'Action code is missing',
     unknownAction: 'You are not allowed to execute that process',
     profile: {
-      updated: 'Your profile updated successfully',
+      updated: 'Your profile is updated successfully',
       updateFailed: 'Your profile could not be updated',
     },
   },
