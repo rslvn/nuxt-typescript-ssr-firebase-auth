@@ -28,6 +28,7 @@ const messages = {
       profilePhoto: 'profile photo',
       coverPhoto: 'cover photo',
       privacy: 'Privacy',
+      search: 'Search...',
     },
     cancel: 'Cancel',
     save: 'Save',

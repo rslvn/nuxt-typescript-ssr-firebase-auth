@@ -148,6 +148,18 @@ export const PrivacyList: PrivacyConfig[] = [
 /**
  * firestore collection models
  */
+
+export interface SearchData {
+  name: string,
+  username: string,
+  profilePhoto: Image
+}
+
+export interface PagingResponse<T> {
+  totalPage: number,
+  data: T[],
+}
+
 export enum collection {
   USER = 'user',
 }

@@ -29,6 +29,7 @@ const messages = {
       profilePhoto: 'Profil fotografi',
       coverPhoto: 'Kapak fotografi',
       privacy: 'Gizlilik',
+      search: 'Ara...',
     },
     cancel: 'Iptal',
     save: 'Kaydet',

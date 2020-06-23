@@ -113,6 +113,7 @@ See the [Features](#features) for more functionalities
     - [x] lightbox with buefy/bulma
     - [x] hover button on profile photo
     - [x] square/round background image
+- [x] Make a profile public/private for other authenticated users
 - [x] custom error page - simple
 - [x] global notification
 - [x] toaster notification
