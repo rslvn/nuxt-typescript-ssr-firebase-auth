@@ -36,6 +36,8 @@
 
     <template slot="end">
 
+      <SearchBar :auth-user="authUser" class="has-margin-top-10"/>
+
       <LanguageSwitcher/>
 
       <ProfileNavigator v-if="authUser" :auth-user="authUser" :logout="logout"/>
@@ -66,9 +68,10 @@
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
   import Logo from '~/components/navbar/Logo.vue';
+  import SearchBar from '~/components/navbar/SearchBar.vue';
 
   @Component({
-    components: { Logo, ProfileNavigator, LanguageSwitcher }
+    components: { SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
   })
   export default class TopNavbar extends Vue {
 

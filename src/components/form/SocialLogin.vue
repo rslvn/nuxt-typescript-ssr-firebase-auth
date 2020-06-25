@@ -44,9 +44,9 @@
       return ProviderType
     }
 
-    isProviderExist(providerType: ProviderType) {
-      return this.providers.find(value => value.providerType === providerType)
-    }
+    // isProviderExist(providerType: ProviderType) {
+    //   return this.providers.find(value => value.providerType === providerType)
+    // }
 
     getLangProviderOption(providerType: ProviderType) {
       return getProviderOption(providerType)

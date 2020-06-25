@@ -25,7 +25,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { DefaultProfilePhoto, ProfilePhotoPlaceholder, ProviderData } from '~/types';
+  import { DefaultProfilePhoto, ProviderData } from '~/types';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({

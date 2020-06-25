@@ -145,9 +145,38 @@ export const PrivacyList: PrivacyConfig[] = [
   }
 ]
 
+export interface SearchData {
+  name: string,
+  username: string,
+  profilePhoto: Image
+}
+
+export interface PagingResponse<T> {
+  totalPage: number,
+  data: T[],
+}
 /**
  * firestore collection models
  */
+
+export enum FirebaseQueryOperator {
+  LT = '<',
+  LE = '<=',
+  EQ = '==',
+  GE = '>=',
+  GT = '>',
+  IN = 'in',
+  ARRAY_CONTAINS = 'array-contains',
+  ARRAY_CONTAINS_ANY = 'array-contains-any'
+}
+
+export interface WhereClause {
+  field: string
+  operator: FirebaseQueryOperator
+  value: any
+}
+
+
 export enum collection {
   USER = 'user',
 }

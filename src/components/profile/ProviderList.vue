@@ -2,9 +2,9 @@
   <div class="columns is-multiline">
     <div class="column is-half-tablet is-one-quarter-desktop" v-for="(providerLink, key) in allProviders" :key="key">
       <ProviderCard :provider-config="providerLink.providerConfig"
-                :provider-data="providerLink.providerData"
-                :is-linked="providerLink.linked"
-                :link-function="providerLink.method"
+                    :provider-data="providerLink.providerData"
+                    :is-linked="providerLink.linked"
+                    :link-function="providerLink.method"
       />
     </div>
   </div>
@@ -15,13 +15,13 @@
   import ProviderCard from "~/components/card/ProviderCard.vue";
   import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
   import {
+    AuthUser,
     LoginCredentials,
     ProviderConfig,
     ProviderData,
     ProviderLink,
     ProviderType,
     StateNamespace,
-    AuthUser,
     SupportedProviders
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";

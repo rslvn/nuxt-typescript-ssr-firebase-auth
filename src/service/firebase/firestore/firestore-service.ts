@@ -1,5 +1,18 @@
 import { auth, firestore } from '~/plugins/fire-init-plugin'
-import { BaseModel } from '~/types'
+import { BaseModel, PagingResponse, WhereClause } from '~/types'
+import firebase from 'firebase';
+import QuerySnapshot = firebase.firestore.QuerySnapshot;
+
+
+const toBaseModelArray = (querySnapshot: QuerySnapshot) => {
+  let docs: BaseModel[] = [];
+
+  querySnapshot.forEach(function (doc) {
+    docs.push(doc.data())
+  });
+
+  return docs
+}
 
 const updateBaseModel = (model: BaseModel) => {
   let date = new Date()
@@ -54,6 +67,37 @@ export const saveModel = async (collection: string, model: BaseModel) => {
     add(collection, model)
 };
 
+
+export const getCount = async (collection: string): Promise<number> => {
+  return await firestore.collection(collection)
+    .get()
+    .then((querySnapshot) => {
+      return querySnapshot.size
+    })
+};
+
+export const getModels = async (collection: string): Promise<BaseModel[]> => {
+  return await firestore.collection(collection).get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
+}
+
+export const searchModelByWhereClauses = async (collection: string,
+                                                whereClause: WhereClause,
+                                                ...whereClauses: WhereClause[])
+  : Promise<BaseModel[]> => {
+  const collectionReference = firestore.collection(collection);
+
+  let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
+  whereClauses.forEach(wc => {
+    query.where(wc.field, wc.operator, wc.value)
+  })
+
+  console.log('QUERY: ', query)
+
+  return await query.get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
+}
+
 export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
   return await firestore.collection(collection).doc(id).get().then((doc) => {
     return doc.data() as BaseModel
@@ -69,16 +113,33 @@ export const getModelByField = async (collection: string, field: string, value: 
 
 export const getModelsByField = async (collection: string, field: string, value: any): Promise<BaseModel[]> => {
   return await firestore.collection(collection).where(field, "==", value).get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
+};
+
+export const getModelsByFieldAndPaging = async (
+  collection: string, field: string, value: any, page: number, limit: number
+): Promise<PagingResponse<BaseModel>> => {
+
+  return await firestore.collection(collection).get()
     .then((querySnapshot) => {
       let docs: BaseModel[] = [];
 
       querySnapshot.forEach(function (doc) {
-        docs.push(doc.data())
+        if (doc.data()[field]?.toLowerCase().includes(value.toLowerCase())) {
+          docs.push(doc.data())
+        }
       });
 
-      return docs
+      docs.sort((a, b) => {
+        // @ts-ignore
+        return a[field] > b[field] ? 1 : (b[field] > a[field] ? -1 : 0)
+      })
+
+      const limitedDocs = docs.splice((page * limit - limit), limit);
+
+      return {
+        totalPage: docs.length / limit,
+        data: limitedDocs
+      }
     })
 };
-
-
-

@@ -9,11 +9,10 @@ export const state = (): RootState => ({})
 
 export const actions: ActionTree<RootState, RootState> = {
   async nuxtServerInit({ commit, dispatch, state }, { route, app, req }: Context) {
-    commit(StoreConfig.loading.setLoading, true)
     console.log(`>>>>>>>>>> nuxtServerInit for path: ${route.path}`)
-
     const token = app.$cookies.get(AppCookie.TOKEN)
     if (token) {
+      commit(StoreConfig.loading.setLoading, true)
       console.log('Token FOUND')
       return await authVerify(app.$axios)
         .then((authUser) => commit(StoreConfig.auth.setAuthUser, authUser))
@@ -27,10 +26,9 @@ export const actions: ActionTree<RootState, RootState> = {
             app.$cookies.remove(AppCookie.TOKEN)
           }
         })
-        .then(() => commit(StoreConfig.loading.setLoading, false))
+        .finally(() => commit(StoreConfig.loading.setLoading, false))
     } else {
       console.log('No token')
-      commit(StoreConfig.loading.setLoading, false)
     }
   },
 }

@@ -16,14 +16,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import {
-    AuthUser,
-    DefaultProfilePhoto,
-    Image,
-    ProfilePhotoPlaceholder,
-    ProfilePhotoStorageRef,
-    StateNamespace
-  } from "~/types";
+  import { AuthUser, Image, ProfilePhotoPlaceholder, ProfilePhotoStorageRef, StateNamespace } from "~/types";
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
   import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue';

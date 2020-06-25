@@ -20,12 +20,10 @@
     @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
 
     start() {
-      console.log('loading.start')
       this.saveLoading(true)
     }
 
     finish() {
-      console.log('loading.finish')
       this.saveLoading(false)
     }
 

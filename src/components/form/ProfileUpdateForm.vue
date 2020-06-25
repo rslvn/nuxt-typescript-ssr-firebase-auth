@@ -32,17 +32,16 @@
           v-model="updatedUser.username"
           :label="$t('common.field.username')"
           :placeholder="$t('common.field.usernamePlaceHolder')"
-          :rules="`required|min:4|username:${updatedUser.id}`"
+          :rules="`required|min:4|max:64|username:${updatedUser.id}`"
           vid="username"
           label-position="on-border"
-          class="has-margin-5"
         />
 
         <InputWithValidation
           v-model="updatedUser.name"
           :label="$t('common.field.name')"
           :placeholder="$t('common.field.namePlaceHolder')"
-          rules="required|min:4"
+          rules="required|min:2|max:64"
           vid="name"
           label-position="on-border"
           class="has-margin-5"
@@ -52,7 +51,7 @@
           v-model="updatedUser.surname"
           :label="$t('common.field.surname')"
           :placeholder="$t('common.field.surnamePlaceHolder')"
-          rules="required|min:4"
+          rules="required|min:2|max:64"
           vid="surname"
           label-position="on-border"
           class="has-margin-5"
@@ -89,13 +88,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
+  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
   import { Routes, StateNamespace, User } from '~/types';
   import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
   import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
   import FieldWithValue from '~/components/ui/FieldWithValue.vue';
-  import { getUserRoute } from '~/service/global-service';
+  import { getUserRoute, slugify } from '~/service/global-service';
   import {
     getDangerNotificationMessage,
     getSuccessNotificationMessage,
@@ -114,6 +113,12 @@
 
     @StateNamespace.profile.Action updateUser !: (user: User) => Promise<User>;
     @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
+
+    @Watch('updatedUser.username', { deep: true })
+    onUsernameChange(username: string, oldUsername: string) {
+      console.log('onUsernameChange username', username, 'oldUsername', oldUsername)
+      this.updatedUser.username = slugify(username)
+    }
 
     submit() {
       this.saveLoading(true)

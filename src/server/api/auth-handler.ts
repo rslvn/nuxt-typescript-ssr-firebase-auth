@@ -1,7 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { OK } from 'http-status-codes'
 import admin from 'firebase-admin';
-import DecodedIdToken = admin.auth.DecodedIdToken;
 import {
   getDecodedIdToken,
   setCustomClaims,
@@ -10,6 +9,7 @@ import {
 } from '../service/firebase-admin-service';
 import { ApiConfig, ApiErrorCode, AppCookie, FirebaseClaimKey, FirebaseClaims } from '../../types'
 import { handleApiErrors } from '../service/api-error-service';
+import DecodedIdToken = admin.auth.DecodedIdToken;
 
 const getTokenFromRequest = async (req: Request) => {
   let token = req.headers.authorization && req.headers.authorization.startsWith('Bearer ') ?
