@@ -68,21 +68,6 @@ const messages = {
     },
   },
 
-  profile: {
-    card: {
-      info: {
-        title: 'Hesap Bilgileri',
-        verifyButton: 'E-posta Dogrula',
-        updatePasswordButton: 'Parolayi guncelle',
-        mailVerified: 'E-posta dogrulandi',
-        mailNotVerified: 'E-posta dogrulanmadi',
-      },
-      linkedAccounts: {
-        title: 'Bagli Hesaplar',
-      },
-    },
-  },
-
   page: {
     home: {
       title: 'Anasayfaya hosgeldiniz',
