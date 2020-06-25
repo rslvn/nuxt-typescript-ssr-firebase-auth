@@ -22,6 +22,7 @@ export const IMAGES: RouteType = { label: 'images', path: '/images' }
 export const LIGHT_BOX: RouteType = { label: 'lightbox', path: '/lightbox' }
 export const TERMS: RouteType = { label: 'terms', path: '/terms' }
 export const PRIVACY_POLICY: RouteType = { label: 'privacyAndPolicy', path: '/privacy-policy' }
+export const SEARCH: RouteType = { label: 'search', path: '/search' }
 
 export const Routes = {
   HOME,
@@ -38,6 +39,7 @@ export const Routes = {
   LIGHT_BOX,
   TERMS,
   PRIVACY_POLICY,
+  SEARCH,
 }
 
 export enum RouteParameters {
@@ -48,4 +50,5 @@ export enum RouteParameters {
 export enum QueryParameters {
   NEXT = 'next',
   LANG = 'lang',
+  QUERY = 'query'
 }

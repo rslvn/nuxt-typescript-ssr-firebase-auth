@@ -1,6 +1,7 @@
 <template>
   <b-field expanded>
     <b-autocomplete
+      v-model="query"
       :data="data"
       placeholder="e.g. rslvn"
       field="title"
@@ -54,8 +55,8 @@
   import _debounce from 'debounce'
   import { searchUsers } from '~/service/firebase/firestore';
   import { AuthUser, Routes, SearchData } from '~/types';
-  import { loadMoreSearchResult } from '~/service/rx-service';
-  import { getUserRoute } from '~/service/global-service';
+  import { loadMoreSearchResult, searchWithNewQuery } from '~/service/rx-service';
+  import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service';
   import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
 
   @Component({
@@ -122,8 +123,10 @@
         })
     }
 
-    enterPressed() {
-      alert('enterPressed')
+    async enterPressed() {
+      await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, this.query))
+      searchWithNewQuery.next(this.query)
+      this.query = ''
     }
 
     async gotoProfile(username: string) {

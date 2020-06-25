@@ -109,6 +109,10 @@ const messages = {
       title: 'Privacy And Policy',
       description: 'A sample privacy and policy page in nuxt and typescript',
     },
+    search: {
+      title: 'Search',
+      description: 'A sample search page in nuxt and typescript',
+    },
     footer: {
       copyRight: '&copy; Copyright 2020, ',
     },

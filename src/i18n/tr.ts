@@ -76,15 +76,15 @@ const messages = {
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar',
-      description: 'Nuxt ve typascript ile hazirlanmis, lightbox icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, lightbox icin ornek bir sayfadir',
     },
     crop: {
       title: 'Crop',
-      description: 'Nuxt ve typascript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
     },
     images: {
       title: 'Kare Gorseller',
-      description: 'Nuxt ve typascript ile hazirlanmis, kare/yuvarlak arkaplan resimler icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, kare/yuvarlak arkaplan resimler icin ornek bir sayfadir',
       original: 'Orjinal',
       roundedNoBorder: 'Cercevesiz Yuvarlak',
       squareNoBorder: 'Cercevesiz Kare',
@@ -93,11 +93,11 @@ const messages = {
     },
     register: {
       title: 'Kayit Ol',
-      description: 'Nuxt ve typascript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
     },
     login: {
       title: 'Giris Yap',
-      description: 'Nuxt ve typascript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
     },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.',
@@ -107,6 +107,10 @@ const messages = {
     },
     privacyAndPolicy: {
       title: 'Gizlilik Ve Prensipler',
+    },
+    search: {
+      title: 'Gizlilik Ve Prensipler',
+      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilar arasinda arama yapmayi saglayan ornek bir sayfadir',
     },
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',
@@ -204,6 +208,7 @@ const messages = {
       },
     },
   },
+
   image: {
     crop: {
       preview: 'On Izleme',
@@ -212,6 +217,7 @@ const messages = {
       dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak',
     },
   },
+
   privacy: {
     private: {
       title: 'Gizli',

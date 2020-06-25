@@ -2,7 +2,7 @@ import moment from 'moment'
 import slug from 'slug'
 import { v4 as uuidv4 } from 'uuid'
 import { Route } from 'vue-router'
-import { Routes, RouteType } from '~/types'
+import { QueryParameters, Routes, RouteType } from '~/types'
 
 let timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
 const slugDelimiter = '-'
@@ -62,6 +62,15 @@ export const getUserRoute = (routeType: RouteType, username: string) => {
     name: routeType.name,
     params: {
       username,
+    },
+  }
+}
+
+export const getPageRouteWithQuery = (routeType: RouteType, query: string) => {
+  return {
+    path: routeType.path,
+    query: {
+      [QueryParameters.QUERY]: query,
     },
   }
 }
