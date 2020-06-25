@@ -155,7 +155,6 @@ export interface PagingResponse<T> {
   totalPage: number,
   data: T[],
 }
-
 /**
  * firestore collection models
  */
