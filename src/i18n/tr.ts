@@ -44,10 +44,13 @@ const messages = {
     crop: 'Gorsel Kesme',
     images: 'Kare Gorsel',
     profile: 'Hesap',
-    profileDynamic: 'Hesap (Dinamic)',
+    profileDynamic: 'Hesap (Dinamik)',
     register: 'Kayit Ol',
     login: 'Giris Yap',
     logout: 'Cikis Yap',
+    search: {
+      footer: 'Baska sonuc yok',
+    },
   },
 
   profile: {
@@ -127,6 +130,9 @@ const messages = {
     profile: {
       updated: 'Profiliniz basari ile guncellendi',
       updateFailed: 'Profiliniz guncellenemedi',
+    },
+    search: {
+      notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
     },
   },
 

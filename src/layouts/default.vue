@@ -4,7 +4,8 @@
       <div class="columns">
         <div class="column">
           <TopNavbar/>
-          <TopNotification v-if="notificationMessage" :notification-message="notificationMessage" :closed="clearNotificationMessage"/>
+          <TopNotification v-if="notificationMessage" :notification-message="notificationMessage"
+                           :closed="clearNotificationMessage"/>
         </div>
       </div>
     </div>

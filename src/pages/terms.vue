@@ -10,8 +10,8 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { getHead, getHeadByRouteType } from "~/service/seo-service";
-  import { DefaultMeta, PageMeta, Routes } from "~/types";
+  import { getHeadByRouteType } from "~/service/seo-service";
+  import { Routes } from "~/types";
 
   @Component({
     components: {}

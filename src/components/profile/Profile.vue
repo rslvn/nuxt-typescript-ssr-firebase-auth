@@ -14,10 +14,11 @@
               <p><small>@{{ user.username }}</small></p>
               <p>
                 <b-tooltip :label="$t(`privacy.${userPrivacyConfig.privacyType}.description`)">
-                <b-taglist attached>
-                  <b-tag :type="userPrivacyConfig.type">{{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}</b-tag>
-                  <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}</b-tag>
-                </b-taglist>
+                  <b-taglist attached>
+                    <b-tag :type="userPrivacyConfig.type">{{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}
+                    </b-tag>
+                    <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}</b-tag>
+                  </b-taglist>
                 </b-tooltip>
               </p>
             </div>

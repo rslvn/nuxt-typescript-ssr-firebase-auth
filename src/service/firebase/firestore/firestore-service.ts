@@ -1,5 +1,5 @@
 import { auth, firestore } from '~/plugins/fire-init-plugin'
-import { BaseModel, PagingResponse } from '~/types'
+import { BaseModel, PagingResponse, WhereClause } from '~/types'
 import firebase from 'firebase';
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
@@ -77,9 +77,25 @@ export const getCount = async (collection: string): Promise<number> => {
 };
 
 export const getModels = async (collection: string): Promise<BaseModel[]> => {
-  return await firestore.collection(collection).get().then((querySnapshot) => {
-    return toBaseModelArray(querySnapshot)
+  return await firestore.collection(collection).get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
+}
+
+export const searchModelByWhereClauses = async (collection: string,
+                                                whereClause: WhereClause,
+                                                ...whereClauses: WhereClause[])
+  : Promise<BaseModel[]> => {
+  const collectionReference = firestore.collection(collection);
+
+  let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
+  whereClauses.forEach(wc => {
+    query.where(wc.field, wc.operator, wc.value)
   })
+
+  console.log('QUERY: ', query)
+
+  return await query.get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
 }
 
 export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
@@ -97,11 +113,8 @@ export const getModelByField = async (collection: string, field: string, value: 
 
 export const getModelsByField = async (collection: string, field: string, value: any): Promise<BaseModel[]> => {
   return await firestore.collection(collection).where(field, "==", value).get()
-    .then((querySnapshot) => {
-      return toBaseModelArray(querySnapshot)
-    })
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
 };
-
 
 export const getModelsByFieldAndPaging = async (
   collection: string, field: string, value: any, page: number, limit: number
@@ -130,5 +143,3 @@ export const getModelsByFieldAndPaging = async (
       }
     })
 };
-
-

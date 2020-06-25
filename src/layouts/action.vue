@@ -12,7 +12,8 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <TopNotification v-if="notificationMessage" :notification-message="notificationMessage" :closed="clearNotificationMessage"/>
+          <TopNotification v-if="notificationMessage" :notification-message="notificationMessage"
+                           :closed="clearNotificationMessage"/>
           <nuxt/>
         </div>
       </div>

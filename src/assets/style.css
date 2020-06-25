@@ -158,6 +158,12 @@ footer {
   box-shadow: 0 0 3px 2px #ccc;
 }
 
+.truncate-long-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (max-width: 732px) {
 
 }

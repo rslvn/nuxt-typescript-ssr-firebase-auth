@@ -36,7 +36,7 @@
 
     <template slot="end">
 
-      <SearchBar v-if="authUser" class="has-margin-top-10"/>
+      <SearchBar :auth-user="authUser" class="has-margin-top-10"/>
 
       <LanguageSwitcher/>
 

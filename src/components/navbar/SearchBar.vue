@@ -1,16 +1,5 @@
 <template>
   <b-field expanded>
-    <!--    <p class="control">-->
-    <!--      <b-dropdown>-->
-    <!--        <button class="button" slot="trigger">-->
-    <!--          <span>Search</span>-->
-    <!--          <b-icon icon="menu-down"></b-icon>-->
-    <!--        </button>-->
-
-    <!--        <b-dropdown-item value="open_issues">Search</b-dropdown-item>-->
-    <!--        <b-dropdown-item value="your_issues">Detail Search</b-dropdown-item>-->
-    <!--      </b-dropdown>-->
-    <!--    </p>-->
     <b-autocomplete
       :data="data"
       placeholder="e.g. rslvn"
@@ -18,11 +7,9 @@
       :loading="isFetching"
       :check-infinite-scroll="true"
       icon="magnify"
-      @icon-click="searchIconClick"
       icon-right="toy-brick-search-outline"
-      :icon-right-click="clearIconClick"
       @typing="getAsyncData"
-      @select="option => selected = option"
+      @select="(option) => gotoProfile(option.username)"
       @infinite-scroll="getMoreAsyncData"
       rounded
       clearable
@@ -31,65 +18,63 @@
       <template slot-scope="props">
         <div class="media">
           <div class="media-left">
-            <img width="32" :src="`${props.option.profilePhoto.src}`">
+            <img width="32" :src="props.option.profilePhoto.src">
           </div>
-          <div class="media-content">
+          <div class="media-content truncate-long-text">
             {{ props.option.name }}
             <br>
-            <!--                    <small>-->
-            <!--                      Released at {{ props.option.release_date }},-->
-            <!--                      rated <b>{{ props.option.vote_average }}</b>-->
-            <!--                    </small>-->
+            <small>@{{props.option.username}}</small>
           </div>
         </div>
       </template>
-      <!--      <template slot="empty">-->
-      <!--        <span>Search anyway</span>-->
-      <!--      </template>-->
       <template slot="footer">
-        <span v-show="page > totalPages" class="has-text-grey"> Thats it! No more movies found. </span>
+        <span v-show="page > totalPages"
+              class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>
       </template>
     </b-autocomplete>
   </b-field>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator'
+  import { Component, Prop, Vue } from 'nuxt-property-decorator'
   import _debounce from 'debounce'
-  import { getUsersByUsernameAndPage } from '~/service/firebase/firestore';
-  import { SearchData } from '~/types';
-  import { loadMoreBySearch } from '~/service/rx-service';
+  import { searchUsers } from '~/service/firebase/firestore';
+  import { AuthUser, Routes, SearchData } from '~/types';
+  import { loadMoreSearchResult } from '~/service/rx-service';
+  import { getUserRoute } from '~/service/global-service';
+  import { showWarningToaster } from '~/service/notification-service';
 
   @Component({
     components: {}
   })
   export default class SearchBar extends Vue {
+    @Prop({ required: true }) authUser !: AuthUser;
+
     data: SearchData[] = []
-    selected = null
     isFetching = false
     query = ''
     page = 1
     totalPages = 1
 
     getAsyncData = _debounce((query: string) => {
-      console.log('getAsyncData', query)
       this.searchByName(query)
     }, 500)
 
     getMoreAsyncData = _debounce(() => {
-      console.log('getMoreAsyncData')
-      loadMoreBySearch.next()
+      loadMoreSearchResult.next()
     }, 250)
 
     created() {
-      this.$subscribeTo(loadMoreBySearch.asObservable(), () => {
-        console.log('loadMoreBySearch', this.query)
+      this.$subscribeTo(loadMoreSearchResult.asObservable(), () => {
         this.getAsyncData(this.query)
       })
     }
 
     searchByName(newQuery: string) {
-      console.log('searchByName', newQuery)
+      if (!this.authUser) {
+        showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
+        return
+      }
       // String update
       if (this.query !== newQuery) {
         this.query = newQuery
@@ -102,7 +87,6 @@
         this.data = []
         this.page = 1
         this.totalPages = 1
-        console.log('reset all')
         return
       }
       // Reached last page
@@ -110,10 +94,9 @@
         return
       }
       this.isFetching = true
-      getUsersByUsernameAndPage(newQuery, this.page, 5)
+      searchUsers(newQuery, this.page, 5)
         .then((pagingResponse) => {
 
-          console.log('pagingResponse:', pagingResponse)
           pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
 
           this.page++
@@ -123,18 +106,12 @@
           throw error
         })
         .finally(() => {
-          console.log('DATA', this.data.length)
           this.isFetching = false
         })
     }
 
-    searchIconClick() {
-      alert('You wanna make a search?')
+    async gotoProfile(username: string) {
+      await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
-
-    clearIconClick() {
-      alert('Email cleared!')
-    }
-
   }
 </script>

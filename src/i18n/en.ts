@@ -47,6 +47,9 @@ const messages = {
     register: 'Register',
     login: 'Login',
     logout: 'Logout',
+    search: {
+      footer: 'No more result',
+    },
   },
 
   page: {
@@ -128,6 +131,9 @@ const messages = {
     profile: {
       updated: 'Your profile is updated successfully',
       updateFailed: 'Your profile could not be updated',
+    },
+    search: {
+      notAllowedToSearch: 'Just authenticated users are allowed to search. Please login...',
     },
   },
 

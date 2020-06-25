@@ -18,8 +18,8 @@
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
-  import { DefaultMeta, PageMeta, Routes } from '~/types';
-  import { getHead, getHeadByRouteType } from '~/service/seo-service';
+  import { Routes } from '~/types';
+  import { getHeadByRouteType } from '~/service/seo-service';
 
   @Component({
     components: { Lightbox }
