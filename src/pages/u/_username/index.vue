@@ -61,6 +61,10 @@
         }
       })
     }
+
+    updated() {
+      console.log('u profile is updated')
+    }
   }
 </script>
 
