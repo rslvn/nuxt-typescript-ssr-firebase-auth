@@ -133,6 +133,7 @@ const messages = {
     },
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
+      canNotExecuted: 'Arama yapilamiyor',
     },
   },
 

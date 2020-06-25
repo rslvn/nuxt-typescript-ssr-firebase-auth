@@ -134,6 +134,7 @@ const messages = {
     },
     search: {
       notAllowedToSearch: 'Just authenticated users are allowed to search. Please login...',
+      canNotExecuted: 'Can not search',
     },
   },
 

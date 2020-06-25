@@ -11,6 +11,7 @@
       @typing="getAsyncData"
       @select="(option) => gotoProfile(option.username)"
       @infinite-scroll="getMoreAsyncData"
+      @keyup.enter.native="enterPressed()"
       rounded
       clearable
       expanded>
@@ -27,10 +28,23 @@
           </div>
         </div>
       </template>
+
+      <!--      <template slot="empty">-->
+      <!--                    <span v-show="data.length === 0"-->
+      <!--                          class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>-->
+      <!--      </template>-->
+
+      <template slot="header">
+        <div>
+          <b-button type="is-text" icon-left="toy-brick-search-outline">Detailed Search</b-button>
+        </div>
+      </template>
+
       <template slot="footer">
         <span v-show="page > totalPages"
               class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>
       </template>
+
     </b-autocomplete>
   </b-field>
 </template>
@@ -42,7 +56,7 @@
   import { AuthUser, Routes, SearchData } from '~/types';
   import { loadMoreSearchResult } from '~/service/rx-service';
   import { getUserRoute } from '~/service/global-service';
-  import { showWarningToaster } from '~/service/notification-service';
+  import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
 
   @Component({
     components: {}
@@ -72,8 +86,7 @@
 
     searchByName(newQuery: string) {
       if (!this.authUser) {
-        showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
-        return
+        return showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
       }
       // String update
       if (this.query !== newQuery) {
@@ -96,18 +109,21 @@
       this.isFetching = true
       searchUsers(newQuery, this.page, 5)
         .then((pagingResponse) => {
-
-          pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
-
           this.page++
+          pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
           this.totalPages = pagingResponse.totalPage
         })
         .catch((error: Error) => {
-          throw error
+          return showErrorToaster(this.$t('notification.search.canNotExecuted'))
         })
         .finally(() => {
           this.isFetching = false
+          console.log('Size of data: ', this.data.length, 'page', this.page, 'totalPages', this.totalPages)
         })
+    }
+
+    enterPressed() {
+      alert('enterPressed')
     }
 
     async gotoProfile(username: string) {
