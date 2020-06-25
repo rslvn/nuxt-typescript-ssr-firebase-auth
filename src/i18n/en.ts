@@ -52,6 +52,21 @@ const messages = {
     },
   },
 
+  profile: {
+    card: {
+      info: {
+        title: 'Account Info',
+        verifyButton: 'Verify Email',
+        updatePasswordButton: 'Update Password',
+        mailVerified: 'Email is verified',
+        mailNotVerified: 'Email is not verified',
+      },
+      linkedAccounts: {
+        title: 'Linked Accounts',
+      },
+    },
+  },
+
   page: {
     home: {
       title: 'Welcome to Home',
@@ -98,21 +113,6 @@ const messages = {
       copyRight: '&copy; Copyright 2020, ',
     },
     notFound: 'Page not found',
-  },
-
-  profile: {
-    card: {
-      info: {
-        title: 'Account Info',
-        verifyButton: 'Verify Email',
-        updatePasswordButton: 'Update Password',
-        mailVerified: 'Email is verified',
-        mailNotVerified: 'Email is not verified',
-      },
-      linkedAccounts: {
-        title: 'Linked Accounts',
-      },
-    },
   },
 
   notification: {
