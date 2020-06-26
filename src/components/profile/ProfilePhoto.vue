@@ -9,7 +9,7 @@
                                 rules="size:2048"
                                 :label="$t('common.field.profilePhoto')"
                                 :parent-folder-ref="parentFolderRef"
-                                :upload-completed="updateProfilePhoto"
+                                :upload-completed="uploadCompleted"
                                 :get-alt-value="getProfilePhotoAltValue"/>
   </div>
 </template>
@@ -20,6 +20,7 @@
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
   import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue';
+  import { profilePhotoObservable } from '~/service/rx-service';
 
   @Component({
     components: { SingleValidatedImageUpload, BackgroundSquareImage }
@@ -30,7 +31,7 @@
     @Prop({ required: true }) authUser !: AuthUser
     @Prop({ required: true }) profilePhoto !: Image
 
-    @StateNamespace.auth.Action updateProfilePhoto !: (profilePhoto: Image) => void;
+    @StateNamespace.auth.Action updateProfilePhoto !: (profilePhoto: Image) => Promise<void>;
 
     get parentFolderRef() {
       return ProfilePhotoStorageRef.folderRef
@@ -61,6 +62,11 @@
           initialIndex: 20,
         }
       })
+    }
+
+    uploadCompleted(image: Image) {
+      this.updateProfilePhoto(image)
+        .then(() => profilePhotoObservable.next(image))
     }
 
   }

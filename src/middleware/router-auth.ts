@@ -3,7 +3,7 @@ import { AuthUser, QueryParameters, Routes } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed, getUserRoute, } from '~/service/global-service'
 
 const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {
-  console.log('routerAuthMiddleware', route.fullPath, route.query)
+  console.log('routerAuthMiddleware fullPath', route.fullPath)
   const authUser = store.state.auth?.authUser as AuthUser;
   if (authUser) {
     if (authenticatedNotAllowed(route)) {

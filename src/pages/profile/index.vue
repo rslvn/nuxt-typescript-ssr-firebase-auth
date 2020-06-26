@@ -6,7 +6,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import Profile from '~/components/profile/Profile.vue';
   import { AuthUser, Image, StateNamespace, User } from '~/types';
-  import { profilePhotoObservable, reloadUserFromDatabase } from '~/service/rx-service';
+  import { coverPhotoObservable, profilePhotoObservable, reloadUserFromDatabase } from '~/service/rx-service';
   import { getUser } from '~/service/firebase/firestore';
 
   @Component({
@@ -20,6 +20,12 @@
 
     created() {
       this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
+        if (this.user) {
+          this.user.profilePhoto = image;
+        }
+      })
+
+      this.$subscribeTo(coverPhotoObservable.asObservable(), (image: Image) => {
         if (this.user) {
           this.user.coverPhoto = image;
         }

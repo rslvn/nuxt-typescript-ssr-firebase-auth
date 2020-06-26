@@ -13,13 +13,23 @@
               <p><strong>{{ fullName }}</strong></p>
               <p><small>@{{ user.username }}</small></p>
               <p>
-                <b-tooltip :label="$t(`privacy.${userPrivacyConfig.privacyType}.description`)">
-                  <b-taglist attached>
-                    <b-tag :type="userPrivacyConfig.type">{{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}
-                    </b-tag>
-                    <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}</b-tag>
-                  </b-taglist>
-                </b-tooltip>
+                <b-taglist attached>
+                  <b-tag :type="userPrivacyConfig.type">
+                    <b-icon
+                      :icon="userPrivacyConfig.icon"
+                      size="is-small">
+                    </b-icon>
+                    {{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}
+                  </b-tag>
+                  <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}
+                    <b-tooltip :label="$t(`privacy.${userPrivacyConfig.privacyType}.description`)">
+                      <b-icon
+                        icon="information"
+                        size="is-small">
+                      </b-icon>
+                    </b-tooltip>
+                  </b-tag>
+                </b-taglist>
               </p>
             </div>
           </div>

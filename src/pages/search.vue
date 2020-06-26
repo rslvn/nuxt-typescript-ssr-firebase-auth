@@ -7,7 +7,6 @@
   import { Context } from '@nuxt/types';
   import { AuthUser, QueryParameters, Routes, StateNamespace } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
-  import { searchWithNewQuery } from '~/service/rx-service';
 
   @Component({
     components: {}
@@ -30,10 +29,9 @@
       }
     }
 
-    created() {
-      this.$subscribeTo(searchWithNewQuery.asObservable(), (query: string) => {
-        this.query = query
-      })
+    watchQuery(newQuery: any, oldQuery: any) {
+      this.query = newQuery[QueryParameters.QUERY];
     }
+
   }
 </script>

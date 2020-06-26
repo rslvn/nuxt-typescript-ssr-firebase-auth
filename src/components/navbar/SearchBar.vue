@@ -55,7 +55,7 @@
   import _debounce from 'debounce'
   import { searchUsers } from '~/service/firebase/firestore';
   import { AuthUser, Routes, SearchData } from '~/types';
-  import { loadMoreSearchResult, searchWithNewQuery } from '~/service/rx-service';
+  import { loadMoreSearchResult } from '~/service/rx-service';
   import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service';
   import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
 
@@ -125,12 +125,11 @@
 
     async enterPressed() {
       await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, this.query))
-      searchWithNewQuery.next(this.query)
       this.query = ''
     }
 
     async gotoProfile(username: string) {
-      await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+      await this.$router.replace(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
   }
 </script>
