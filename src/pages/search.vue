@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <PageTitle :title="$t('page.search.title')"></PageTitle>
+
     <div class="columns is-centered">
       <div class="column is-half">
         <b-field :label="$t('common.field.search')" label-position="on-border" position="is-centered" grouped>
@@ -19,58 +20,20 @@
       </div>
     </div>
 
-    <div v-if="hasResult" class="columns is-centered is-multiline">
+    <SearchConfig v-if="hasResult" :total="total" :per-page.sync="perPage"/>
 
+    <div v-if="hasResult" class="columns is-centered is-multiline">
       <div class="column is-full">
-        <hr>
-        <b-pagination
-          :total="total"
-          :current.sync="current"
-          :per-page="perPage"
-          :rounded="pagingConfig.rounded"
-          :simple="pagingConfig.simple"
-          :range-before="pagingConfig.rangeBefore"
-          :range-after="pagingConfig.rangeAfter"
-          :order="pagingConfig.order"
-          @change="onPageChange"
-        />
+        <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
       </div>
 
       <div class="column is-half">
-        <div v-for="(item, index) in list" :key="index" class="card has-cursor-pointer has-margin-bottom-25"
-             @click="gotoProfile(item.username)">
-          <div class="card-image has-height-300 crop-to-fit">
-            <img :src="item.coverPhoto.src" :alt="item.coverPhoto.alt">
-          </div>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <BackgroundSquareImage :image-url="item.profilePhoto.src" size="64" rounded="true" border-inside="true"
-                                       border="3"/>
-              </div>
-              <div class="media-content">
-                <p class="title is-4">{{item.name}}</p>
-                <p class="subtitle is-6">@{{item.username}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <SearchResultCard v-for="(item, index) in list" :key="index" :search-result="item"/>
       </div>
 
       <div class="column is-full">
         <hr>
-        <b-pagination
-          :total="total"
-          :current.sync="current"
-          :per-page="perPage"
-          :rounded="pagingConfig.rounded"
-          :simple="pagingConfig.simple"
-          :range-before="pagingConfig.rangeBefore"
-          :range-after="pagingConfig.rangeAfter"
-          :order="pagingConfig.order"
-          @change="onPageChange"
-        />
+        <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
       </div>
 
       <b-loading :is-full-page="false" :active.sync="isFetching" :can-cancel="false"></b-loading>
@@ -87,18 +50,19 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator';
+  import { Component, Vue, Watch } from 'nuxt-property-decorator';
   import { Context } from '@nuxt/types';
   import { AuthUser, QueryParameters, Routes, SearchData, StateNamespace } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
-  import { getUserRoute } from '~/service/global-service';
   import PageTitle from '~/components/ui/PageTitle.vue';
-  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
   import { sendWarningNotification, showErrorToaster } from '~/service/notification-service';
   import { searchUsers } from '~/service/firebase/firestore';
+  import SearchResultCard from '~/components/search/SearchResultCard.vue';
+  import SearchPaging from '~/components/search/SearchPaging.vue';
+  import SearchConfig from '~/components/search/SearchConfig.vue';
 
   @Component({
-    components: { BackgroundSquareImage, PageTitle }
+    components: { SearchConfig, SearchPaging, SearchResultCard, PageTitle }
   })
   export default class search extends Vue {
     pagingConfig = {
@@ -122,13 +86,18 @@
 
     @StateNamespace.auth.Getter authUser !: AuthUser;
 
+    @Watch('perPage')
+    onActiveChanged(value: number) {
+      this.resetSearch();
+    }
+
     head() {
       return getHeadByRouteType(Routes.SEARCH, this)
     }
 
     mounted() {
       if (this.query) {
-        this.searchByPage(1)
+        this.resetSearch()
       }
     }
 
@@ -148,8 +117,12 @@
       return !this.noResult
     }
 
-    watchQuery(newQuery: any, oldQuery: any) {
+    watchQuery(newQuery: any) {
       this.query = newQuery[QueryParameters.QUERY];
+      this.resetSearch()
+    }
+
+    resetSearch() {
       this.searchByPage(1)
     }
 
@@ -189,11 +162,7 @@
     }
 
     enterPressed() {
-      this.searchByPage(1)
-    }
-
-    async gotoProfile(username: string) {
-      await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+      this.resetSearch()
     }
 
   }

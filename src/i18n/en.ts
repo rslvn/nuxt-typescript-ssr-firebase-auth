@@ -116,6 +116,10 @@ const messages = {
       title: 'Search',
       description: 'A sample search page in nuxt and typescript',
       noResult: 'No result 🥺',
+      config: {
+        total: 'total',
+        perPage: 'per page',
+      },
     },
     footer: {
       copyRight: '&copy; Copyright 2020, ',
