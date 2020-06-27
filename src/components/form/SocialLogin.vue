@@ -38,15 +38,13 @@
     @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
 
     @StateNamespace.auth.Action signInWithSocialProvider !: (credentials: SocialLoginCredentials) => Promise<void>;
-    @StateNamespace.auth.Action reauthenticateWithSocialProvider !: (credentials: SocialLoginCredentials) => void;
+    @StateNamespace.auth.Action reauthenticateWithSocialProvider !: (credentials: SocialLoginCredentials) => Promise<void>;
+
+    @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
 
     get providerType() {
       return ProviderType
     }
-
-    // isProviderExist(providerType: ProviderType) {
-    //   return this.providers.find(value => value.providerType === providerType)
-    // }
 
     getLangProviderOption(providerType: ProviderType) {
       return getProviderOption(providerType)
@@ -59,11 +57,15 @@
       }
     }
 
-    submit(providerType: ProviderType) {
-      return this.reauthenticate ?
-        this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType)) :
-        this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
-          .then(() => reloadUserFromDatabase.next());
+    async submit(providerType: ProviderType) {
+      await this.saveLoading(true)
+        .then(async () => {
+          return this.reauthenticate ?
+            await this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType)) :
+            await this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
+              .then(async () => await reloadUserFromDatabase.next());
+        })
+        .finally(() => this.saveLoading(false))
     }
 
   }

@@ -34,12 +34,17 @@
 
     @StateNamespace.auth.Getter rememberMe !: boolean;
     @StateNamespace.auth.Action signUpWithEmail !: (credentials: RegistrationCredentials) => Promise<void>;
-    @StateNamespace.notification.Action clearNotificationMessage  !: () => void;
+    @StateNamespace.notification.Action clearNotificationMessage  !: () => Promise<void>;
+    @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
 
-    handleSignUpWithEmail(credentials: RegistrationCredentials) {
-      this.clearNotificationMessage();
-      this.signUpWithEmail(credentials)
-        .then(() => reloadUserFromDatabase.next());
+    async handleSignUpWithEmail(credentials: RegistrationCredentials) {
+      await this.saveLoading(true)
+        .then(async () => {
+          await this.clearNotificationMessage();
+          await this.signUpWithEmail(credentials)
+            .then(async () => await reloadUserFromDatabase.next());
+        })
+        .finally(() => this.saveLoading(false))
     }
 
     get providers() {

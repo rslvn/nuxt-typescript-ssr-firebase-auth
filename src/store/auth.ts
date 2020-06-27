@@ -10,7 +10,6 @@ import {
   Image,
   LoginCredentials,
   PrivacyType,
-  ProviderData,
   ProviderType,
   RegistrationCredentials,
   RootState,
@@ -26,7 +25,7 @@ import {
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { getProviderData, getProviderOption, refreshToken, updateProfile } from "~/service/firebase/firebase-service";
+import { getProviderOption, refreshToken, updateProfile } from "~/service/firebase/firebase-service";
 import { handleError } from "~/service/error-service";
 import { reauthenticateObservable } from '~/service/rx-service';
 import { getUser, saveUser } from '~/service/firebase/firestore';
@@ -54,36 +53,13 @@ export const mutations: MutationTree<AuthState> = {
     }
     state.authUser = authUser
   },
+
   forceLogout(state, forceLogout: boolean) {
     state.forceLogout = forceLogout
   },
+
   setRememberMe(state, rememberMe: boolean) {
     state.rememberMe = rememberMe
-  },
-  setVerified(state) {
-    if (state.authUser) {
-      state.authUser.verified = true
-    }
-  },
-  setName(state, name: string) {
-    if (state.authUser) {
-      state.authUser.name = name
-    }
-  },
-
-  addProvider(state, providerData: ProviderData) {
-    if (state.authUser && providerData) {
-      state.authUser.providers.push(providerData)
-    }
-  },
-  removeProvider(state, providerType: ProviderType) {
-    if (state.authUser) {
-      const index = state.authUser.providers.findIndex((providerData) => providerData.providerType === providerType)
-
-      if (index > -1) {
-        state.authUser.providers.splice(index, 1)
-      }
-    }
   },
 }
 
@@ -92,14 +68,6 @@ export const actions: ActionTree<AuthState, RootState> = {
   async saveRememberMe({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe);
-  },
-
-  async saveName({ dispatch, commit }, name: string) {
-    await auth.currentUser
-      ?.updateProfile({
-        displayName: name
-      })
-      .then(() => commit('setName', name))
   },
 
   async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
@@ -254,7 +222,9 @@ export const actions: ActionTree<AuthState, RootState> = {
   async handleVerifyEmail({ commit, dispatch }, actionCode: string) {
     return await auth.applyActionCode(actionCode)
       .then(async () => {
-        commit('setVerified')
+        await refreshToken()
+      })
+      .then(async () => {
         await sendNotification(dispatch, getSuccessNotificationMessage(this.$i18n.t('notification.mailVerified')))
       })
       .catch((error: Error) => handleError(dispatch, error))
@@ -292,13 +262,8 @@ export const actions: ActionTree<AuthState, RootState> = {
           id: userCredential.user?.uid as string,
           email: userCredential.user?.email as string
         })
-        return userCredential
-
-      }).then(async (userCredential) => {
-        let userInfo = userCredential.user?.providerData
-          ?.find((userInfo) => userInfo?.providerId == ProviderType.PASSWORD)
-        commit('addProvider', getProviderData(userInfo))
-
+      }).then(async () => {
+        await refreshToken();
       }).then(async () => {
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.PASSWORD)))
       })
@@ -308,13 +273,10 @@ export const actions: ActionTree<AuthState, RootState> = {
   async linkSocialProvider({ dispatch, commit }, providerType: ProviderType) {
     let authProvider = getAuthProvider(providerType);
     return auth.currentUser?.linkWithPopup(authProvider)
-      .then((userCredential) => {
-
-        let userInfo = userCredential.user?.providerData
-          ?.find((userInfo) => userInfo?.providerId == providerType)
-
-        commit('addProvider', getProviderData(userInfo))
-
+      .then(async () => {
+        await refreshToken()
+      })
+      .then(async () => {
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))
@@ -322,8 +284,9 @@ export const actions: ActionTree<AuthState, RootState> = {
 
   async unlinkProvider({ dispatch, commit }, providerType: ProviderType) {
     return auth.currentUser?.unlink(providerType)
-      .then(() => {
-        commit('removeProvider', providerType)
+      .then(async () => {
+        await refreshToken()
+      }).then(() => {
         showSuccessToaster(this.$i18n.t('notification.providerUnlinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))
