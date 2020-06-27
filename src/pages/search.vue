@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Title :title="$t('page.search.title')"></Title>
+    <PageTitle :title="$t('page.search.title')"></PageTitle>
     <div class="columns is-centered">
       <div class="column is-half">
         <b-field :label="$t('common.field.search')" label-position="on-border" position="is-centered" grouped>
@@ -75,13 +75,13 @@
   import { AuthUser, QueryParameters, Routes, SearchData, StateNamespace } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
   import { getUserRoute } from '~/service/global-service';
-  import Title from '~/components/ui/Title.vue';
+  import PageTitle from '~/components/ui/PageTitle.vue';
   import { searchUsers } from '~/service/firebase/firestore';
   import { showErrorToaster } from '~/service/notification-service';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: { BackgroundSquareImage, Title }
+    components: { BackgroundSquareImage, PageTitle }
   })
   export default class search extends Vue {
 

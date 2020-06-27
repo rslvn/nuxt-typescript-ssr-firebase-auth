@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="container">
-      <div class="columns has-margin-bottom-50">
-        <div class="column has-text-centered">
-          <h1 class="title">{{ $t('page.crop.title') }}</h1>
-        </div>
-      </div>
-    </div>
+    <PageTitle :title="$t('page.crop.title')"></PageTitle>
     <ProfilePhotoUpdater :image="image"/>
   </div>
 </template>
@@ -17,9 +11,10 @@
   import ProfilePhotoUpdater from '~/components/image/ProfilePhotoUpdater.vue';
   import { DefaultProfilePhoto, Routes } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
+  import PageTitle from '~/components/ui/PageTitle.vue';
 
   @Component({
-    components: { ProfilePhotoUpdater }
+    components: { PageTitle, ProfilePhotoUpdater }
   })
   export default class crop extends Vue {
 

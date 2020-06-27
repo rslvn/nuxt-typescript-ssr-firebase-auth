@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
+      <div class="columns">
+        <div class="column">
           <client-only>
             <ActionTopNavbar/>
           </client-only>

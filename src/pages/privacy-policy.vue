@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <div class="columns has-margin-bottom-50">
-      <div class="column has-text-centered">
-        <h1 class="title">{{ $t('page.privacyAndPolicy.title') }}</h1>
-      </div>
-    </div>
+    <PageTitle :title="$t('page.privacyAndPolicy.title')"/>
   </div>
 </template>
 
@@ -12,9 +8,10 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import { getHeadByRouteType } from "~/service/seo-service";
   import { Routes } from "~/types";
+  import PageTitle from '~/components/ui/PageTitle.vue';
 
   @Component({
-    components: {}
+    components: { PageTitle }
   })
   export default class privacyPolicy extends Vue {
     head() {

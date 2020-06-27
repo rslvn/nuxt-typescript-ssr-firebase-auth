@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="columns">
-      <div class="column has-text-centered is-paddingless is-marginless">
-        <h1 class="title">{{$t('page.lightbox.title')}}</h1>
-        <h2 class="subtitle has-margin-15">{{$t('page.lightbox.subtitle')}}</h2>
-      </div>
-    </div>
+    <PageTitle :title="$t('page.lightbox.title')" :subtitle="$t('page.lightbox.subtitle')"/>
     <div class="columns is-multiline is-gapless">
       <div v-for="(image,index) in images" :key="index"
            class="column is-one-quarter-desktop is-one-quarter-fullhd is-half-tablet is-full-mobile has-cursor-pointer"
@@ -20,9 +15,10 @@
   import Lightbox from '~/components/image/lightbox/Lightbox.vue';
   import { Routes } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
+  import PageTitle from '~/components/ui/PageTitle.vue';
 
   @Component({
-    components: { Lightbox }
+    components: { PageTitle, Lightbox }
   })
   export default class lightbox extends Vue {
 

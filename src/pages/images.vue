@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+
+    <PageTitle :title="$t('page.images.title')" :subtitle="$t('page.images.subtitle')"/>
+
     <div class="columns has-text-centered" v-for="(image,index) in images" :key="index">
 
       <div class="column">
@@ -37,9 +40,10 @@
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
   import { Routes } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
+  import PageTitle from '~/components/ui/PageTitle.vue';
 
   @Component({
-    components: { BackgroundSquareImage }
+    components: { PageTitle, BackgroundSquareImage }
   })
   export default class images extends Vue {
 
