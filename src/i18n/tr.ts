@@ -112,9 +112,13 @@ const messages = {
       title: 'Gizlilik Ve Prensipler',
     },
     search: {
-      title: 'Gizlilik Ve Prensipler',
+      title: 'Arama',
       description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilar arasinda arama yapmayi saglayan ornek bir sayfadir',
       noResult: 'Sonuc yok 🥺',
+      config: {
+        total: 'toplam',
+        perPage: 'sayfada',
+      },
     },
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',
