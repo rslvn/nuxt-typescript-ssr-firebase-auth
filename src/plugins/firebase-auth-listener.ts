@@ -35,9 +35,9 @@ const getNextRoute = (route: Route): Location => {
   return { path: route.fullPath }
 }
 
-const setRememberMe = (store: Store<any>, app: NuxtAppOptions) => {
+const setRememberMe = async (store: Store<any>, app: NuxtAppOptions) => {
   let rememberMe = app.$cookies.get(AppCookie.REMEMBER_ME);
-  store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
+  await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
 }
 
 const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
@@ -48,7 +48,6 @@ const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
     .then((idTokenResult) => {
       const authUser = getAuthUser(firebaseUser) as AuthUser
       if (authUser) {
-        console.log('idTokenResult.claims', idTokenResult.claims)
         authUser.username = idTokenResult.claims[FirebaseClaimKey.USERNAME]
         store.commit(StoreConfig.auth.setAuthUser, authUser)
       }

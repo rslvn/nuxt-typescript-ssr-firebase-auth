@@ -10,32 +10,34 @@ const messages = {
     field: {
       id: 'Kimlik',
       username: 'Kullanici Adi',
-      usernamePlaceHolder: 'kullanici adi giriniz',
+      usernamePlaceholder: 'kullanici adi giriniz',
       name: 'Ad',
-      namePlaceHolder: 'adinizi giriniz',
+      namePlaceholder: 'adinizi giriniz',
       surname: 'Soyad',
-      surnamePlaceHolder: 'Soyadinizi giriniz',
+      surnamePlaceholder: 'Soyadinizi giriniz',
       email: 'Email',
-      emailPlaceHolder: 'E-posta adresinizi giriniz',
+      emailPlaceholder: 'E-posta adresinizi giriniz',
       biography: 'Biyografi',
-      biographyPlaceHolder: 'Biyografinizi giriniz',
+      biographyPlaceholder: 'Biyografinizi giriniz',
       phone: 'Telefon',
       photo: 'Foto',
       password: 'Parola',
-      passwordPlaceHolder: 'Parolanizi giriniz',
+      passwordPlaceholder: 'Parolanizi giriniz',
       confirmPassword: 'Parola Tekrar',
-      confirmPasswordPlaceHolder: 'Parolanizi tekrar giriniz',
+      confirmPasswordPlaceholder: 'Parolanizi tekrar giriniz',
       rememberMe: 'Beni Hatirla',
       profilePhoto: 'Profil fotografi',
       coverPhoto: 'Kapak fotografi',
       privacy: 'Gizlilik',
-      search: 'Ara...',
+      search: 'Ara',
+      searchPlaceholder: 'ornegin: rslvn',
     },
     cancel: 'Iptal',
     save: 'Kaydet',
     delete: 'Sil',
     back: 'Geri',
     settings: 'Ayarlar',
+    search: 'Ara',
   },
 
   topNavbar: {
@@ -50,6 +52,7 @@ const messages = {
     logout: 'Cikis Yap',
     search: {
       footer: 'Baska sonuc yok',
+      detailedSearch: 'Detayli arama',
     },
   },
 
@@ -76,15 +79,15 @@ const messages = {
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar',
-      description: 'Nuxt ve typascript ile hazirlanmis, lightbox icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, lightbox icin ornek bir sayfadir',
     },
     crop: {
       title: 'Crop',
-      description: 'Nuxt ve typascript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
     },
     images: {
       title: 'Kare Gorseller',
-      description: 'Nuxt ve typascript ile hazirlanmis, kare/yuvarlak arkaplan resimler icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, kare/yuvarlak arkaplan resimler icin ornek bir sayfadir',
       original: 'Orjinal',
       roundedNoBorder: 'Cercevesiz Yuvarlak',
       squareNoBorder: 'Cercevesiz Kare',
@@ -93,11 +96,11 @@ const messages = {
     },
     register: {
       title: 'Kayit Ol',
-      description: 'Nuxt ve typascript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
     },
     login: {
       title: 'Giris Yap',
-      description: 'Nuxt ve typascript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
     },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.',
@@ -107,6 +110,11 @@ const messages = {
     },
     privacyAndPolicy: {
       title: 'Gizlilik Ve Prensipler',
+    },
+    search: {
+      title: 'Gizlilik Ve Prensipler',
+      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilar arasinda arama yapmayi saglayan ornek bir sayfadir',
+      noResult: 'Sonuc yok 🥺',
     },
     footer: {
       copyRight: '&copy; Telif Hakki 2020,',
@@ -133,6 +141,7 @@ const messages = {
     },
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
+      canNotExecuted: 'Arama yapilamiyor',
     },
   },
 
@@ -203,6 +212,7 @@ const messages = {
       },
     },
   },
+
   image: {
     crop: {
       preview: 'On Izleme',
@@ -211,6 +221,7 @@ const messages = {
       dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak',
     },
   },
+
   privacy: {
     private: {
       title: 'Gizli',

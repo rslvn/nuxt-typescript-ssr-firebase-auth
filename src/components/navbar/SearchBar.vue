@@ -1,16 +1,17 @@
 <template>
-  <b-field expanded>
+  <b-field label-position="on-border" expanded>
     <b-autocomplete
+      v-model="query"
       :data="data"
-      placeholder="e.g. rslvn"
+      :placeholder="$t('common.field.searchPlaceholder')"
       field="title"
       :loading="isFetching"
       :check-infinite-scroll="true"
       icon="magnify"
-      icon-right="toy-brick-search-outline"
       @typing="getAsyncData"
       @select="(option) => gotoProfile(option.username)"
       @infinite-scroll="getMoreAsyncData"
+      @keyup.enter.native="gotoSearchPage()"
       rounded
       clearable
       expanded>
@@ -27,10 +28,25 @@
           </div>
         </div>
       </template>
+
+      <!--      <template slot="empty">-->
+      <!--                    <span v-show="data.length === 0"-->
+      <!--                          class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>-->
+      <!--      </template>-->
+
+      <template slot="header">
+        <div>
+          <b-button type="is-text" icon-left="toy-brick-search-outline" @click="gotoSearchPage">
+            {{$t('topNavbar.search.detailedSearch')}}
+          </b-button>
+        </div>
+      </template>
+
       <template slot="footer">
         <span v-show="page > totalPages"
               class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>
       </template>
+
     </b-autocomplete>
   </b-field>
 </template>
@@ -41,8 +57,8 @@
   import { searchUsers } from '~/service/firebase/firestore';
   import { AuthUser, Routes, SearchData } from '~/types';
   import { loadMoreSearchResult } from '~/service/rx-service';
-  import { getUserRoute } from '~/service/global-service';
-  import { showWarningToaster } from '~/service/notification-service';
+  import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service';
+  import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
 
   @Component({
     components: {}
@@ -72,8 +88,7 @@
 
     searchByName(newQuery: string) {
       if (!this.authUser) {
-        showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
-        return
+        return showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
       }
       // String update
       if (this.query !== newQuery) {
@@ -96,18 +111,27 @@
       this.isFetching = true
       searchUsers(newQuery, this.page, 5)
         .then((pagingResponse) => {
-
-          pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
-
           this.page++
+          pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
           this.totalPages = pagingResponse.totalPage
         })
         .catch((error: Error) => {
-          throw error
+          console.log(error)
+          return showErrorToaster(this.$t('notification.search.canNotExecuted'))
         })
         .finally(() => {
           this.isFetching = false
+          console.log('Size of data: ', this.data.length, 'page', this.page, 'totalPages', this.totalPages)
         })
+    }
+
+    async gotoSearchPage() {
+      const query = this.query
+      this.query = ''
+      query ?
+        await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, query)) :
+        await this.$router.push(Routes.SEARCH)
+      console.log('gotoSearchPage', this.query)
     }
 
     async gotoProfile(username: string) {

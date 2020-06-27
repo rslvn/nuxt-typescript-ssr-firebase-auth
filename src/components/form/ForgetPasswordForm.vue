@@ -11,7 +11,7 @@
               <InputWithValidation
                 v-model="emailAddress"
                 :label="$t('common.field.email')"
-                :placeholder="$t('common.field.emailPlaceHolder')"
+                :placeholder="$t('common.field.emailPlaceholder')"
                 rules="required|email"
                 vid="email"
                 label-position="on-border"

@@ -72,6 +72,10 @@ footer {
   max-height: 500px !important;
 }
 
+.has-max-height-300 {
+  max-height: 300px !important;
+}
+
 .height-50vh {
   max-width: 100%;
   height: auto;

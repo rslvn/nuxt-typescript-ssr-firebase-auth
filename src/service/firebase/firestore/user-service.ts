@@ -72,7 +72,7 @@ export const searchUsers = async (value: any, page: number, limit: number): Prom
     return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0)
   })
 
-  const totalPage = filteredUsers.length / limit
+  const totalPage = Math.ceil(filteredUsers.length / limit)
   const limitedUsers = filteredUsers.splice((page * limit - limit), limit);
 
   return toSearchDataPagingResponse(totalPage, limitedUsers)
@@ -90,6 +90,7 @@ const toSearchData = (user: User): SearchData => {
   return {
     name: user.name as string,
     username: user.username as string,
-    profilePhoto: user.profilePhoto as Image
+    profilePhoto: user.profilePhoto as Image,
+    coverPhoto: user.coverPhoto as Image
   }
 }

@@ -92,8 +92,6 @@ export const searchModelByWhereClauses = async (collection: string,
     query.where(wc.field, wc.operator, wc.value)
   })
 
-  console.log('QUERY: ', query)
-
   return await query.get()
     .then((querySnapshot) => toBaseModelArray(querySnapshot))
 }

@@ -8,7 +8,7 @@ export enum FirebaseAuthAction {
 
 export enum FirebaseAuthActionParams {
   ACTION = 'mode',
-  ACTION_CODE = 'oobCode'
+  ACTION_CODE = 'oobCode',
 }
 
 export interface RegistrationCredentials {
@@ -148,17 +148,18 @@ export const PrivacyList: PrivacyConfig[] = [
 export interface SearchData {
   name: string,
   username: string,
-  profilePhoto: Image
+  profilePhoto: Image,
+  coverPhoto: Image
 }
 
 export interface PagingResponse<T> {
   totalPage: number,
   data: T[],
 }
+
 /**
  * firestore collection models
  */
-
 export enum FirebaseQueryOperator {
   LT = '<',
   LE = '<=',
@@ -175,7 +176,6 @@ export interface WhereClause {
   operator: FirebaseQueryOperator
   value: any
 }
-
 
 export enum collection {
   USER = 'user',

@@ -8,7 +8,7 @@
         <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
-          :placeholder="$t('common.field.emailPlaceHolder')"
+          :placeholder="$t('common.field.emailPlaceholder')"
           rules="required|email"
           vid="email"
           :disabled="!!email"
@@ -20,7 +20,7 @@
           v-model="credentials.password"
           input-type="password"
           :label="$t('common.field.password')"
-          :placeholder="$t('common.field.passwordPlaceHolder')"
+          :placeholder="$t('common.field.passwordPlaceholder')"
           rules="required"
           vid="password"
           label-position="on-border"

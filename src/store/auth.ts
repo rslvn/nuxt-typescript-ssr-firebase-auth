@@ -71,16 +71,6 @@ export const mutations: MutationTree<AuthState> = {
     }
   },
 
-  setProfilePhoto(state, profilePhoto: Image) {
-    if (state.authUser) {
-      state.authUser.profilePhoto = profilePhoto
-      let provider = state.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD)
-      if (provider) {
-        provider.photoURL = profilePhoto.src
-      }
-    }
-  },
-
   addProvider(state, providerData: ProviderData) {
     if (state.authUser && providerData) {
       state.authUser.providers.push(providerData)
@@ -178,7 +168,7 @@ export const actions: ActionTree<AuthState, RootState> = {
           profilePhoto
         })
       })
-      .then(() => commit('setProfilePhoto', profilePhoto))
+      .then(() => refreshToken())
       .catch((error: Error) => handleError(dispatch, error))
   },
 
