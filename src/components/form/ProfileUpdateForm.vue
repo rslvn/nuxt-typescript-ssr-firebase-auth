@@ -129,8 +129,7 @@
           if (!savedUser) {
             return
           }
-          await this.$router.push(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string)).catch(() => {
-          })
+          await this.$router.push(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string))
           await sendNotification(this.$store.dispatch, getSuccessNotificationMessage(this.$t('notification.profile.updated')))
         })
         .catch((error: Error) =>

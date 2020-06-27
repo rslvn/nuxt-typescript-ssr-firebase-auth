@@ -6,23 +6,36 @@
         <b-field :label="$t('common.field.search')" label-position="on-border" position="is-centered" grouped>
           <b-input
             v-model="query"
-            :current.sync="current"
             :loading="isFetching"
-            :range-before="2"
-            :range-after="2"
-            @keyup.enter.native="searchByPage"
             :placeholder="$t('common.field.searchPlaceholder')"
             type="search"
             icon="magnify"
-            rounded expanded>
-          </b-input>
-          <b-button @click="searchByPage()" :loading="isFetching" type="is-primary" rounded>{{$t('common.search')}}
+            @keyup.enter.native="enterPressed"
+            rounded expanded
+          />
+          <b-button @click="searchByPage(1)" :loading="isFetching" type="is-primary" rounded>{{$t('common.search')}}
           </b-button>
         </b-field>
       </div>
     </div>
 
     <div v-if="hasResult" class="columns is-centered is-multiline">
+
+      <div class="column is-full">
+        <hr>
+        <b-pagination
+          :total="total"
+          :current.sync="current"
+          :per-page="perPage"
+          :rounded="pagingConfig.rounded"
+          :simple="pagingConfig.simple"
+          :range-before="pagingConfig.rangeBefore"
+          :range-after="pagingConfig.rangeAfter"
+          :order="pagingConfig.order"
+          @change="onPageChange"
+        />
+      </div>
+
       <div class="column is-half">
         <div v-for="(item, index) in list" :key="index" class="card has-cursor-pointer has-margin-bottom-25"
              @click="gotoProfile(item.username)">
@@ -48,14 +61,18 @@
       <div class="column is-full">
         <hr>
         <b-pagination
-          :total="totalPages"
+          :total="total"
           :current.sync="current"
-          order="is-centered"
-          :rounded="true"
           :per-page="perPage"
+          :rounded="pagingConfig.rounded"
+          :simple="pagingConfig.simple"
+          :range-before="pagingConfig.rangeBefore"
+          :range-after="pagingConfig.rangeAfter"
+          :order="pagingConfig.order"
           @change="onPageChange"
         />
       </div>
+
       <b-loading :is-full-page="false" :active.sync="isFetching" :can-cancel="false"></b-loading>
     </div>
 
@@ -76,33 +93,42 @@
   import { getHeadByRouteType } from '~/service/seo-service';
   import { getUserRoute } from '~/service/global-service';
   import PageTitle from '~/components/ui/PageTitle.vue';
-  import { searchUsers } from '~/service/firebase/firestore';
-  import { showErrorToaster } from '~/service/notification-service';
   import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
+  import { sendWarningNotification, showErrorToaster } from '~/service/notification-service';
+  import { searchUsers } from '~/service/firebase/firestore';
 
   @Component({
     components: { BackgroundSquareImage, PageTitle }
   })
   export default class search extends Vue {
+    pagingConfig = {
+      rangeBefore: 1,
+      rangeAfter: 2,
+      simple: false,
+      rounded: true,
+      order: 'is-centered'
+    }
 
-    @StateNamespace.auth.Getter authUser !: AuthUser;
+    // paging dynamic config
+    total = 1
+    current = 1
+    perPage = 5
 
+    // search page data
     query = '';
     list: SearchData[] = []
     isFetching = false
     searched = false
-    page = 1
-    perPage = 5
-    current = this.perPage
-    totalPages = 1
+
+    @StateNamespace.auth.Getter authUser !: AuthUser;
 
     head() {
       return getHeadByRouteType(Routes.SEARCH, this)
     }
 
-    created() {
+    mounted() {
       if (this.query) {
-        this.searchByPage(this.page)
+        this.searchByPage(1)
       }
     }
 
@@ -124,7 +150,7 @@
 
     watchQuery(newQuery: any, oldQuery: any) {
       this.query = newQuery[QueryParameters.QUERY];
-      this.searchByPage(this.page)
+      this.searchByPage(1)
     }
 
     onPageChange(page: number) {
@@ -136,30 +162,34 @@
       this.isFetching = isSearching
     }
 
-    async searchByPage(page: number) {
+    searchByPage(page: number) {
+      if (!this.authUser) {
+        return sendWarningNotification(this.$store.dispatch, this.$t('notification.search.notAllowedToSearch'))
+      }
+
+      console.log('searchByPage', page)
       this.searching(true);
       if (!this.query) {
         this.list = []
-        this.searching(false);
-        return;
+        return this.searching(false);
       }
-      await searchUsers(this.query, page, this.perPage)
+      searchUsers(this.query, page, this.perPage)
         .then((pagingResponse) => {
+          this.total = pagingResponse.total
           this.list = []
           pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
-          this.page = page
-          this.totalPages = pagingResponse.totalPage
         })
         .catch((error: Error) => {
           console.log(error)
           return showErrorToaster(this.$t('notification.search.canNotExecuted'))
-        }).finally(() => {
+        })
+        .finally(() => {
           this.searching(false);
         })
     }
 
     enterPressed() {
-      this.searchByPage(this.page)
+      this.searchByPage(1)
     }
 
     async gotoProfile(username: string) {

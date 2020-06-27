@@ -50,7 +50,8 @@ export const getUsersByUsernameAndPage = async (
   let userPagingResponse = await getModelsByFieldAndPaging(collection.USER, fieldUsername, username, page, limit) as PagingResponse<User>
 
   return {
-    totalPage: userPagingResponse.totalPage,
+    total: userPagingResponse.total,
+    totalPages: userPagingResponse.totalPages,
     data: userPagingResponse.data.map(toSearchData)
   }
 }
@@ -71,17 +72,17 @@ export const searchUsers = async (value: any, page: number, limit: number): Prom
     // @ts-ignore
     return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0)
   })
-
-  const totalPage = Math.ceil(filteredUsers.length / limit)
+  const total = filteredUsers.length
+  const totalPages = Math.ceil(total / limit)
   const limitedUsers = filteredUsers.splice((page * limit - limit), limit);
 
-  return toSearchDataPagingResponse(totalPage, limitedUsers)
+  return toSearchDataPagingResponse(total, totalPages, limitedUsers)
 };
 
-
-const toSearchDataPagingResponse = (totalPage: number, limitedUsers: User[]): PagingResponse<SearchData> => {
+const toSearchDataPagingResponse = (total: number, totalPages: number, limitedUsers: User[]): PagingResponse<SearchData> => {
   return {
-    totalPage,
+    total,
+    totalPages,
     data: limitedUsers.map(toSearchData)
   }
 }

@@ -133,10 +133,13 @@ export const getModelsByFieldAndPaging = async (
         return a[field] > b[field] ? 1 : (b[field] > a[field] ? -1 : 0)
       })
 
+      const total = docs.length
+      const totalPages = Math.ceil(total / limit)
       const limitedDocs = docs.splice((page * limit - limit), limit);
 
       return {
-        totalPage: docs.length / limit,
+        total,
+        totalPages,
         data: limitedDocs
       }
     })
