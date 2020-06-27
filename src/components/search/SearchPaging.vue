@@ -1,15 +1,19 @@
 <template>
-  <b-pagination
-    :total="total"
-    :current.sync="syncCurrent"
-    :per-page="perPage"
-    :rounded="pagingConfig.rounded"
-    :simple="pagingConfig.simple"
-    :range-before="pagingConfig.rangeBefore"
-    :range-after="pagingConfig.rangeAfter"
-    :order="pagingConfig.order"
-    @change="onPageChange"
-  />
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <b-pagination
+        :total="total"
+        :current.sync="syncCurrent"
+        :per-page="perPage"
+        :rounded="pagingConfig.rounded"
+        :simple="pagingConfig.simple"
+        :range-before="pagingConfig.rangeBefore"
+        :range-after="pagingConfig.rangeAfter"
+        :order="pagingConfig.order"
+        @change="onPageChange"
+      />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,15 +1,17 @@
 <template>
   <div class="columns is-centered">
-    <div class="column">
+    <div class="column is-half">
       <b-field class="is-pulled-left">
         <b-taglist attached>
-          <b-tag type="is-primary" size="is-medium">{{$t('page.search.config.total')}}</b-tag>
-          <b-tag type="is-light" size="is-medium" class="has-background-grey-lighter">{{total}}</b-tag>
+          <b-tag type="is-primary">{{$t('page.search.config.total')}}</b-tag>
+          <b-tag type="is-light" class="has-background-grey-lighter">{{total}}</b-tag>
         </b-taglist>
       </b-field>
-      <b-field :label="$t('page.search.config.perPage')" label-position="on-border" class="is-pulled-right">
-        <b-select v-model="syncPerPage">
-          <option v-for="(pp,index) in perPageConfig" :key="index" :value="pp">{{pp}}</option>
+      <b-field :label="$t('page.search.config.perPage')" label-position="on-border" class="is-pulled-right"
+               custom-class="is-small">
+        <b-select v-model="syncPerPage" size="is-small">
+          <option v-for="(perPageValue,index) in perPageConfig" :key="index" :value="perPageValue">{{perPageValue}}
+          </option>
         </b-select>
       </b-field>
     </div>

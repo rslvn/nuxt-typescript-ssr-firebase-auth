@@ -20,9 +20,11 @@
       </div>
     </div>
 
-    <SearchConfig v-if="hasResult" :total="total" :per-page.sync="perPage"/>
-
     <div v-if="hasResult" class="columns is-centered is-multiline">
+      <div class="column is-full">
+        <SearchConfig :total="total" :per-page.sync="perPage"/>
+      </div>
+
       <div class="column is-full">
         <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
       </div>
@@ -32,7 +34,6 @@
       </div>
 
       <div class="column is-full">
-        <hr>
         <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
       </div>
 

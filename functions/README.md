@@ -33,7 +33,7 @@
     firebase deploy --only hosting
     
 ### deploy authApi
-    firebase deploy --only functions:authApi
+    firebase deploy --only functions:apiApp
     
 ### deploy sitemapApp
     firebase deploy --only functions:sitemapApp
