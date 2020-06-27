@@ -113,7 +113,7 @@
         .then((pagingResponse) => {
           this.page++
           pagingResponse.data.forEach((searchData: SearchData) => this.data.push(searchData))
-          this.totalPages = pagingResponse.totalPage
+          this.totalPages = pagingResponse.totalPages
         })
         .catch((error: Error) => {
           console.log(error)
@@ -121,7 +121,6 @@
         })
         .finally(() => {
           this.isFetching = false
-          console.log('Size of data: ', this.data.length, 'page', this.page, 'totalPages', this.totalPages)
         })
     }
 

@@ -153,7 +153,8 @@ export interface SearchData {
 }
 
 export interface PagingResponse<T> {
-  totalPage: number,
+  total: number
+  totalPages: number,
   data: T[],
 }
 
