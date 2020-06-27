@@ -1,18 +1,17 @@
 <template>
-  <b-field expanded>
+  <b-field label-position="on-border" expanded>
     <b-autocomplete
       v-model="query"
       :data="data"
-      placeholder="e.g. rslvn"
+      :placeholder="$t('common.field.searchPlaceholder')"
       field="title"
       :loading="isFetching"
       :check-infinite-scroll="true"
       icon="magnify"
-      icon-right="toy-brick-search-outline"
       @typing="getAsyncData"
       @select="(option) => gotoProfile(option.username)"
       @infinite-scroll="getMoreAsyncData"
-      @keyup.enter.native="enterPressed()"
+      @keyup.enter.native="gotoSearchPage()"
       rounded
       clearable
       expanded>
@@ -37,7 +36,9 @@
 
       <template slot="header">
         <div>
-          <b-button type="is-text" icon-left="toy-brick-search-outline">Detailed Search</b-button>
+          <b-button type="is-text" icon-left="toy-brick-search-outline" @click="gotoSearchPage">
+            {{$t('topNavbar.search.detailedSearch')}}
+          </b-button>
         </div>
       </template>
 
@@ -115,6 +116,7 @@
           this.totalPages = pagingResponse.totalPage
         })
         .catch((error: Error) => {
+          console.log(error)
           return showErrorToaster(this.$t('notification.search.canNotExecuted'))
         })
         .finally(() => {
@@ -123,13 +125,17 @@
         })
     }
 
-    async enterPressed() {
-      await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, this.query))
+    async gotoSearchPage() {
+      const query = this.query
       this.query = ''
+      query ?
+        await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, query)) :
+        await this.$router.push(Routes.SEARCH)
+      console.log('gotoSearchPage', this.query)
     }
 
     async gotoProfile(username: string) {
-      await this.$router.replace(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+      await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
   }
 </script>

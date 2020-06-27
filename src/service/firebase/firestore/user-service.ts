@@ -90,6 +90,7 @@ const toSearchData = (user: User): SearchData => {
   return {
     name: user.name as string,
     username: user.username as string,
-    profilePhoto: user.profilePhoto as Image
+    profilePhoto: user.profilePhoto as Image,
+    coverPhoto: user.coverPhoto as Image
   }
 }

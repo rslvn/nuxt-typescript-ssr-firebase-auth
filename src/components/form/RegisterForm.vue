@@ -8,7 +8,7 @@
         <InputWithValidation
           v-model="credentials.name"
           :label="$t('common.field.name')"
-          :placeholder="$t('common.field.namePlaceHolder')"
+          :placeholder="$t('common.field.namePlaceholder')"
           rules="required|min:4"
           vid="name"
           label-position="on-border"
@@ -18,7 +18,7 @@
         <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
-          :placeholder="$t('common.field.emailPlaceHolder')"
+          :placeholder="$t('common.field.emailPlaceholder')"
           input-type="email"
           rules="required|email"
           vid="email"
@@ -29,7 +29,7 @@
         <InputWithValidation
           v-model="credentials.password"
           :label="$t('common.field.password')"
-          :placeholder="$t('common.field.passwordPlaceHolder')"
+          :placeholder="$t('common.field.passwordPlaceholder')"
           input-type="password"
           rules="required|min:4|confirmed:confirmPassword"
           vid="password"
@@ -40,7 +40,7 @@
         <InputWithValidation
           v-model="confirmPassword"
           :label="$t('common.field.confirmPassword')"
-          :placeholder="$t('common.field.confirmPasswordPlaceHolder')"
+          :placeholder="$t('common.field.confirmPasswordPlaceholder')"
           input-type="password"
           rules="required"
           vid="confirmPassword"

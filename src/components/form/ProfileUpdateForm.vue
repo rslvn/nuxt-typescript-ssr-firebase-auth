@@ -31,7 +31,7 @@
         <InputWithValidation
           v-model="updatedUser.username"
           :label="$t('common.field.username')"
-          :placeholder="$t('common.field.usernamePlaceHolder')"
+          :placeholder="$t('common.field.usernamePlaceholder')"
           :rules="`required|min:4|max:64|username:${updatedUser.id}`"
           vid="username"
           label-position="on-border"
@@ -40,7 +40,7 @@
         <InputWithValidation
           v-model="updatedUser.name"
           :label="$t('common.field.name')"
-          :placeholder="$t('common.field.namePlaceHolder')"
+          :placeholder="$t('common.field.namePlaceholder')"
           rules="required|min:2|max:64"
           vid="name"
           label-position="on-border"
@@ -50,7 +50,7 @@
         <InputWithValidation
           v-model="updatedUser.surname"
           :label="$t('common.field.surname')"
-          :placeholder="$t('common.field.surnamePlaceHolder')"
+          :placeholder="$t('common.field.surnamePlaceholder')"
           rules="required|min:2|max:64"
           vid="surname"
           label-position="on-border"
@@ -61,7 +61,7 @@
           v-model="updatedUser.biography"
           inputType="textarea"
           :label="$t('common.field.biography')"
-          :placeholder="$t('common.field.biographyPlaceHolder')"
+          :placeholder="$t('common.field.biographyPlaceholder')"
           rules=""
           label-position="on-border"
           vid="biography"
@@ -129,7 +129,7 @@
           if (!savedUser) {
             return
           }
-          await this.$router.replace(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string)).catch(() => {
+          await this.$router.push(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string)).catch(() => {
           })
           await sendNotification(this.$store.dispatch, getSuccessNotificationMessage(this.$t('notification.profile.updated')))
         })
@@ -140,7 +140,7 @@
     }
 
     gotoProfile(username: string) {
-      this.$router.replace(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+      this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
 
   }

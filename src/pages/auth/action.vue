@@ -79,7 +79,7 @@
             .then((validActionCode) => {
               this.isLoading = false;
               if (validActionCode) {
-                this.$router.replace({
+                this.$router.push({
                   ...Routes.RESET_PASSWORD,
                   query: {
                     [RouteParameters.ACTION_CODE]: this.actionCode

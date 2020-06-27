@@ -148,7 +148,8 @@ export const PrivacyList: PrivacyConfig[] = [
 export interface SearchData {
   name: string,
   username: string,
-  profilePhoto: Image
+  profilePhoto: Image,
+  coverPhoto: Image
 }
 
 export interface PagingResponse<T> {
