@@ -1,7 +1,7 @@
 <template>
   <div class="container">
 
-    <PageTitle :title="$t('page.images.title')" :subtitle="$t('page.images.subtitle')"/>
+    <PageTitle :title="$t('page.images.title')"/>
 
     <div class="columns has-text-centered" v-for="(image,index) in images" :key="index">
 

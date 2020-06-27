@@ -221,7 +221,7 @@ const messages = {
       preview: 'Preview',
     },
     upload: {
-      dragAndDropButton: 'Drop your files here or click to upload',
+      dragAndDropButton: 'Drop your file here or click to upload',
     },
   },
 
