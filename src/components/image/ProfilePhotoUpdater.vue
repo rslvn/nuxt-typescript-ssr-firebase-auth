@@ -2,8 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column has-text-centered">
-        <b-upload v-model="file"
-                  drag-drop expanded>
+        <b-upload v-model="file" accept="image/*" drag-drop expanded>
           <section class="section">
             <div class="content has-text-centered">
               <p>
@@ -33,9 +32,9 @@
           <b-button>{{ $t('common.cancel')}}</b-button>
         </div>
       </div>
-    </div>
 
-    <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"></b-loading>
+      <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"/>
+    </div>
   </div>
 </template>
 
@@ -52,7 +51,7 @@
     @Prop({ required: false }) image !: Image
 
     isLoading = true
-    isFullPage = true
+    isFullPage = false
     file: File | null = null
     imageToCrop: Image | null = this.image || null
     previewSrc: string | null = null
