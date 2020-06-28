@@ -124,17 +124,17 @@ footer {
   z-index: 3 !important;
 }
 
-.is-overlay-bottom-1-left-1 {
-  position: absolute !important;
-  bottom: 1px !important;
-  left: 1px !important;
-  z-index: 3 !important;
-}
-
 .is-overlay-bottom-right {
   position: absolute !important;
   bottom: 5px !important;
   right: 5px !important;
+  z-index: 3 !important;
+}
+
+.follow-me {
+  position: absolute !important;
+  bottom: 30px !important;
+  right: 0 !important;
   z-index: 3 !important;
 }
 

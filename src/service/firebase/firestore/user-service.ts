@@ -1,5 +1,6 @@
 import {
   collection,
+  CollectionField,
   FirebaseQueryOperator,
   Image,
   PagingResponse,
@@ -14,12 +15,8 @@ import {
   getModelsByField,
   getModelsByFieldAndPaging,
   saveModel,
-  searchModelByWhereClauses
+  getModelsByWhereClauses
 } from '~/service/firebase/firestore/firestore-service'
-
-const fieldUsername = 'username';
-const fieldPrivacy = 'privacy';
-const fieldName = 'name';
 
 export const saveUser = async (user: User): Promise<User> => {
   return await saveModel(collection.USER, user)
@@ -32,13 +29,13 @@ export const getUser = async (id: string): Promise<User> => {
 export const getUserByUsername = async (
   username: string
 ): Promise<User | null> => {
-  return getModelByField(collection.USER, fieldUsername, username)
+  return getModelByField(collection.USER, CollectionField.USER.username, username)
 }
 
 export const getUsersByUsername = async (
   username: string
 ): Promise<User[]> => {
-  return getModelsByField(collection.USER, fieldUsername, username)
+  return getModelsByField(collection.USER, CollectionField.USER.username, username)
 }
 
 export const getUsersByUsernameAndPage = async (
@@ -47,7 +44,8 @@ export const getUsersByUsernameAndPage = async (
   limit: number
 ): Promise<PagingResponse<SearchData>> => {
 
-  let userPagingResponse = await getModelsByFieldAndPaging(collection.USER, fieldUsername, username, page, limit) as PagingResponse<User>
+  let userPagingResponse =
+    await getModelsByFieldAndPaging(collection.USER, CollectionField.USER.username, username, page, limit) as PagingResponse<User>
 
   return {
     total: userPagingResponse.total,
@@ -59,11 +57,11 @@ export const getUsersByUsernameAndPage = async (
 export const searchUsers = async (value: any, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
   const valueLower = value?.toLocaleString()
   const whereClause: WhereClause = {
-    field: fieldPrivacy,
+    field: CollectionField.USER.privacy,
     operator: FirebaseQueryOperator.EQ,
     value: PrivacyType.PUBLIC
   }
-  const users = await searchModelByWhereClauses(collection.USER, whereClause) as User[]
+  const users = await getModelsByWhereClauses(collection.USER, whereClause) as User[]
   const filteredUsers = users.filter(user => user.username?.toLowerCase().includes(valueLower)
     || user.name?.toLowerCase().includes(valueLower)
     || user.surname?.toLowerCase().includes(valueLower))

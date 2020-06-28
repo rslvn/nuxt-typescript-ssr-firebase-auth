@@ -4,11 +4,11 @@ import firebase from 'firebase';
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
 
-const toBaseModelArray = (querySnapshot: QuerySnapshot) => {
-  let docs: BaseModel[] = [];
+const toBaseModelArray = <T extends BaseModel>(querySnapshot: QuerySnapshot) => {
+  let docs: T[] = [];
 
   querySnapshot.forEach(function (doc) {
-    docs.push(doc.data())
+    docs.push(doc.data() as T)
   });
 
   return docs
@@ -67,6 +67,9 @@ export const saveModel = async (collection: string, model: BaseModel) => {
     add(collection, model)
 };
 
+export const deleteModel = async (collection: string, model: BaseModel) => {
+  return await firestore.collection(collection).doc(model.id).delete()
+}
 
 export const getCount = async (collection: string): Promise<number> => {
   return await firestore.collection(collection)
@@ -81,10 +84,10 @@ export const getModels = async (collection: string): Promise<BaseModel[]> => {
     .then((querySnapshot) => toBaseModelArray(querySnapshot))
 }
 
-export const searchModelByWhereClauses = async (collection: string,
-                                                whereClause: WhereClause,
-                                                ...whereClauses: WhereClause[])
-  : Promise<BaseModel[]> => {
+export const getModelsByWhereClauses = async <T extends BaseModel>(collection: string,
+                                                                   whereClause: WhereClause,
+                                                                   ...whereClauses: WhereClause[])
+  : Promise<T[]> => {
   const collectionReference = firestore.collection(collection);
 
   let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
@@ -103,7 +106,9 @@ export const getModelById = async (collection: string, id: string): Promise<Base
 }
 
 export const getModelByField = async (collection: string, field: string, value: any): Promise<BaseModel | null> => {
-  return await firestore.collection(collection).where(field, "==", value).get()
+  return await firestore.collection(collection)
+    .where(field, "==", value)
+    .get()
     .then((querySnapshot) => {
       return querySnapshot.size > 0 ? querySnapshot.docs[0].data() : null
     })

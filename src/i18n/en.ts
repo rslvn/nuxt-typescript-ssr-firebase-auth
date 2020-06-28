@@ -37,6 +37,8 @@ const messages = {
     back: 'Back',
     settings: 'Settings',
     search: 'Search',
+    follow: 'Follow',
+    unfollow: 'Unfollow',
   },
 
   topNavbar: {
@@ -128,6 +130,7 @@ const messages = {
   },
 
   notification: {
+    systemError: 'System is not available now, please try again later',
     verifyMailSent: 'Verification mail has been sent to {email}',
     verifyMailNotSent: 'Verification mail can not sent to {email}',
     mailVerified: 'Mail address verified!',
@@ -148,6 +151,11 @@ const messages = {
     search: {
       notAllowedToSearch: 'Just authenticated users are allowed to search. Please login...',
       canNotExecuted: 'Can not search',
+    },
+    follow: {
+      alreadyFollowing: 'You are already following to @{username}',
+      alreadyUnfollowing: 'You are already unfollowing to @{username}',
+      canNotLoadFollowing: 'Could not load following info',
     },
   },
 

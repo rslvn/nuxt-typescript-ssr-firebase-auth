@@ -7,7 +7,7 @@
 
     <ProfileShort class="is-overlay-bottom-left" :is-my-profile="isMyProfile" :auth-user="authUser" :user="user"/>
 
-    <ProfileFollow class="is-overlay-bottom-right"/>
+    <ProfileFollow class="is-overlay-bottom-right" :is-my-profile="isMyProfile" :auth-user="authUser" :user="user"/>
 
   </div>
 

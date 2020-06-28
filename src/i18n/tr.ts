@@ -38,6 +38,8 @@ const messages = {
     back: 'Geri',
     settings: 'Ayarlar',
     search: 'Ara',
+    follow: 'Takip Et',
+    unfollow: 'Takip Etme',
   },
 
   topNavbar: {
@@ -127,6 +129,7 @@ const messages = {
   },
 
   notification: {
+    systemError: 'Sistem su anda musait degil, sonra tekrar deneyiniz',
     verifyMailSent: 'Dogrulama maili {email} adresine gonderilmistir',
     verifyMailNotSent: 'Dogrulama maili {email} adresine gonderilemiyor',
     mailVerified: 'E-posta dogrulandi!',
@@ -147,6 +150,11 @@ const messages = {
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
       canNotExecuted: 'Arama yapilamiyor',
+    },
+    follow: {
+      alreadyFollowing: "@{username}'i zaten takip ediyorsunuz",
+      alreadyUnfollowing: "@{username}'i zaten takip etmiyorsunuz",
+      canNotLoadFollowing: 'Takip bilgisi guncellenemedi',
     },
   },
 
