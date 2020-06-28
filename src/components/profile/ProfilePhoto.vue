@@ -1,7 +1,7 @@
 <template>
   <div class="is-overlay-hover">
     <div class="has-cursor-pointer" @click="showLightbox">
-      <BackgroundSquareImage :image-url="profilePhoto.src" size="150" rounded="true" border-inside="true" border="3"/>
+      <BackgroundSquareImage :image-url="profilePhoto.src" size="100" rounded="true" border-inside="true" border="3"/>
     </div>
 
     <SingleValidatedImageUpload v-if="isMyProfile"

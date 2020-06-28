@@ -142,6 +142,7 @@ const messages = {
     profile: {
       updated: 'Profiliniz basari ile guncellendi',
       updateFailed: 'Profiliniz guncellenemedi',
+      canNotLoad: 'Profiliniz yuklenemiyor',
     },
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',

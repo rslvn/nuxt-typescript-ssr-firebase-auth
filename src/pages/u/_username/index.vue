@@ -9,6 +9,7 @@
   import { coverPhotoObservable, profilePhotoObservable } from '~/service/rx-service';
   import { getUserByUsername } from '~/service/firebase/firestore';
   import { Context } from '@nuxt/types';
+  import { sendDangerNotification } from '~/service/notification-service';
 
   @Component({
     components: { Profile },
@@ -20,16 +21,8 @@
 
     @StateNamespace.auth.Getter authUser !: AuthUser;
 
-    async asyncData({ params, error, route, app, store }: Context) {
+    async asyncData({ params }: Context) {
       const username = params[RouteParameters.USERNAME]
-      if (!username) {
-        error({
-          message: app.i18n.t('page.notFound') as string,
-          path: route.fullPath,
-          statusCode: 404
-        })
-        return
-      }
 
       return {
         username
@@ -51,13 +44,18 @@
         }
       })
 
-      if (this.username) {
-        getUserByUsername(this.username).then((user) => this.user = user)
+      if (!this.username) {
+        return this.$nuxt.error({
+          message: this.$t('page.notFound') as string,
+          path: this.$route.fullPath,
+          statusCode: 404
+        })
       }
 
       const user = await getUserByUsername(this.username)
+        .catch((error) => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad'))) as User
       if (!user) {
-        this.$nuxt.error({
+        return this.$nuxt.error({
           message: this.$t('page.notFound') as string,
           path: this.$route.fullPath,
           statusCode: 404
@@ -73,6 +71,7 @@
           statusCode: 404
         })
       }
+      this.user = user
     }
   }
 </script>
