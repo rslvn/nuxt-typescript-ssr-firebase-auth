@@ -7,24 +7,26 @@
       :type="buttonType"
       :icon-left="icon"
       size="is-small"
-      @click="followCalled">
+      @click="followCalled" :expanded="!isMobile">
       {{ buttonText }}
     </b-button>
 
     <b-field grouped>
+
       <div class="control">
         <b-taglist attached>
-          <b-tag>{{$t('profile.follow.followers')}}</b-tag>
-          <b-tag type="is-primary">{{followerCount}}</b-tag>
+          <a class="tag" @click="showFollowers">{{$t('profile.follow.followers')}}</a>
+          <a class="tag is-primary" @click="showFollowers">{{followerCount}}</a>
         </b-taglist>
       </div>
 
       <div class="control">
         <b-taglist attached>
-          <b-tag>{{$t('profile.follow.following')}}</b-tag>
-          <b-tag type="is-primary">{{followingCount}}</b-tag>
+          <a class="tag" @click="showFollowings">{{$t('profile.follow.following')}}</a>
+          <a class="tag is-primary" @click="showFollowings">{{followingCount}}</a>
         </b-taglist>
       </div>
+
     </b-field>
 
   </div>
@@ -32,7 +34,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, Following, User } from '~/types';
+  import { AuthUser, User } from '~/types';
   import {
     deleteFollowing,
     getCountOfFollowers,
@@ -56,33 +58,46 @@
     followerCount = 0
     followingCount = 0
 
+    width = 768;
+
     async mounted() {
       await Promise.resolve()
         .then(async () => {
+
+          if (!this.isMyProfile) {
+            await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
+              .then((existingFollowing) => this.following = !!existingFollowing)
+          }
+
           const [
-            existingFollowing,
             followerCount,
             followingCount
-          ]: [(Following | null), number, number] = await Promise.all([
-            getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string),
+          ]: [number, number] = await Promise.all([
             getCountOfFollowers(this.user),
             getCountOfFollowing(this.user)
           ])
-            .finally(() => this.loading = false) as [(Following | null), number, number]
+            .finally(() => this.loading = false) as [number, number]
 
-          console.log('existingFollowing', existingFollowing, 'user', this.user.id, 'authUser', this.authUser.userId)
-
-          this.following = !!existingFollowing
           this.followerCount = followerCount
           this.followingCount = followingCount
 
         })
         .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.follow.canNotLoadFollowing')))
 
+      this.width = window.innerWidth
+      window.addEventListener('resize', this.handleResize);
+    }
+
+    handleResize() {
+      this.width = window.innerWidth
+    }
+
+    get isMobile() {
+      return this.width < 768
     }
 
     get icon() {
-      return this.following ? 'account-check-outline' : 'account-check'
+      return this.following ? 'account-remove-outline' : 'account-star'
     }
 
     get buttonText() {
@@ -135,6 +150,13 @@
           .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
     }
 
+    showFollowers() {
+      console.log('showFollowers clicked')
+    }
+
+    showFollowings() {
+      console.log('showFollowings clicked')
+    }
 
   }
 </script>
