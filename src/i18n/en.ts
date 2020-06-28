@@ -143,6 +143,7 @@ const messages = {
     profile: {
       updated: 'Your profile is updated successfully',
       updateFailed: 'Your profile could not be updated',
+      canNotLoad: 'Profile can not load',
     },
     search: {
       notAllowedToSearch: 'Just authenticated users are allowed to search. Please login...',

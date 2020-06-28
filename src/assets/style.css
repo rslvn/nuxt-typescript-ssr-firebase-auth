@@ -110,6 +110,34 @@ footer {
   z-index: 3 !important;
 }
 
+.is-overlay-top-right {
+  position: absolute !important;
+  top: 5px !important;
+  right: 5px !important;
+  z-index: 3 !important;
+}
+
+.is-overlay-bottom-left {
+  position: absolute !important;
+  bottom: 5px !important;
+  left: 5px !important;
+  z-index: 3 !important;
+}
+
+.is-overlay-bottom-1-left-1 {
+  position: absolute !important;
+  bottom: 1px !important;
+  left: 1px !important;
+  z-index: 3 !important;
+}
+
+.is-overlay-bottom-right {
+  position: absolute !important;
+  bottom: 5px !important;
+  right: 5px !important;
+  z-index: 3 !important;
+}
+
 .is-overlay-hover:hover .is-disabled-till-hover {
   display: block;
 }

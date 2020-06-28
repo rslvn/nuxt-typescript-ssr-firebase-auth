@@ -8,6 +8,7 @@
   import { AuthUser, Image, StateNamespace, User } from '~/types';
   import { coverPhotoObservable, profilePhotoObservable, reloadUserFromDatabase } from '~/service/rx-service';
   import { getUser } from '~/service/firebase/firestore';
+  import { sendDangerNotification } from '~/service/notification-service';
 
   @Component({
     components: { Profile },
@@ -42,8 +43,9 @@
     loadUser() {
       getUser(this.authUser.userId)
         .then((user: User) => {
-          this.user = user;
+          this.user = user
         })
+        .catch((error) => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
     }
   }
 </script>
