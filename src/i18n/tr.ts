@@ -71,6 +71,10 @@ const messages = {
         title: 'Bagli Hesaplar',
       },
     },
+    follow: {
+      followers: 'takipci',
+      following: 'takipte',
+    },
   },
 
   page: {
@@ -244,7 +248,7 @@ const messages = {
     public: {
       title: 'Herkese Acik',
       subtitle: 'Herkes gorebilir',
-      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgilerinize gorebilir. ornegin isim, kullanici adi, profil ve kapak fotografi',
+      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
     },
     notSelected: 'Gizliligi belirle',
   },

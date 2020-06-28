@@ -70,6 +70,10 @@ const messages = {
         title: 'Linked Accounts',
       },
     },
+    follow: {
+      followers: 'followers',
+      following: 'following',
+    },
   },
 
   page: {

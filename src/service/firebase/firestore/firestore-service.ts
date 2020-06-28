@@ -14,6 +14,18 @@ const toBaseModelArray = <T extends BaseModel>(querySnapshot: QuerySnapshot) => 
   return docs
 }
 
+const getQueryByWhereClauses = (collection: string,
+                                whereClause: WhereClause,
+                                ...whereClauses: WhereClause[]) => {
+  const collectionReference = firestore.collection(collection)
+
+  let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
+  whereClauses.forEach(wc => {
+    query.where(wc.field, wc.operator, wc.value)
+  })
+  return query
+}
+
 const updateBaseModel = (model: BaseModel) => {
   let date = new Date()
   if (!model.createdAt) {
@@ -79,6 +91,17 @@ export const getCount = async (collection: string): Promise<number> => {
     })
 };
 
+export const getCountByWhereClauses = async (collection: string,
+                                             whereClause: WhereClause,
+                                             ...whereClauses: WhereClause[]): Promise<number> => {
+  const query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+
+  return await query.get()
+    .then((querySnapshot) => {
+      return querySnapshot.size
+    })
+};
+
 export const getModels = async (collection: string): Promise<BaseModel[]> => {
   return await firestore.collection(collection).get()
     .then((querySnapshot) => toBaseModelArray(querySnapshot))
@@ -88,12 +111,8 @@ export const getModelsByWhereClauses = async <T extends BaseModel>(collection: s
                                                                    whereClause: WhereClause,
                                                                    ...whereClauses: WhereClause[])
   : Promise<T[]> => {
-  const collectionReference = firestore.collection(collection);
 
-  let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
-  whereClauses.forEach(wc => {
-    query.where(wc.field, wc.operator, wc.value)
-  })
+  const query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
 
   return await query.get()
     .then((querySnapshot) => toBaseModelArray(querySnapshot))

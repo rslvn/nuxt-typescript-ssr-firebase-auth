@@ -1,5 +1,10 @@
-import { collection, CollectionField, FirebaseQueryOperator, Following, WhereClause } from '~/types';
-import { deleteModel, getModelsByWhereClauses, saveModel } from '~/service/firebase/firestore/firestore-service';
+import { collection, CollectionField, FirebaseQueryOperator, Following, User, WhereClause } from '~/types';
+import {
+  deleteModel,
+  getCountByWhereClauses,
+  getModelsByWhereClauses,
+  saveModel
+} from '~/service/firebase/firestore/firestore-service';
 
 
 export const saveFollowing = async (following: Following): Promise<Following> => {
@@ -10,7 +15,7 @@ export const deleteFollowing = async (following: Following) => {
   return await deleteModel(collection.FOLLOWING, following)
 }
 
-export const getFollowingByFollowingAndFollower = async (follower: string, following: string) => {
+export const getFollowingByFollowerAndFollowing = async (follower: string, following: string) => {
   const wcFollower: WhereClause = {
     field: CollectionField.FOLLOWING.follower,
     operator: FirebaseQueryOperator.EQ,
@@ -23,5 +28,25 @@ export const getFollowingByFollowingAndFollower = async (follower: string, follo
   }
   const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, wcFollower, wcFollowing)
 
-  return followingList.length > 0 ? followingList[0] : null
+  return followingList.find((fllwng) => fllwng.following === following && fllwng.follower === follower)
+}
+
+export const getCountOfFollowers = (user: User) => {
+  const whereClause: WhereClause = {
+    field: CollectionField.FOLLOWING.following,
+    operator: FirebaseQueryOperator.EQ,
+    value: user.id
+  }
+
+  return getCountByWhereClauses(collection.FOLLOWING, whereClause)
+}
+
+export const getCountOfFollowing = (user: User) => {
+  const whereClause: WhereClause = {
+    field: CollectionField.FOLLOWING.follower,
+    operator: FirebaseQueryOperator.EQ,
+    value: user.id
+  }
+
+  return getCountByWhereClauses(collection.FOLLOWING, whereClause)
 }
