@@ -17,11 +17,11 @@
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
   import { AuthUser, User } from '~/types';
   import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue';
-  import ProfilePhoto from '~/components/profile/ProfilePhoto.vue';
-  import ProfilePrivacy from '~/components/profile/ProfilePrivacy.vue';
-  import ProfileFollow from '~/components/profile/ProfileFollow.vue';
-  import ProfileShort from '~/components/profile/ProfileShort.vue';
-  import CoverPhoto from '~/components/profile/CoverPhoto.vue';
+  import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue';
+  import ProfilePrivacy from '~/components/profile/header/ProfilePrivacy.vue';
+  import ProfileFollow from '~/components/profile/header/ProfileFollow.vue';
+  import ProfileShort from '~/components/profile/header/ProfileShort.vue';
+  import CoverPhoto from '~/components/profile/header/CoverPhoto.vue';
 
   @Component({
     components: { CoverPhoto, ProfileShort, ProfileFollow, ProfilePrivacy, ProfilePhoto, SingleValidatedImageUpload }

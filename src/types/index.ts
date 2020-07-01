@@ -47,3 +47,11 @@ export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax', path: '/
 export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none', path: '/' }
 
 export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true, path: '/' }
+
+
+export interface ModuleConfig {
+  name: string
+  icon: string
+  component: any
+  private: boolean
+}

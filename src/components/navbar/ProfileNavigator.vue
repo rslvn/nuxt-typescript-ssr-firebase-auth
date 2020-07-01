@@ -20,13 +20,6 @@
 
     <hr class="dropdown-divider">
 
-    <b-navbar-item tag="router-link" :to="profileSettingsRoute">
-      <b-icon icon="account-edit" class="has-margin-right-5"/>
-      <p>{{$t('common.settings')}}</p>
-    </b-navbar-item>
-
-    <hr class="dropdown-divider">
-
     <b-navbar-item @click="logout">
       <b-icon icon="logout" class="has-margin-right-5"/>
       <p>{{$t('topNavbar.logout')}}</p>
@@ -59,10 +52,6 @@
 
     get dynamicProfileRoute() {
       return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
-    }
-
-    get profileSettingsRoute() {
-      return getUserRoute(Routes.PROFILE_SETTINGS, this.authUser.username)
     }
 
   }

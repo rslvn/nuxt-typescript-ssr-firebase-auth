@@ -1,7 +1,8 @@
 <template>
-  <div class="columns is-multiline">
-    <div class="column is-half-tablet is-one-quarter-desktop" v-for="(providerLink, key) in allProviders" :key="key">
-      <ProviderCard :provider-config="providerLink.providerConfig"
+  <div class="columns is-multiline is-centered">
+    <div class="column is-half">
+      <ProviderCard v-for="(providerLink, key) in allProviders" :key="key"
+                    :provider-config="providerLink.providerConfig"
                     :provider-data="providerLink.providerData"
                     :is-linked="providerLink.linked"
                     :link-function="providerLink.method"
@@ -30,7 +31,7 @@
   @Component({
     components: { ProviderCard }
   })
-  export default class ProviderList extends Vue {
+  export default class LinkedAccounts extends Vue {
 
     @Prop({ type: Object, required: true }) authUser !: AuthUser;
 

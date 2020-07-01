@@ -11,9 +11,9 @@
     </div>
     <div class="container ">
       <div class="columns">
-        <div class="column">
-          <nuxt
-            class="has-margin-left-5-mobile has-margin-right-5-mobile has-margin-left-5-tablet has-margin-right-5-tablet"/>
+        <div
+          class="column has-margin-left-5-mobile has-margin-right-5-mobile has-margin-left-5-tablet has-margin-right-5-tablet">
+          <nuxt/>
         </div>
       </div>
     </div>

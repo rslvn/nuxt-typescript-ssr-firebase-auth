@@ -60,14 +60,10 @@ const messages = {
   profile: {
     card: {
       info: {
-        title: 'Account Info',
         verifyButton: 'Verify Email',
         updatePasswordButton: 'Update Password',
         mailVerified: 'Email is verified',
         mailNotVerified: 'Email is not verified',
-      },
-      linkedAccounts: {
-        title: 'Linked Accounts',
       },
     },
     follow: {
@@ -254,6 +250,12 @@ const messages = {
       description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo',
     },
     notSelected: 'Select visibility',
+  },
+
+  module: {
+    ProfileAboutMe: 'About Me',
+    LinkedAccounts: 'Linked Accounts',
+    ProfileSettings: 'Settings',
   },
 }
 

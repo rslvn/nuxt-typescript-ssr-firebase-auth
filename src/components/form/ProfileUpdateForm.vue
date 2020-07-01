@@ -1,107 +1,95 @@
 <template>
-  <div>
-    <h3 class="title has-text-centered has-text-dark">{{ $t('form.profileUpdate.title')}}</h3>
-    <div class="box">
+  <div class="box">
 
-      <ValidationObserver v-slot="{ passes }" tag="form">
+    <ValidationObserver v-slot="{ passes }" tag="form">
 
-        <FieldWithValue
-          :value="updatedUser.id"
-          :label="$t('common.field.id')"
-          :disabled="true"
-          label-position="on-border"
-          class="has-margin-bottom-15"
-        />
+      <FieldWithValue
+        :value="updatedUser.id"
+        :label="$t('common.field.id')"
+        :disabled="true"
+        label-position="on-border"
+        class="has-margin-bottom-15"
+      />
 
-        <FieldWithValue
-          :value="updatedUser.email"
-          :label="$t('common.field.email')"
-          :disabled="true"
-          label-position="on-border"
-          class="has-margin-bottom-15"
-        />
+      <FieldWithValue
+        :value="updatedUser.email"
+        :label="$t('common.field.email')"
+        :disabled="true"
+        label-position="on-border"
+        class="has-margin-bottom-15"
+      />
 
-        <PrivacyDropdown v-model="updatedUser.privacy"
-                         :label="$t('common.field.privacy')"
-                         rules="required"
-                         label-position="on-border"
-                         vid="privacy"
-                         class="has-margin-5"/>
+      <PrivacyDropdown v-model="updatedUser.privacy"
+                       :label="$t('common.field.privacy')"
+                       rules="required"
+                       label-position="on-border"
+                       vid="privacy"
+                       class="has-margin-5"/>
 
-        <InputWithValidation
-          v-model="updatedUser.username"
-          :label="$t('common.field.username')"
-          :placeholder="$t('common.field.usernamePlaceholder')"
-          :rules="`required|min:4|max:64|username:${updatedUser.id}`"
-          vid="username"
-          label-position="on-border"
-        />
+      <InputWithValidation
+        v-model="updatedUser.username"
+        :label="$t('common.field.username')"
+        :placeholder="$t('common.field.usernamePlaceholder')"
+        :rules="`required|min:4|max:64|username:${updatedUser.id}`"
+        vid="username"
+        label-position="on-border"
+      />
 
-        <InputWithValidation
-          v-model="updatedUser.name"
-          :label="$t('common.field.name')"
-          :placeholder="$t('common.field.namePlaceholder')"
-          rules="required|min:2|max:64"
-          vid="name"
-          label-position="on-border"
-          class="has-margin-5"
-        />
+      <InputWithValidation
+        v-model="updatedUser.name"
+        :label="$t('common.field.name')"
+        :placeholder="$t('common.field.namePlaceholder')"
+        rules="required|min:2|max:64"
+        vid="name"
+        label-position="on-border"
+        class="has-margin-5"
+      />
 
-        <InputWithValidation
-          v-model="updatedUser.surname"
-          :label="$t('common.field.surname')"
-          :placeholder="$t('common.field.surnamePlaceholder')"
-          rules="required|min:2|max:64"
-          vid="surname"
-          label-position="on-border"
-          class="has-margin-5"
-        />
+      <InputWithValidation
+        v-model="updatedUser.surname"
+        :label="$t('common.field.surname')"
+        :placeholder="$t('common.field.surnamePlaceholder')"
+        rules="required|min:2|max:64"
+        vid="surname"
+        label-position="on-border"
+        class="has-margin-5"
+      />
 
-        <InputWithValidation
-          v-model="updatedUser.biography"
-          inputType="textarea"
-          :label="$t('common.field.biography')"
-          :placeholder="$t('common.field.biographyPlaceholder')"
-          rules=""
-          label-position="on-border"
-          vid="biography"
-          class="has-margin-5"
-        />
+      <InputWithValidation
+        v-model="updatedUser.biography"
+        inputType="textarea"
+        :label="$t('common.field.biography')"
+        :placeholder="$t('common.field.biographyPlaceholder')"
+        rules=""
+        label-position="on-border"
+        vid="biography"
+        class="has-margin-5"
+      />
 
-        <div class="buttons">
-          <b-button type="is-primary" icon-pack="fas"
-                    icon-left="user-edit"
-                    @click="passes(submit)">
-            {{ $t('form.profileUpdate.submit')}}
-          </b-button>
+      <div class="buttons">
+        <b-button type="is-primary" icon-pack="fas"
+                  icon-left="user-edit"
+                  @click="passes(submit)">
+          {{ $t('form.profileUpdate.submit')}}
+        </b-button>
+      </div>
 
-          <b-button type="is-primary" icon-pack="fas"
-                    icon-left="arrow-left"
-                    @click="gotoProfile(user.username)" outlined>
-            {{ $t('common.back')}}
-          </b-button>
-        </div>
-
-      </ValidationObserver>
-    </div>
+    </ValidationObserver>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
-  import { Routes, StateNamespace, User } from '~/types';
+  import { StateNamespace, User } from '~/types';
   import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
   import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
   import FieldWithValue from '~/components/ui/FieldWithValue.vue';
-  import { getUserRoute, slugify } from '~/service/global-service';
-  import {
-    getDangerNotificationMessage,
-    getSuccessNotificationMessage,
-    sendNotification
-  } from '~/service/notification-service';
+  import { slugify } from '~/service/global-service';
+  import { getDangerNotificationMessage, showSuccessToaster } from '~/service/notification-service';
   import { handleError } from '~/service/error-service';
   import PrivacyDropdown from '~/components/ui/dropdown/PrivacyDropdown.vue';
+  import { reloadUserFromDatabase } from '~/service/rx-service';
 
   @Component({
     components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
@@ -116,7 +104,6 @@
 
     @Watch('updatedUser.username', { deep: true })
     onUsernameChange(username: string, oldUsername: string) {
-      console.log('onUsernameChange username', username, 'oldUsername', oldUsername)
       this.updatedUser.username = slugify(username)
     }
 
@@ -129,17 +116,13 @@
           if (!savedUser) {
             return
           }
-          await this.$router.push(getUserRoute(Routes.PROFILE_SETTINGS, savedUser.username as string))
-          await sendNotification(this.$store.dispatch, getSuccessNotificationMessage(this.$t('notification.profile.updated')))
+          reloadUserFromDatabase.next()
+          showSuccessToaster(this.$t('notification.profile.updated'))
         })
         .catch((error: Error) =>
           handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
         )
-        .then(() => this.saveLoading(false))
-    }
-
-    gotoProfile(username: string) {
-      this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+        .finally(() => this.saveLoading(false))
     }
 
   }

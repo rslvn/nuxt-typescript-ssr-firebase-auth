@@ -61,14 +61,10 @@ const messages = {
   profile: {
     card: {
       info: {
-        title: 'Hesap Bilgileri',
         verifyButton: 'E-posta Dogrula',
         updatePasswordButton: 'Parolayi guncelle',
         mailVerified: 'E-posta dogrulandi',
         mailNotVerified: 'E-posta dogrulanmadi',
-      },
-      linkedAccounts: {
-        title: 'Bagli Hesaplar',
       },
     },
     follow: {
@@ -251,6 +247,12 @@ const messages = {
       description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
     },
     notSelected: 'Gizliligi belirle',
+  },
+
+  module: {
+    ProfileAboutMe: 'Hakkimda',
+    LinkedAccounts: 'Bagli Hesaplar',
+    ProfileSettings: 'Ayarlar',
   },
 }
 
