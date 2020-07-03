@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { PrivacyList, PrivacyType, User } from '../../types';
+  import { PrivacyList, PrivacyType, User } from '../../../types';
 
   @Component({
     components: {}

@@ -1,7 +1,7 @@
 <template>
-  <div class="box">
-    <div class="has-text-centered">
-      <h3 class="subtitle"> {{ getProviderLabel(providerConfig.providerType) }} </h3>
+  <div class="box has-text-centered">
+
+    <b-field :label="getProviderLabel(providerConfig.providerType)" horizontal>
       <b-tooltip
         :label="getTooltip(providerConfig.providerType)"
         :type="isLinked ? 'is-light': 'is-success'"
@@ -16,18 +16,40 @@
         </span>
         </b-button>
       </b-tooltip>
-    </div>
-    <ProviderInfoCard v-if="providerData" :provider-data="providerData"/>
+    </b-field>
+
+    <template v-if="providerData">
+      <b-field :label="$t('common.field.id')" horizontal>
+        <span> <small> {{ providerData.uid }} </small> </span>
+      </b-field>
+
+      <b-field :label="$t('common.field.photo')" horizontal>
+        <BackgroundSquareImage :image-url="imageUrl" size="64" auto-margin="true"/>
+      </b-field>
+
+      <b-field :label="$t('common.field.name')" horizontal>
+        <span>{{ providerData.displayName }}</span>
+      </b-field>
+
+      <b-field :label="$t('common.field.email')" horizontal>
+        <span>{{ providerData.email }}</span>
+      </b-field>
+
+      <b-field v-if="providerData.phoneNumber" :label="$t('common.field.phone')" horizontal>
+        <span>{{ providerData.phoneNumber }}</span>
+      </b-field>
+    </template>
+
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ProviderConfig, ProviderData, ProviderType } from '~/types';
-  import ProviderInfoCard from '~/components/card/ProviderInfoCard.vue';
+  import { DefaultProfilePhoto, ProviderConfig, ProviderData, ProviderType } from '~/types';
+  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: { ProviderInfoCard }
+    components: { BackgroundSquareImage }
   })
   export default class ProviderCard extends Vue {
 
@@ -66,6 +88,10 @@
 
     getProviderLabel(providerType: ProviderType) {
       return this.$t('provider.label.' + providerType)
+    }
+
+    get imageUrl() {
+      return this.providerData.photoURL || DefaultProfilePhoto.src
     }
 
   }

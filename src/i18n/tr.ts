@@ -38,6 +38,8 @@ const messages = {
     back: 'Geri',
     settings: 'Ayarlar',
     search: 'Ara',
+    follow: 'Takip Et',
+    unfollow: 'Takip Etme',
   },
 
   topNavbar: {
@@ -59,15 +61,15 @@ const messages = {
   profile: {
     card: {
       info: {
-        title: 'Hesap Bilgileri',
         verifyButton: 'E-posta Dogrula',
         updatePasswordButton: 'Parolayi guncelle',
         mailVerified: 'E-posta dogrulandi',
         mailNotVerified: 'E-posta dogrulanmadi',
       },
-      linkedAccounts: {
-        title: 'Bagli Hesaplar',
-      },
+    },
+    follow: {
+      followers: 'takipci',
+      following: 'takipte',
     },
   },
 
@@ -127,6 +129,7 @@ const messages = {
   },
 
   notification: {
+    systemError: 'Sistem su anda musait degil, sonra tekrar deneyiniz',
     verifyMailSent: 'Dogrulama maili {email} adresine gonderilmistir',
     verifyMailNotSent: 'Dogrulama maili {email} adresine gonderilemiyor',
     mailVerified: 'E-posta dogrulandi!',
@@ -147,6 +150,11 @@ const messages = {
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
       canNotExecuted: 'Arama yapilamiyor',
+    },
+    follow: {
+      alreadyFollowing: "@{username}'i zaten takip ediyorsunuz",
+      alreadyUnfollowing: "@{username}'i zaten takip etmiyorsunuz",
+      canNotLoadFollowing: 'Takip bilgisi guncellenemedi',
     },
   },
 
@@ -236,9 +244,15 @@ const messages = {
     public: {
       title: 'Herkese Acik',
       subtitle: 'Herkes gorebilir',
-      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgilerinize gorebilir. ornegin isim, kullanici adi, profil ve kapak fotografi',
+      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
     },
     notSelected: 'Gizliligi belirle',
+  },
+
+  module: {
+    profileAboutMe: 'Hakkimda',
+    linkedAccounts: 'Bagli Hesaplar',
+    profileSettings: 'Ayarlar',
   },
 }
 

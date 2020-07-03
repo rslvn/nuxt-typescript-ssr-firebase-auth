@@ -1,7 +1,8 @@
 <template>
-  <div class="columns is-multiline">
-    <div class="column is-half-tablet is-one-quarter-desktop" v-for="(providerLink, key) in allProviders" :key="key">
-      <ProviderCard :provider-config="providerLink.providerConfig"
+  <div class="columns is-multiline is-centered">
+    <div class="column is-half">
+      <ProviderCard v-for="(providerLink, key) in allProviders" :key="key"
+                    :provider-config="providerLink.providerConfig"
                     :provider-data="providerLink.providerData"
                     :is-linked="providerLink.linked"
                     :link-function="providerLink.method"
@@ -11,11 +12,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
+  import { Component } from 'nuxt-property-decorator';
   import ProviderCard from "~/components/card/ProviderCard.vue";
   import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
   import {
-    AuthUser,
     LoginCredentials,
     ProviderConfig,
     ProviderData,
@@ -26,13 +26,12 @@
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
   import { getProviderOption } from "~/service/firebase/firebase-service";
+  import BaseModule from '~/mixin/BaseModule';
 
   @Component({
     components: { ProviderCard }
   })
-  export default class ProviderList extends Vue {
-
-    @Prop({ type: Object, required: true }) authUser !: AuthUser;
+  export default class LinkedAccounts extends BaseModule {
 
     @StateNamespace.auth.Action linkPassword !: (credentials: LoginCredentials) => Promise<void>;
     @StateNamespace.auth.Action linkSocialProvider !: () => Promise<void>;

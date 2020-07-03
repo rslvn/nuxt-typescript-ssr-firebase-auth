@@ -180,6 +180,19 @@ export interface WhereClause {
 
 export enum collection {
   USER = 'user',
+  FOLLOWING = 'following'
+}
+
+export const CollectionField = {
+  USER: {
+    username: 'username',
+    privacy: 'privacy',
+    name: 'name',
+  },
+  FOLLOWING: {
+    follower: 'follower',
+    following: 'following'
+  }
 }
 
 export interface BaseModel {
@@ -199,4 +212,9 @@ export interface User extends BaseModel {
   biography?: string
   profilePhoto?: Image
   coverPhoto?: Image
+}
+
+export interface Following extends BaseModel {
+  follower: string,
+  following: string,
 }

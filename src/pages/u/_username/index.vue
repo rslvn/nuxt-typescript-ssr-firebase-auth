@@ -6,7 +6,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import Profile from '~/components/profile/Profile.vue';
   import { AuthUser, Image, PrivacyType, RouteParameters, StateNamespace, User } from '~/types';
-  import { coverPhotoObservable, profilePhotoObservable } from '~/service/rx-service';
+  import { coverPhotoObservable, profilePhotoObservable, reloadUserFromDatabase } from '~/service/rx-service';
   import { getUserByUsername } from '~/service/firebase/firestore';
   import { Context } from '@nuxt/types';
   import { sendDangerNotification } from '~/service/notification-service';
@@ -44,6 +44,11 @@
         }
       })
 
+      this.$subscribeTo(reloadUserFromDatabase.asObservable(), async () => {
+        console.log('reloadUserFromDatabase called')
+        this.user = await this.loadUser()
+      })
+
       if (!this.username) {
         return this.$nuxt.error({
           message: this.$t('page.notFound') as string,
@@ -52,8 +57,8 @@
         })
       }
 
-      const user = await getUserByUsername(this.username)
-        .catch((error) => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad'))) as User
+      const user = await this.loadUser()
+        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad'))) as User
       if (!user) {
         return this.$nuxt.error({
           message: this.$t('page.notFound') as string,
@@ -72,6 +77,11 @@
         })
       }
       this.user = user
+    }
+
+    async loadUser(): Promise<User> {
+      return await getUserByUsername(this.username)
+        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad'))) as User
     }
   }
 </script>
