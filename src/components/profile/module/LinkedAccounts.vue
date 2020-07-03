@@ -12,11 +12,10 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
+  import { Component } from 'nuxt-property-decorator';
   import ProviderCard from "~/components/card/ProviderCard.vue";
   import SetEmailPasswordModal from "~/components/modal/SetEmailPasswordModal.vue";
   import {
-    AuthUser,
     LoginCredentials,
     ProviderConfig,
     ProviderData,
@@ -27,13 +26,12 @@
   } from "~/types";
   import { showWarningToaster } from "~/service/notification-service";
   import { getProviderOption } from "~/service/firebase/firebase-service";
+  import BaseModule from '~/mixin/BaseModule';
 
   @Component({
     components: { ProviderCard }
   })
-  export default class LinkedAccounts extends Vue {
-
-    @Prop({ type: Object, required: true }) authUser !: AuthUser;
+  export default class LinkedAccounts extends BaseModule {
 
     @StateNamespace.auth.Action linkPassword !: (credentials: LoginCredentials) => Promise<void>;
     @StateNamespace.auth.Action linkSocialProvider !: () => Promise<void>;

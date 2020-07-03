@@ -250,9 +250,9 @@ const messages = {
   },
 
   module: {
-    ProfileAboutMe: 'Hakkimda',
-    LinkedAccounts: 'Bagli Hesaplar',
-    ProfileSettings: 'Ayarlar',
+    profileAboutMe: 'Hakkimda',
+    linkedAccounts: 'Bagli Hesaplar',
+    profileSettings: 'Ayarlar',
   },
 }
 

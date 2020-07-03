@@ -1,31 +1,33 @@
 <template>
   <div class="container">
     <div class="columns is-centered">
-      <div class="column is-half">
-        <b-tabs type="is-toggle-rounded" size="is-small" v-model="moduleName" expanded>
-          <template v-for="(moduleConfig, index) in moduleConfigs">
-            <b-tab-item v-if="!moduleConfig.private || isMyProfile" :value="moduleConfig.name"
-                        :label="$t(`module.${moduleConfig.name}`)" :icon="moduleConfig.icon"/>
-          </template>
 
+      <div class="column is-half">
+        <b-tabs type="is-toggle-rounded" size="is-small" v-model="moduleType" expanded>
+          <b-tab-item v-for="(moduleConfig, key) in computedModuleConfigs" :key="key"
+                      :label="$t(`module.${moduleConfig.moduleType}`)"
+                      :icon="moduleConfig.icon"
+                      :value="moduleConfig.moduleType">
+          </b-tab-item>
         </b-tabs>
       </div>
     </div>
 
     <div class="columns">
       <div class="column">
-        <component :is="moduleConfig.component" v-bind="componentProperties"/>
+        <component :is="moduleConfig.module" v-bind="componentProperties"/>
       </div>
     </div>
+
   </div>
 </template>
 
 <script lang="ts">
   import { Component } from 'nuxt-property-decorator';
+  import { ModuleConfig, ModuleType } from '~/types';
   import BaseModule from '~/mixin/BaseModule';
   import ProfileAboutMe from '~/components/profile/module/ProfileAboutMe.vue';
   import LinkedAccounts from '~/components/profile/module/LinkedAccounts.vue';
-  import { ModuleConfig } from '~/types';
   import ProfileSettings from '~/components/profile/module/ProfileSettings.vue';
 
   @Component({
@@ -33,7 +35,7 @@
   })
   export default class ProfileModule extends BaseModule {
 
-    moduleName = ProfileAboutMe.name
+    moduleType = ModuleType.ProfileAboutMe
 
     componentProperties = {
       isMyProfile: this.isMyProfile,
@@ -41,31 +43,34 @@
       user: this.user
     }
 
-    moduleConfigs: ModuleConfig[] = [
+    moduleConfigs: ModuleConfig<any>[] = [
       {
-        name: ProfileAboutMe.name,
+        moduleType: ModuleType.ProfileAboutMe,
         icon: 'account-details',
-        component: ProfileAboutMe,
+        module: ProfileAboutMe,
         private: false
       },
       {
-        name: LinkedAccounts.name,
+        moduleType: ModuleType.LinkedAccounts,
         icon: 'link-variant',
-        component: LinkedAccounts,
+        module: LinkedAccounts,
         private: true
       },
       {
-        name: ProfileSettings.name,
+        moduleType: ModuleType.ProfileSettings,
         icon: 'cog',
-        component: ProfileSettings,
+        module: ProfileSettings,
         private: true
       }
     ]
 
     get moduleConfig() {
-      return this.moduleConfigs.find(moduleConfig => moduleConfig.name === this.moduleName)
+      return this.moduleConfigs.find(moduleConfig => moduleConfig.moduleType === this.moduleType)
     }
 
+    get computedModuleConfigs() {
+      return this.moduleConfigs.filter(moduleConfig => !moduleConfig.private || this.isMyProfile)
+    }
 
   }
 </script>

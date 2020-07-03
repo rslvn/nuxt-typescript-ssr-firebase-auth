@@ -49,9 +49,15 @@ export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none
 export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true, path: '/' }
 
 
-export interface ModuleConfig {
-  name: string
+export enum ModuleType {
+  ProfileAboutMe = 'profileAboutMe',
+  LinkedAccounts = 'linkedAccounts',
+  ProfileSettings = 'profileSettings'
+}
+
+export interface ModuleConfig<T> {
+  moduleType: ModuleType
   icon: string
-  component: any
+  module: T
   private: boolean
 }

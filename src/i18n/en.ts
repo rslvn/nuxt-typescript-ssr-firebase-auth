@@ -253,9 +253,9 @@ const messages = {
   },
 
   module: {
-    ProfileAboutMe: 'About Me',
-    LinkedAccounts: 'Linked Accounts',
-    ProfileSettings: 'Settings',
+    profileAboutMe: 'About Me',
+    linkedAccounts: 'Linked Accounts',
+    profileSettings: 'Settings',
   },
 }
 
