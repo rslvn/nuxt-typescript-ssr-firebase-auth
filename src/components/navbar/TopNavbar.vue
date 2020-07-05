@@ -40,6 +40,13 @@
 
       <LanguageSwitcher/>
 
+
+      <b-navbar-item v-if="authUser" tag="router-link" :to="dynamicProfileRoute">
+        <b-field>
+          <BackgroundSquareImage :image-url="profilePhoto" size="28" rounded="true"/>
+          <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
+        </b-field>
+      </b-navbar-item>
       <ProfileNavigator v-if="authUser" :auth-user="authUser" :logout="logout"/>
 
       <b-navbar-item v-else tag="div">
@@ -64,14 +71,16 @@
 
 <script lang="ts">
   import { Component, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, Routes, StateNamespace } from "~/types";
+  import { AuthUser, DefaultProfilePhoto, Routes, StateNamespace } from "~/types";
   import LanguageSwitcher from "~/components/navbar/LanguageSwitcher.vue";
   import ProfileNavigator from "~/components/navbar/ProfileNavigator.vue";
   import Logo from '~/components/navbar/Logo.vue';
   import SearchBar from '~/components/navbar/SearchBar.vue';
+  import { getUserRoute } from '~/service/global-service';
+  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
 
   @Component({
-    components: { SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
+    components: { BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
   })
   export default class TopNavbar extends Vue {
 
@@ -80,6 +89,14 @@
 
     get routes() {
       return Routes
+    }
+
+    get dynamicProfileRoute() {
+      return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
+    }
+
+    get profilePhoto() {
+      return this.authUser?.profilePhoto?.src || DefaultProfilePhoto.src
     }
 
   }
