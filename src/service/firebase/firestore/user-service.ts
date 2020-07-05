@@ -69,6 +69,9 @@ export const searchUsers = async (query: string, page: number, limit: number): P
 };
 
 export const userIncludes = (user: User, query: string) => {
+  if (!query) {
+    return true
+  }
   return user.username?.toLowerCase().includes(query)
     || user.name?.toLowerCase().includes(query)
     || user.surname?.toLowerCase().includes(query)

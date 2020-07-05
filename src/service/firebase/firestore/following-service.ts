@@ -3,7 +3,6 @@ import {
   CollectionField,
   FirebaseQueryOperator,
   Following,
-  orderByName,
   PagingResponse,
   SearchData,
   User,
@@ -13,7 +12,6 @@ import {
   deleteModel,
   getCountByWhereClauses,
   getModelsByWhereClauses,
-  getModelsByWhereClausesAndOrderBy,
   saveModel
 } from '~/service/firebase/firestore/firestore-service'
 import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-service'
@@ -53,7 +51,7 @@ export const getFollowingByFollowerAndFollowing = async (follower: string, follo
     operator: FirebaseQueryOperator.EQ,
     value: following
   }
-  const followingList: Following[] = await getModelsByWhereClausesAndOrderBy(collection.FOLLOWING, orderByName, wcFollower, wcFollowing)
+  const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, wcFollower, wcFollowing)
 
   return followingList.find((fllwng) => fllwng.following === following && fllwng.follower === follower)
 }
@@ -72,9 +70,9 @@ export const getCountOfFollowing = (user: User) => {
 
 export const searchFollowers = async (user: User, query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
   const queryLower = query?.toLocaleString()
-  const whereClause = followingWhereClause(user)
+  const whereClauseForFollowings = followingWhereClause(user)
 
-  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClause) as Following[]
+  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowings) as Following[]
 
   const users: User[] = [];
 
@@ -96,9 +94,9 @@ export const searchFollowers = async (user: User, query: string, page: number, l
 
 export const searchFollowings = async (user: User, query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
   const queryLower = query?.toLocaleString()
-  const whereClause = followersWhereClause(user)
+  const whereClauseForFollowers = followersWhereClause(user)
 
-  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClause) as Following[]
+  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowers) as Following[]
 
   const users: User[] = [];
 

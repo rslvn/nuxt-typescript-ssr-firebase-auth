@@ -61,13 +61,13 @@
       },
       {
         moduleType: ModuleType.ProfileFollowers,
-        icon: 'link-variant',
+        icon: 'account-arrow-left',
         module: ProfileFollowers,
         private: true
       },
       {
         moduleType: ModuleType.ProfileFollowings,
-        icon: 'link-variant',
+        icon: 'account-arrow-right',
         module: ProfileFollowings,
         private: true
       },

@@ -15,14 +15,29 @@
 
       <div class="control">
         <b-taglist attached>
-          <a class="tag" @click="showFollowers">{{$t('profile.follow.followers')}}</a>
+          <a class="tag" @click="showFollowers">
+            <b-icon
+              class="has-margin-right-5"
+              icon="account-arrow-left"
+              size="is-small">
+            </b-icon>
+
+            {{$t('profile.follow.followers')}}
+          </a>
           <a class="tag is-primary" @click="showFollowers">{{followerCount}}</a>
         </b-taglist>
       </div>
 
       <div class="control">
         <b-taglist attached>
-          <a class="tag" @click="showFollowings">{{$t('profile.follow.following')}}</a>
+          <a class="tag" @click="showFollowings">
+            <b-icon
+              class="has-margin-right-5"
+              icon="account-arrow-right"
+              size="is-small">
+            </b-icon>
+            {{$t('profile.follow.following')}}
+          </a>
           <a class="tag is-primary" @click="showFollowings">{{followingCount}}</a>
         </b-taglist>
       </div>
@@ -42,7 +57,7 @@
     getFollowingByFollowerAndFollowing,
     saveFollowing
   } from '~/service/firebase/firestore/following-service';
-  import { sendDangerNotification, showInfoToaster } from '~/service/notification-service';
+  import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service';
   import { showProfileModule } from '~/service/rx-service';
 
   @Component({
@@ -83,7 +98,10 @@
           this.followingCount = followingCount
 
         })
-        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.follow.canNotLoadFollowing')))
+        .catch((error) => {
+          console.log(error)
+          showErrorToaster(this.$t('notification.follow.canNotLoadFollowing'))
+        })
 
       this.width = window.innerWidth
       window.addEventListener('resize', this.handleResize);
