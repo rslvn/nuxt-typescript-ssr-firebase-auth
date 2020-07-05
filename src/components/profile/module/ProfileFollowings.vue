@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import { Component } from 'nuxt-property-decorator';
+  import { Component, Watch } from 'nuxt-property-decorator';
   import ProfileCard from '~/components/card/ProfileCard.vue';
   import { SearchData, User } from '~/types';
   import PageTitle from '~/components/ui/PageTitle.vue';
@@ -32,6 +32,7 @@
   import { searchFollowings } from '~/service/firebase/firestore/following-service';
   import BaseModule from '~/mixin/BaseModule';
   import { showErrorToaster } from '~/service/notification-service';
+  import { reloadFollowing } from '~/service/rx-service';
 
   @Component({
     components: { Paging, SearchField, PageTitle, ProfileCard }
@@ -48,7 +49,17 @@
     isFetching = false
     searched = false
 
+    @Watch('perPage')
+    onPerPageChanged(value: number) {
+      this.resetSearch();
+    }
+
     mounted() {
+      this.$subscribeTo(reloadFollowing.asObservable(), () => {
+        console.log('reloadFollowing called')
+        this.resetSearch();
+      })
+
       this.resetSearch()
     }
 

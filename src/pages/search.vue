@@ -51,7 +51,7 @@
     @StateNamespace.auth.Getter authUser !: AuthUser;
 
     @Watch('perPage')
-    onActiveChanged(value: number) {
+    onPerPageChanged(value: number) {
       this.resetSearch();
     }
 

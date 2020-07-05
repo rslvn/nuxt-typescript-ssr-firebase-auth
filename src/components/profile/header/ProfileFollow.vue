@@ -15,7 +15,18 @@
 
       <div class="control">
         <b-taglist attached>
-          <a class="tag" @click="showFollowers">
+
+          <b-tag v-if="followersLocked">
+            <b-icon
+              class="has-margin-right-5"
+              icon="account-arrow-left"
+              size="is-small">
+            </b-icon>
+
+            {{$t('profile.follow.followers')}}
+          </b-tag>
+
+          <a v-else class="tag" @click="showFollowers">
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-left"
@@ -24,13 +35,28 @@
 
             {{$t('profile.follow.followers')}}
           </a>
-          <a class="tag is-primary" @click="showFollowers">{{followerCount}}</a>
+          <b-tag v-if="followersLocked" class="tag is-primary">
+            <b-icon
+              icon="lock"
+              size="is-small">
+            </b-icon>
+          </b-tag>
+          <a v-else class="tag is-primary" @click="showFollowers">{{followerCount}}</a>
         </b-taglist>
       </div>
 
       <div class="control">
         <b-taglist attached>
-          <a class="tag" @click="showFollowings">
+          <b-tag v-if="followingLocked">
+            <b-icon
+              class="has-margin-right-5"
+              icon="account-arrow-right"
+              size="is-small">
+            </b-icon>
+            {{$t('profile.follow.following')}}
+          </b-tag>
+
+          <a v-else class="tag" @click="showFollowings">
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-right"
@@ -38,7 +64,15 @@
             </b-icon>
             {{$t('profile.follow.following')}}
           </a>
-          <a class="tag is-primary" @click="showFollowings">{{followingCount}}</a>
+          <b-tag v-if="followingLocked" class="tag is-primary">
+            <b-icon
+              icon="lock"
+              size="is-small">
+            </b-icon>
+          </b-tag>
+          <a v-else class="tag is-primary" @click="showFollowings">
+            {{followingCount}}
+          </a>
         </b-taglist>
       </div>
 
@@ -49,7 +83,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, ModuleType, User } from '~/types';
+  import { AuthUser, ModuleType, PrivacyType, User } from '~/types';
   import {
     deleteFollowing,
     getCountOfFollowers,
@@ -58,7 +92,7 @@
     saveFollowing
   } from '~/service/firebase/firestore/following-service';
   import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service';
-  import { showProfileModule } from '~/service/rx-service';
+  import { reloadFollowing, showProfileModule } from '~/service/rx-service';
 
   @Component({
     components: {}
@@ -89,8 +123,8 @@
             followerCount,
             followingCount
           ]: [number, number] = await Promise.all([
-            getCountOfFollowers(this.user),
-            getCountOfFollowing(this.user)
+            Promise.resolve(this.followersLocked).then((locked) => locked ? 0 : getCountOfFollowers(this.user)),
+            Promise.resolve(this.followingLocked).then((locked) => locked ? 0 : getCountOfFollowing(this.user))
           ])
             .finally(() => this.loading = false) as [number, number]
 
@@ -109,6 +143,14 @@
 
     handleResize() {
       this.width = window.innerWidth
+    }
+
+    get followersLocked() {
+      return !this.isMyProfile && this.user.followersPrivacy === PrivacyType.PRIVATE
+    }
+
+    get followingLocked() {
+      return !this.isMyProfile && this.user.followingPrivacy === PrivacyType.PRIVATE
     }
 
     get isMobile() {
@@ -148,6 +190,7 @@
               this.followerCount++
             })
           })
+          .then(() => reloadFollowing.next())
           .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
     }
 
@@ -166,6 +209,7 @@
                 this.followerCount--
               })
           })
+          .then(() => reloadFollowing.next())
           .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
     }
 

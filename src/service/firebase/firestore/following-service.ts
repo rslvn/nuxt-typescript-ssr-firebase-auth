@@ -4,6 +4,7 @@ import {
   FirebaseQueryOperator,
   Following,
   PagingResponse,
+  PrivacyType,
   SearchData,
   User,
   WhereClause

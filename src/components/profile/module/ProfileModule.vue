@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import { Component } from 'nuxt-property-decorator';
-  import { ModuleTabConfig, ModuleType } from '~/types';
+  import { ModuleTabConfig, ModuleType, PrivacyType } from '~/types';
   import BaseModule from '~/mixin/BaseModule';
   import ProfileAboutMe from '~/components/profile/module/ProfileAboutMe.vue';
   import LinkedAccounts from '~/components/profile/module/LinkedAccounts.vue';
@@ -57,13 +57,13 @@
         type: ModuleType.FOLLOWERS,
         icon: 'account-arrow-left',
         component: ProfileFollowers,
-        private: true
+        private: this.user?.privacy === PrivacyType.PRIVATE || this.user.followersPrivacy === PrivacyType.PRIVATE
       },
       {
         type: ModuleType.FOLLOWINGS,
         icon: 'account-arrow-right',
         component: ProfileFollowings,
-        private: true
+        private: this.user?.privacy === PrivacyType.PRIVATE || this.user.followingPrivacy === PrivacyType.PRIVATE
       },
       {
         type: ModuleType.SETTINGS,

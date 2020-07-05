@@ -7,3 +7,4 @@ export const reauthenticateObservable = new Subject<void>()
 export const reloadUserFromDatabase = new Subject<string>()
 export const loadMoreSearchResult = new Subject<void>()
 export const showProfileModule = new Subject<ModuleType>()
+export const reloadFollowing = new Subject<void>();
