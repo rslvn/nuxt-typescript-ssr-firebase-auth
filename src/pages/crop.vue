@@ -9,7 +9,7 @@
   import { Component, Vue } from 'nuxt-property-decorator';
   import 'cropperjs/dist/cropper.css';
   import ProfilePhotoUpdater from '~/components/image/ProfilePhotoUpdater.vue';
-  import { DefaultProfilePhoto, Image, Routes } from '~/types';
+  import { Image, Routes } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
   import PageTitle from '~/components/ui/PageTitle.vue';
 

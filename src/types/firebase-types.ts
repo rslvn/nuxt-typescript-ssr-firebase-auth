@@ -222,8 +222,8 @@ export interface User extends BaseModel {
   surname?: string
   email?: string
   privacy?: PrivacyType
-  followersPrivacy ?: PrivacyType
-  followingPrivacy ?: PrivacyType
+  followersPrivacy?: PrivacyType
+  followingPrivacy?: PrivacyType
   biography?: string
   profilePhoto?: Image
   coverPhoto?: Image

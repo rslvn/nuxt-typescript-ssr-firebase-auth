@@ -8,7 +8,8 @@
       {{$t(`privacy.account.${userPrivacyConfig.privacyType}.title`)}}
     </b-tag>
     <b-tag type="is-light">{{$t(`privacy.account.${userPrivacyConfig.privacyType}.subtitle`)}}
-      <b-tooltip :label="$t(`privacy.account.${userPrivacyConfig.privacyType}.description`)" position="is-left" multilined>
+      <b-tooltip :label="$t(`privacy.account.${userPrivacyConfig.privacyType}.description`)" position="is-left"
+                 multilined>
         <b-icon
           icon="information"
           size="is-small">
