@@ -236,23 +236,61 @@ const messages = {
   },
 
   privacy: {
-    private: {
-      title: 'Gizli',
-      subtitle: 'Kimse goremez',
-      description: 'Kimse size ait her hangi bir bilgiye ulasamaz',
+    account: {
+      field: 'hesap gizliligi',
+      private: {
+        title: 'Gizli',
+        subtitle: 'Kimse goremez',
+        description: 'Kimse size ait her hangi bir bilgiye ulasamaz',
+      },
+      public: {
+        title: 'Herkese Acik',
+        subtitle: 'Herkes gorebilir',
+        description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
+      },
+      notSelected: 'Gizliligi belirle',
     },
-    public: {
-      title: 'Herkese Acik',
-      subtitle: 'Herkes gorebilir',
-      description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
+    followers: {
+      field: 'takipci gizliligi',
+      private: {
+        title: 'Gizli',
+        subtitle: 'Takipcilerinizi kimse goremez',
+        description: 'Giris yapmis kullanicilar bile takipcilerinizi kimse goremez',
+      },
+      public: {
+        title: 'Herkese Acik',
+        subtitle: 'Herkes takipcilerinizi gorebilir',
+        description: 'Giris yapmis kullanicilar takipcilerinizi gorebilir',
+      },
+      notSelected: 'Takipci gizliligini belirle',
     },
-    notSelected: 'Gizliligi belirle',
+    following: {
+      field: 'takipte gizliligi',
+      private: {
+        title: 'Gizli',
+        subtitle: 'Kimse takip ettiginiz kullanicilari goremez',
+        description: 'Giris yapmis kullanicilar bile takip ettiginiz kullanicilari kimse goremez',
+      },
+      public: {
+        title: 'Herkese Acik',
+        subtitle: 'Herkes takip ettiklerinizi gorebilir',
+        description: 'Giris yapmis kullanicilar, takip ettiginiz kullanicilari gorebilir',
+      },
+      notSelected: 'Takipte gizliligi belirle',
+    },
   },
 
   module: {
     profileAboutMe: 'Hakkimda',
     linkedAccounts: 'Bagli Hesaplar',
     profileSettings: 'Ayarlar',
+    profileFollowers: 'Takipci',
+    profileFollowings: 'Takipte',
+  },
+
+  settings: {
+    general: 'Genel',
+    privacy: 'Gizlilik',
   },
 }
 

@@ -1,4 +1,5 @@
 import { ProviderData } from "~/types/api-types";
+import OrderByDirection = firebase.firestore.OrderByDirection;
 
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
@@ -134,7 +135,7 @@ export const PrivacyList: PrivacyConfig[] = [
   {
     privacyType: PrivacyType.PRIVATE,
     colorType: 'is-danger',
-    icon: 'account-remove-outline',
+    icon: 'account-lock',
     type: 'is-danger'
   },
   {
@@ -149,7 +150,8 @@ export interface SearchData {
   name: string,
   username: string,
   profilePhoto: Image,
-  coverPhoto: Image
+  coverPhoto: Image,
+  privacy: PrivacyType
 }
 
 export interface PagingResponse<T> {
@@ -183,6 +185,17 @@ export enum collection {
   FOLLOWING = 'following'
 }
 
+export interface OrderBy {
+  field: string
+  direction: OrderByDirection
+}
+
+
+export const orderByName: OrderBy = {
+  field: 'name',
+  direction: 'asc'
+}
+
 export const CollectionField = {
   USER: {
     username: 'username',
@@ -209,6 +222,8 @@ export interface User extends BaseModel {
   surname?: string
   email?: string
   privacy?: PrivacyType
+  followersPrivacy ?: PrivacyType
+  followingPrivacy ?: PrivacyType
   biography?: string
   profilePhoto?: Image
   coverPhoto?: Image

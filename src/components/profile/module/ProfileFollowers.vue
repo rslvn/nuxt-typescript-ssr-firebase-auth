@@ -1,13 +1,15 @@
 <template>
   <div class="container">
-    <PageTitle :title="$t('page.search.title')"></PageTitle>
 
     <SearchField :query.sync="query" :is-fetching="isFetching" :reset-search="resetSearch"/>
 
     <Paging v-if="hasResult" :total="total" :per-page.sync="perPage" :current.sync="current" :is-fetching="isFetching"
             :on-page-change="onPageChange">
       <template slot="searchResult">
-        <SearchResultCard v-for="(item, index) in list" :key="index" :search-result="item"/>
+
+        <ProfileCard v-for="(user, index) in list" :key="index" :name="user.name" :username="user.username"
+                     :profile-photo="user.profilePhoto" :privacy-type="user.privacy"/>
+
       </template>
     </Paging>
 
@@ -18,25 +20,24 @@
     </div>
 
   </div>
-
 </template>
 
 <script lang="ts">
-  import { Component, Vue, Watch } from 'nuxt-property-decorator';
-  import { Context } from '@nuxt/types';
-  import { AuthUser, QueryParameters, Routes, SearchData, StateNamespace } from '~/types';
-  import { getHeadByRouteType } from '~/service/seo-service';
-  import { sendWarningNotification, showErrorToaster } from '~/service/notification-service';
-  import { searchUsers } from '~/service/firebase/firestore';
+  import { Component, Watch } from 'nuxt-property-decorator';
+  import ProfileCard from '~/components/card/ProfileCard.vue';
+  import { SearchData, User } from '~/types';
   import PageTitle from '~/components/ui/PageTitle.vue';
-  import SearchResultCard from '~/components/search/SearchResultCard.vue';
-  import Paging from '~/components/ui/paging/Paging.vue';
   import SearchField from '~/components/search/SearchField.vue';
+  import Paging from '~/components/ui/paging/Paging.vue';
+  import { searchFollowers } from '~/service/firebase/firestore/following-service';
+  import BaseModule from '~/mixin/BaseModule';
+  import { showErrorToaster } from '~/service/notification-service';
+  import { reloadFollowing } from '~/service/rx-service';
 
   @Component({
-    components: { SearchField, Paging, SearchResultCard, PageTitle }
+    components: { Paging, SearchField, PageTitle, ProfileCard }
   })
-  export default class search extends Vue {
+  export default class ProfileFollowers extends BaseModule {
     // paging dynamic config
     total = 1
     current = 1
@@ -44,42 +45,24 @@
 
     // search page data
     query = '';
-    list: SearchData[] = []
+    list: User[] = []
     isFetching = false
     searched = false
-
-    @StateNamespace.auth.Getter authUser !: AuthUser;
 
     @Watch('perPage')
     onPerPageChanged(value: number) {
       this.resetSearch();
     }
 
-    head() {
-      return getHeadByRouteType(Routes.SEARCH, this)
-    }
-
     mounted() {
-      if (this.query) {
-        this.resetSearch()
-      }
-    }
-
-    async asyncData({ query }: Context) {
-      const queryText = (query[QueryParameters.QUERY] as string);
-
-      return {
-        query: queryText
-      }
+      this.$subscribeTo(reloadFollowing.asObservable(), () => {
+        this.resetSearch();
+      })
+      this.resetSearch()
     }
 
     get hasResult() {
       return !!this.list.length
-    }
-
-    watchQuery(newQuery: any) {
-      this.query = newQuery[QueryParameters.QUERY];
-      this.resetSearch()
     }
 
     resetSearch() {
@@ -96,16 +79,9 @@
     }
 
     searchByPage(page: number) {
-      if (!this.authUser) {
-        return sendWarningNotification(this.$store.dispatch, this.$t('notification.search.notAllowedToSearch'))
-      }
+      this.searching(true)
 
-      this.searching(true);
-      if (!this.query) {
-        this.list = []
-        return this.searching(false);
-      }
-      searchUsers(this.query, page, this.perPage)
+      searchFollowers(this.user, this.query, page, this.perPage)
         .then((pagingResponse) => {
           this.total = pagingResponse.total
           this.list = []

@@ -22,7 +22,7 @@
   @Component({
     components: {}
   })
-  export default class SearchPaging extends Vue {
+  export default class PagingNavigator extends Vue {
 
     @PropSync('current', { type: Number, required: true }) syncCurrent !: number
     @Prop({ type: Number, required: true }) total !: number

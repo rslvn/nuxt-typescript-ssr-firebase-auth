@@ -17,13 +17,14 @@
       <b-dropdown :value="value" @input="input" aria-role="list" class="has-margin-top-10">
         <b-button v-if="selectedPrivacyType" slot="trigger" :class="selectedPrivacyType.type" :outlined="!value">
           <b-icon :icon="selectedPrivacyType.icon" class="has-margin-left-5"/>
-          <span class="has-margin-left-5">{{$t(`privacy.${selectedPrivacyType.privacyType}.title`)}}</span>
+          <span
+            class="has-margin-left-5">{{$t(`privacy.${privacyFor}.${selectedPrivacyType.privacyType}.title`)}}</span>
           <b-icon icon="menu-down"></b-icon>
         </b-button>
 
         <b-button v-else slot="trigger" class="is-primary" :outlined="!value">
-          <b-icon icon="account-remove-outline" class="has-margin-left-5"/>
-          <span class="has-margin-left-5">{{$t(`privacy.notSelected`)}}</span>
+          <b-icon icon="account-lock-outline" class="has-margin-left-5"/>
+          <span class="has-margin-left-5">{{$t(`privacy.${privacyFor}.notSelected`)}}</span>
           <b-icon icon="menu-down"></b-icon>
         </b-button>
 
@@ -34,14 +35,16 @@
           <div class="media" :class="privacy.type">
             <b-icon class="media-left" :icon="privacy.icon"></b-icon>
             <div class="media-content">
-              <h3>{{$t(`privacy.${privacy.privacyType}.title`)}}</h3>
-              <h4>{{$t(`privacy.${privacy.privacyType}.subtitle`)}}</h4>
-              <small>{{$t(`privacy.${privacy.privacyType}.description`)}}</small>
+              <h3>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.title`)}}</h3>
+              <h4>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.subtitle`)}}</h4>
+              <small>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.description`)}}</small>
             </div>
           </div>
         </b-dropdown-item>
       </b-dropdown>
-      <small v-if="value" class="has-margin-top-5 has-margin-left-5">{{$t(`privacy.${value}.description`)}}</small>
+      <small v-if="value" class="has-margin-top-5 has-margin-left-5">
+        {{$t(`privacy.${privacyFor}.${value}.description`)}}
+      </small>
     </b-field>
   </ValidationProvider>
 </template>
@@ -60,6 +63,7 @@
 
     @Prop({ type: String, required: true }) vid !: string;
     @Prop({ type: String, required: true }) rules !: string;
+    @Prop({ type: String, required: true }) privacyFor !: string;
     @Prop({ type: Boolean, required: false, default: false }) horizontal !: boolean;
     @Prop({ type: Boolean, required: false, default: false }) disabled !: boolean;
     @Prop({ type: String, required: false, default: '' }) labelPosition !: string;
@@ -75,6 +79,10 @@
 
     get privacyList() {
       return PrivacyList
+    }
+
+    get label() {
+      return this.$t(`privacy.${this.privacyFor}.field`)
     }
 
   }

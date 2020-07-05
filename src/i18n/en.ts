@@ -239,23 +239,61 @@ const messages = {
   },
 
   privacy: {
-    private: {
-      title: 'Private',
-      subtitle: 'No one can see',
-      description: 'No one can see any data of you',
+    account: {
+      field: 'account privacy',
+      private: {
+        title: 'Private',
+        subtitle: 'No one can see',
+        description: 'No one can see any data of you',
+      },
+      public: {
+        title: 'Public',
+        subtitle: 'Everyone can see',
+        description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo',
+      },
+      notSelected: 'Select visibility',
     },
-    public: {
-      title: 'Public',
-      subtitle: 'Everyone can see',
-      description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo',
+    followers: {
+      field: 'followers privacy',
+      private: {
+        title: 'Private',
+        subtitle: 'No one can see your followers',
+        description: 'No one can see your followers even if they are authenticated',
+      },
+      public: {
+        title: 'Public',
+        subtitle: 'Everyone can see your followers',
+        description: 'The authenticated users can see your followers',
+      },
+      notSelected: 'Select followers visibility',
     },
-    notSelected: 'Select visibility',
+    following: {
+      field: 'following privacy',
+      private: {
+        title: 'Private',
+        subtitle: 'No one can see your following',
+        description: 'No one can see your following even if they are authenticated',
+      },
+      public: {
+        title: 'Public',
+        subtitle: 'Everyone can see your following',
+        description: 'The authenticated users can see your following',
+      },
+      notSelected: 'Select following visibility',
+    },
   },
 
   module: {
     profileAboutMe: 'About Me',
     linkedAccounts: 'Linked Accounts',
     profileSettings: 'Settings',
+    profileFollowers: 'Followers',
+    profileFollowings: 'Following',
+  },
+
+  settings: {
+    general: 'General',
+    privacy: 'Privacy',
   },
 }
 

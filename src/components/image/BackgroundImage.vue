@@ -20,7 +20,8 @@
   export default class BackgroundSquareImage extends Vue {
 
     @Prop({ type: String, required: true }) imageUrl !: string
-    @Prop({ type: [Number, String], required: true }) size !: number
+    @Prop({ type: [Number, String], required: true }) height !: number
+    @Prop({ type: [Number, String], required: false, default: 0 }) width !: number
     @Prop({ type: [Boolean, String], required: false, default: false }) rounded !: boolean | string
     @Prop({ type: [Number, String], required: false, default: 0 }) border !: number
     @Prop({ type: String, required: false, default: '#eee' }) borderColor !: string
@@ -39,19 +40,31 @@
       return toBoolean(this.borderInside);
     }
 
-    get imageSizePx() {
-      return this.isBorderInside ? `${this.size - 2 * this.border}px` : `${this.size}px`
+    get imageWidthPx() {
+      if (this.width === 0)
+        return 'auto'
+      return this.isBorderInside ? `${this.width - 2 * this.border}px` : `${this.width}px`
     }
 
-    get borderSizePx() {
-      return this.isBorderInside ? `${(this.size)}px` : `${(this.size + 2 * this.border)}px`
+    get imageHeightPx() {
+      return this.isBorderInside ? `${this.height - 2 * this.border}px` : `${this.height}px`
+    }
+
+    get borderWidthPx() {
+      if (this.width === 0)
+        return 'auto'
+      return this.isBorderInside ? `${(this.width)}px` : `${(this.width + 2 * this.border)}px`
+    }
+
+    get borderHeightPx() {
+      return this.isBorderInside ? `${(this.height)}px` : `${(this.height + 2 * this.border)}px`
     }
 
     get imageStyle() {
       return {
         'background-image': `url('${this.imageUrl}')`,
-        height: this.imageSizePx,
-        width: this.imageSizePx,
+        height: this.imageHeightPx,
+        width: this.imageWidthPx,
         ...this.marginByBorder
       }
     }
@@ -59,8 +72,8 @@
     get borderStyle() {
       return this.border > 0 ?
         {
-          height: this.borderSizePx,
-          width: this.borderSizePx,
+          height: this.borderHeightPx,
+          width: this.borderWidthPx,
           border: `${this.border}px solid ${this.borderColor}`,
           ...this.margin
         } :

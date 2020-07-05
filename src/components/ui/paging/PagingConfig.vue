@@ -24,7 +24,7 @@
   @Component({
     components: {}
   })
-  export default class SearchConfig extends Vue {
+  export default class PagingConfig extends Vue {
     @Prop({ type: Number, required: true }) total !: number
     @PropSync('perPage', { type: Number, required: true }) syncPerPage !: number
 

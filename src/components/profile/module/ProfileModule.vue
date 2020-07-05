@@ -5,9 +5,9 @@
       <div class="column is-half">
         <b-tabs type="is-toggle-rounded" size="is-small" v-model="moduleType" expanded>
           <b-tab-item v-for="(moduleConfig, key) in computedModuleConfigs" :key="key"
-                      :label="$t(`module.${moduleConfig.moduleType}`)"
+                      :label="$t(`module.${moduleConfig.type}`)"
                       :icon="moduleConfig.icon"
-                      :value="moduleConfig.moduleType">
+                      :value="moduleConfig.type">
           </b-tab-item>
         </b-tabs>
       </div>
@@ -15,7 +15,7 @@
 
     <div class="columns">
       <div class="column">
-        <component :is="moduleConfig.module" v-bind="componentProperties"/>
+        <component v-if="moduleConfig" :is="moduleConfig.component" v-bind="componentProperties"/>
       </div>
     </div>
 
@@ -24,52 +24,77 @@
 
 <script lang="ts">
   import { Component } from 'nuxt-property-decorator';
-  import { ModuleConfig, ModuleType } from '~/types';
+  import { ModuleTabConfig, ModuleType, PrivacyType } from '~/types';
   import BaseModule from '~/mixin/BaseModule';
   import ProfileAboutMe from '~/components/profile/module/ProfileAboutMe.vue';
   import LinkedAccounts from '~/components/profile/module/LinkedAccounts.vue';
+  import ProfileFollowers from '~/components/profile/module/ProfileFollowers.vue';
+  import ProfileFollowings from '~/components/profile/module/ProfileFollowings.vue';
   import ProfileSettings from '~/components/profile/module/ProfileSettings.vue';
+  import { showProfileModule } from '~/service/rx-service';
 
   @Component({
     components: {}
   })
   export default class ProfileModule extends BaseModule {
 
-    moduleType = ModuleType.ProfileAboutMe
+    moduleType = ModuleType.ABOUT_ME
 
-    componentProperties = {
-      isMyProfile: this.isMyProfile,
-      authUser: this.authUser,
-      user: this.user
-    }
-
-    moduleConfigs: ModuleConfig<any>[] = [
+    moduleConfigs: ModuleTabConfig[] = [
       {
-        moduleType: ModuleType.ProfileAboutMe,
+        type: ModuleType.ABOUT_ME,
         icon: 'account-details',
-        module: ProfileAboutMe,
+        component: ProfileAboutMe,
         private: false
       },
       {
-        moduleType: ModuleType.LinkedAccounts,
+        type: ModuleType.LINKED_ACCOUNTS,
         icon: 'link-variant',
-        module: LinkedAccounts,
+        component: LinkedAccounts,
         private: true
       },
       {
-        moduleType: ModuleType.ProfileSettings,
+        type: ModuleType.FOLLOWERS,
+        icon: 'account-arrow-left',
+        component: ProfileFollowers,
+        private: this.user?.privacy === PrivacyType.PRIVATE || this.user.followersPrivacy === PrivacyType.PRIVATE
+      },
+      {
+        type: ModuleType.FOLLOWINGS,
+        icon: 'account-arrow-right',
+        component: ProfileFollowings,
+        private: this.user?.privacy === PrivacyType.PRIVATE || this.user.followingPrivacy === PrivacyType.PRIVATE
+      },
+      {
+        type: ModuleType.SETTINGS,
         icon: 'cog',
-        module: ProfileSettings,
+        component: ProfileSettings,
         private: true
       }
     ]
 
+    created() {
+      this.$subscribeTo(showProfileModule.asObservable(), async (moduleType: ModuleType) => {
+        this.moduleType = moduleType
+      })
+    }
+
     get moduleConfig() {
-      return this.moduleConfigs.find(moduleConfig => moduleConfig.moduleType === this.moduleType)
+      return this.moduleConfigs.find(moduleConfig => moduleConfig.type === this.moduleType)
     }
 
     get computedModuleConfigs() {
       return this.moduleConfigs.filter(moduleConfig => !moduleConfig.private || this.isMyProfile)
+    }
+
+    get componentProperties() {
+      return this.moduleConfig?.componentProperties ?
+        this.moduleConfig.componentProperties :
+        {
+          isMyProfile: this.isMyProfile,
+          authUser: this.authUser,
+          user: this.user
+        }
     }
 
   }

@@ -1,9 +1,8 @@
 <template>
   <div class="card has-cursor-pointer has-margin-bottom-25"
        @click="gotoProfile(searchResult.username)">
-    <div class="card-image has-height-300 crop-to-fit">
-      <img :src="searchResult.coverPhoto.src" :alt="searchResult.coverPhoto.alt">
-    </div>
+
+    <BackgroundImage :image-url="searchResult.coverPhoto.src" height="250"/>
     <div class="card-content">
       <div class="media">
         <div class="media-left">
@@ -25,9 +24,10 @@
   import { Routes, SearchData } from '../../types';
   import BackgroundSquareImage from '../image/BackgroundSquareImage.vue';
   import { getUserRoute } from '~/service/global-service';
+  import BackgroundImage from '~/components/image/BackgroundImage.vue';
 
   @Component({
-    components: { BackgroundSquareImage }
+    components: { BackgroundImage, BackgroundSquareImage }
   })
   export default class SearchResultCard extends Vue {
 

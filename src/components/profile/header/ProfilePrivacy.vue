@@ -5,10 +5,10 @@
         :icon="userPrivacyConfig.icon"
         size="is-small">
       </b-icon>
-      {{$t(`privacy.${userPrivacyConfig.privacyType}.title`)}}
+      {{$t(`privacy.account.${userPrivacyConfig.privacyType}.title`)}}
     </b-tag>
-    <b-tag type="is-light">{{$t(`privacy.${userPrivacyConfig.privacyType}.subtitle`)}}
-      <b-tooltip :label="$t(`privacy.${userPrivacyConfig.privacyType}.description`)" position="is-left" multilined>
+    <b-tag type="is-light">{{$t(`privacy.account.${userPrivacyConfig.privacyType}.subtitle`)}}
+      <b-tooltip :label="$t(`privacy.account.${userPrivacyConfig.privacyType}.description`)" position="is-left" multilined>
         <b-icon
           icon="information"
           size="is-small">

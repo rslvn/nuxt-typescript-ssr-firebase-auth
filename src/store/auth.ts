@@ -103,7 +103,9 @@ export const actions: ActionTree<AuthState, RootState> = {
           name: credentials.name,
           email: credentials.email,
           username: id,
-          privacy: PrivacyType.PRIVATE,
+          privacy: PrivacyType.PUBLIC,
+          followersPrivacy: PrivacyType.PUBLIC,
+          followingPrivacy: PrivacyType.PUBLIC,
           profilePhoto: DefaultProfilePhoto,
           coverPhoto: DefaultCoverPhoto
         })
@@ -165,7 +167,9 @@ export const actions: ActionTree<AuthState, RootState> = {
                   id,
                   name,
                   username: id,
-                  privacy: PrivacyType.PRIVATE,
+                  privacy: PrivacyType.PUBLIC,
+                  followersPrivacy: PrivacyType.PUBLIC,
+                  followingPrivacy: PrivacyType.PUBLIC,
                   profilePhoto: {
                     src: photo,
                     alt: `Profile photo of ${name}`
