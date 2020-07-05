@@ -256,6 +256,8 @@ const messages = {
     profileAboutMe: 'About Me',
     linkedAccounts: 'Linked Accounts',
     profileSettings: 'Settings',
+    profileFollowers: 'Followers',
+    profileFollowings: 'Following',
   },
 }
 

@@ -1,5 +1,5 @@
 import { auth, firestore } from '~/plugins/fire-init-plugin'
-import { BaseModel, PagingResponse, WhereClause } from '~/types'
+import { BaseModel, OrderBy, PagingResponse, WhereClause } from '~/types'
 import firebase from 'firebase';
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
@@ -21,7 +21,7 @@ const getQueryByWhereClauses = (collection: string,
 
   let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
   whereClauses.forEach(wc => {
-    query.where(wc.field, wc.operator, wc.value)
+    query = query.where(wc.field, wc.operator, wc.value)
   })
   return query
 }
@@ -112,7 +112,22 @@ export const getModelsByWhereClauses = async <T extends BaseModel>(collection: s
                                                                    ...whereClauses: WhereClause[])
   : Promise<T[]> => {
 
-  const query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+  let query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+
+  return await query.get()
+    .then((querySnapshot) => toBaseModelArray(querySnapshot))
+}
+
+export const getModelsByWhereClausesAndOrderBy = async <T extends BaseModel>(collection: string,
+                                                                             orderBy: OrderBy,
+                                                                             whereClause: WhereClause,
+                                                                             ...whereClauses: WhereClause[])
+  : Promise<T[]> => {
+
+  let query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+  if (orderBy) {
+    query = query.orderBy(orderBy.field, orderBy.direction)
+  }
 
   return await query.get()
     .then((querySnapshot) => toBaseModelArray(querySnapshot))

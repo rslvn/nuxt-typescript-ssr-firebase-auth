@@ -34,7 +34,7 @@
 
 <script lang="ts">
   import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, User } from '~/types';
+  import { AuthUser, ModuleType, User } from '~/types';
   import {
     deleteFollowing,
     getCountOfFollowers,
@@ -43,6 +43,7 @@
     saveFollowing
   } from '~/service/firebase/firestore/following-service';
   import { sendDangerNotification, showInfoToaster } from '~/service/notification-service';
+  import { showProfileModule } from '~/service/rx-service';
 
   @Component({
     components: {}
@@ -151,11 +152,11 @@
     }
 
     showFollowers() {
-      console.log('showFollowers clicked')
+      showProfileModule.next(ModuleType.ProfileFollowers)
     }
 
     showFollowings() {
-      console.log('showFollowings clicked')
+      showProfileModule.next(ModuleType.ProfileFollowings)
     }
 
   }

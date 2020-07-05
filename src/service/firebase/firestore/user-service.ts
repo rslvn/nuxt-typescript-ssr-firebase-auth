@@ -3,6 +3,7 @@ import {
   CollectionField,
   FirebaseQueryOperator,
   Image,
+  orderByName,
   PagingResponse,
   PrivacyType,
   SearchData,
@@ -14,8 +15,8 @@ import {
   getModelById,
   getModelsByField,
   getModelsByFieldAndPaging,
-  saveModel,
-  getModelsByWhereClauses
+  getModelsByWhereClausesAndOrderBy,
+  saveModel
 } from '~/service/firebase/firestore/firestore-service'
 
 export const saveUser = async (user: User): Promise<User> => {
@@ -54,30 +55,30 @@ export const getUsersByUsernameAndPage = async (
   }
 }
 
-export const searchUsers = async (value: any, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
-  const valueLower = value?.toLocaleString()
+export const searchUsers = async (query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
+  const queryLower = query?.toLocaleString()
   const whereClause: WhereClause = {
     field: CollectionField.USER.privacy,
     operator: FirebaseQueryOperator.EQ,
     value: PrivacyType.PUBLIC
   }
-  const users = await getModelsByWhereClauses(collection.USER, whereClause) as User[]
-  const filteredUsers = users.filter(user => user.username?.toLowerCase().includes(valueLower)
-    || user.name?.toLowerCase().includes(valueLower)
-    || user.surname?.toLowerCase().includes(valueLower))
+  const users = await getModelsByWhereClausesAndOrderBy(collection.USER, orderByName, whereClause) as User[]
+  const filteredUsers = users.filter(user => userIncludes(user, queryLower))
 
-  filteredUsers.sort((a, b) => {
-    // @ts-ignore
-    return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0)
-  })
+  return toSearchDataPagingResponse(filteredUsers, page, limit)
+};
+
+export const userIncludes = (user: User, query: string) => {
+  return user.username?.toLowerCase().includes(query)
+    || user.name?.toLowerCase().includes(query)
+    || user.surname?.toLowerCase().includes(query)
+}
+
+export const toSearchDataPagingResponse = (filteredUsers: User[], page: number, limit: number): PagingResponse<SearchData> => {
   const total = filteredUsers.length
   const totalPages = Math.ceil(total / limit)
   const limitedUsers = filteredUsers.splice((page * limit - limit), limit);
 
-  return toSearchDataPagingResponse(total, totalPages, limitedUsers)
-};
-
-const toSearchDataPagingResponse = (total: number, totalPages: number, limitedUsers: User[]): PagingResponse<SearchData> => {
   return {
     total,
     totalPages,

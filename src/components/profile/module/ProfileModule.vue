@@ -28,7 +28,10 @@
   import BaseModule from '~/mixin/BaseModule';
   import ProfileAboutMe from '~/components/profile/module/ProfileAboutMe.vue';
   import LinkedAccounts from '~/components/profile/module/LinkedAccounts.vue';
+  import ProfileFollowers from '~/components/profile/module/ProfileFollowers.vue';
+  import ProfileFollowings from '~/components/profile/module/ProfileFollowings.vue';
   import ProfileSettings from '~/components/profile/module/ProfileSettings.vue';
+  import { showProfileModule } from '~/service/rx-service';
 
   @Component({
     components: {}
@@ -57,12 +60,30 @@
         private: true
       },
       {
+        moduleType: ModuleType.ProfileFollowers,
+        icon: 'link-variant',
+        module: ProfileFollowers,
+        private: true
+      },
+      {
+        moduleType: ModuleType.ProfileFollowings,
+        icon: 'link-variant',
+        module: ProfileFollowings,
+        private: true
+      },
+      {
         moduleType: ModuleType.ProfileSettings,
         icon: 'cog',
         module: ProfileSettings,
         private: true
       }
     ]
+
+    created() {
+      this.$subscribeTo(showProfileModule.asObservable(), async (moduleType: ModuleType) => {
+        this.moduleType = moduleType
+      })
+    }
 
     get moduleConfig() {
       return this.moduleConfigs.find(moduleConfig => moduleConfig.moduleType === this.moduleType)

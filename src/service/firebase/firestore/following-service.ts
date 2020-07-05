@@ -1,11 +1,38 @@
-import { collection, CollectionField, FirebaseQueryOperator, Following, User, WhereClause } from '~/types';
+import {
+  collection,
+  CollectionField,
+  FirebaseQueryOperator,
+  Following,
+  orderByName,
+  PagingResponse,
+  SearchData,
+  User,
+  WhereClause
+} from '~/types'
 import {
   deleteModel,
   getCountByWhereClauses,
   getModelsByWhereClauses,
+  getModelsByWhereClausesAndOrderBy,
   saveModel
-} from '~/service/firebase/firestore/firestore-service';
+} from '~/service/firebase/firestore/firestore-service'
+import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-service'
 
+const followingWhereClause = (user: User): WhereClause => {
+  return {
+    field: CollectionField.FOLLOWING.following,
+    operator: FirebaseQueryOperator.EQ,
+    value: user.id
+  }
+}
+
+const followersWhereClause = (user: User): WhereClause => {
+  return {
+    field: CollectionField.FOLLOWING.follower,
+    operator: FirebaseQueryOperator.EQ,
+    value: user.id
+  }
+}
 
 export const saveFollowing = async (following: Following): Promise<Following> => {
   return await saveModel(collection.FOLLOWING, following) as Following
@@ -26,27 +53,68 @@ export const getFollowingByFollowerAndFollowing = async (follower: string, follo
     operator: FirebaseQueryOperator.EQ,
     value: following
   }
-  const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, wcFollower, wcFollowing)
+  const followingList: Following[] = await getModelsByWhereClausesAndOrderBy(collection.FOLLOWING, orderByName, wcFollower, wcFollowing)
 
   return followingList.find((fllwng) => fllwng.following === following && fllwng.follower === follower)
 }
 
 export const getCountOfFollowers = (user: User) => {
-  const whereClause: WhereClause = {
-    field: CollectionField.FOLLOWING.following,
-    operator: FirebaseQueryOperator.EQ,
-    value: user.id
-  }
+  const whereClause = followingWhereClause(user)
 
   return getCountByWhereClauses(collection.FOLLOWING, whereClause)
 }
 
 export const getCountOfFollowing = (user: User) => {
-  const whereClause: WhereClause = {
-    field: CollectionField.FOLLOWING.follower,
-    operator: FirebaseQueryOperator.EQ,
-    value: user.id
-  }
+  const whereClause = followersWhereClause(user)
 
   return getCountByWhereClauses(collection.FOLLOWING, whereClause)
 }
+
+export const searchFollowers = async (user: User, query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
+  const queryLower = query?.toLocaleString()
+  const whereClause = followingWhereClause(user)
+
+  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClause) as Following[]
+
+  const users: User[] = [];
+
+  let loadedUser: User | null = null;
+  for (const following of followingList) {
+    loadedUser = await getUser(following.follower)
+    if (loadedUser && userIncludes(loadedUser, queryLower)) {
+      users.push(loadedUser)
+    }
+  }
+
+  users.sort((a, b) => {
+    // @ts-ignore
+    return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0)
+  })
+
+  return toSearchDataPagingResponse(users, page, limit)
+}
+
+export const searchFollowings = async (user: User, query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
+  const queryLower = query?.toLocaleString()
+  const whereClause = followersWhereClause(user)
+
+  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClause) as Following[]
+
+  const users: User[] = [];
+
+  let loadedUser: User | null = null;
+  for (const following of followingList) {
+    loadedUser = await getUser(following.following)
+    if (loadedUser && userIncludes(loadedUser, queryLower)) {
+      users.push(loadedUser)
+    }
+  }
+
+  users.sort((a, b) => {
+    // @ts-ignore
+    return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0)
+  })
+
+  return toSearchDataPagingResponse(users, page, limit)
+}
+

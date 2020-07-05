@@ -2,45 +2,16 @@
   <div class="container">
     <PageTitle :title="$t('page.search.title')"></PageTitle>
 
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <b-field :label="$t('common.field.search')" label-position="on-border" position="is-centered" grouped>
-          <b-input
-            v-model="query"
-            :loading="isFetching"
-            :placeholder="$t('common.field.searchPlaceholder')"
-            type="search"
-            icon="magnify"
-            @keyup.enter.native="enterPressed"
-            rounded expanded
-          />
-          <b-button @click="searchByPage(1)" :loading="isFetching" type="is-primary" rounded>{{$t('common.search')}}
-          </b-button>
-        </b-field>
-      </div>
-    </div>
+    <SearchField :query.sync="query" :is-fetching="isFetching" :reset-search="resetSearch"/>
 
-    <div v-if="hasResult" class="columns is-centered is-multiline">
-      <div class="column is-full">
-        <SearchConfig :total="total" :per-page.sync="perPage"/>
-      </div>
-
-      <div class="column is-full">
-        <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
-      </div>
-
-      <div class="column is-half">
+    <Paging v-if="hasResult" :total="total" :per-page.sync="perPage" :current.sync="current" :is-fetching="isFetching"
+            :on-page-change="onPageChange">
+      <template slot="searchResult">
         <SearchResultCard v-for="(item, index) in list" :key="index" :search-result="item"/>
-      </div>
+      </template>
+    </Paging>
 
-      <div class="column is-full">
-        <SearchPaging :current.sync="current" :total="total" :per-page="perPage" :on-page-change="onPageChange"/>
-      </div>
-
-      <b-loading :is-full-page="false" :active.sync="isFetching" :can-cancel="false"></b-loading>
-    </div>
-
-    <div v-if="noResult && searched" class="columns is-centered">
+    <div v-if="!hasResult && searched" class="columns is-centered">
       <div class="column has-text-centered">
         <span> {{ $t('page.search.noResult') }} </span>
       </div>
@@ -55,25 +26,17 @@
   import { Context } from '@nuxt/types';
   import { AuthUser, QueryParameters, Routes, SearchData, StateNamespace } from '~/types';
   import { getHeadByRouteType } from '~/service/seo-service';
-  import PageTitle from '~/components/ui/PageTitle.vue';
   import { sendWarningNotification, showErrorToaster } from '~/service/notification-service';
   import { searchUsers } from '~/service/firebase/firestore';
+  import PageTitle from '~/components/ui/PageTitle.vue';
   import SearchResultCard from '~/components/search/SearchResultCard.vue';
-  import SearchPaging from '~/components/search/SearchPaging.vue';
-  import SearchConfig from '~/components/search/SearchConfig.vue';
+  import Paging from '~/components/ui/paging/Paging.vue';
+  import SearchField from '~/components/search/SearchField.vue';
 
   @Component({
-    components: { SearchConfig, SearchPaging, SearchResultCard, PageTitle }
+    components: { SearchField, Paging, SearchResultCard, PageTitle }
   })
   export default class search extends Vue {
-    pagingConfig = {
-      rangeBefore: 1,
-      rangeAfter: 2,
-      simple: false,
-      rounded: true,
-      order: 'is-centered'
-    }
-
     // paging dynamic config
     total = 1
     current = 1
@@ -110,12 +73,8 @@
       }
     }
 
-    get noResult() {
-      return !this.list.length
-    }
-
     get hasResult() {
-      return !this.noResult
+      return !!this.list.length
     }
 
     watchQuery(newQuery: any) {
@@ -141,7 +100,6 @@
         return sendWarningNotification(this.$store.dispatch, this.$t('notification.search.notAllowedToSearch'))
       }
 
-      console.log('searchByPage', page)
       this.searching(true);
       if (!this.query) {
         this.list = []
@@ -160,10 +118,6 @@
         .finally(() => {
           this.searching(false);
         })
-    }
-
-    enterPressed() {
-      this.resetSearch()
     }
 
   }

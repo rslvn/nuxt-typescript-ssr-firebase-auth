@@ -52,7 +52,9 @@ export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'non
 export enum ModuleType {
   ProfileAboutMe = 'profileAboutMe',
   LinkedAccounts = 'linkedAccounts',
-  ProfileSettings = 'profileSettings'
+  ProfileSettings = 'profileSettings',
+  ProfileFollowers = 'profileFollowers',
+  ProfileFollowings = 'profileFollowings',
 }
 
 export interface ModuleConfig<T> {

@@ -253,6 +253,8 @@ const messages = {
     profileAboutMe: 'Hakkimda',
     linkedAccounts: 'Bagli Hesaplar',
     profileSettings: 'Ayarlar',
+    profileFollowers: 'Takipci',
+    profileFollowings: 'Takipte',
   },
 }
 

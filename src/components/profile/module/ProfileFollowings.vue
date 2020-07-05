@@ -1,0 +1,91 @@
+<template>
+  <div class="container">
+
+    <SearchField :query.sync="query" :is-fetching="isFetching" :reset-search="resetSearch"/>
+
+    <Paging v-if="hasResult" :total="total" :per-page.sync="perPage" :current.sync="current" :is-fetching="isFetching"
+            :on-page-change="onPageChange">
+      <template slot="searchResult">
+
+        <ProfileCard v-for="(user, index) in list" :key="index" :name="user.name" :username="user.username"
+                     :profile-photo="user.profilePhoto"/>
+
+      </template>
+    </Paging>
+
+    <div v-if="!hasResult && searched" class="columns is-centered">
+      <div class="column has-text-centered">
+        <span> {{ $t('page.search.noResult') }} </span>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<script lang="ts">
+  import { Component } from 'nuxt-property-decorator';
+  import ProfileCard from '~/components/card/ProfileCard.vue';
+  import { SearchData, User } from '~/types';
+  import PageTitle from '~/components/ui/PageTitle.vue';
+  import SearchField from '~/components/search/SearchField.vue';
+  import Paging from '~/components/ui/paging/Paging.vue';
+  import { searchFollowings } from '~/service/firebase/firestore/following-service';
+  import BaseModule from '~/mixin/BaseModule';
+  import { showErrorToaster } from '~/service/notification-service';
+
+  @Component({
+    components: { Paging, SearchField, PageTitle, ProfileCard }
+  })
+  export default class ProfileFollowings extends BaseModule {
+    // paging dynamic config
+    total = 1
+    current = 1
+    perPage = 5
+
+    // search page data
+    query = '';
+    list: User[] = []
+    isFetching = false
+    searched = false
+
+    mounted() {
+      this.resetSearch()
+    }
+
+    get hasResult() {
+      return !!this.list.length
+    }
+
+    resetSearch() {
+      this.searchByPage(1)
+    }
+
+    onPageChange(page: number) {
+      this.searchByPage(page)
+    }
+
+    searching(isSearching: boolean) {
+      this.searched = !isSearching
+      this.isFetching = isSearching
+    }
+
+    searchByPage(page: number) {
+      this.searching(true)
+
+      searchFollowings(this.user, this.query, page, this.perPage)
+        .then((pagingResponse) => {
+          this.total = pagingResponse.total
+          this.list = []
+          pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
+        })
+        .catch((error: Error) => {
+          console.log(error)
+          return showErrorToaster(this.$t('notification.search.canNotExecuted'))
+        })
+        .finally(() => {
+          this.searching(false);
+        })
+    }
+
+  }
+</script>

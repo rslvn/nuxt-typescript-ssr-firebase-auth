@@ -1,4 +1,5 @@
 import { ProviderData } from "~/types/api-types";
+import OrderByDirection = firebase.firestore.OrderByDirection;
 
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
@@ -181,6 +182,17 @@ export interface WhereClause {
 export enum collection {
   USER = 'user',
   FOLLOWING = 'following'
+}
+
+export interface OrderBy {
+  field: string
+  direction: OrderByDirection
+}
+
+
+export const orderByName: OrderBy = {
+  field: 'name',
+  direction: 'asc'
 }
 
 export const CollectionField = {
