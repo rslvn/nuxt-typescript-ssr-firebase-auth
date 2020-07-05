@@ -8,7 +8,7 @@
       <template slot="searchResult">
 
         <ProfileCard v-for="(user, index) in list" :key="index" :name="user.name" :username="user.username"
-                     :profile-photo="user.profilePhoto"/>
+                     :profile-photo="user.profilePhoto" :privacy-type="user.privacy"/>
 
       </template>
     </Paging>

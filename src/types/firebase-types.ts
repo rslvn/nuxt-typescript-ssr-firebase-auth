@@ -150,7 +150,8 @@ export interface SearchData {
   name: string,
   username: string,
   profilePhoto: Image,
-  coverPhoto: Image
+  coverPhoto: Image,
+  privacy: PrivacyType
 }
 
 export interface PagingResponse<T> {

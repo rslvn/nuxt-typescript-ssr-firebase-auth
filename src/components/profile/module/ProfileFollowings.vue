@@ -6,10 +6,8 @@
     <Paging v-if="hasResult" :total="total" :per-page.sync="perPage" :current.sync="current" :is-fetching="isFetching"
             :on-page-change="onPageChange">
       <template slot="searchResult">
-
         <ProfileCard v-for="(user, index) in list" :key="index" :name="user.name" :username="user.username"
-                     :profile-photo="user.profilePhoto"/>
-
+                     :profile-photo="user.profilePhoto" :privacy-type="user.privacy" />
       </template>
     </Paging>
 
@@ -24,15 +22,15 @@
 
 <script lang="ts">
   import { Component, Watch } from 'nuxt-property-decorator';
-  import ProfileCard from '~/components/card/ProfileCard.vue';
   import { SearchData, User } from '~/types';
+  import { searchFollowings } from '~/service/firebase/firestore/following-service';
+  import { showErrorToaster } from '~/service/notification-service';
+  import { reloadFollowing } from '~/service/rx-service';
+  import BaseModule from '~/mixin/BaseModule';
   import PageTitle from '~/components/ui/PageTitle.vue';
   import SearchField from '~/components/search/SearchField.vue';
   import Paging from '~/components/ui/paging/Paging.vue';
-  import { searchFollowings } from '~/service/firebase/firestore/following-service';
-  import BaseModule from '~/mixin/BaseModule';
-  import { showErrorToaster } from '~/service/notification-service';
-  import { reloadFollowing } from '~/service/rx-service';
+  import ProfileCard from '~/components/card/ProfileCard.vue';
 
   @Component({
     components: { Paging, SearchField, PageTitle, ProfileCard }
@@ -59,7 +57,6 @@
         console.log('reloadFollowing called')
         this.resetSearch();
       })
-
       this.resetSearch()
     }
 

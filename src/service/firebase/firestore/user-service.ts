@@ -94,6 +94,7 @@ const toSearchData = (user: User): SearchData => {
     name: user.name as string,
     username: user.username as string,
     profilePhoto: user.profilePhoto as Image,
-    coverPhoto: user.coverPhoto as Image
+    coverPhoto: user.coverPhoto as Image,
+    privacy: user.privacy as PrivacyType,
   }
 }
