@@ -135,7 +135,7 @@ export const PrivacyList: PrivacyConfig[] = [
   {
     privacyType: PrivacyType.PRIVATE,
     colorType: 'is-danger',
-    icon: 'account-remove-outline',
+    icon: 'account-lock',
     type: 'is-danger'
   },
   {
@@ -221,6 +221,8 @@ export interface User extends BaseModel {
   surname?: string
   email?: string
   privacy?: PrivacyType
+  followersPrivacy ?: PrivacyType
+  followingPrivacy ?: PrivacyType
   biography?: string
   profilePhoto?: Image
   coverPhoto?: Image

@@ -170,11 +170,11 @@
     }
 
     showFollowers() {
-      showProfileModule.next(ModuleType.ProfileFollowers)
+      showProfileModule.next(ModuleType.FOLLOWERS)
     }
 
     showFollowings() {
-      showProfileModule.next(ModuleType.ProfileFollowings)
+      showProfileModule.next(ModuleType.FOLLOWINGS)
     }
 
   }

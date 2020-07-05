@@ -48,18 +48,32 @@ export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none
 
 export const sessionCookieOptionsProd: CookieSerializeOptions = { sameSite: 'none', secure: true, path: '/' }
 
-
 export enum ModuleType {
-  ProfileAboutMe = 'profileAboutMe',
-  LinkedAccounts = 'linkedAccounts',
-  ProfileSettings = 'profileSettings',
-  ProfileFollowers = 'profileFollowers',
-  ProfileFollowings = 'profileFollowings',
+  ABOUT_ME = 'profileAboutMe',
+  LINKED_ACCOUNTS = 'linkedAccounts',
+  SETTINGS = 'profileSettings',
+  FOLLOWERS = 'profileFollowers',
+  FOLLOWINGS = 'profileFollowings',
 }
 
-export interface ModuleConfig<T> {
-  moduleType: ModuleType
+export enum SettingsType {
+  GENERAL = 'general',
+  PRIVACY = 'privacy',
+}
+
+export interface NavigatorConfig<T, M> {
+  type: T
   icon: string
-  module: T
+  component: M,
+  componentProperties?: object
   private: boolean
 }
+
+export interface ModuleTabConfig extends NavigatorConfig<ModuleType, any> {
+
+}
+
+export interface SettingsMenuConfig extends NavigatorConfig<SettingsType, any> {
+
+}
+

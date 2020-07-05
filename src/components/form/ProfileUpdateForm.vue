@@ -19,13 +19,6 @@
         class="has-margin-bottom-15"
       />
 
-      <PrivacyDropdown v-model="updatedUser.privacy"
-                       :label="$t('common.field.privacy')"
-                       rules="required"
-                       label-position="on-border"
-                       vid="privacy"
-                       class="has-margin-5"/>
-
       <InputWithValidation
         v-model="updatedUser.username"
         :label="$t('common.field.username')"
@@ -82,22 +75,21 @@
   import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
   import { ValidationObserver } from "vee-validate";
   import { StateNamespace, User } from '~/types';
-  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
-  import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
-  import FieldWithValue from '~/components/ui/FieldWithValue.vue';
   import { slugify } from '~/service/global-service';
   import { getDangerNotificationMessage, showSuccessToaster } from '~/service/notification-service';
   import { handleError } from '~/service/error-service';
-  import PrivacyDropdown from '~/components/ui/dropdown/PrivacyDropdown.vue';
   import { reloadUserFromDatabase } from '~/service/rx-service';
+  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
+  import InputNoValidation from '~/components/ui/input/InputNoValidation.vue';
+  import FieldWithValue from '~/components/ui/FieldWithValue.vue';
 
   @Component({
-    components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
+    components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
   })
   export default class ProfileUpdateForm extends Vue {
 
     @Prop({ required: true }) user !: User
-    updatedUser = this.user
+    updatedUser = { ...this.user }
 
     @StateNamespace.profile.Action updateUser !: (user: User) => Promise<User>;
     @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
