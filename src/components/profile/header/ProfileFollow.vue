@@ -90,7 +90,7 @@
     getCountOfFollowing,
     getFollowingByFollowerAndFollowing,
     saveFollowing
-  } from '~/service/firebase/firestore/following-service';
+  } from '~/service/firebase/firestore';
   import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service';
   import { reloadFollowing, showProfileModule } from '~/service/rx-service';
 

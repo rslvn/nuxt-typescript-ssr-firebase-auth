@@ -14,7 +14,7 @@ import {
   getModelsByWhereClauses,
   saveModel
 } from '~/service/firebase/firestore/firestore-service'
-import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-service'
+import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-collection'
 
 const followingWhereClause = (user: User): WhereClause => {
   return {

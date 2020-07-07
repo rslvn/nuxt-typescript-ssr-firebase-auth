@@ -1,5 +1,11 @@
 <template>
-  <b-navbar-dropdown :boxed="true" :close-on-click="true">
+  <b-navbar-dropdown :boxed="true" :close-on-click="true" :arrowless="true">
+    <template slot="label">
+      <b-icon
+        icon="chevron-down"
+        size="is-small">
+      </b-icon>
+    </template>
     <b-navbar-item tag="router-link" :to="dynamicProfileRoute">
       <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
       <p>{{$t('topNavbar.profileDynamic')}}</p>

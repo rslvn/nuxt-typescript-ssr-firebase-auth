@@ -23,7 +23,7 @@
 <script lang="ts">
   import { Component, Watch } from 'nuxt-property-decorator';
   import { SearchData, User } from '~/types';
-  import { searchFollowings } from '~/service/firebase/firestore/following-service';
+  import { searchFollowings } from '~/service/firebase/firestore';
   import { showErrorToaster } from '~/service/notification-service';
   import { reloadFollowing } from '~/service/rx-service';
   import BaseModule from '~/mixin/BaseModule';

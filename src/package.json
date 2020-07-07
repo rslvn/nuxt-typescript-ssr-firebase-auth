@@ -20,6 +20,7 @@
     "hooks": {}
   },
   "dependencies": {
+    "@creativebulma/bulma-badge": "^1.0.1",
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@mdi/font": "^5.3.45",
     "@nuxt/typescript-runtime": "^0.4.10",

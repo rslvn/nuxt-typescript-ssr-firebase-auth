@@ -29,7 +29,7 @@
   import PageTitle from '~/components/ui/PageTitle.vue';
   import SearchField from '~/components/search/SearchField.vue';
   import Paging from '~/components/ui/paging/Paging.vue';
-  import { searchFollowers } from '~/service/firebase/firestore/following-service';
+  import { searchFollowers } from '~/service/firebase/firestore';
   import BaseModule from '~/mixin/BaseModule';
   import { showErrorToaster } from '~/service/notification-service';
   import { reloadFollowing } from '~/service/rx-service';

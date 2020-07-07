@@ -190,7 +190,6 @@ export interface OrderBy {
   direction: OrderByDirection
 }
 
-
 export const orderByName: OrderBy = {
   field: 'name',
   direction: 'asc'
@@ -206,6 +205,10 @@ export const CollectionField = {
     follower: 'follower',
     following: 'following'
   }
+}
+
+export enum PushNotificationType {
+  FOLLOW = 'follow'
 }
 
 export interface BaseModel {
@@ -232,4 +235,10 @@ export interface User extends BaseModel {
 export interface Following extends BaseModel {
   follower: string,
   following: string,
+}
+
+export interface PushNotification extends BaseModel {
+  from: string,
+  to: string,
+  notificationType: PushNotificationType
 }
