@@ -46,6 +46,6 @@ import AppFooter from '~/components/footer/AppFooter.vue'
 export default class defaultLayout extends Vue {
     @StateNamespace.notification.Getter notificationMessage: NotificationMessage;
     @StateNamespace.notification.Action clearNotificationMessage : () => void;
-  }
+}
 
 </script>

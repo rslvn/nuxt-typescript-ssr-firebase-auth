@@ -54,41 +54,49 @@ import LoginForm from '~/components/form/LoginForm.vue'
 import TopNotification from '~/components/notification/TopNotification.vue'
 import { reauthenticateObservable } from '~/service/rx-service'
 
-  @Component({
-    components: { TopNotification, LoginForm, SetEmailPasswordForm, SocialLogin }
-  })
+@Component({
+  components: { TopNotification, LoginForm, SetEmailPasswordForm, SocialLogin }
+})
 export default class SetPasswordModal extends Vue {
-    @Prop({ type: Object, required: true }) authUser : AuthUser;
-    @Prop({ type: Array, required: true }) linkedProviders : ProviderConfig[];
-    @Prop({ type: Function, required: true }) confirmCredentials : (credentials: LoginCredentials) => void;
+  @Prop({ type: Object, required: true }) authUser: AuthUser
+  @Prop({ type: Array, required: true }) linkedProviders: ProviderConfig[]
+  @Prop({ type: Function, required: true }) confirmCredentials: (
+    credentials: LoginCredentials
+  ) => void
 
-    showLogin = true
+  showLogin = true
 
-    @StateNamespace.notification.Getter notificationMessage: NotificationMessage;
-    @StateNamespace.notification.Action clearNotificationMessage : () => void;
-    @StateNamespace.auth.Getter rememberMe : boolean;
-    @StateNamespace.auth.Action reauthenticateWithCredential : (credentials: LoginCredentials) => void;
+  @StateNamespace.notification.Getter notificationMessage: NotificationMessage
+  @StateNamespace.notification.Action clearNotificationMessage: () => void
+  @StateNamespace.auth.Getter rememberMe: boolean
+  @StateNamespace.auth.Action reauthenticateWithCredential: (
+    credentials: LoginCredentials
+  ) => void
 
-    created () {
-      this.$subscribeTo(reauthenticateObservable.asObservable(), () => {
-        this.clearNotificationMessage()
-        this.showLogin = false
-      })
-    }
-
-    get socialProviders () {
-      return this.linkedProviders.filter(provider => provider.providerType !== ProviderType.PASSWORD)
-    }
-
-    get passwordProvider () {
-      return this.linkedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
-    }
-
-    handleConfirmCredentials (credentials: LoginCredentials) {
-      // @ts-ignore
-      // eslint-disable-next-line no-unused-expressions
-      this.$parent?.close()
-      this.confirmCredentials(credentials)
-    }
+  created () {
+    this.$subscribeTo(reauthenticateObservable.asObservable(), () => {
+      this.clearNotificationMessage()
+      this.showLogin = false
+    })
   }
+
+  get socialProviders () {
+    return this.linkedProviders.filter(
+      provider => provider.providerType !== ProviderType.PASSWORD
+    )
+  }
+
+  get passwordProvider () {
+    return this.linkedProviders.find(
+      provider => provider.providerType === ProviderType.PASSWORD
+    )
+  }
+
+  handleConfirmCredentials (credentials: LoginCredentials) {
+    // @ts-ignore
+    // eslint-disable-next-line no-unused-expressions
+    this.$parent?.close()
+    this.confirmCredentials(credentials)
+  }
+}
 </script>

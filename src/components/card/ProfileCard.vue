@@ -70,5 +70,5 @@ export default class ProfileCard extends Vue {
       }
       await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
-  }
+}
 </script>

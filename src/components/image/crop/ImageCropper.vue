@@ -1,19 +1,19 @@
 <template>
   <div>
     <img ref="imageCropRef" class="img-container" :src="image.src" crossorigin>
-    <slot name="preview"/>
+    <slot name="preview" />
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Ref, Vue } from 'nuxt-property-decorator';
-  import { Image } from '~/types';
-  import Cropper from "cropperjs";
+import { Component, Prop, Ref, Vue } from 'nuxt-property-decorator'
+import Cropper from 'cropperjs'
+import { Image } from '~/types'
 
   @Component({
     components: {}
   })
-  export default class ImageCropper extends Vue {
+export default class ImageCropper extends Vue {
     @Ref('imageCropRef') readonly imageCropRef:HTMLImageElement
     @Prop({ required: true }) image:Image
     @Prop({ type: Number, required: true }) width:number
@@ -22,18 +22,18 @@
 
     cropper: Cropper | null = null
 
-    mounted() {
+    mounted () {
       this.initiateCropper()
     }
 
-    updated() {
+    updated () {
       if (this.cropper) {
-        this.cropper.destroy();
+        this.cropper.destroy()
       }
       this.initiateCropper()
     }
 
-    initiateCropper() {
+    initiateCropper () {
       this.cropper = new Cropper(this.imageCropRef, {
         aspectRatio: this.width / this.height,
         viewMode: 0,
@@ -51,13 +51,12 @@
             width: this.width,
             height: this.height,
             imageSmoothingEnabled: true,
-            imageSmoothingQuality: 'low',
-          });
+            imageSmoothingQuality: 'low'
+          })
 
-          this.preview(canvas?.toDataURL("image/jpg", 1) as string)
+          this.preview(canvas?.toDataURL('image/jpg', 1) as string)
         }
-      });
+      })
     }
-
-  }
+}
 </script>

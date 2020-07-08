@@ -93,5 +93,5 @@ export default class LoginForm extends Vue {
     submit () {
       this.signInWithEmail(this.credentials)
     }
-  }
+}
 </script>

@@ -1,5 +1,5 @@
-import admin from './firebase-admin-init'
 import { AuthUser, collection, FirebaseClaimKey, FirebaseClaims, ProviderType, User } from '../../types'
+import admin from './firebase-admin-init'
 import DecodedIdToken = admin.auth.DecodedIdToken;
 
 export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
@@ -10,7 +10,7 @@ export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
 
 export const setCustomClaims = async (uid: string, firebaseClaims: FirebaseClaims): Promise<void> => {
   console.log('setCustomClaims', firebaseClaims)
-  await admin.auth().setCustomUserClaims(uid, firebaseClaims);
+  await admin.auth().setCustomUserClaims(uid, firebaseClaims)
 }
 
 export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {
@@ -19,13 +19,13 @@ export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {
     return { username }
   }
 
-  let user = await getUser(decodedIdToken.sub)
+  const user = await getUser(decodedIdToken.sub)
   if (!user) {
     throw new Error('User not found by id: ' + decodedIdToken.sub)
   }
 
-  username = (user.username || user.id) as string
-  let firebaseClaims = { username }
+  username = (user.username || user.id)
+  const firebaseClaims = { username }
 
   await setCustomClaims(decodedIdToken.sub, firebaseClaims)
 
@@ -44,7 +44,7 @@ export const toAuthUser = (decodedIdToken: DecodedIdToken, firebaseClaims: Fireb
     userId: decodedIdToken.sub,
     username: firebaseClaims[FirebaseClaimKey.USERNAME],
     providers: [{ providerType: decodedIdToken.firebase.sign_in_provider as ProviderType }]
-  };
+  }
 }
 
 export const getUser = async (uid: string): Promise<User> => {

@@ -69,5 +69,5 @@ export default class ProfilePhoto extends Vue {
       this.updateProfilePhoto(image)
         .then(() => profilePhotoObservable.next(image))
     }
-  }
+}
 </script>

@@ -22,5 +22,5 @@ import { Routes } from '~/types'
   })
 export default class AppFooter extends Vue {
     routes = Routes
-  }
+}
 </script>

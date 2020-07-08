@@ -34,7 +34,7 @@ export default class extends Vue {
     increase (num: Number) {
       console.log('loading.num: ', num)
     }
-  }
+}
 </script>
 
 <style lang="css" scoped>

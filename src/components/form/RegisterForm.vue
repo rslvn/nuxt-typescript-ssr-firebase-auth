@@ -97,5 +97,5 @@ export default class RegisterForm extends Vue {
     submit () {
       this.signUpWithEmail(this.credentials)
     }
-  }
+}
 </script>

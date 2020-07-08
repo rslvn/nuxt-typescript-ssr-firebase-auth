@@ -103,5 +103,5 @@ export default class LinkedAccounts extends BaseModule {
         }
       })
     }
-  }
+}
 </script>

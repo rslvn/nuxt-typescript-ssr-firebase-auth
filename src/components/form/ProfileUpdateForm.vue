@@ -115,5 +115,5 @@ export default class ProfileUpdateForm extends Vue {
         )
         .finally(() => this.saveLoading(false))
     }
-  }
+}
 </script>

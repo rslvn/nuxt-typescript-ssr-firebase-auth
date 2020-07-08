@@ -97,5 +97,5 @@ export default class ProviderCard extends Vue {
     get imageUrl () {
       return this.providerData.photoURL || DefaultProfilePhoto.src
     }
-  }
+}
 </script>

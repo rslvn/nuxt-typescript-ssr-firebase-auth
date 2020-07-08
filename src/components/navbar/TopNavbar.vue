@@ -97,5 +97,5 @@ export default class TopNavbar extends Vue {
     get profilePhoto () {
       return this.authUser?.profilePhoto?.src || DefaultProfilePhoto.src
     }
-  }
+}
 </script>

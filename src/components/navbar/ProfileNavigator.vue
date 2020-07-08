@@ -44,5 +44,5 @@ export default class ProfileNavigator extends Vue {
     get dynamicProfileRoute () {
       return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
     }
-  }
+}
 </script>

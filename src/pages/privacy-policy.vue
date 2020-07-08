@@ -14,8 +14,8 @@ import PageTitle from '~/components/ui/PageTitle.vue'
     components: { PageTitle }
   })
 export default class privacyPolicy extends Vue {
-    head () {
-      return getHeadByRouteType(Routes.PRIVACY_POLICY, this)
-    }
+  head () {
+    return getHeadByRouteType(Routes.PRIVACY_POLICY, this)
   }
+}
 </script>

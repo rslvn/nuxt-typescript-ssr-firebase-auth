@@ -19,5 +19,5 @@ export default class ForgetPassword extends Vue {
       this.clearNotificationMessage()
       this.sendPasswordResetEmail(emailAddress)
     }
-  }
+}
 </script>

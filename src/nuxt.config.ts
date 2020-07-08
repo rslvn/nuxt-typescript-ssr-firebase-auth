@@ -18,10 +18,10 @@ const config: Configuration = {
         content: process.env.npm_package_description || ''
       },
       {
-        name: "google-site-verification",
-        content: "7KSGr_zujhmsc2fhu0iAfR_L0e5--J_QwD5EeePB1yM"
+        name: 'google-site-verification',
+        content: '7KSGr_zujhmsc2fhu0iAfR_L0e5--J_QwD5EeePB1yM'
       }
-    ],
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -56,7 +56,7 @@ const config: Configuration = {
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',
     '~/plugins/vue-lazyload-plugin',
-    '~/plugins/rxjs-plugin',
+    '~/plugins/rxjs-plugin'
   ],
   router: {
     middleware: ['clear-messages', 'router-auth']
@@ -78,7 +78,7 @@ const config: Configuration = {
     'nuxt-i18n',
     ['@nuxtjs/google-analytics', {
       id: 'UA-74295415-1'
-    }],
+    }]
   ],
 
   i18n: {
@@ -128,7 +128,7 @@ const config: Configuration = {
   typescript: {
     typeCheck: {
       eslint: {
-        files: './src/**/*.{ts,js,vue}'
+        files: './**/*.{ts,js,vue}'
       }
     }
   },
@@ -156,7 +156,7 @@ const config: Configuration = {
     //   chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
     // },
     babel: {
-      presets({ isServer }) {
+      presets ({ isServer }) {
         return [
           [
             require.resolve('@nuxt/babel-preset-app'),
@@ -169,8 +169,8 @@ const config: Configuration = {
         ]
       }
     },
-    transpile: ['vee-validate/dist/rules'],
-  },
+    transpile: ['vee-validate/dist/rules']
+  }
 }
 
 export default config

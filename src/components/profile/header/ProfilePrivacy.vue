@@ -40,5 +40,5 @@ export default class ProfilePrivacy extends Vue {
     get userPrivacyConfig () {
       return PrivacyList.find(privacyConfig => privacyConfig.privacyType === this.userPrivacy)
     }
-  }
+}
 </script>

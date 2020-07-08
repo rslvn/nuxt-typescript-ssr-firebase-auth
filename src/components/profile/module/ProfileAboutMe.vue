@@ -85,9 +85,9 @@ import BaseModule from '~/mixin/BaseModule'
 export default class ProfileAboutMe extends BaseModule {
     loading = false;
 
-    @StateNamespace.notification.Action clearNotificationMessage:() => void;
-    @StateNamespace.auth.Action handleSendingEmailVerificationCode:() => Promise<void>
-    @StateNamespace.auth.Action updatePassword:(password: string) => void;
+    @StateNamespace.notification.Action clearNotificationMessage: () => void;
+    @StateNamespace.auth.Action handleSendingEmailVerificationCode: () => Promise<void>
+    @StateNamespace.auth.Action updatePassword: (password: string) => void;
 
     get passwordProvider (): ProviderConfig | undefined {
       return this.authUser.providers.find(providerData => providerData.providerType === ProviderType.PASSWORD)
@@ -119,7 +119,8 @@ export default class ProfileAboutMe extends BaseModule {
     submit () {
       this.loading = true
       this.handleSendingEmailVerificationCode()
+        // eslint-disable-next-line no-return-assign
         .then(() => this.loading = false)
     }
-  }
+}
 </script>

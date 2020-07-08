@@ -47,5 +47,5 @@ export default class LoginForm extends Vue {
     submit () {
       this.sendPasswordResetEmail(this.emailAddress)
     }
-  }
+}
 </script>

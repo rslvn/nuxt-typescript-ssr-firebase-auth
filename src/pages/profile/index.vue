@@ -46,5 +46,5 @@ export default class profile extends Vue {
         })
         .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
     }
-  }
+}
 </script>

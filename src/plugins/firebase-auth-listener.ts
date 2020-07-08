@@ -1,8 +1,8 @@
-import { auth } from '~/plugins/fire-init-plugin'
 import { NuxtAppOptions, Plugin } from '@nuxt/types'
-import { User } from 'firebase';
-import { Store } from 'vuex';
-import { Location, Route } from 'vue-router';
+import { User } from 'firebase'
+import { Store } from 'vuex'
+import { Location, Route } from 'vue-router'
+import { auth } from '~/plugins/fire-init-plugin'
 import {
   AppCookie,
   AuthUser,
@@ -12,23 +12,23 @@ import {
   sessionCookieOptionsDev,
   sessionCookieOptionsProd,
   StoreConfig
-} from '~/types';
-import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service';
-import { getAuthUser } from '~/service/firebase/firebase-service';
+} from '~/types'
+import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
+import { getAuthUser } from '~/service/firebase/firebase-service'
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
     console.log('the user is forced to logout')
-  });
+  })
 }
 
 const getNextRoute = (route: Route): Location => {
-  let path: string = route.query[QueryParameters.NEXT] as string
+  const path: string = route.query[QueryParameters.NEXT] as string
   if (path) {
     return { path }
   }
 
-  if (authenticatedNotAllowed(route) || route.path == Routes.ACTION.path) {
+  if (authenticatedNotAllowed(route) || route.path === Routes.ACTION.path) {
     return Routes.PROFILE
   }
 
@@ -36,15 +36,15 @@ const getNextRoute = (route: Route): Location => {
 }
 
 const setRememberMe = async (store: Store<any>, app: NuxtAppOptions) => {
-  let rememberMe = app.$cookies.get(AppCookie.REMEMBER_ME);
-  await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe);
+  const rememberMe = app.$cookies.get(AppCookie.REMEMBER_ME)
+  await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe)
 }
 
 const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
   if (!firebaseUser) {
     store.commit(StoreConfig.auth.setAuthUser, null)
   }
-  firebaseUser?.getIdTokenResult()
+  return firebaseUser?.getIdTokenResult()
     .then((idTokenResult) => {
       const authUser = getAuthUser(firebaseUser) as AuthUser
       if (authUser) {
@@ -54,11 +54,10 @@ const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
     })
 }
 
-const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd;
+const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
-
-  setRememberMe(store, app);
+  setRememberMe(store, app)
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {
@@ -69,7 +68,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
 
       console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
 
-      updateAuthStore(firebaseUser, store);
+      updateAuthStore(firebaseUser, store)
 
       if (firebaseUser) {
         // console.log('Firebase user: ', firebaseUser)
@@ -81,9 +80,8 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
           })
 
         redirect(getNextRoute(route))
-
       } else {
-        app.$cookies.remove(AppCookie.TOKEN);
+        app.$cookies.remove(AppCookie.TOKEN)
         app.$axios.setToken(false)
         if (authenticatedAllowed(route)) {
           redirect(Routes.LOGIN)
@@ -96,9 +94,9 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
   auth.onIdTokenChanged((firebaseUser: User | null) => {
     console.log('onIdTokenChanged with a user: ', !!firebaseUser)
     if (!firebaseUser) {
-      return;
+      return
     }
-    updateAuthStore(firebaseUser, store);
+    updateAuthStore(firebaseUser, store)
 
     firebaseUser.getIdToken()
       .then((token: string) => {

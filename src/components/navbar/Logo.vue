@@ -16,5 +16,5 @@ import { HOME } from '~/types'
   })
 export default class Logo extends Vue {
     home = HOME
-  }
+}
 </script>

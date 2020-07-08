@@ -25,7 +25,7 @@ export const getAuthUser = (firebaseUser: User): AuthUser => {
     userId: firebaseUser.uid,
     username: '',
     verified: firebaseUser.emailVerified,
-    providers: firebaseUser.providerData?.filter(value => !!value).map((value) => getProviderData(value))
+    providers: firebaseUser.providerData?.filter(value => !!value).map(value => getProviderData(value))
   }
 }
 
@@ -36,24 +36,25 @@ export const getProviderOption = (provider: ProviderType) => {
 }
 
 export const decodeToken = (token: string): AuthUser => {
-  let decodedToken: any = jwtDecode(token);
-  let name = decodedToken[FirebaseClaimKey.NAME] as string
-  let profilePhoto: Image = {
+  const decodedToken: any = jwtDecode(token)
+  const name = decodedToken[FirebaseClaimKey.NAME]
+  const profilePhoto: Image = {
     src: decodedToken[FirebaseClaimKey.PICTURE],
     alt: `Cover photo of ${name}`
   }
-  let providers: ProviderData[] = Object.keys(decodedToken[FirebaseClaimKey.FIREBASE]?.identities).map((provider: string) => {
-    return {
-      providerType: provider as ProviderType
-    }
-  })
+  const providers: ProviderData[] = Object.keys(decodedToken[FirebaseClaimKey.FIREBASE]?.identities)
+    .map((provider: string) => {
+      return {
+        providerType: provider as ProviderType
+      }
+    })
 
   return {
-    userId: decodedToken[FirebaseClaimKey.USER_ID] as string,
-    username: decodedToken[FirebaseClaimKey.USERNAME] as string,
+    userId: decodedToken[FirebaseClaimKey.USER_ID],
+    username: decodedToken[FirebaseClaimKey.USERNAME],
     name,
-    email: decodedToken[FirebaseClaimKey.EMAIL] as string,
-    verified: decodedToken[FirebaseClaimKey.EMAIL_VERIFIED] as boolean,
+    email: decodedToken[FirebaseClaimKey.EMAIL],
+    verified: decodedToken[FirebaseClaimKey.EMAIL_VERIFIED],
     profilePhoto,
     providers
   }

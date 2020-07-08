@@ -21,5 +21,5 @@ export default class RememberMe extends Vue {
     inputChanged () {
       this.saveRememberMe(!this.value)
     }
-  }
+}
 </script>

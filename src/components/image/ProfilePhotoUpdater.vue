@@ -73,5 +73,5 @@ export default class ProfilePhotoUpdater extends Vue {
       this.previewSrc = croppedForPreview
       this.isLoading = false
     }
-  }
+}
 </script>

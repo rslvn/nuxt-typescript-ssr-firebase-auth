@@ -20,5 +20,5 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 export default class PageTitle extends Vue {
     @Prop({ type: String, required: true }) title : string
     @Prop({ type: String, required: false, default: null }) subtitle : string
-  }
+}
 </script>

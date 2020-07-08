@@ -65,33 +65,35 @@ export default class Action extends Vue {
       }
 
       switch (this.action) {
-        case FirebaseAuthAction.VERIFY_EMAIL:
-          this.handleVerifyEmail(this.actionCode)
-            .then(() => this.isLoading = false)
-          break
+      case FirebaseAuthAction.VERIFY_EMAIL:
+        this.handleVerifyEmail(this.actionCode)
+          .finally(() => {
+            this.isLoading = false
+          })
+        break
 
-          // case FirebaseAuthAction.RECOVERY_EMAIL:
-          //   break;
+        // case FirebaseAuthAction.RECOVERY_EMAIL:
+        //   break;
 
-        case FirebaseAuthAction.RESET_PASSWORD:
-          this.handleVerifyPasswordResetCode(this.actionCode)
-            .then((validActionCode) => {
-              this.isLoading = false
-              if (validActionCode) {
-                this.$router.push({
-                  ...Routes.RESET_PASSWORD,
-                  query: {
-                    [RouteParameters.ACTION_CODE]: this.actionCode
-                  }
-                })
-              }
-            })
-          break
+      case FirebaseAuthAction.RESET_PASSWORD:
+        this.handleVerifyPasswordResetCode(this.actionCode)
+          .then((validActionCode) => {
+            this.isLoading = false
+            if (validActionCode) {
+              this.$router.push({
+                ...Routes.RESET_PASSWORD,
+                query: {
+                  [RouteParameters.ACTION_CODE]: this.actionCode
+                }
+              })
+            }
+          })
+        break
 
-        default:
-          this.isLoading = false
-          this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
+      default:
+        this.isLoading = false
+        this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
       }
     }
-  }
+}
 </script>

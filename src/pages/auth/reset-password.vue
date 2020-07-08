@@ -51,5 +51,5 @@ export default class ResetPassword extends Vue {
         this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
       }
     }
-  }
+}
 </script>

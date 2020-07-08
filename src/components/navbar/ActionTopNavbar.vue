@@ -41,8 +41,8 @@ import Logo from '~/components/navbar/Logo.vue'
     components: { Logo, LanguageSwitcher }
   })
 export default class TopNavbar extends Vue {
-    get routes () {
-      return Routes
-    }
+  get routes () {
+    return Routes
   }
+}
 </script>

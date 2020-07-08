@@ -21,5 +21,5 @@ export default class Profile extends Vue {
     get isMyProfile () {
       return this.authUser.userId === this.user.id
     }
-  }
+}
 </script>

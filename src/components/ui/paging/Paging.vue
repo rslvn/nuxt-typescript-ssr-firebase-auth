@@ -44,5 +44,5 @@ export default class Paging extends Vue {
     @PropSync('perPage', { type: Number, required: true }) syncPerPage:number
     @PropSync('current', { type: Number, required: true }) syncCurrent:number
     @Prop({ type: Boolean, required: false, default: false }) isFetching:boolean
-  }
+}
 </script>

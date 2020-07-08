@@ -11,5 +11,5 @@ import { NuxtError } from '@nuxt/types'
   })
 export default class Error404 extends Vue {
     @Prop({ required: true }) error:NuxtError
-  }
+}
 </script>

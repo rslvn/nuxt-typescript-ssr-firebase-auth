@@ -27,5 +27,5 @@ export default class ProfileHeader extends Vue {
     @Prop({ type: Boolean, required: true }) isMyProfile : boolean
     @Prop({ required: true }) authUser : AuthUser
     @Prop({ type: Object, required: true }) user : User
-  }
+}
 </script>

@@ -7,41 +7,40 @@
       :type="buttonType"
       :icon-left="icon"
       size="is-small"
-      @click="followCalled" :expanded="!isMobile">
+      :expanded="!isMobile" @click="followCalled"
+    >
       {{ buttonText }}
     </b-button>
 
     <b-field grouped>
-
       <div class="control">
         <b-taglist attached>
-
           <b-tag v-if="followersLocked">
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-left"
-              size="is-small">
-            </b-icon>
+              size="is-small"
+            />
 
-            {{$t('profile.follow.followers')}}
+            {{ $t('profile.follow.followers') }}
           </b-tag>
 
           <a v-else class="tag" @click="showFollowers">
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-left"
-              size="is-small">
-            </b-icon>
+              size="is-small"
+            />
 
-            {{$t('profile.follow.followers')}}
+            {{ $t('profile.follow.followers') }}
           </a>
           <b-tag v-if="followersLocked" class="tag is-primary">
             <b-icon
               icon="lock"
-              size="is-small">
-            </b-icon>
+              size="is-small"
+            />
           </b-tag>
-          <a v-else class="tag is-primary" @click="showFollowers">{{followerCount}}</a>
+          <a v-else class="tag is-primary" @click="showFollowers">{{ followerCount }}</a>
         </b-taglist>
       </div>
 
@@ -51,57 +50,54 @@
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-right"
-              size="is-small">
-            </b-icon>
-            {{$t('profile.follow.following')}}
+              size="is-small"
+            />
+            {{ $t('profile.follow.following') }}
           </b-tag>
 
           <a v-else class="tag" @click="showFollowings">
             <b-icon
               class="has-margin-right-5"
               icon="account-arrow-right"
-              size="is-small">
-            </b-icon>
-            {{$t('profile.follow.following')}}
+              size="is-small"
+            />
+            {{ $t('profile.follow.following') }}
           </a>
           <b-tag v-if="followingLocked" class="tag is-primary">
             <b-icon
               icon="lock"
-              size="is-small">
-            </b-icon>
+              size="is-small"
+            />
           </b-tag>
           <a v-else class="tag is-primary" @click="showFollowings">
-            {{followingCount}}
+            {{ followingCount }}
           </a>
         </b-taglist>
       </div>
-
     </b-field>
-
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, ModuleType, PrivacyType, User } from '~/types';
-  import {
-    deleteFollowing,
-    getCountOfFollowers,
-    getCountOfFollowing,
-    getFollowingByFollowerAndFollowing,
-    saveFollowing
-  } from '~/service/firebase/firestore';
-  import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service';
-  import { reloadFollowing, showProfileModule } from '~/service/rx-service';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { AuthUser, ModuleType, PrivacyType, User } from '~/types'
+import {
+  deleteFollowing,
+  getCountOfFollowers,
+  getCountOfFollowing,
+  getFollowingByFollowerAndFollowing,
+  saveFollowing
+} from '~/service/firebase/firestore'
+import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service'
+import { reloadFollowing, showProfileModule } from '~/service/rx-service'
 
   @Component({
     components: {}
   })
-  export default class ProfileFollow extends Vue {
-
-    @Prop({ type: Boolean, required: true }) isMyProfile : boolean
-    @Prop({ required: true }) authUser : AuthUser
-    @Prop({ type: Object, required: true }) user : User
+export default class ProfileFollow extends Vue {
+    @Prop({ type: Boolean, required: true }) isMyProfile: boolean
+    @Prop({ required: true }) authUser: AuthUser
+    @Prop({ type: Object, required: true }) user: User
 
     loading = true
     following = false
@@ -110,27 +106,29 @@
 
     width = 768;
 
-    async mounted() {
+    async mounted () {
       await Promise.resolve()
         .then(async () => {
-
           if (!this.isMyProfile) {
             await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id)
-              .then((existingFollowing) => this.following = !!existingFollowing)
+              .then((existingFollowing) => {
+                this.following = !!existingFollowing
+              })
           }
 
           const [
             followerCount,
             followingCount
           ]: [number, number] = await Promise.all([
-            Promise.resolve(this.followersLocked).then((locked) => locked ? 0 : getCountOfFollowers(this.user)),
-            Promise.resolve(this.followingLocked).then((locked) => locked ? 0 : getCountOfFollowing(this.user))
+            Promise.resolve(this.followersLocked).then(locked => locked ? 0 : getCountOfFollowers(this.user)),
+            Promise.resolve(this.followingLocked).then(locked => locked ? 0 : getCountOfFollowing(this.user))
           ])
-            .finally(() => this.loading = false) as [number, number]
+            .finally(() => {
+              this.loading = false
+            }) as [number, number]
 
           this.followerCount = followerCount
           this.followingCount = followingCount
-
         })
         .catch((error) => {
           console.log(error)
@@ -138,88 +136,87 @@
         })
 
       this.width = window.innerWidth
-      window.addEventListener('resize', this.handleResize);
+      window.addEventListener('resize', this.handleResize)
     }
 
-    handleResize() {
+    handleResize () {
       this.width = window.innerWidth
     }
 
-    get followersLocked() {
+    get followersLocked () {
       return !this.isMyProfile && this.user.followersPrivacy === PrivacyType.PRIVATE
     }
 
-    get followingLocked() {
+    get followingLocked () {
       return !this.isMyProfile && this.user.followingPrivacy === PrivacyType.PRIVATE
     }
 
-    get isMobile() {
+    get isMobile () {
       return this.width < 768
     }
 
-    get icon() {
+    get icon () {
       return this.following ? 'account-remove-outline' : 'account-star'
     }
 
-    get buttonText() {
+    get buttonText () {
       return this.following ? this.$t('common.unfollow') : this.$t('common.follow')
     }
 
-    get buttonType() {
+    get buttonType () {
       return this.following ? 'is-light' : 'is-primary'
     }
 
-    async followCalled() {
+    followCalled () {
       return this.following ? this.unfollow() : this.follow()
     }
 
-    async follow() {
+    async follow () {
       await
-        getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
-          .then(async (existingFollowing) => {
-            if (existingFollowing) {
-              this.following = true
-              return showInfoToaster(this.$t('notification.follow.alreadyFollowing', { username: this.user.username }))
-            }
+      getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
+        .then(async (existingFollowing) => {
+          if (existingFollowing) {
+            this.following = true
+            return showInfoToaster(this.$t('notification.follow.alreadyFollowing', { username: this.user.username }))
+          }
 
-            await saveFollowing({
-              follower: this.authUser.userId,
-              following: this.user.id as string
-            }).then(() => {
-              this.following = true
-              this.followerCount++
-            })
+          await saveFollowing({
+            follower: this.authUser.userId,
+            following: this.user.id as string
+          }).then(() => {
+            this.following = true
+            this.followerCount++
           })
-          .then(() => reloadFollowing.next())
-          .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
+        })
+        .then(() => reloadFollowing.next())
+        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
     }
 
-    async unfollow() {
+    async unfollow () {
       await
-        getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
-          .then(async (existingFollowing) => {
-            if (!existingFollowing) {
+      getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
+        .then(async (existingFollowing) => {
+          if (!existingFollowing) {
+            this.following = false
+            return showInfoToaster(this.$t('notification.follow.alreadyUnfollowing', { username: this.user.username }))
+          }
+
+          await deleteFollowing(existingFollowing)
+            .then(() => {
               this.following = false
-              return showInfoToaster(this.$t('notification.follow.alreadyUnfollowing', { username: this.user.username }))
-            }
-
-            await deleteFollowing(existingFollowing)
-              .then(() => {
-                this.following = false
-                this.followerCount--
-              })
-          })
-          .then(() => reloadFollowing.next())
-          .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
+              this.followerCount--
+            })
+        })
+        .then(() => reloadFollowing.next())
+        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.systemError')))
     }
 
-    showFollowers() {
+    showFollowers () {
       showProfileModule.next(ModuleType.FOLLOWERS)
     }
 
-    showFollowings() {
+    showFollowings () {
       showProfileModule.next(ModuleType.FOLLOWINGS)
     }
-
-  }
+}
 </script>

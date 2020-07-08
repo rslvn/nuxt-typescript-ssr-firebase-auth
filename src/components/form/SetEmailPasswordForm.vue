@@ -81,5 +81,5 @@ export default class SetPasswordForm extends Vue {
     submit () {
       this.confirmCredentials(this.credentials)
     }
-  }
+}
 </script>

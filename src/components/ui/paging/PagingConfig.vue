@@ -43,5 +43,5 @@ export default class PagingConfig extends Vue {
       20,
       50
     ]
-  }
+}
 </script>

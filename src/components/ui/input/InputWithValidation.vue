@@ -1,9 +1,9 @@
 <template>
   <ValidationProvider
+    v-slot="{ errors, valid }"
     :vid="vid"
     :name="$attrs.name || $attrs.label"
     :rules="rules"
-    v-slot="{ errors, valid }"
     validate="input"
   >
     <b-field
@@ -24,18 +24,17 @@
         @input="input"
       />
     </b-field>
-
   </ValidationProvider>
 </template>
 
 <script lang="ts">
-  import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator';
-  import { ValidationProvider } from "vee-validate";
+import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationProvider } from 'vee-validate'
 
   @Component({
     components: { ValidationProvider }
   })
-  export default class InputWithValidation extends Vue {
+export default class InputWithValidation extends Vue {
     @Prop({ type: String, required: true }) vid : string;
     @Prop({ type: String, required: true }) rules : string;
     @Prop({ type: String, required: false, default: 'text' }) inputType : string;
@@ -47,9 +46,8 @@
     @Model('input', { required: true }) readonly value: any;
 
     @Emit()
-    input(newValue: any) {
+    input (newValue: any) {
       return newValue
     }
-
-  }
+}
 </script>

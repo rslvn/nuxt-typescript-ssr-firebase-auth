@@ -6,7 +6,7 @@ module.exports = {
     browser: true
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
     sourceType: 'module',
     ecmaFeatures: {
       legacyDecorators: true
@@ -15,9 +15,14 @@ module.exports = {
   },
   extends: [
     '@nuxtjs/eslint-config-typescript'
+
   ],
   rules: {
+    semi: [2, 'never'],
     'no-console': 'off',
-    indent: 2
+    'vue/max-attributes-per-line': 'off',
+    'vue/script-indent': ['error', 2, { baseIndent: 0 }],
+    indent: ['error', 2]
+    // 'prettier/prettier': ['error', { semi: false }]
   }
 }

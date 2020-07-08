@@ -25,5 +25,5 @@ export default class FieldWithValue extends Vue {
     @Prop({ type: String, required: false, default: '' }) labelPosition:string;
     @Prop({ type: Boolean, required: false, default: false }) horizontal:boolean;
     @Prop({ type: Boolean, required: false, default: false }) disabled:boolean;
-  }
+}
 </script>

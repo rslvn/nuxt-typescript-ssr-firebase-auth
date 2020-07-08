@@ -95,5 +95,5 @@ export default class ProfileModule extends BaseModule {
           user: this.user
         }
     }
-  }
+}
 </script>

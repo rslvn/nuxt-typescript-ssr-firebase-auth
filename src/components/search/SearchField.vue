@@ -30,5 +30,5 @@ export default class SearchField extends Vue {
         @PropSync('query', { type: String, required: true }) syncQuery:string
         @Prop({ type: Function, required: true }) resetSearch:() => void
         @Prop({ type: Boolean, required: false, default: false }) isFetching:boolean
-  }
+}
 </script>

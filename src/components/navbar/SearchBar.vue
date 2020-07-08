@@ -137,5 +137,5 @@ export default class SearchBar extends Vue {
     async gotoProfile (username: string) {
       await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
-  }
+}
 </script>

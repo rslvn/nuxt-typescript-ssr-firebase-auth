@@ -39,5 +39,5 @@ export default class LanguageSwitcher extends Vue {
 
       this.$i18n.setLocale(language.code)
     }
-  }
+}
 </script>

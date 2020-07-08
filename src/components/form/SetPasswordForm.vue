@@ -62,5 +62,5 @@ export default class SetPasswordForm extends Vue {
     submit () {
       this.confirmPassword(this.password)
     }
-  }
+}
 </script>

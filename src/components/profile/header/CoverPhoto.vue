@@ -73,5 +73,5 @@ export default class ProfileCover extends Vue {
       this.updateCoverPhoto(image)
         .then(() => coverPhotoObservable.next(image))
     }
-  }
+}
 </script>

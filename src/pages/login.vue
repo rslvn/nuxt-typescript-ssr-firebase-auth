@@ -46,5 +46,5 @@ export default class login extends Vue {
     head () {
       return getHeadByRouteType(Routes.LOGIN, this)
     }
-  }
+}
 </script>

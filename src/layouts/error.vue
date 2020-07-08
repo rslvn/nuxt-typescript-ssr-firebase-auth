@@ -27,5 +27,5 @@ export default class error extends Vue {
       // catch everything else
       return Error500
     }
-  }
+}
 </script>

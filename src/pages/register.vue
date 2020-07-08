@@ -53,5 +53,5 @@ export default class register extends Vue {
     head () {
       return getHeadByRouteType(Routes.REGISTER, this)
     }
-  }
+}
 </script>

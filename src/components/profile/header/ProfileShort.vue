@@ -32,5 +32,5 @@ export default class ProfileShort extends Vue {
     get fullName () {
       return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
     }
-  }
+}
 </script>

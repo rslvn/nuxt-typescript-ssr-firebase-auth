@@ -104,5 +104,5 @@ export default class ProfileFollowings extends BaseModule {
           this.searching(false)
         })
     }
-  }
+}
 </script>

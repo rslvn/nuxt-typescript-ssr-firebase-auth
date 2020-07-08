@@ -35,5 +35,5 @@ export default class PagingNavigator extends Vue {
       rounded: true,
       order: 'is-centered'
     }
-  }
+}
 </script>

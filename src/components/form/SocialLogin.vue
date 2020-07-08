@@ -71,5 +71,5 @@ export default class SocialLogin extends Vue {
         })
         .finally(() => this.saveLoading(false))
     }
-  }
+}
 </script>

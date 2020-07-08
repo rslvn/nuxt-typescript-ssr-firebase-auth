@@ -23,12 +23,12 @@ import { getHead } from '~/service/seo-service'
 import { DefaultMeta } from '~/types'
 import PageTitle from '~/components/ui/PageTitle.vue'
 
-  @Component({
-    components: { PageTitle }
-  })
+@Component({
+  components: { PageTitle }
+})
 export default class extends Vue {
-    head () {
-      return getHead(DefaultMeta)
-    }
+  head () {
+    return getHead(DefaultMeta)
   }
+}
 </script>

@@ -44,5 +44,5 @@ export default class SearchResultCard extends Vue {
     async gotoProfile (username: string) {
       await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
-  }
+}
 </script>

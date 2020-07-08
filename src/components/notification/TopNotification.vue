@@ -29,5 +29,5 @@ export default class TopNotification extends Vue {
         this.closed()
       }
     }
-  }
+}
 </script>

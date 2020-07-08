@@ -25,5 +25,5 @@ export default class crop extends Vue {
     head () {
       return getHeadByRouteType(Routes.CROP, this)
     }
-  }
+}
 </script>

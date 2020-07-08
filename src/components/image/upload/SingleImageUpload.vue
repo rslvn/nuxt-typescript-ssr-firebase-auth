@@ -42,18 +42,18 @@ export default class SingleImageUpload extends Vue {
 
     @Watch('uploadTask')
     onUploadTaskChanged () {
-      this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
+      return this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
           switch (snapshot.state) {
-            case TaskState.PAUSED: // or 'paused'
-              break
-            case TaskState.RUNNING: // or 'running'
-              break
+          case TaskState.PAUSED: // or 'paused'
+            break
+          case TaskState.RUNNING: // or 'running'
+            break
           }
         },
         this.handleFireStorageError,
         () => {
-          this.uploadTask?.snapshot.ref.getDownloadURL()
+          return this.uploadTask?.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
               const image: Image = {
                 name: this.fileName,
@@ -70,5 +70,5 @@ export default class SingleImageUpload extends Vue {
     handleFireStorageError = (error: Error): any => {
       handleError(this.$store.dispatch, error)
     }
-  }
+}
 </script>

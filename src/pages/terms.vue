@@ -14,8 +14,8 @@ import PageTitle from '~/components/ui/PageTitle.vue'
     components: { PageTitle }
   })
 export default class terms extends Vue {
-    head () {
-      return getHeadByRouteType(Routes.TERMS, this)
-    }
+  head () {
+    return getHeadByRouteType(Routes.TERMS, this)
   }
+}
 </script>

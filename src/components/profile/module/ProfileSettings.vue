@@ -66,5 +66,5 @@ export default class ProfileSettings extends BaseModule {
           user: this.user
         }
     }
-  }
+}
 </script>

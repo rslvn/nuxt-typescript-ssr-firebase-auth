@@ -1,9 +1,9 @@
 <template>
   <ValidationProvider
+    v-slot="{ errors, valid }"
     :vid="vid"
     :name="$attrs.name || $attrs.label"
     :rules="rules"
-    v-slot="{ errors, valid }"
     validate="input"
   >
     <b-field
@@ -14,51 +14,52 @@
       :label="$attrs.label"
       :label-position="labelPosition"
     >
-      <b-dropdown :value="value" @input="input" aria-role="list" class="has-margin-top-10">
+      <b-dropdown :value="value" aria-role="list" class="has-margin-top-10" @input="input">
         <b-button v-if="selectedPrivacyType" slot="trigger" :class="selectedPrivacyType.type" :outlined="!value">
-          <b-icon :icon="selectedPrivacyType.icon" class="has-margin-left-5"/>
+          <b-icon :icon="selectedPrivacyType.icon" class="has-margin-left-5" />
           <span
-            class="has-margin-left-5">{{$t(`privacy.${privacyFor}.${selectedPrivacyType.privacyType}.title`)}}</span>
-          <b-icon icon="menu-down"></b-icon>
+            class="has-margin-left-5"
+          >{{ $t(`privacy.${privacyFor}.${selectedPrivacyType.privacyType}.title`) }}</span>
+          <b-icon icon="menu-down" />
         </b-button>
 
         <b-button v-else slot="trigger" class="is-primary" :outlined="!value">
-          <b-icon icon="account-lock-outline" class="has-margin-left-5"/>
-          <span class="has-margin-left-5">{{$t(`privacy.${privacyFor}.notSelected`)}}</span>
-          <b-icon icon="menu-down"></b-icon>
+          <b-icon icon="account-lock-outline" class="has-margin-left-5" />
+          <span class="has-margin-left-5">{{ $t(`privacy.${privacyFor}.notSelected`) }}</span>
+          <b-icon icon="menu-down" />
         </b-button>
 
         <b-dropdown-item v-for="(privacy, index) in privacyList"
                          :key="index"
                          :value="privacy.privacyType"
-                         aria-role="listitem">
+                         aria-role="listitem"
+        >
           <div class="media" :class="privacy.type">
-            <b-icon class="media-left" :icon="privacy.icon"></b-icon>
+            <b-icon class="media-left" :icon="privacy.icon" />
             <div class="media-content">
-              <h3>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.title`)}}</h3>
-              <h4>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.subtitle`)}}</h4>
-              <small>{{$t(`privacy.${privacyFor}.${privacy.privacyType}.description`)}}</small>
+              <h3>{{ $t(`privacy.${privacyFor}.${privacy.privacyType}.title`) }}</h3>
+              <h4>{{ $t(`privacy.${privacyFor}.${privacy.privacyType}.subtitle`) }}</h4>
+              <small>{{ $t(`privacy.${privacyFor}.${privacy.privacyType}.description`) }}</small>
             </div>
           </div>
         </b-dropdown-item>
       </b-dropdown>
       <small v-if="value" class="has-margin-top-5 has-margin-left-5">
-        {{$t(`privacy.${privacyFor}.${value}.description`)}}
+        {{ $t(`privacy.${privacyFor}.${value}.description`) }}
       </small>
     </b-field>
   </ValidationProvider>
 </template>
 
 <script lang="ts">
-  import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator';
-  import { PrivacyList, PrivacyType } from '~/types';
-  import { ValidationProvider } from 'vee-validate';
+import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationProvider } from 'vee-validate'
+import { PrivacyList, PrivacyType } from '~/types'
 
   @Component({
     components: { ValidationProvider }
   })
-  export default class PrivacyDropdown extends Vue {
-
+export default class PrivacyDropdown extends Vue {
     @Model('input', { required: true }) readonly value: PrivacyType;
 
     @Prop({ type: String, required: true }) vid : string;
@@ -69,22 +70,21 @@
     @Prop({ type: String, required: false, default: '' }) labelPosition : string;
 
     @Emit()
-    input(newValue: PrivacyType) {
+    input (newValue: PrivacyType) {
       return newValue
     }
 
-    get selectedPrivacyType() {
+    get selectedPrivacyType () {
       return PrivacyList.find(value => value.privacyType === this.value)
     }
 
-    get privacyList() {
+    get privacyList () {
       return PrivacyList
     }
 
-    get label() {
+    get label () {
       return this.$t(`privacy.${this.privacyFor}.field`)
     }
-
-  }
+}
 
 </script>

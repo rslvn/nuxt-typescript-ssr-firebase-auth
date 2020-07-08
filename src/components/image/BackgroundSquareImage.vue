@@ -71,7 +71,7 @@ export default class BackgroundSquareImage extends Vue {
     get margin () {
       return this.isAutoMargin ? { margin: '1em auto' } : {}
     }
-  }
+}
 </script>
 
 <style scoped>

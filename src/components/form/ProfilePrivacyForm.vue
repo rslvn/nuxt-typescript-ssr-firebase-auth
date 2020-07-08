@@ -84,5 +84,5 @@ export default class ProfilePrivacyForm extends Vue {
         )
         .finally(() => this.saveLoading(false))
     }
-  }
+}
 </script>
