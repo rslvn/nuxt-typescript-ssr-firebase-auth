@@ -13,7 +13,7 @@ import {
   getCountByWhereClauses,
   getModelsByWhereClauses,
   saveModel
-} from '~/service/firebase/firestore/firestore-service'
+} from '~/service/firebase/firestore/collection-base-service'
 import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-collection'
 
 const followingWhereClause = (user: User): WhereClause => {
@@ -33,7 +33,7 @@ const followersWhereClause = (user: User): WhereClause => {
 }
 
 export const saveFollowing = async (following: Following): Promise<Following> => {
-  return await saveModel(collection.FOLLOWING, following) as Following
+  return await saveModel(collection.FOLLOWING, following)
 }
 
 export const deleteFollowing = async (following: Following) => {
@@ -53,7 +53,7 @@ export const getFollowingByFollowerAndFollowing = async (follower: string, follo
   }
   const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, wcFollower, wcFollowing)
 
-  return followingList.find((fllwng) => fllwng.following === following && fllwng.follower === follower)
+  return followingList.find(fllwng => fllwng.following === following && fllwng.follower === follower)
 }
 
 export const getCountOfFollowers = (user: User) => {
@@ -71,12 +71,10 @@ export const getCountOfFollowing = (user: User) => {
 export const searchFollowers = async (user: User, query: string, page: number, limit: number): Promise<PagingResponse<SearchData>> => {
   const queryLower = query?.toLocaleString()
   const whereClauseForFollowings = followingWhereClause(user)
+  const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowings)
+  const users: User[] = []
 
-  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowings) as Following[]
-
-  const users: User[] = [];
-
-  let loadedUser: User | null = null;
+  let loadedUser: User | null = null
   for (const following of followingList) {
     loadedUser = await getUser(following.follower)
     if (loadedUser && userIncludes(loadedUser, queryLower)) {
@@ -96,11 +94,11 @@ export const searchFollowings = async (user: User, query: string, page: number, 
   const queryLower = query?.toLocaleString()
   const whereClauseForFollowers = followersWhereClause(user)
 
-  const followingList = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowers) as Following[]
+  const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowers)
 
-  const users: User[] = [];
+  const users: User[] = []
 
-  let loadedUser: User | null = null;
+  let loadedUser: User | null = null
   for (const following of followingList) {
     loadedUser = await getUser(following.following)
     if (loadedUser && userIncludes(loadedUser, queryLower)) {
@@ -115,4 +113,3 @@ export const searchFollowings = async (user: User, query: string, page: number, 
 
   return toSearchDataPagingResponse(users, page, limit)
 }
-

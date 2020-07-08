@@ -19,7 +19,7 @@
     username = '';
     user: User | null = null
 
-    @StateNamespace.auth.Getter authUser !: AuthUser;
+    @StateNamespace.auth.Getter authUser : AuthUser
 
     async asyncData({ params }: Context) {
       const username = params[RouteParameters.USERNAME]
@@ -28,6 +28,7 @@
         username
       }
     }
+
 
     async created() {
       this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {

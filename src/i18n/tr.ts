@@ -3,7 +3,7 @@ import tr from 'vee-validate/dist/locale/tr.json'
 const messages = {
   validation: {
     ...tr.messages,
-    username: '{field} zaten alinmis',
+    username: '{field} zaten alinmis'
   },
 
   common: {
@@ -30,7 +30,7 @@ const messages = {
       coverPhoto: 'Kapak fotografi',
       privacy: 'Gizlilik',
       search: 'Ara',
-      searchPlaceholder: 'ornegin: rslvn',
+      searchPlaceholder: 'ornegin: rslvn'
     },
     cancel: 'Iptal',
     save: 'Kaydet',
@@ -39,7 +39,7 @@ const messages = {
     settings: 'Ayarlar',
     search: 'Ara',
     follow: 'Takip Et',
-    unfollow: 'Takip Etme',
+    unfollow: 'Takip Etme'
   },
 
   topNavbar: {
@@ -54,8 +54,8 @@ const messages = {
     logout: 'Cikis Yap',
     search: {
       footer: 'Baska sonuc yok',
-      detailedSearch: 'Detayli arama',
-    },
+      detailedSearch: 'Detayli arama'
+    }
   },
 
   profile: {
@@ -64,28 +64,28 @@ const messages = {
         verifyButton: 'E-posta Dogrula',
         updatePasswordButton: 'Parolayi guncelle',
         mailVerified: 'E-posta dogrulandi',
-        mailNotVerified: 'E-posta dogrulanmadi',
-      },
+        mailNotVerified: 'E-posta dogrulanmadi'
+      }
     },
     follow: {
       followers: 'takipci',
-      following: 'takipte',
-    },
+      following: 'takipte'
+    }
   },
 
   page: {
     home: {
       title: 'Anasayfaya hosgeldiniz',
-      goToSource: ' <b>Github</b> uzerinde kaynak koda ulas',
+      goToSource: ' <b>Github</b> uzerinde kaynak koda ulas'
     },
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
       subtitle: 'Ornek fotograflar',
-      description: 'Nuxt ve typescript ile hazirlanmis, lightbox icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, lightbox icin ornek bir sayfadir'
     },
     crop: {
       title: 'Crop',
-      description: 'Nuxt ve typescript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, cropperjs kutuphanesi ile resim kirpma islemleri icin ornek bir sayfadir'
     },
     images: {
       title: 'Kare Gorseller',
@@ -98,20 +98,20 @@ const messages = {
     },
     register: {
       title: 'Kayit Ol',
-      description: 'Nuxt ve typescript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, yeni kullanici kaydi olusturan ornek bir sayfadir'
     },
     login: {
       title: 'Giris Yap',
-      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir',
+      description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir'
     },
     action: {
-      processing: 'Isleniyor... Lutfen bekleyiniz.',
+      processing: 'Isleniyor... Lutfen bekleyiniz.'
     },
     terms: {
-      title: 'Sozlesme',
+      title: 'Sozlesme'
     },
     privacyAndPolicy: {
-      title: 'Gizlilik Ve Prensipler',
+      title: 'Gizlilik Ve Prensipler'
     },
     search: {
       title: 'Arama',
@@ -119,13 +119,13 @@ const messages = {
       noResult: 'Sonuc yok 🥺',
       config: {
         total: 'toplam',
-        perPage: 'sayfada',
-      },
+        perPage: 'sayfada'
+      }
     },
     footer: {
-      copyRight: '&copy; Telif Hakki 2020,',
+      copyRight: '&copy; Telif Hakki 2020,'
     },
-    notFound: 'Sayfa bulunamadi',
+    notFound: 'Sayfa bulunamadi'
   },
 
   notification: {
@@ -145,50 +145,50 @@ const messages = {
     profile: {
       updated: 'Profiliniz basari ile guncellendi',
       updateFailed: 'Profiliniz guncellenemedi',
-      canNotLoad: 'Profiliniz yuklenemiyor',
+      canNotLoad: 'Profiliniz yuklenemiyor'
     },
     search: {
       notAllowedToSearch: 'Sadece kayitli kullanicilar arama yapabilir. Lutfen giris yapiniz...',
-      canNotExecuted: 'Arama yapilamiyor',
+      canNotExecuted: 'Arama yapilamiyor'
     },
     follow: {
       alreadyFollowing: "@{username}'i zaten takip ediyorsunuz",
       alreadyUnfollowing: "@{username}'i zaten takip etmiyorsunuz",
-      canNotLoadFollowing: 'Takip bilgisi guncellenemedi',
-    },
+      canNotLoadFollowing: 'Takip bilgisi guncellenemedi'
+    }
   },
 
   form: {
     forgetPassword: {
       title: 'Parolami unuttum',
-      submit: 'Mail Gonder',
+      submit: 'Mail Gonder'
     },
     loginForm: {
       title: 'Giris Yap',
       submit: 'Giris Yap',
       forgetPassword: 'parolami unuttum',
-      noAccount: 'Hesabiniz yok mu? Kayit Ol!',
+      noAccount: 'Hesabiniz yok mu? Kayit Ol!'
     },
     social: {
       title: {
         login: 'Sosyal Media ile Login',
-        register: 'Sosyal Medya',
+        register: 'Sosyal Medya'
       },
-      loginWith: '{provider} ile Giris Yap',
+      loginWith: '{provider} ile Giris Yap'
     },
     resetPassword: {
       title: 'Parolami yenile',
-      submit: 'Parolami Degistir',
+      submit: 'Parolami Degistir'
     },
     registerForm: {
       title: 'Kayit Ol',
       submit: 'Kayit Ol',
-      hasAccount: 'Hesabiniz var mi? Giris Yap!',
+      hasAccount: 'Hesabiniz var mi? Giris Yap!'
     },
     profileUpdate: {
       title: 'Kullanici Bilgilerini Guncelle',
       submit: 'Guncelle'
-    },
+    }
   },
 
   provider: {
@@ -196,43 +196,43 @@ const messages = {
       password: 'Password',
       google: { com: 'Google' },
       twitter: { com: 'Twitter' },
-      facebook: { com: 'Facebook' },
+      facebook: { com: 'Facebook' }
     },
     linkPasswordProvider: {
       socialLogin: {
-        title: 'Sosyal Medya Giris',
+        title: 'Sosyal Medya Giris'
       },
       passwordForm: {
         title: 'Parola Belirleme',
         description: '<b>{email}</b> icin bir parola belirleyiniz',
-        submit: 'Parolayi Kaydet',
-      },
+        submit: 'Parolayi Kaydet'
+      }
     },
     submit: {
       link: 'Bagla',
-      unlink: 'Baglantiyi kopar',
+      unlink: 'Baglantiyi kopar'
     },
     tooltip: {
       linkedProvider: '{provider} hesabiniza bagli. Baglantiyi kopar!',
-      unlinkedProvider: '{provider} hesabiniza bagli degil. Bagla!',
+      unlinkedProvider: '{provider} hesabiniza bagli degil. Bagla!'
     },
     dialog: {
       delete: {
         title: "{provider}'i Sil",
         message:
           "Hesabinizdan {provider}'i silmek mi istiyorsunuz?<br>Bu islem geri alinamaz",
-        confirm: 'Sil',
-      },
-    },
+        confirm: 'Sil'
+      }
+    }
   },
 
   image: {
     crop: {
-      preview: 'On Izleme',
+      preview: 'On Izleme'
     },
     upload: {
-      dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak',
-    },
+      dragAndDropButton: 'Dosya yuklemek icin tikla veya surukle&birak'
+    }
   },
 
   privacy: {
@@ -241,43 +241,43 @@ const messages = {
       private: {
         title: 'Gizli',
         subtitle: 'Kimse goremez',
-        description: 'Kimse size ait her hangi bir bilgiye ulasamaz',
+        description: 'Kimse size ait her hangi bir bilgiye ulasamaz'
       },
       public: {
         title: 'Herkese Acik',
         subtitle: 'Herkes gorebilir',
-        description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...',
+        description: 'Giris yapmis kullanicilar, kisisel olmayan bilgileri gorebilir. ornegin isim, kullanici adi ...'
       },
-      notSelected: 'Gizliligi belirle',
+      notSelected: 'Gizliligi belirle'
     },
     followers: {
       field: 'takipci gizliligi',
       private: {
         title: 'Gizli',
         subtitle: 'Takipcilerinizi kimse goremez',
-        description: 'Giris yapmis kullanicilar bile takipcilerinizi kimse goremez',
+        description: 'Giris yapmis kullanicilar bile takipcilerinizi kimse goremez'
       },
       public: {
         title: 'Herkese Acik',
         subtitle: 'Herkes takipcilerinizi gorebilir',
-        description: 'Giris yapmis kullanicilar takipcilerinizi gorebilir',
+        description: 'Giris yapmis kullanicilar takipcilerinizi gorebilir'
       },
-      notSelected: 'Takipci gizliligini belirle',
+      notSelected: 'Takipci gizliligini belirle'
     },
     following: {
       field: 'takipte gizliligi',
       private: {
         title: 'Gizli',
         subtitle: 'Kimse takip ettiginiz kullanicilari goremez',
-        description: 'Giris yapmis kullanicilar bile takip ettiginiz kullanicilari kimse goremez',
+        description: 'Giris yapmis kullanicilar bile takip ettiginiz kullanicilari kimse goremez'
       },
       public: {
         title: 'Herkese Acik',
         subtitle: 'Herkes takip ettiklerinizi gorebilir',
-        description: 'Giris yapmis kullanicilar, takip ettiginiz kullanicilari gorebilir',
+        description: 'Giris yapmis kullanicilar, takip ettiginiz kullanicilari gorebilir'
       },
-      notSelected: 'Takipte gizliligi belirle',
-    },
+      notSelected: 'Takipte gizliligi belirle'
+    }
   },
 
   module: {
@@ -285,13 +285,13 @@ const messages = {
     linkedAccounts: 'Bagli Hesaplar',
     profileSettings: 'Ayarlar',
     profileFollowers: 'Takipci',
-    profileFollowings: 'Takipte',
+    profileFollowings: 'Takipte'
   },
 
   settings: {
     general: 'Genel',
-    privacy: 'Gizlilik',
-  },
+    privacy: 'Gizlilik'
+  }
 }
 
 export default messages

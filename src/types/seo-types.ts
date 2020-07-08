@@ -1,9 +1,9 @@
-import { Image } from "~/types/firebase-types";
+import { Image } from '~/types/firebase-types'
 
 export interface PageMeta {
-  title: string
-  description: string
-  image: Image
+  title: string,
+  description: string,
+  image: Image,
   url: string
 }
 
@@ -14,5 +14,5 @@ export const DefaultMeta: PageMeta = {
     src: process.env.WEBSITE_URL + '/icon.png',
     alt: 'The image of the Nuxt TS Firebase Auth SSR web'
   },
-  url: process.env.WEBSITE_URL as string
+  url: process.env.WEBSITE_URL
 }

@@ -1,32 +1,34 @@
 <template>
   <div>
-    <PageTitle :title="$t('page.lightbox.title')" :subtitle="$t('page.lightbox.subtitle')"/>
+    <PageTitle :title="$t('page.lightbox.title')" :subtitle="$t('page.lightbox.subtitle')" />
     <div class="columns is-multiline is-gapless">
-      <div v-for="(image,index) in images" :key="index"
-           class="column is-one-quarter-desktop is-one-quarter-fullhd is-half-tablet is-full-mobile has-cursor-pointer"
-           @click="showLightbox(index)">
+      <div
+        v-for="(image,index) in images"
+        :key="index"
+        class="column is-one-quarter-desktop is-one-quarter-fullhd is-half-tablet is-full-mobile has-cursor-pointer"
+        @click="showLightbox(index)"
+      >
         <img class="image-fit-cover has-min-height-300" :src="image.src" :alt="image.alt">
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator';
-  import Lightbox from '~/components/image/lightbox/Lightbox.vue';
-  import { Routes } from '~/types';
-  import { getHeadByRouteType } from '~/service/seo-service';
-  import PageTitle from '~/components/ui/PageTitle.vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import Lightbox from '~/components/image/lightbox/Lightbox.vue'
+import { Routes } from '~/types'
+import { getHeadByRouteType } from '~/service/seo-service'
+import PageTitle from '~/components/ui/PageTitle.vue'
 
   @Component({
     components: { PageTitle, Lightbox }
   })
-  export default class lightbox extends Vue {
-
-    head() {
+export default class lightbox extends Vue {
+    head () {
       return getHeadByRouteType(Routes.LIGHT_BOX, this)
     }
 
-    get images() {
+    get images () {
       return [
         {
           src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fhorse-430441_640.jpg?alt=media&token=dcc95b74-99e8-40b4-bad3-cca6e0077dd3',
@@ -71,7 +73,7 @@
       ]
     }
 
-    showLightbox(index: number) {
+    showLightbox (index: number) {
       this.$buefy.modal.open({
         parent: this,
         component: Lightbox,
@@ -80,7 +82,7 @@
         canCancel: true,
         props: {
           images: this.images,
-          initialIndex: index,
+          initialIndex: index
         }
       })
     }

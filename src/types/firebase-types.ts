@@ -1,5 +1,5 @@
-import { ProviderData } from "~/types/api-types";
-import OrderByDirection = firebase.firestore.OrderByDirection;
+import firebase from 'firebase'
+import { ProviderData } from '~/types/api-types'
 
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',
@@ -13,19 +13,26 @@ export enum FirebaseAuthActionParams {
 }
 
 export interface RegistrationCredentials {
-  name: string
-  email: string
+  name: string,
+  email: string,
   password: string
 }
 
 export interface LoginCredentials {
-  email: string
-  password: string
+  email: string,
+  password: string,
   rememberMe: boolean
 }
 
+export enum ProviderType {
+  PASSWORD = 'password',
+  GOOGLE = 'google.com',
+  TWITTER = 'twitter.com',
+  FACEBOOK = 'facebook.com',
+}
+
 export interface SocialLoginCredentials {
-  providerType: ProviderType
+  providerType: ProviderType,
   rememberMe: boolean
 }
 
@@ -44,7 +51,7 @@ export interface FirebaseClaims {
 }
 
 export interface StorageRef {
-  folderRef: string
+  folderRef: string,
   parameters?: any
 }
 
@@ -62,17 +69,10 @@ export const CoverPhotoStorageRef: StorageRef = {
   }
 }
 
-export enum ProviderType {
-  PASSWORD = 'password',
-  GOOGLE = 'google.com',
-  TWITTER = 'twitter.com',
-  FACEBOOK = 'facebook.com',
-}
-
 export interface ProviderConfig {
-  providerType: ProviderType
-  colorType: string
-  icon: string
+  providerType: ProviderType,
+  colorType: string,
+  icon: string,
   iconPack: string
 }
 
@@ -81,40 +81,40 @@ export const SupportedProviders: ProviderConfig[] = [
     providerType: ProviderType.PASSWORD,
     colorType: 'is-primary',
     icon: 'at',
-    iconPack: 'fas',
+    iconPack: 'fas'
   },
   {
     providerType: ProviderType.GOOGLE,
     colorType: 'is-danger',
     icon: 'google',
-    iconPack: 'fab',
+    iconPack: 'fab'
   },
   {
     providerType: ProviderType.TWITTER,
     colorType: 'is-info',
     icon: 'twitter',
-    iconPack: 'fab',
+    iconPack: 'fab'
   },
   {
     providerType: ProviderType.FACEBOOK,
     colorType: 'is-link',
     icon: 'facebook',
-    iconPack: 'fab',
-  },
-];
+    iconPack: 'fab'
+  }
+]
 
 export interface ProviderLink {
-  providerConfig: ProviderConfig
-  providerData?: ProviderData
-  linked: boolean
+  providerConfig: ProviderConfig,
+  providerData?: ProviderData,
+  linked: boolean,
   method: () => void
 }
 
 export interface Image {
-  src: string
-  alt: string
-  name?: string
-  default?: boolean
+  src: string,
+  alt: string,
+  name?: string,
+  default?: boolean,
   preview?: Image
 }
 
@@ -124,10 +124,10 @@ export enum PrivacyType {
 }
 
 export interface PrivacyConfig {
-  privacyType: PrivacyType
-  colorType: string
-  icon: string
-  type: string
+  privacyType: PrivacyType,
+  colorType: string,
+  icon: string,
+  type: string,
   iconPack?: string
 }
 
@@ -155,7 +155,7 @@ export interface SearchData {
 }
 
 export interface PagingResponse<T> {
-  total: number
+  total: number,
   totalPages: number,
   data: T[],
 }
@@ -175,8 +175,8 @@ export enum FirebaseQueryOperator {
 }
 
 export interface WhereClause {
-  field: string
-  operator: FirebaseQueryOperator
+  field: string,
+  operator: FirebaseQueryOperator,
   value: any
 }
 
@@ -186,8 +186,8 @@ export enum collection {
 }
 
 export interface OrderBy {
-  field: string
-  direction: OrderByDirection
+  field: string,
+  direction: firebase.firestore.OrderByDirection
 }
 
 export const orderByName: OrderBy = {
@@ -199,7 +199,7 @@ export const CollectionField = {
   USER: {
     username: 'username',
     privacy: 'privacy',
-    name: 'name',
+    name: 'name'
   },
   FOLLOWING: {
     follower: 'follower',
@@ -212,23 +212,23 @@ export enum PushNotificationType {
 }
 
 export interface BaseModel {
-  id?: string
-  createdAt?: Date
-  createdBy?: string
-  updatedAt?: Date
+  id?: string,
+  createdAt?: Date,
+  createdBy?: string,
+  updatedAt?: Date,
   updatedBy?: string
 }
 
 export interface User extends BaseModel {
-  username?: string
-  name?: string
-  surname?: string
-  email?: string
-  privacy?: PrivacyType
-  followersPrivacy?: PrivacyType
-  followingPrivacy?: PrivacyType
-  biography?: string
-  profilePhoto?: Image
+  username?: string,
+  name?: string,
+  surname?: string,
+  email?: string,
+  privacy?: PrivacyType,
+  followersPrivacy?: PrivacyType,
+  followingPrivacy?: PrivacyType,
+  biography?: string,
+  profilePhoto?: Image,
   coverPhoto?: Image
 }
 

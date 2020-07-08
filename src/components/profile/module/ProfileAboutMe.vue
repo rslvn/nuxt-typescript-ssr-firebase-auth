@@ -2,7 +2,6 @@
   <div class="columns is-centered">
     <div class="column is-half">
       <div class="box">
-
         <b-field :label="$t('common.field.name')" horizontal>
           <span>{{ user.name }}</span>
         </b-field>
@@ -20,19 +19,22 @@
             <b-field grouped>
               <span>{{ authUser.email }}</span>
               <b-tooltip v-if="authUser.verified" :label="$t('profile.card.info.mailVerified')">
-                <b-icon type="is-success"
-                        class="has-margin-left-15"
-                        pack="fas"
-                        icon="check"/>
+                <b-icon
+                  type="is-success"
+                  class="has-margin-left-15"
+                  pack="fas"
+                  icon="check"
+                />
               </b-tooltip>
 
               <b-tooltip v-else :label="$t('profile.card.info.mailNotVerified')">
-                <b-icon type="is-warning"
-                        class="has-margin-left-15"
-                        pack="fas"
-                        icon="exclamation-triangle"/>
+                <b-icon
+                  type="is-warning"
+                  class="has-margin-left-15"
+                  pack="fas"
+                  icon="exclamation-triangle"
+                />
               </b-tooltip>
-
             </b-field>
           </b-field>
 
@@ -40,8 +42,8 @@
             <div class="buttons">
               <b-button
                 type="is-primary"
-                @click="submit"
                 :disabled="loading"
+                @click="submit"
               >
                 {{ $t('profile.card.info.verifyButton') }}
               </b-button>
@@ -51,8 +53,7 @@
                 type="is-light"
                 disabled="true"
                 :loading="loading"
-              >
-              </b-button>
+              />
             </div>
           </b-field>
 
@@ -64,44 +65,41 @@
               >
                 {{ $t('profile.card.info.updatePasswordButton') }}
               </b-button>
-
             </div>
           </b-field>
         </template>
-
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component } from 'nuxt-property-decorator';
-  import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, SupportedProviders } from '~/types';
-  import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue';
-  import BaseModule from '~/mixin/BaseModule';
+import { Component } from 'nuxt-property-decorator'
+import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, SupportedProviders } from '~/types'
+import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue'
+import BaseModule from '~/mixin/BaseModule'
 
   @Component({
     components: {}
   })
-  export default class ProfileAboutMe extends BaseModule {
-
+export default class ProfileAboutMe extends BaseModule {
     loading = false;
 
-    @StateNamespace.notification.Action clearNotificationMessage !: () => void;
-    @StateNamespace.auth.Action handleSendingEmailVerificationCode !: () => Promise<void>
-    @StateNamespace.auth.Action updatePassword !: (password: string) => void;
+    @StateNamespace.notification.Action clearNotificationMessage:() => void;
+    @StateNamespace.auth.Action handleSendingEmailVerificationCode:() => Promise<void>
+    @StateNamespace.auth.Action updatePassword:(password: string) => void;
 
-    get passwordProvider(): ProviderConfig | undefined {
-      return this.authUser.providers.find((providerData) => providerData.providerType === ProviderType.PASSWORD) ?
-        SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
+    get passwordProvider (): ProviderConfig | undefined {
+      return this.authUser.providers.find(providerData => providerData.providerType === ProviderType.PASSWORD)
+        ? SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
         : undefined
     }
 
-    confirmCredentials(credentials: LoginCredentials) {
+    confirmCredentials (credentials: LoginCredentials) {
       this.updatePassword(credentials.password)
     }
 
-    showSetPasswordModal() {
+    showSetPasswordModal () {
       this.$buefy.modal.open({
         parent: this,
         component: SetEmailPasswordModal,
@@ -118,11 +116,10 @@
       })
     }
 
-    submit() {
-      this.loading = true;
+    submit () {
+      this.loading = true
       this.handleSendingEmailVerificationCode()
         .then(() => this.loading = false)
     }
-
   }
 </script>

@@ -2,60 +2,60 @@
   <b-upload v-model="file" accept="image/*">
     <slot name="button">
       <a class="button is-light">
-        <b-icon icon="camera"></b-icon>
+        <b-icon icon="camera" />
       </a>
     </slot>
   </b-upload>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
-  import { getNewFileName } from '~/service/global-service'
-  import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
-  import { handleError } from '~/service/error-service'
-  import { Image, StateNamespace } from "~/types";
+import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
+import firebase from 'firebase'
+import { getNewFileName } from '~/service/global-service'
+import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
+import { handleError } from '~/service/error-service'
+import { Image, StateNamespace } from '~/types'
 
   @Component({
     components: {}
   })
-  export default class SingleImageUpload extends Vue {
-
-    @Prop({ type: String, required: true }) parentFolderRef !: string
-    @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
-    @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
+export default class SingleImageUpload extends Vue {
+    @Prop({ type: String, required: true }) parentFolderRef : string
+    @Prop({ type: Function, required: true }) getAltValue : (fileName: string) => string
+    @Prop({ type: Function, required: true }) uploadCompleted : (image: Image) => void
 
     file: File | null = null
     fileName = ''
     uploadTask: firebase.storage.UploadTask | null = null
 
-    @StateNamespace.loading.Mutation setLoading !: (loading: boolean) => void;
+    @StateNamespace.loading.Mutation setLoading : (loading: boolean) => void;
 
     @Watch('file')
-    onFileChanged(file: File, oldFile: File) {
-      this.setLoading(true);
+    onFileChanged (file: File) {
+      this.setLoading(true)
 
-      let delimiter = this.parentFolderRef.endsWith('/') ? '' : '/';
+      const delimiter = this.parentFolderRef.endsWith('/') ? '' : '/'
       this.fileName = `${this.parentFolderRef}${delimiter}${getNewFileName(file.name)}`
 
       this.uploadTask = storage.ref().child(this.fileName).put(file)
     }
 
     @Watch('uploadTask')
-    onUploadTaskChanged(val: any, oldVal: any) {
+    onUploadTaskChanged () {
       this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
         (snapshot) => {
           switch (snapshot.state) {
             case TaskState.PAUSED: // or 'paused'
-              break;
+              break
             case TaskState.RUNNING: // or 'running'
-              break;
+              break
           }
         },
         this.handleFireStorageError,
         () => {
           this.uploadTask?.snapshot.ref.getDownloadURL()
             .then((downloadURL) => {
-              let image: Image = {
+              const image: Image = {
                 name: this.fileName,
                 src: downloadURL,
                 alt: this.getAltValue(this.file?.name || ''),
@@ -63,13 +63,12 @@
               }
               this.uploadCompleted(image)
               this.setLoading(false)
-            });
-        });
+            })
+        })
     }
 
     handleFireStorageError = (error: Error): any => {
       handleError(this.$store.dispatch, error)
     }
-
   }
 </script>

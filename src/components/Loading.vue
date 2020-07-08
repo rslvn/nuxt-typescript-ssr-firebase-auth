@@ -1,37 +1,37 @@
 <template>
-  <div id="wave" v-if="loading">
-    <span class="dot olive"></span>
-    <span class="dot blue"></span>
-    <span class="dot green"></span>
-    <span class="dot red"></span>
+  <div v-if="loading" id="wave">
+    <span class="dot olive" />
+    <span class="dot blue" />
+    <span class="dot green" />
+    <span class="dot red" />
   </div>
 </template>
 
 <script lang="ts">
 
-  import { Component, Vue } from 'nuxt-property-decorator';
-  import { StateNamespace } from "~/types";
+import { Component, Vue } from 'nuxt-property-decorator'
+import { StateNamespace } from '~/types'
 
   @Component({
     components: {}
   })
-  export default class extends Vue {
-    @StateNamespace.loading.Getter loading !: boolean
-    @StateNamespace.loading.Action saveLoading !: (loading: boolean) => Promise<void>
+export default class extends Vue {
+    @StateNamespace.loading.Getter loading : boolean
+    @StateNamespace.loading.Action saveLoading : (loading: boolean) => Promise<void>
 
-    start() {
+    start () {
       this.saveLoading(true)
     }
 
-    finish() {
+    finish () {
       this.saveLoading(false)
     }
 
-    fail(error: Error) {
+    fail (error: Error) {
       console.log('loading.error', error)
     }
 
-    increase(num: Number) {
+    increase (num: Number) {
       console.log('loading.num: ', num)
     }
   }

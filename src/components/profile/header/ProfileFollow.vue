@@ -99,9 +99,9 @@
   })
   export default class ProfileFollow extends Vue {
 
-    @Prop({ type: Boolean, required: true }) isMyProfile !: boolean
-    @Prop({ required: true }) authUser !: AuthUser
-    @Prop({ type: Object, required: true }) user !: User
+    @Prop({ type: Boolean, required: true }) isMyProfile : boolean
+    @Prop({ required: true }) authUser : AuthUser
+    @Prop({ type: Object, required: true }) user : User
 
     loading = true
     following = false
@@ -115,7 +115,7 @@
         .then(async () => {
 
           if (!this.isMyProfile) {
-            await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
+            await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id)
               .then((existingFollowing) => this.following = !!existingFollowing)
           }
 

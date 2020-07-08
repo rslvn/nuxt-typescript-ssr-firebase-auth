@@ -23,7 +23,7 @@ const logout = (store: Store<any>) => {
 }
 
 const getNextRoute = (route: Route): Location => {
-  let path: string = route.query[QueryParameters.NEXT] as string;
+  let path: string = route.query[QueryParameters.NEXT] as string
   if (path) {
     return { path }
   }

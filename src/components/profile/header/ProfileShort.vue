@@ -1,7 +1,7 @@
 <template>
   <article class="media is-vcentered">
     <div class="media-left">
-      <ProfilePhoto :is-my-profile="isMyProfile" :auth-user="authUser" :profile-photo="user.profilePhoto"/>
+      <ProfilePhoto :is-my-profile="isMyProfile" :auth-user="authUser" :profile-photo="user.profilePhoto" />
     </div>
     <div class="media-content has-margin-top-20-tablet">
       <div>
@@ -17,21 +17,20 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue';
-  import { AuthUser, User } from '~/types';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue'
+import { AuthUser, User } from '~/types'
 
   @Component({
     components: { ProfilePhoto }
   })
-  export default class ProfileShort extends Vue {
-    @Prop({ type: Boolean, required: true }) isMyProfile !: boolean
-    @Prop({ required: true }) authUser !: AuthUser
-    @Prop({ type: Object, required: true }) user !: User
+export default class ProfileShort extends Vue {
+    @Prop({ type: Boolean, required: true }) isMyProfile : boolean
+    @Prop({ required: true }) authUser : AuthUser
+    @Prop({ type: Object, required: true }) user : User
 
-    get fullName() {
+    get fullName () {
       return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
     }
-
   }
 </script>

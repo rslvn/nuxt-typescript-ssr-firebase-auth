@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3 class="title has-text-centered has-text-dark">{{$t('form.loginForm.title')}}</h3>
+    <h3 class="title has-text-centered has-text-dark">
+      {{ $t('form.loginForm.title') }}
+    </h3>
     <div class="box">
-
       <ValidationObserver v-slot="{ passes }" tag="form">
-
         <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
@@ -27,18 +27,21 @@
           class="has-margin-5"
         />
 
-        <RememberMe v-if="showRememberMe" :value="rememberMe"/>
+        <RememberMe v-if="showRememberMe" :value="rememberMe" />
 
-        <b-button v-if="showForgetPassword" tag="router-link"
-                  :to="routes.FORGET_PASSWORD"
-                  type="is-text"
-                  class="has-text-primary is-pulled-right">
-          {{ $t('form.loginForm.forgetPassword')}}
+        <b-button
+          v-if="showForgetPassword"
+          tag="router-link"
+          :to="routes.FORGET_PASSWORD"
+          type="is-text"
+          class="has-text-primary is-pulled-right"
+        >
+          {{ $t('form.loginForm.forgetPassword') }}
         </b-button>
 
         <div class="buttons">
           <b-button type="is-primary" icon-pack="fa" icon-left="sign-in-alt" @click="passes(submit)">
-            {{ $t('form.loginForm.submit')}}
+            {{ $t('form.loginForm.submit') }}
           </b-button>
         </div>
       </ValidationObserver>
@@ -49,19 +52,18 @@
         class="button-outline"
         :to="routes.REGISTER"
       >
-        {{ $t('form.loginForm.noAccount')}}
+        {{ $t('form.loginForm.noAccount') }}
       </nuxt-link>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { LoginCredentials, Routes } from "~/types";
-  import { ValidationObserver } from "vee-validate";
-  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
-  import RememberMe from "~/components/ui/RememberMe.vue";
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationObserver } from 'vee-validate'
+import { LoginCredentials, Routes } from '~/types'
+import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
+import RememberMe from '~/components/ui/RememberMe.vue'
 
   @Component({
     components: {
@@ -70,28 +72,26 @@
       InputWithValidation
     }
   })
-  export default class LoginForm extends Vue {
-
-    @Prop({ type: Function, required: true }) signInWithEmail !: (credentials: LoginCredentials) => void
-    @Prop({ type: String, default: '' }) email !: string
-    @Prop({ type: Boolean, required: true }) rememberMe !: boolean
-    @Prop({ type: Boolean, default: true }) showForgetPassword !: boolean
-    @Prop({ type: Boolean, default: true }) showRegisterLink !: boolean
-    @Prop({ type: Boolean, default: true }) showRememberMe !: boolean
+export default class LoginForm extends Vue {
+    @Prop({ type: Function, required: true }) signInWithEmail : (credentials: LoginCredentials) => void
+    @Prop({ type: String, default: '' }) email:string
+    @Prop({ type: Boolean, required: true }) rememberMe:boolean
+    @Prop({ type: Boolean, default: true }) showForgetPassword:boolean
+    @Prop({ type: Boolean, default: true }) showRegisterLink:boolean
+    @Prop({ type: Boolean, default: true }) showRememberMe:boolean
 
     credentials: LoginCredentials = {
       email: this.email || '',
       password: '',
-      rememberMe: this.rememberMe,
+      rememberMe: this.rememberMe
     }
 
-    get routes() {
+    get routes () {
       return Routes
     }
 
-    submit() {
+    submit () {
       this.signInWithEmail(this.credentials)
     }
-
   }
 </script>

@@ -1,15 +1,12 @@
 import { auth, firestore } from '~/plugins/fire-init-plugin'
 import { BaseModel, OrderBy, PagingResponse, WhereClause } from '~/types'
 import firebase from 'firebase';
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
-
-const toBaseModelArray = <T extends BaseModel>(querySnapshot: QuerySnapshot) => {
-  let docs: T[] = [];
-
+export const toBaseModelArray = <T extends BaseModel> (querySnapshot: firebase.firestore.QuerySnapshot) => {
+  const docs: T[] = [];
   querySnapshot.forEach(function (doc) {
     docs.push(doc.data() as T)
-  });
+  })
 
   return docs
 }
@@ -26,7 +23,7 @@ const getQueryByWhereClauses = (collection: string,
   return query
 }
 
-const updateBaseModel = (model: BaseModel) => {
+const updateBaseModel = <T extends BaseModel> (model: T) => {
   let date = new Date()
   if (!model.createdAt) {
     model.createdAt = date
@@ -45,7 +42,7 @@ const updateBaseModel = (model: BaseModel) => {
   model.updatedBy = auth.currentUser?.uid
 }
 
-const set = async (collection: string, model: BaseModel) => {
+const set = async <T extends BaseModel> (collection: string, model: T) => {
   updateBaseModel(model);
 
   let docRef = firestore.collection(collection).doc(model.id);
@@ -58,7 +55,7 @@ const set = async (collection: string, model: BaseModel) => {
       // get updated doc
       return docRef.get()
         .then((doc) => {
-          return doc.data() as BaseModel
+          return doc.data() as T
         }).catch((error) => {
           throw error;
         });
@@ -66,18 +63,18 @@ const set = async (collection: string, model: BaseModel) => {
     })
 };
 
-const add = async (collection: string, model: BaseModel) => {
+const add = async <T extends BaseModel> (collection: string, model: T) => {
   let docRef = firestore.collection(collection).doc();
   model.id = docRef.id;
 
   return set(collection, model);
 };
 
-export const saveModel = async (collection: string, model: BaseModel) => {
+export const saveModel = async <T extends BaseModel> (collection: string, model: T ) => {
   return model.id ?
-    set(collection, model) :
-    add(collection, model)
-};
+    await set(collection, model) :
+    await add(collection, model)
+}
 
 export const deleteModel = async (collection: string, model: BaseModel) => {
   return await firestore.collection(collection).doc(model.id).delete()
@@ -102,12 +99,12 @@ export const getCountByWhereClauses = async (collection: string,
     })
 };
 
-export const getModels = async (collection: string): Promise<BaseModel[]> => {
+export const getModels = async <T extends BaseModel>(collection: string): Promise<T[]> => {
   return await firestore.collection(collection).get()
     .then((querySnapshot) => toBaseModelArray(querySnapshot))
 }
 
-export const getModelsByWhereClauses = async <T extends BaseModel>(collection: string,
+export const getModelsByWhereClauses = async <T extends BaseModel> (collection: string,
                                                                    whereClause: WhereClause,
                                                                    ...whereClauses: WhereClause[])
   : Promise<T[]> => {

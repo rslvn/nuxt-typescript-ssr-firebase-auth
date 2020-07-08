@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h3 class="title has-text-centered has-text-dark">{{ $t('form.registerForm.title')}}</h3>
+    <h3 class="title has-text-centered has-text-dark">
+      {{ $t('form.registerForm.title') }}
+    </h3>
     <div class="box">
-
       <ValidationObserver v-slot="{ passes }" tag="form">
-
         <InputWithValidation
           v-model="credentials.name"
           :label="$t('common.field.name')"
@@ -50,10 +50,9 @@
 
         <div class="buttons">
           <b-button type="is-primary" icon-pack="fa" icon-left="user-plus" @click="passes(submit)">
-            {{ $t('form.registerForm.submit')}}
+            {{ $t('form.registerForm.submit') }}
           </b-button>
         </div>
-
       </ValidationObserver>
     </div>
     <div class="has-text-centered">
@@ -62,19 +61,17 @@
         class="button-outline"
         :to="routes.LOGIN"
       >
-        {{ $t('form.registerForm.hasAccount')}}
+        {{ $t('form.registerForm.hasAccount') }}
       </nuxt-link>
-
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ValidationObserver } from 'vee-validate';
-  import { RegistrationCredentials, Routes } from '~/types';
-  import InputWithValidation from '~/components/ui/input/InputWithValidation.vue';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationObserver } from 'vee-validate'
+import { RegistrationCredentials, Routes } from '~/types'
+import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 
   @Component({
     components: {
@@ -82,22 +79,23 @@
       InputWithValidation
     }
   })
-  export default class RegisterForm extends Vue {
+export default class RegisterForm extends Vue {
     credentials: RegistrationCredentials = {
       name: '',
       email: '',
       password: ''
     };
+
     confirmPassword = '';
 
-    @Prop({ type: Function, required: true }) signUpWithEmail !: (credentials: RegistrationCredentials) => void;
+    @Prop({ type: Function, required: true }) signUpWithEmail : (credentials: RegistrationCredentials) => void;
 
-    get routes() {
+    get routes () {
       return Routes
     }
 
-    submit() {
-      this.signUpWithEmail(this.credentials);
+    submit () {
+      this.signUpWithEmail(this.credentials)
     }
   }
 </script>

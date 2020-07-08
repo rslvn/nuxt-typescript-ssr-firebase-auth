@@ -1,57 +1,59 @@
 <template>
   <div class="container">
+    <PageTitle :title="$t('page.images.title')" />
 
-    <PageTitle :title="$t('page.images.title')"/>
-
-    <div class="columns has-text-centered" v-for="(image,index) in images" :key="index">
-
+    <div v-for="(image,index) in images" :key="index" class="columns has-text-centered">
       <div class="column">
-        <div>{{ $t('page.images.original')}}</div>
+        <div>{{ $t('page.images.original') }}</div>
         <img :src="image.src" :alt="image.alt">
       </div>
 
       <div class="column">
-        <div>{{ $t('page.images.roundedNoBorder')}}</div>
-        <BackgroundSquareImage :image-url="image.src" :rounded="true" size="200" auto-margin="true"/>
+        <div>{{ $t('page.images.roundedNoBorder') }}</div>
+        <BackgroundSquareImage :image-url="image.src" :rounded="true" size="200" auto-margin="true" />
       </div>
 
       <div class="column">
-        <div>{{ $t('page.images.squareNoBorder')}}</div>
-        <BackgroundSquareImage :image-url="image.src" :rounded="false" size="200" auto-margin="true"/>
+        <div>{{ $t('page.images.squareNoBorder') }}</div>
+        <BackgroundSquareImage :image-url="image.src" :rounded="false" size="200" auto-margin="true" />
       </div>
 
       <div class="column">
-        <div>{{ $t('page.images.roundedWithBorder')}}</div>
-        <BackgroundSquareImage :image-url="image.src" rounded="true" size="200" border="10" auto-margin="true"/>
+        <div>{{ $t('page.images.roundedWithBorder') }}</div>
+        <BackgroundSquareImage :image-url="image.src" rounded="true" size="200" border="10" auto-margin="true" />
       </div>
 
       <div class="column">
-        <div>{{ $t('page.images.squareWithBorder')}}</div>
-        <BackgroundSquareImage :image-url="image.src" rounded="false" size="200" border="5" border-color="cyan"
-                               auto-margin="true"/>
+        <div>{{ $t('page.images.squareWithBorder') }}</div>
+        <BackgroundSquareImage
+          :image-url="image.src"
+          rounded="false"
+          size="200"
+          border="5"
+          border-color="cyan"
+          auto-margin="true"
+        />
       </div>
-
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator';
-  import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue';
-  import { Routes } from '~/types';
-  import { getHeadByRouteType } from '~/service/seo-service';
-  import PageTitle from '~/components/ui/PageTitle.vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
+import { Routes } from '~/types'
+import { getHeadByRouteType } from '~/service/seo-service'
+import PageTitle from '~/components/ui/PageTitle.vue'
 
   @Component({
     components: { PageTitle, BackgroundSquareImage }
   })
-  export default class images extends Vue {
-
-    head() {
+export default class images extends Vue {
+    head () {
       return getHeadByRouteType(Routes.IMAGES, this)
     }
 
-    get images() {
+    get images () {
       return [
         {
           src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/images%2Fsquare-640.png?alt=media&token=2b1672c9-3a27-4e7a-b4f1-80e8c76e09db',
@@ -100,7 +102,7 @@
         {
           src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fpunta.jpg?alt=media&token=05671167-d88b-43c3-8978-d46e6e37b2a2',
           alt: 'lightbox picture'
-        },
+        }
       ]
     }
   }

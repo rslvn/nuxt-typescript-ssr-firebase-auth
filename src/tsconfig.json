@@ -11,6 +11,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
     "allowJs": true,
     "sourceMap": true,
     "strict": true,

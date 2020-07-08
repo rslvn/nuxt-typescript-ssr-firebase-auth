@@ -14,11 +14,11 @@
     components: {}
   })
   export default class ImageCropper extends Vue {
-    @Ref('imageCropRef') readonly imageCropRef !: HTMLImageElement
-    @Prop({ required: true }) image !: Image
-    @Prop({ type: Number, required: true }) width !: number
-    @Prop({ type: Number, required: true }) height !: number
-    @Prop({ type: Function, required: true }) preview !: (cropped: string) => void
+    @Ref('imageCropRef') readonly imageCropRef:HTMLImageElement
+    @Prop({ required: true }) image:Image
+    @Prop({ type: Number, required: true }) width:number
+    @Prop({ type: Number, required: true }) height:number
+    @Prop({ type: Function, required: true }) preview:(cropped: string) => void
 
     cropper: Cropper | null = null
 

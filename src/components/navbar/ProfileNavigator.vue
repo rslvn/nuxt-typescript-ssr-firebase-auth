@@ -3,49 +3,46 @@
     <template slot="label">
       <b-icon
         icon="chevron-down"
-        size="is-small">
-      </b-icon>
+        size="is-small"
+      />
     </template>
     <b-navbar-item tag="router-link" :to="dynamicProfileRoute">
-      <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
-      <p>{{$t('topNavbar.profileDynamic')}}</p>
+      <b-icon pack="fas" icon="user" class="has-margin-right-5" />
+      <p>{{ $t('topNavbar.profileDynamic') }}</p>
     </b-navbar-item>
 
     <b-navbar-item tag="router-link" :to="profileRoute">
-      <b-icon pack="fas" icon="user" class="has-margin-right-5"/>
-      <p>{{$t('topNavbar.profile')}}</p>
+      <b-icon pack="fas" icon="user" class="has-margin-right-5" />
+      <p>{{ $t('topNavbar.profile') }}</p>
     </b-navbar-item>
 
     <hr class="dropdown-divider">
 
     <b-navbar-item @click="logout">
-      <b-icon icon="logout" class="has-margin-right-5"/>
-      <p>{{$t('topNavbar.logout')}}</p>
+      <b-icon icon="logout" class="has-margin-right-5" />
+      <p>{{ $t('topNavbar.logout') }}</p>
     </b-navbar-item>
-
   </b-navbar-dropdown>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { AuthUser, Routes } from "~/types";
-  import { getUserRoute } from '~/service/global-service';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { AuthUser, Routes } from '~/types'
+import { getUserRoute } from '~/service/global-service'
 
   @Component({
     components: {}
   })
-  export default class ProfileNavigator extends Vue {
+export default class ProfileNavigator extends Vue {
+    @Prop({ required: true }) authUser : AuthUser;
+    @Prop({ type: Function, required: true }) logout : () => void;
 
-    @Prop({ required: true }) authUser !: AuthUser;
-    @Prop({ type: Function, required: true }) logout !: () => void;
-
-    get profileRoute() {
+    get profileRoute () {
       return Routes.PROFILE
     }
 
-    get dynamicProfileRoute() {
+    get dynamicProfileRoute () {
       return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
     }
-
   }
 </script>

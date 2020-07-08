@@ -1,6 +1,6 @@
 export interface RouteType {
-  label: string
-  name?: string
+  label: string,
+  name?: string,
   path: string
 }
 
@@ -33,7 +33,7 @@ export const Routes = {
   LIGHT_BOX,
   TERMS,
   PRIVACY_POLICY,
-  SEARCH,
+  SEARCH
 }
 
 export enum RouteParameters {

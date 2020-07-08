@@ -48,7 +48,7 @@
     isFetching = false
     searched = false
 
-    @StateNamespace.auth.Getter authUser !: AuthUser;
+    @StateNamespace.auth.Getter authUser : AuthUser;
 
     @Watch('perPage')
     onPerPageChanged(value: number) {

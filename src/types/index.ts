@@ -1,5 +1,5 @@
-import { CookieSerializeOptions } from "cookie";
-import { Image } from "~/types/firebase-types";
+import { CookieSerializeOptions } from 'cookie'
+import { Image } from '~/types/firebase-types'
 
 export * from './api-types'
 export * from './firebase-types'
@@ -8,9 +8,9 @@ export * from './route-types'
 export * from './seo-types'
 
 export interface SupportedLanguage {
-  name: string
-  code: string
-  alias: string
+  name: string,
+  code: string,
+  alias: string,
   flag: Image
 }
 
@@ -62,10 +62,10 @@ export enum SettingsType {
 }
 
 export interface NavigatorConfig<T, M> {
-  type: T
-  icon: string
+  type: T,
+  icon: string,
   component: M,
-  componentProperties?: object
+  componentProperties?: Object,
   private: boolean
 }
 
@@ -76,4 +76,3 @@ export interface ModuleTabConfig extends NavigatorConfig<ModuleType, any> {
 export interface SettingsMenuConfig extends NavigatorConfig<SettingsType, any> {
 
 }
-

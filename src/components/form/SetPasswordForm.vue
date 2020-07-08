@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h3 class="title has-text-centered has-text-dark">{{ title }}</h3>
+    <h3 class="title has-text-centered has-text-dark">
+      {{ title }}
+    </h3>
     <div class="box">
-      <p><span v-html="description"></span></p>
+      <p><span v-html="description" /></p>
       <br v-if="description">
       <ValidationObserver v-slot="{ passes }" tag="form">
         <InputWithValidation
@@ -35,13 +37,12 @@
       </ValidationObserver>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ValidationObserver } from "vee-validate";
-  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationObserver } from 'vee-validate'
+import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 
   @Component({
     components: {
@@ -49,18 +50,17 @@
       InputWithValidation
     }
   })
-  export default class SetPasswordForm extends Vue {
-
+export default class SetPasswordForm extends Vue {
     password = '';
     confirmedPassword = '';
 
-    @Prop({ type: Function, required: true }) confirmPassword !: (password: string) => void;
-    @Prop({ type: String, required: true }) title !: string;
-    @Prop({ type: String, required: true }) buttonText !: string;
-    @Prop({ type: String, required: false }) description !: string;
+    @Prop({ type: Function, required: true }) confirmPassword : (password: string) => void;
+    @Prop({ type: String, required: true }) title : string;
+    @Prop({ type: String, required: true }) buttonText : string;
+    @Prop({ type: String, required: false }) description : string;
 
-    submit() {
-      this.confirmPassword(this.password);
+    submit () {
+      this.confirmPassword(this.password)
     }
   }
 </script>

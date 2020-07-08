@@ -8,14 +8,14 @@
       :loading="isFetching"
       :check-infinite-scroll="true"
       icon="magnify"
+      rounded
+      clearable
+      expanded
       @typing="getAsyncData"
       @select="(option) => gotoProfile(option.username)"
       @infinite-scroll="getMoreAsyncData"
       @keyup.enter.native="gotoSearchPage()"
-      rounded
-      clearable
-      expanded>
-
+    >
       <template slot-scope="props">
         <div class="media">
           <div class="media-left">
@@ -24,7 +24,7 @@
           <div class="media-content truncate-long-text">
             {{ props.option.name }}
             <br>
-            <small>@{{props.option.username}}</small>
+            <small>@{{ props.option.username }}</small>
           </div>
         </div>
       </template>
@@ -37,34 +37,35 @@
       <template slot="header">
         <div>
           <b-button type="is-text" icon-left="toy-brick-search-outline" @click="gotoSearchPage">
-            {{$t('topNavbar.search.detailedSearch')}}
+            {{ $t('topNavbar.search.detailedSearch') }}
           </b-button>
         </div>
       </template>
 
       <template slot="footer">
-        <span v-show="page > totalPages"
-              class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>
+        <span
+          v-show="page > totalPages"
+          class="has-text-grey has-text-centered"
+        > {{ $t('topNavbar.search.footer') }} </span>
       </template>
-
     </b-autocomplete>
   </b-field>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator'
-  import _debounce from 'debounce'
-  import { searchUsers } from '~/service/firebase/firestore';
-  import { AuthUser, Routes, SearchData } from '~/types';
-  import { loadMoreSearchResult } from '~/service/rx-service';
-  import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service';
-  import { showErrorToaster, showWarningToaster } from '~/service/notification-service';
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import _debounce from 'debounce'
+import { searchUsers } from '~/service/firebase/firestore'
+import { AuthUser, Routes, SearchData } from '~/types'
+import { loadMoreSearchResult } from '~/service/rx-service'
+import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service'
+import { showErrorToaster, showWarningToaster } from '~/service/notification-service'
 
   @Component({
     components: {}
   })
-  export default class SearchBar extends Vue {
-    @Prop({ required: true }) authUser !: AuthUser;
+export default class SearchBar extends Vue {
+    @Prop({ required: true }) authUser:AuthUser;
 
     data: SearchData[] = []
     isFetching = false
@@ -80,13 +81,13 @@
       loadMoreSearchResult.next()
     }, 250)
 
-    created() {
+    created () {
       this.$subscribeTo(loadMoreSearchResult.asObservable(), () => {
         this.getAsyncData(this.query)
       })
     }
 
-    searchByName(newQuery: string) {
+    searchByName (newQuery: string) {
       if (!this.authUser) {
         return showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
       }
@@ -124,16 +125,16 @@
         })
     }
 
-    async gotoSearchPage() {
+    async gotoSearchPage () {
       const query = this.query
       this.query = ''
-      query ?
-        await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, query)) :
-        await this.$router.push(Routes.SEARCH)
+      query
+        ? await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, query))
+        : await this.$router.push(Routes.SEARCH)
       console.log('gotoSearchPage', this.query)
     }
 
-    async gotoProfile(username: string) {
+    async gotoProfile (username: string) {
       await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
     }
   }

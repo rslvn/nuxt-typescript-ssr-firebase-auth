@@ -7,7 +7,9 @@ const notificationPlugin: Plugin = () => {
   notificationObservable
     .asObservable()
     .subscribe((notification: PushNotification) => {
-      savePushNotification(notification).catch((error) => console.log(error))
+      savePushNotification(notification).catch((error: Error) =>
+        console.log(error)
+      )
     })
 }
 

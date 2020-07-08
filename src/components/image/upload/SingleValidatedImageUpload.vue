@@ -30,20 +30,20 @@
   })
   export default class SingleFileUploadWithValidation extends Vue {
 
-    @Ref('provider') readonly provider !: any
+    @Ref('provider') readonly provider : any
 
-    @Prop({ type: String, required: true }) label !: string
-    @Prop({ type: String, required: true }) parentFolderRef !: string
-    @Prop({ type: Function, required: true }) getAltValue !: (fileName: string) => string
-    @Prop({ type: Function, required: true }) uploadCompleted !: (image: Image) => void
-    @Prop({ type: String, required: false, default: '' }) rules !: string;
-    @Prop({ type: String, required: false, default: 'uploadFile' }) vid !: string;
+    @Prop({ type: String, required: true }) label : string
+    @Prop({ type: String, required: true }) parentFolderRef : string
+    @Prop({ type: Function, required: true }) getAltValue : (fileName: string) => string
+    @Prop({ type: Function, required: true }) uploadCompleted : (image: Image) => void
+    @Prop({ type: String, required: false, default: '' }) rules : string;
+    @Prop({ type: String, required: false, default: 'uploadFile' }) vid:string;
 
     file: File | null = null
     fileName = ''
     uploadTask: firebase.storage.UploadTask | null = null
 
-    @StateNamespace.loading.Mutation setLoading !: (loading: boolean) => void;
+    @StateNamespace.loading.Mutation setLoading:(loading: boolean) => void;
 
     @Watch('file')
     async onFileChanged(file: File, oldFile: File) {

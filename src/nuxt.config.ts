@@ -125,6 +125,14 @@ const config: Configuration = {
     '~/server/sitemap'
   ],
 
+  typescript: {
+    typeCheck: {
+      eslint: {
+        files: './src/**/*.{ts,js,vue}'
+      }
+    }
+  },
+
   /*
    ** Build configuration
    */

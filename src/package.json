@@ -9,7 +9,7 @@
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
-    "lint": "eslint --ext .js,.vue .",
+    "lint": "eslint --ext .ts,.js,.vue . --fix",
     "test": "jest"
   },
   "lint-staged": {

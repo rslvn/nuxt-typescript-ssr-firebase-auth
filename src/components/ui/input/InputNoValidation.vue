@@ -24,14 +24,14 @@
     components: {}
   })
   export default class InputWithNoValidation extends Vue {
-    @Prop({ type: String, required: false, default: '' }) type !: string;
-    @Prop({ type: String, required: false, default: 'text' }) inputType !: string;
-    @Prop({ type: String, required: false, default: '' }) labelPosition !: string;
-    @Prop({ type: String, required: false, default: 'some@domain.com' }) placeholder !: string;
-    @Prop({ type: Boolean, required: false, default: false }) horizontal !: boolean;
-    @Prop({ type: Boolean, required: false, default: false }) disabled !: boolean;
+    @Prop({ type: String, required: false, default: '' }) type : string;
+    @Prop({ type: String, required: false, default: 'text' }) inputType : string;
+    @Prop({ type: String, required: false, default: '' }) labelPosition : string;
+    @Prop({ type: String, required: false, default: 'some@domain.com' }) placeholder : string;
+    @Prop({ type: Boolean, required: false, default: false }) horizontal : boolean;
+    @Prop({ type: Boolean, required: false, default: false }) disabled : boolean;
 
-    @Model('input', { required: true }) readonly value!: any;
+    @Model('input', { required: true }) readonly value: any;
 
     @Emit()
     input(newValue: any) {

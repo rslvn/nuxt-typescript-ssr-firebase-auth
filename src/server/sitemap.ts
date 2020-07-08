@@ -1,6 +1,6 @@
+import { createGzip } from 'zlib'
 import express, { Request, RequestHandler, Response, Router } from 'express'
 import { SitemapStream, streamToPromise } from 'sitemap'
-import { createGzip } from 'zlib'
 import { Routes } from '../types'
 import { handleGenericError } from './service/api-error-service'
 
@@ -12,7 +12,7 @@ const staticRoutes = [
   Routes.LOGIN.path,
   Routes.CROP.path,
   Routes.LIGHT_BOX.path,
-  Routes.IMAGES.path,
+  Routes.IMAGES.path
 ]
 
 let sitemap: Buffer | null = null
@@ -33,7 +33,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
       const smStream = new SitemapStream({ hostname })
       const pipeline = smStream.pipe(createGzip())
 
-      staticRoutes.forEach((route) =>
+      staticRoutes.forEach(route =>
         smStream.write({ url: route, changefreq: 'weekly', priority: 0.8 })
       )
       smStream.end()
@@ -47,7 +47,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
         throw e
       })
     })
-    .catch((error) => handleGenericError(res, error))
+    .catch(error => handleGenericError(res, error))
 }
 
 const app = express()
@@ -57,5 +57,5 @@ router.get('/sitemap.xml', sitemapHandler)
 app.use(router)
 
 export default {
-  handler: app,
+  handler: app
 }

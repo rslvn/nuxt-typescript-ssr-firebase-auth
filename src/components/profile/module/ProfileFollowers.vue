@@ -1,15 +1,24 @@
 <template>
   <div class="container">
+    <SearchField :query.sync="query" :is-fetching="isFetching" :reset-search="resetSearch" />
 
-    <SearchField :query.sync="query" :is-fetching="isFetching" :reset-search="resetSearch"/>
-
-    <Paging v-if="hasResult" :total="total" :per-page.sync="perPage" :current.sync="current" :is-fetching="isFetching"
-            :on-page-change="onPageChange">
+    <Paging
+      v-if="hasResult"
+      :total="total"
+      :per-page.sync="perPage"
+      :current.sync="current"
+      :is-fetching="isFetching"
+      :on-page-change="onPageChange"
+    >
       <template slot="searchResult">
-
-        <ProfileCard v-for="(user, index) in list" :key="index" :name="user.name" :username="user.username"
-                     :profile-photo="user.profilePhoto" :privacy-type="user.privacy"/>
-
+        <ProfileCard
+          v-for="(user, index) in list"
+          :key="index"
+          :name="user.name"
+          :username="user.username"
+          :profile-photo="user.profilePhoto"
+          :privacy-type="user.privacy"
+        />
       </template>
     </Paging>
 
@@ -18,26 +27,25 @@
         <span> {{ $t('page.search.noResult') }} </span>
       </div>
     </div>
-
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Watch } from 'nuxt-property-decorator';
-  import ProfileCard from '~/components/card/ProfileCard.vue';
-  import { SearchData, User } from '~/types';
-  import PageTitle from '~/components/ui/PageTitle.vue';
-  import SearchField from '~/components/search/SearchField.vue';
-  import Paging from '~/components/ui/paging/Paging.vue';
-  import { searchFollowers } from '~/service/firebase/firestore';
-  import BaseModule from '~/mixin/BaseModule';
-  import { showErrorToaster } from '~/service/notification-service';
-  import { reloadFollowing } from '~/service/rx-service';
+import { Component, Watch } from 'nuxt-property-decorator'
+import ProfileCard from '~/components/card/ProfileCard.vue'
+import { SearchData, User } from '~/types'
+import PageTitle from '~/components/ui/PageTitle.vue'
+import SearchField from '~/components/search/SearchField.vue'
+import Paging from '~/components/ui/paging/Paging.vue'
+import { searchFollowers } from '~/service/firebase/firestore'
+import BaseModule from '~/mixin/BaseModule'
+import { showErrorToaster } from '~/service/notification-service'
+import { reloadFollowing } from '~/service/rx-service'
 
   @Component({
     components: { Paging, SearchField, PageTitle, ProfileCard }
   })
-  export default class ProfileFollowers extends BaseModule {
+export default class ProfileFollowers extends BaseModule {
     // paging dynamic config
     total = 1
     current = 1
@@ -50,35 +58,35 @@
     searched = false
 
     @Watch('perPage')
-    onPerPageChanged(value: number) {
-      this.resetSearch();
+    onPerPageChanged () {
+      this.resetSearch()
     }
 
-    mounted() {
+    mounted () {
       this.$subscribeTo(reloadFollowing.asObservable(), () => {
-        this.resetSearch();
+        this.resetSearch()
       })
       this.resetSearch()
     }
 
-    get hasResult() {
+    get hasResult () {
       return !!this.list.length
     }
 
-    resetSearch() {
+    resetSearch () {
       this.searchByPage(1)
     }
 
-    onPageChange(page: number) {
+    onPageChange (page: number) {
       this.searchByPage(page)
     }
 
-    searching(isSearching: boolean) {
+    searching (isSearching: boolean) {
       this.searched = !isSearching
       this.isFetching = isSearching
     }
 
-    searchByPage(page: number) {
+    searchByPage (page: number) {
       this.searching(true)
 
       searchFollowers(this.user, this.query, page, this.perPage)
@@ -92,9 +100,8 @@
           return showErrorToaster(this.$t('notification.search.canNotExecuted'))
         })
         .finally(() => {
-          this.searching(false);
+          this.searching(false)
         })
     }
-
   }
 </script>
