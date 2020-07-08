@@ -156,7 +156,7 @@ const config: Configuration = {
     //   chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
     // },
     babel: {
-      presets ({ isServer }) {
+      presets ({ isServer }: any) {
         return [
           [
             require.resolve('@nuxt/babel-preset-app'),
