@@ -33,40 +33,40 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { Image } from '~/types'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class Lightbox extends Vue {
-    @Prop({ type: Array, required: true }) images:Image[]
-    @Prop({ type: Number, required: false, default: 0 }) initialIndex:number
+  @Prop({ type: Array, required: true }) images: Image[]
+  @Prop({ type: Number, required: false, default: 0 }) initialIndex: number
 
-    maxIndex = this.images.length - 1;
-    index = this.maxIndex < this.initialIndex || this.initialIndex < 0 ? 0 : this.initialIndex
+  maxIndex = this.images.length - 1;
+  index = this.maxIndex < this.initialIndex || this.initialIndex < 0 ? 0 : this.initialIndex
 
-    get image () {
-      return this.images[this.index]
+  get image () {
+    return this.images[this.index]
+  }
+
+  get hasNext () {
+    return this.index < this.maxIndex
+  }
+
+  next () {
+    if (!this.hasNext) {
+      return
     }
+    this.index++
+  }
 
-    get hasNext () {
-      return this.index < this.maxIndex
-    }
+  get hasPrevious () {
+    return this.index > 0
+  }
 
-    next () {
-      if (!this.hasNext) {
-        return
-      }
-      this.index++
+  previous () {
+    if (!this.hasPrevious) {
+      return
     }
-
-    get hasPrevious () {
-      return this.index > 0
-    }
-
-    previous () {
-      if (!this.hasPrevious) {
-        return
-      }
-      this.index--
-    }
+    this.index--
+  }
 }
 </script>

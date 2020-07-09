@@ -79,23 +79,23 @@ import SearchBar from '~/components/navbar/SearchBar.vue'
 import { getUserRoute } from '~/service/global-service'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 
-  @Component({
-    components: { BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
-  })
+@Component({
+  components: { BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
+})
 export default class TopNavbar extends Vue {
-    @StateNamespace.auth.Getter authUser: AuthUser
-    @StateNamespace.auth.Action logout: () => void
+  @StateNamespace.auth.Getter authUser: AuthUser
+  @StateNamespace.auth.Action logout: () => void
 
-    get routes () {
-      return Routes
-    }
+  get routes () {
+    return Routes
+  }
 
-    get dynamicProfileRoute () {
-      return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
-    }
+  get dynamicProfileRoute () {
+    return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
+  }
 
-    get profilePhoto () {
-      return this.authUser?.profilePhoto?.src || DefaultProfilePhoto.src
-    }
+  get profilePhoto () {
+    return this.authUser?.profilePhoto?.src || DefaultProfilePhoto.src
+  }
 }
 </script>

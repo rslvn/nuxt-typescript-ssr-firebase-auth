@@ -36,16 +36,16 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationObserver } from 'vee-validate'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 
-  @Component({
-    components: { InputWithValidation, ValidationObserver }
-  })
+@Component({
+  components: { InputWithValidation, ValidationObserver }
+})
 export default class LoginForm extends Vue {
-    emailAddress = '';
+  emailAddress = ''
 
-    @Prop({ type: Function, required: true }) sendPasswordResetEmail : (email: string) => void;
+  @Prop({ type: Function, required: true }) sendPasswordResetEmail: (email: string) => void;
 
-    submit () {
-      this.sendPasswordResetEmail(this.emailAddress)
-    }
+  submit () {
+    this.sendPasswordResetEmail(this.emailAddress)
+  }
 }
 </script>

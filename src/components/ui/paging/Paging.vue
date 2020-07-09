@@ -35,14 +35,14 @@ import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator'
 import PagingConfig from './PagingConfig.vue'
 import PagingNavigator from './PagingNavigator.vue'
 
-  @Component({
-    components: { PagingNavigator, PagingConfig }
-  })
+@Component({
+  components: { PagingNavigator, PagingConfig }
+})
 export default class Paging extends Vue {
-    @Prop({ type: Number, required: true }) total:number
-    @Prop({ type: Function, required: true }) onPageChange:(page: number) => void
-    @PropSync('perPage', { type: Number, required: true }) syncPerPage:number
-    @PropSync('current', { type: Number, required: true }) syncCurrent:number
-    @Prop({ type: Boolean, required: false, default: false }) isFetching:boolean
+  @Prop({ type: Number, required: true }) total: number
+  @Prop({ type: Function, required: true }) onPageChange: (page: number) => void
+  @PropSync('perPage', { type: Number, required: true }) syncPerPage: number
+  @PropSync('current', { type: Number, required: true }) syncCurrent: number
+  @Prop({ type: Boolean, required: false, default: false }) isFetching: boolean
 }
 </script>

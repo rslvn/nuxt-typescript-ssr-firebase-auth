@@ -27,31 +27,31 @@ import { ProviderType, RegistrationCredentials, Routes, StateNamespace, Supporte
 import { getHeadByRouteType } from '~/service/seo-service'
 import { reloadUserFromDatabase } from '~/service/rx-service'
 
-  @Component({
-    components: { SocialLogin, RegisterForm }
-  })
+@Component({
+  components: { SocialLogin, RegisterForm }
+})
 export default class register extends Vue {
-    @StateNamespace.auth.Getter rememberMe : boolean;
-    @StateNamespace.auth.Action signUpWithEmail : (credentials: RegistrationCredentials) => Promise<void>;
-    @StateNamespace.notification.Action clearNotificationMessage : () => Promise<void>;
-    @StateNamespace.loading.Action saveLoading : (loading: boolean) => Promise<void>
+  @StateNamespace.auth.Getter rememberMe: boolean;
+  @StateNamespace.auth.Action signUpWithEmail: (credentials: RegistrationCredentials) => Promise<void>;
+  @StateNamespace.notification.Action clearNotificationMessage: () => Promise<void>;
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-    async handleSignUpWithEmail (credentials: RegistrationCredentials) {
-      await this.saveLoading(true)
-        .then(async () => {
-          await this.clearNotificationMessage()
-          await this.signUpWithEmail(credentials)
-            .then(async () => await reloadUserFromDatabase.next())
-        })
-        .finally(() => this.saveLoading(false))
-    }
+  async handleSignUpWithEmail (credentials: RegistrationCredentials) {
+    await this.saveLoading(true)
+      .then(async () => {
+        await this.clearNotificationMessage()
+        await this.signUpWithEmail(credentials)
+          .then(async () => await reloadUserFromDatabase.next())
+      })
+      .finally(() => this.saveLoading(false))
+  }
 
-    get providers () {
-      return SupportedProviders.filter(value => value.providerType !== ProviderType.PASSWORD)
-    }
+  get providers () {
+    return SupportedProviders.filter(value => value.providerType !== ProviderType.PASSWORD)
+  }
 
-    head () {
-      return getHeadByRouteType(Routes.REGISTER, this)
-    }
+  head () {
+    return getHeadByRouteType(Routes.REGISTER, this)
+  }
 }
 </script>

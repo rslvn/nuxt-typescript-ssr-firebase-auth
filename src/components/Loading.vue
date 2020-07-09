@@ -12,28 +12,28 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { StateNamespace } from '~/types'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class extends Vue {
-    @StateNamespace.loading.Getter loading : boolean
-    @StateNamespace.loading.Action saveLoading : (loading: boolean) => Promise<void>
+  @StateNamespace.loading.Getter loading: boolean
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-    start () {
-      this.saveLoading(true)
-    }
+  start () {
+    this.saveLoading(true)
+  }
 
-    finish () {
-      this.saveLoading(false)
-    }
+  finish () {
+    this.saveLoading(false)
+  }
 
-    fail (error: Error) {
-      console.log('loading.error', error)
-    }
+  fail (error: Error) {
+    console.log('loading.error', error)
+  }
 
-    increase (num: Number) {
-      console.log('loading.num: ', num)
-    }
+  increase (num: Number) {
+    console.log('loading.num: ', num)
+  }
 }
 </script>
 

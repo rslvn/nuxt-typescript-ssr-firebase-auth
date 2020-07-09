@@ -89,7 +89,7 @@ import {
   saveFollowing
 } from '~/service/firebase/firestore'
 import { sendDangerNotification, showErrorToaster, showInfoToaster } from '~/service/notification-service'
-import { sendNotificationObservable, reloadFollowing, showProfileModule } from '~/service/rx-service'
+import { reloadFollowing, sendNotificationObservable, showProfileModule } from '~/service/rx-service'
 
 @Component({
   components: {}

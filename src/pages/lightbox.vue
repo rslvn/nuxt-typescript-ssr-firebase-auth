@@ -20,9 +20,9 @@ import { Routes } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'
 import PageTitle from '~/components/ui/PageTitle.vue'
 
-  @Component({
-    components: { PageTitle, Lightbox }
-  })
+@Component({
+  components: { PageTitle, Lightbox }
+})
 export default class lightbox extends Vue {
   head () {
     return getHeadByRouteType(Routes.LIGHT_BOX, this)

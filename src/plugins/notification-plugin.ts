@@ -1,5 +1,5 @@
 import { Plugin } from '@nuxt/types'
-import { Store } from 'vuex';
+import { Store } from 'vuex'
 import { loadNotificationObservable, sendNotificationObservable } from '~/service/rx-service'
 import { AuthUser, PushNotification } from '~/types'
 import { getNewPushNotifications, savePushNotification } from '~/service/firebase/firestore'

@@ -30,18 +30,18 @@
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class PagingConfig extends Vue {
-    @Prop({ type: Number, required: true }) total:number
-    @PropSync('perPage', { type: Number, required: true }) syncPerPage:number
+  @Prop({ type: Number, required: true }) total: number
+  @PropSync('perPage', { type: Number, required: true }) syncPerPage: number
 
-    perPageConfig = [
-      5,
-      10,
-      20,
-      50
-    ]
+  perPageConfig = [
+    5,
+    10,
+    20,
+    50
+  ]
 }
 </script>

@@ -14,20 +14,20 @@
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
 import { NotificationMessage } from '~/types'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class TopNotification extends Vue {
-    active = true
+  active = true
 
-    @Prop({ required: true }) notificationMessage: NotificationMessage
-    @Prop({ type: Function, required: true }) closed: () => void
+  @Prop({ required: true }) notificationMessage: NotificationMessage
+  @Prop({ type: Function, required: true }) closed: () => void
 
-    @Watch('active')
-    onActiveChanged (value: boolean) {
-      if (!value) {
-        this.closed()
-      }
+  @Watch('active')
+  onActiveChanged (value: boolean) {
+    if (!value) {
+      this.closed()
     }
+  }
 }
 </script>

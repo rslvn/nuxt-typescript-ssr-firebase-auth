@@ -65,33 +65,33 @@ import { LoginCredentials, Routes } from '~/types'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import RememberMe from '~/components/ui/RememberMe.vue'
 
-  @Component({
-    components: {
-      RememberMe,
-      ValidationObserver,
-      InputWithValidation
-    }
-  })
+@Component({
+  components: {
+    RememberMe,
+    ValidationObserver,
+    InputWithValidation
+  }
+})
 export default class LoginForm extends Vue {
-    @Prop({ type: Function, required: true }) signInWithEmail : (credentials: LoginCredentials) => void
-    @Prop({ type: String, default: '' }) email:string
-    @Prop({ type: Boolean, required: true }) rememberMe:boolean
-    @Prop({ type: Boolean, default: true }) showForgetPassword:boolean
-    @Prop({ type: Boolean, default: true }) showRegisterLink:boolean
-    @Prop({ type: Boolean, default: true }) showRememberMe:boolean
+  @Prop({ type: Function, required: true }) signInWithEmail: (credentials: LoginCredentials) => void
+  @Prop({ type: String, default: '' }) email: string
+  @Prop({ type: Boolean, required: true }) rememberMe: boolean
+  @Prop({ type: Boolean, default: true }) showForgetPassword: boolean
+  @Prop({ type: Boolean, default: true }) showRegisterLink: boolean
+  @Prop({ type: Boolean, default: true }) showRememberMe: boolean
 
-    credentials: LoginCredentials = {
-      email: this.email || '',
-      password: '',
-      rememberMe: this.rememberMe
-    }
+  credentials: LoginCredentials = {
+    email: this.email || '',
+    password: '',
+    rememberMe: this.rememberMe
+  }
 
-    get routes () {
-      return Routes
-    }
+  get routes () {
+    return Routes
+  }
 
-    submit () {
-      this.signInWithEmail(this.credentials)
-    }
+  submit () {
+    this.signInWithEmail(this.credentials)
+  }
 }
 </script>

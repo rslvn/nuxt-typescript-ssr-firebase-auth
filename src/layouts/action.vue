@@ -34,7 +34,7 @@ import ActionTopNavbar from '~/components/navbar/ActionTopNavbar.vue'
   components: { ActionTopNavbar, TopNotification }
 })
 export default class defaultLayout extends Vue {
-    @StateNamespace.notification.Getter notificationMessage: NotificationMessage
-    @StateNamespace.notification.Action clearNotificationMessage: () => void
+  @StateNamespace.notification.Getter notificationMessage: NotificationMessage
+  @StateNamespace.notification.Action clearNotificationMessage: () => void
 }
 </script>

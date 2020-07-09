@@ -31,45 +31,45 @@ import { getProviderOption } from '~/service/firebase/firebase-service'
 import RememberMe from '~/components/ui/RememberMe.vue'
 import { reloadUserFromDatabase } from '~/service/rx-service'
 
-  @Component({
-    components: { RememberMe }
-  })
+@Component({
+  components: { RememberMe }
+})
 export default class SocialLogin extends Vue {
-    @Prop({ type: String, required: true }) title : string
-    @Prop({ type: Boolean, required: true }) rememberMe : boolean
-    @Prop({ type: Array, required: true }) providers : ProviderConfig[]
-    @Prop({ type: Boolean, required: true }) reauthenticate : boolean
-    @Prop({ type: Boolean, default: true }) showRememberMe : boolean
+  @Prop({ type: String, required: true }) title: string
+  @Prop({ type: Boolean, required: true }) rememberMe: boolean
+  @Prop({ type: Array, required: true }) providers: ProviderConfig[]
+  @Prop({ type: Boolean, required: true }) reauthenticate: boolean
+  @Prop({ type: Boolean, default: true }) showRememberMe: boolean
 
-    @StateNamespace.auth.Action signInWithSocialProvider : (credentials: SocialLoginCredentials) => Promise<void>;
-    @StateNamespace.auth.Action reauthenticateWithSocialProvider : (credentials: SocialLoginCredentials) => Promise<void>;
+  @StateNamespace.auth.Action signInWithSocialProvider: (credentials: SocialLoginCredentials) => Promise<void>;
+  @StateNamespace.auth.Action reauthenticateWithSocialProvider: (credentials: SocialLoginCredentials) => Promise<void>;
 
-    @StateNamespace.loading.Action saveLoading : (loading: boolean) => Promise<void>
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-    get providerType () {
-      return ProviderType
+  get providerType () {
+    return ProviderType
+  }
+
+  getLangProviderOption (providerType: ProviderType) {
+    return getProviderOption(providerType)
+  }
+
+  getSocialLoginCredentials (providerType: ProviderType): SocialLoginCredentials {
+    return {
+      providerType,
+      rememberMe: this.rememberMe
     }
+  }
 
-    getLangProviderOption (providerType: ProviderType) {
-      return getProviderOption(providerType)
-    }
-
-    getSocialLoginCredentials (providerType: ProviderType): SocialLoginCredentials {
-      return {
-        providerType,
-        rememberMe: this.rememberMe
-      }
-    }
-
-    async submit (providerType: ProviderType) {
-      await this.saveLoading(true)
-        .then(async () => {
-          return this.reauthenticate
-            ? await this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType))
-            : await this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
-              .then(async () => await reloadUserFromDatabase.next())
-        })
-        .finally(() => this.saveLoading(false))
-    }
+  async submit (providerType: ProviderType) {
+    await this.saveLoading(true)
+      .then(async () => {
+        return this.reauthenticate
+          ? await this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType))
+          : await this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
+            .then(async () => await reloadUserFromDatabase.next())
+      })
+      .finally(() => this.saveLoading(false))
+  }
 }
 </script>

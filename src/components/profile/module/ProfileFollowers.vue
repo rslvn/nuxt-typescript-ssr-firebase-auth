@@ -42,66 +42,66 @@ import BaseModule from '~/mixin/BaseModule'
 import { showErrorToaster } from '~/service/notification-service'
 import { reloadFollowing } from '~/service/rx-service'
 
-  @Component({
-    components: { Paging, SearchField, PageTitle, ProfileCard }
-  })
+@Component({
+  components: { Paging, SearchField, PageTitle, ProfileCard }
+})
 export default class ProfileFollowers extends BaseModule {
-    // paging dynamic config
-    total = 1
-    current = 1
-    perPage = 5
+  // paging dynamic config
+  total = 1
+  current = 1
+  perPage = 5
 
-    // search page data
-    query = '';
-    list: User[] = []
-    isFetching = false
-    searched = false
+  // search page data
+  query = '';
+  list: User[] = []
+  isFetching = false
+  searched = false
 
-    @Watch('perPage')
-    onPerPageChanged () {
+  @Watch('perPage')
+  onPerPageChanged () {
+    this.resetSearch()
+  }
+
+  mounted () {
+    this.$subscribeTo(reloadFollowing.asObservable(), () => {
       this.resetSearch()
-    }
+    })
+    this.resetSearch()
+  }
 
-    mounted () {
-      this.$subscribeTo(reloadFollowing.asObservable(), () => {
-        this.resetSearch()
+  get hasResult () {
+    return !!this.list.length
+  }
+
+  resetSearch () {
+    this.searchByPage(1)
+  }
+
+  onPageChange (page: number) {
+    this.searchByPage(page)
+  }
+
+  searching (isSearching: boolean) {
+    this.searched = !isSearching
+    this.isFetching = isSearching
+  }
+
+  searchByPage (page: number) {
+    this.searching(true)
+
+    searchFollowers(this.user, this.query, page, this.perPage)
+      .then((pagingResponse) => {
+        this.total = pagingResponse.total
+        this.list = []
+        pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
       })
-      this.resetSearch()
-    }
-
-    get hasResult () {
-      return !!this.list.length
-    }
-
-    resetSearch () {
-      this.searchByPage(1)
-    }
-
-    onPageChange (page: number) {
-      this.searchByPage(page)
-    }
-
-    searching (isSearching: boolean) {
-      this.searched = !isSearching
-      this.isFetching = isSearching
-    }
-
-    searchByPage (page: number) {
-      this.searching(true)
-
-      searchFollowers(this.user, this.query, page, this.perPage)
-        .then((pagingResponse) => {
-          this.total = pagingResponse.total
-          this.list = []
-          pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
-        })
-        .catch((error: Error) => {
-          console.log(error)
-          return showErrorToaster(this.$t('notification.search.canNotExecuted'))
-        })
-        .finally(() => {
-          this.searching(false)
-        })
-    }
+      .catch((error: Error) => {
+        console.log(error)
+        return showErrorToaster(this.$t('notification.search.canNotExecuted'))
+      })
+      .finally(() => {
+        this.searching(false)
+      })
+  }
 }
 </script>

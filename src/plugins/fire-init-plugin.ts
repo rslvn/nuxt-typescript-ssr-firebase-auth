@@ -21,19 +21,19 @@ if (!firebase.apps.length) {
 
 export const getAuthProvider = (providerType: ProviderType) => {
   switch (providerType) {
-  case ProviderType.GOOGLE:
-    return new firebase.auth.GoogleAuthProvider()
+    case ProviderType.GOOGLE:
+      return new firebase.auth.GoogleAuthProvider()
 
-  case ProviderType.TWITTER:
-    return new firebase.auth.TwitterAuthProvider()
+    case ProviderType.TWITTER:
+      return new firebase.auth.TwitterAuthProvider()
 
-  case ProviderType.FACEBOOK:
-    return new firebase.auth.FacebookAuthProvider()
+    case ProviderType.FACEBOOK:
+      return new firebase.auth.FacebookAuthProvider()
 
-  default:
-    throw new Error(
-      'No social auth provider for provider type' + providerType
-    )
+    default:
+      throw new Error(
+        'No social auth provider for provider type' + providerType
+      )
   }
 }
 

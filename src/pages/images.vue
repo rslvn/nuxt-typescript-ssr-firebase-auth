@@ -45,9 +45,9 @@ import { Routes } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'
 import PageTitle from '~/components/ui/PageTitle.vue'
 
-  @Component({
-    components: { PageTitle, BackgroundSquareImage }
-  })
+@Component({
+  components: { PageTitle, BackgroundSquareImage }
+})
 export default class images extends Vue {
   head () {
     return getHeadByRouteType(Routes.IMAGES, this)

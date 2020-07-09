@@ -28,50 +28,50 @@ import Lightbox from '~/components/image/lightbox/Lightbox.vue'
 import { coverPhotoObservable } from '~/service/rx-service'
 import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue'
 
-  @Component({
-    components: { SingleValidatedImageUpload }
-  })
+@Component({
+  components: { SingleValidatedImageUpload }
+})
 export default class ProfileCover extends Vue {
-    @Prop({ type: Boolean, required: true }) isMyProfile:boolean
-    @Prop({ required: true }) authUser:AuthUser
-    @Prop({ required: true }) coverPhoto:Image
+  @Prop({ type: Boolean, required: true }) isMyProfile: boolean
+  @Prop({ required: true }) authUser: AuthUser
+  @Prop({ required: true }) coverPhoto: Image
 
-    @StateNamespace.profile.Action updateCoverPhoto:(coverPhoto: Image) => Promise<void>;
+  @StateNamespace.profile.Action updateCoverPhoto: (coverPhoto: Image) => Promise<void>;
 
-    get parentFolderRef () {
-      return CoverPhotoStorageRef.folderRef
-        .replace(CoverPhotoStorageRef.parameters.userId, this.authUser.userId)
-    }
+  get parentFolderRef () {
+    return CoverPhotoStorageRef.folderRef
+      .replace(CoverPhotoStorageRef.parameters.userId, this.authUser.userId)
+  }
 
-    get placeholder () {
-      return CoverPhotoPlaceholder
-    }
+  get placeholder () {
+    return CoverPhotoPlaceholder
+  }
 
-    imageLoadError (event: any) {
-      event.target.src = CoverPhotoPlaceholder
-    }
+  imageLoadError (event: any) {
+    event.target.src = CoverPhotoPlaceholder
+  }
 
-    getCoverImageAltName () {
-      return `Cover photo of ${this.authUser.name}`
-    }
+  getCoverImageAltName () {
+    return `Cover photo of ${this.authUser.name}`
+  }
 
-    showLightbox () {
-      this.$buefy.modal.open({
-        parent: this,
-        component: Lightbox,
-        hasModalCard: false,
-        trapFocus: true,
-        canCancel: true,
-        props: {
-          images: [this.coverPhoto],
-          initialIndex: 20
-        }
-      })
-    }
+  showLightbox () {
+    this.$buefy.modal.open({
+      parent: this,
+      component: Lightbox,
+      hasModalCard: false,
+      trapFocus: true,
+      canCancel: true,
+      props: {
+        images: [this.coverPhoto],
+        initialIndex: 20
+      }
+    })
+  }
 
-    uploadCompleted (image: Image) {
-      this.updateCoverPhoto(image)
-        .then(() => coverPhotoObservable.next(image))
-    }
+  uploadCompleted (image: Image) {
+    this.updateCoverPhoto(image)
+      .then(() => coverPhotoObservable.next(image))
+  }
 }
 </script>

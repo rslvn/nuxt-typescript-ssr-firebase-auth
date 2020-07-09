@@ -24,50 +24,50 @@ import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue'
 import { profilePhotoObservable } from '~/service/rx-service'
 
-  @Component({
-    components: { SingleValidatedImageUpload, BackgroundSquareImage }
-  })
+@Component({
+  components: { SingleValidatedImageUpload, BackgroundSquareImage }
+})
 export default class ProfilePhoto extends Vue {
-    @Prop({ type: Boolean, required: true }) isMyProfile : boolean
-    @Prop({ required: true }) authUser:AuthUser
-    @Prop({ required: true }) profilePhoto:Image
+  @Prop({ type: Boolean, required: true }) isMyProfile: boolean
+  @Prop({ required: true }) authUser: AuthUser
+  @Prop({ required: true }) profilePhoto: Image
 
-    @StateNamespace.auth.Action updateProfilePhoto:(profilePhoto: Image) => Promise<void>;
+  @StateNamespace.auth.Action updateProfilePhoto: (profilePhoto: Image) => Promise<void>;
 
-    get parentFolderRef () {
-      return ProfilePhotoStorageRef.folderRef
-        .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
-    }
+  get parentFolderRef () {
+    return ProfilePhotoStorageRef.folderRef
+      .replace(ProfilePhotoStorageRef.parameters.userId, this.authUser.userId)
+  }
 
-    get placeholder () {
-      return ProfilePhotoPlaceholder
-    }
+  get placeholder () {
+    return ProfilePhotoPlaceholder
+  }
 
-    imageLoadError (event: any) {
-      event.target.src = ProfilePhotoPlaceholder
-    }
+  imageLoadError (event: any) {
+    event.target.src = ProfilePhotoPlaceholder
+  }
 
-    getProfilePhotoAltValue (fileName: string) {
-      return `Profile photo of ${this.authUser.name} as ${fileName}`
-    }
+  getProfilePhotoAltValue (fileName: string) {
+    return `Profile photo of ${this.authUser.name} as ${fileName}`
+  }
 
-    showLightbox () {
-      this.$buefy.modal.open({
-        parent: this,
-        component: Lightbox,
-        hasModalCard: false,
-        trapFocus: true,
-        canCancel: true,
-        props: {
-          images: [this.profilePhoto],
-          initialIndex: 20
-        }
-      })
-    }
+  showLightbox () {
+    this.$buefy.modal.open({
+      parent: this,
+      component: Lightbox,
+      hasModalCard: false,
+      trapFocus: true,
+      canCancel: true,
+      props: {
+        images: [this.profilePhoto],
+        initialIndex: 20
+      }
+    })
+  }
 
-    uploadCompleted (image: Image) {
-      this.updateProfilePhoto(image)
-        .then(() => profilePhotoObservable.next(image))
-    }
+  uploadCompleted (image: Image) {
+    this.updateProfilePhoto(image)
+      .then(() => profilePhotoObservable.next(image))
+  }
 }
 </script>

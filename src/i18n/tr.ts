@@ -76,7 +76,7 @@ const messages = {
   page: {
     home: {
       title: 'Anasayfaya hosgeldiniz',
-      goToSource: ' <b>Github</b> uzerinde kaynak koda ulas'
+      goToSource: ' Github uzerinde kaynak koda ulas'
     },
     lightbox: {
       title: 'Lightbox ile Responsive Masonry',
@@ -123,7 +123,7 @@ const messages = {
       }
     },
     footer: {
-      copyRight: '&copy; Telif Hakki 2020,'
+      copyRight: 'Telif Hakki 2020,'
     },
     notFound: 'Sayfa bulunamadi'
   },
@@ -204,7 +204,7 @@ const messages = {
       },
       passwordForm: {
         title: 'Parola Belirleme',
-        description: '<b>{email}</b> icin bir parola belirleyiniz',
+        description: '{email} icin bir parola belirleyiniz',
         submit: 'Parolayi Kaydet'
       }
     },

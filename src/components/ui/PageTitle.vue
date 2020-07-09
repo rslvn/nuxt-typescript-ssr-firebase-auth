@@ -14,11 +14,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class PageTitle extends Vue {
-    @Prop({ type: String, required: true }) title : string
-    @Prop({ type: String, required: false, default: null }) subtitle : string
+  @Prop({ type: String, required: true }) title: string
+  @Prop({ type: String, required: false, default: null }) subtitle: string
 }
 </script>

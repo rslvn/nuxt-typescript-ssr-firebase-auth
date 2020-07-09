@@ -25,51 +25,51 @@ import { Image, StateNamespace } from '~/types'
 import { showErrorToaster, showWarningToaster } from '~/service/notification-service'
 import { getNewFileName } from '~/service/global-service'
 
-  @Component({
-    components: { ValidationProvider }
-  })
+@Component({
+  components: { ValidationProvider }
+})
 export default class SingleFileUploadWithValidation extends Vue {
-    @Ref('provider') readonly provider : any
+  @Ref('provider') readonly provider: any
 
-    @Prop({ type: String, required: true }) label : string
-    @Prop({ type: String, required: true }) parentFolderRef : string
-    @Prop({ type: Function, required: true }) getAltValue : (fileName: string) => string
-    @Prop({ type: Function, required: true }) uploadCompleted : (image: Image) => void
-    @Prop({ type: String, required: false, default: '' }) rules : string;
-    @Prop({ type: String, required: false, default: 'uploadFile' }) vid : string;
+  @Prop({ type: String, required: true }) label: string
+  @Prop({ type: String, required: true }) parentFolderRef: string
+  @Prop({ type: Function, required: true }) getAltValue: (fileName: string) => string
+  @Prop({ type: Function, required: true }) uploadCompleted: (image: Image) => void
+  @Prop({ type: String, required: false, default: '' }) rules: string;
+  @Prop({ type: String, required: false, default: 'uploadFile' }) vid: string;
 
-    file: File | null = null
-    fileName = ''
-    uploadTask: firebase.storage.UploadTask | null = null
+  file: File | null = null
+  fileName = ''
+  uploadTask: firebase.storage.UploadTask | null = null
 
-    @StateNamespace.loading.Mutation setLoading:(loading: boolean) => void;
+  @StateNamespace.loading.Mutation setLoading: (loading: boolean) => void;
 
-    @Watch('file')
-    async onFileChanged (file: File) {
-      if (!file) {
-        return
-      }
-
-      const { valid, errors } = await this.provider?.validate() as ValidationResult
-      if (!valid) {
-        showErrorToaster(errors[0])
-        this.file = null
-        return
-      }
-
-      this.setLoading(true)
-
-      const delimiter = this.parentFolderRef.endsWith('/') ? '' : '/'
-      this.fileName = `${this.parentFolderRef}${delimiter}${getNewFileName(file.name)}`
-
-      this.uploadTask = storage.ref().child(this.fileName).put(file)
+  @Watch('file')
+  async onFileChanged (file: File) {
+    if (!file) {
+      return
     }
 
-    @Watch('uploadTask')
-    onUploadTaskChanged () {
-      return this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          switch (snapshot.state) {
+    const { valid, errors } = await this.provider?.validate() as ValidationResult
+    if (!valid) {
+      showErrorToaster(errors[0])
+      this.file = null
+      return
+    }
+
+    this.setLoading(true)
+
+    const delimiter = this.parentFolderRef.endsWith('/') ? '' : '/'
+    this.fileName = `${this.parentFolderRef}${delimiter}${getNewFileName(file.name)}`
+
+    this.uploadTask = storage.ref().child(this.fileName).put(file)
+  }
+
+  @Watch('uploadTask')
+  onUploadTaskChanged () {
+    return this.uploadTask?.on(TaskEvent.STATE_CHANGED, // or 'state_changed'
+      (snapshot) => {
+        switch (snapshot.state) {
           case TaskState.RUNNING: // or 'running'
             break
           case TaskState.SUCCESS: // or 'running'
@@ -77,26 +77,26 @@ export default class SingleFileUploadWithValidation extends Vue {
           default:
             showWarningToaster(`upload status: ${snapshot.state}`)
             this.setLoading(false)
-          }
-        },
-        this.handleFireStorageError,
-        () => {
-          return this.uploadTask?.snapshot.ref.getDownloadURL()
-            .then((downloadURL) => {
-              const image: Image = {
-                name: this.fileName,
-                src: downloadURL,
-                alt: this.getAltValue(this.file?.name || ''),
-                default: false
-              }
-              this.uploadCompleted(image)
-              this.setLoading(false)
-            })
-        })
-    }
+        }
+      },
+      this.handleFireStorageError,
+      () => {
+        return this.uploadTask?.snapshot.ref.getDownloadURL()
+          .then((downloadURL) => {
+            const image: Image = {
+              name: this.fileName,
+              src: downloadURL,
+              alt: this.getAltValue(this.file?.name || ''),
+              default: false
+            }
+            this.uploadCompleted(image)
+            this.setLoading(false)
+          })
+      })
+  }
 
-    handleFireStorageError = (error: Error): any => {
-      handleError(this.$store.dispatch, error)
-    }
+  handleFireStorageError = (error: Error): any => {
+    handleError(this.$store.dispatch, error)
+  }
 }
 </script>

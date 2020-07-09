@@ -15,7 +15,7 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
-import { loadNotificationObservable } from '~/service/rx-service';
+import { loadNotificationObservable } from '~/service/rx-service'
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {

@@ -13,17 +13,17 @@ import { Image, Routes } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'
 import PageTitle from '~/components/ui/PageTitle.vue'
 
-  @Component({
-    components: { PageTitle, ProfilePhotoUpdater }
-  })
+@Component({
+  components: { PageTitle, ProfilePhotoUpdater }
+})
 export default class crop extends Vue {
-    image: Image = {
-      src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fforest-5239560_1280.jpg?alt=media&token=5aabfe73-aa42-4aac-966a-4c4fdacdfbfd',
-      alt: 'image to crop 1'
-    }
+  image: Image = {
+    src: 'https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/lighbox%2Fforest-5239560_1280.jpg?alt=media&token=5aabfe73-aa42-4aac-966a-4c4fdacdfbfd',
+    alt: 'image to crop 1'
+  }
 
-    head () {
-      return getHeadByRouteType(Routes.CROP, this)
-    }
+  head () {
+    return getHeadByRouteType(Routes.CROP, this)
+  }
 }
 </script>

@@ -35,14 +35,14 @@ import BackgroundSquareImage from '../image/BackgroundSquareImage.vue'
 import { getUserRoute } from '~/service/global-service'
 import BackgroundImage from '~/components/image/BackgroundImage.vue'
 
-  @Component({
-    components: { BackgroundImage, BackgroundSquareImage }
-  })
+@Component({
+  components: { BackgroundImage, BackgroundSquareImage }
+})
 export default class SearchResultCard extends Vue {
-    @Prop({ type: Object, required: true }) searchResult : SearchData
+  @Prop({ type: Object, required: true }) searchResult: SearchData
 
-    async gotoProfile (username: string) {
-      await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
-    }
+  async gotoProfile (username: string) {
+    await this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, username))
+  }
 }
 </script>

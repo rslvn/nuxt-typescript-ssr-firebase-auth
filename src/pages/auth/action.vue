@@ -32,48 +32,45 @@ import {
 } from '~/types'
 import { getWarningNotificationMessage } from '~/service/notification-service'
 
-  @Component({
-    components: {},
-    layout: 'action'
-  })
+@Component({
+  components: {},
+  layout: 'action'
+})
 export default class Action extends Vue {
-    action: string = '';
-    actionCode: string = '';
+  action: string = '';
+  actionCode: string = '';
 
-    isLoading = true;
-    isFullPage = false;
+  isLoading = true;
+  isFullPage = false;
 
-    @StateNamespace.auth.Action handleVerifyEmail: (actionCode: string) => Promise<void>;
-    @StateNamespace.auth.Action handleVerifyPasswordResetCode: (actionCode: string) => Promise<boolean>;
-    @StateNamespace.notification.Action saveNotificationMessage: (notificationMessage: NotificationMessage) => {};
+  @StateNamespace.auth.Action handleVerifyEmail: (actionCode: string) => Promise<void>;
+  @StateNamespace.auth.Action handleVerifyPasswordResetCode: (actionCode: string) => Promise<boolean>;
+  @StateNamespace.notification.Action saveNotificationMessage: (notificationMessage: NotificationMessage) => {};
 
-    asyncData ({ query }: Context) {
-      const action = (query[FirebaseAuthActionParams.ACTION])
-      const actionCode = (query[FirebaseAuthActionParams.ACTION_CODE])
+  asyncData ({ query }: Context) {
+    const action = (query[FirebaseAuthActionParams.ACTION])
+    const actionCode = (query[FirebaseAuthActionParams.ACTION_CODE])
 
-      return {
-        action,
-        actionCode
-      }
+    return {
+      action,
+      actionCode
+    }
+  }
+
+  mounted () {
+    if (!this.action || !this.actionCode) {
+      this.isLoading = false
+      this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
+      return
     }
 
-    mounted () {
-      if (!this.action || !this.actionCode) {
-        this.isLoading = false
-        this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.missingActionCode')))
-        return
-      }
-
-      switch (this.action) {
+    switch (this.action) {
       case FirebaseAuthAction.VERIFY_EMAIL:
         this.handleVerifyEmail(this.actionCode)
           .finally(() => {
             this.isLoading = false
           })
         break
-
-        // case FirebaseAuthAction.RECOVERY_EMAIL:
-        //   break;
 
       case FirebaseAuthAction.RESET_PASSWORD:
         this.handleVerifyPasswordResetCode(this.actionCode)
@@ -93,7 +90,7 @@ export default class Action extends Vue {
       default:
         this.isLoading = false
         this.saveNotificationMessage(getWarningNotificationMessage(this.$t('notification.unknownAction')))
-      }
     }
+  }
 }
 </script>

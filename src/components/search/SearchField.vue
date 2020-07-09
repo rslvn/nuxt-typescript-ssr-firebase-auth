@@ -23,12 +23,12 @@
 <script lang="ts">
 import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class SearchField extends Vue {
-        @PropSync('query', { type: String, required: true }) syncQuery:string
-        @Prop({ type: Function, required: true }) resetSearch:() => void
-        @Prop({ type: Boolean, required: false, default: false }) isFetching:boolean
+  @PropSync('query', { type: String, required: true }) syncQuery: string
+  @Prop({ type: Function, required: true }) resetSearch: () => void
+  @Prop({ type: Boolean, required: false, default: false }) isFetching: boolean
 }
 </script>

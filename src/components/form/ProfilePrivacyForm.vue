@@ -57,32 +57,32 @@ import { handleError } from '~/service/error-service'
 import PrivacyDropdown from '~/components/ui/dropdown/PrivacyDropdown.vue'
 import { reloadUserFromDatabase } from '~/service/rx-service'
 
-  @Component({
-    components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
-  })
+@Component({
+  components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
+})
 export default class ProfilePrivacyForm extends Vue {
-    @Prop({ required: true }) user: User
-    updatedUser = { ...this.user }
+  @Prop({ required: true }) user: User
+  updatedUser = { ...this.user }
 
-    @StateNamespace.profile.Action updateUser: (user: User) => Promise<User>;
-    @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
+  @StateNamespace.profile.Action updateUser: (user: User) => Promise<User>;
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-    submit () {
-      this.saveLoading(true)
-        .then(async () => {
-          return await this.updateUser(this.updatedUser)
-        })
-        .then((savedUser: User) => {
-          if (!savedUser) {
-            return
-          }
-          reloadUserFromDatabase.next()
-          showSuccessToaster(this.$t('notification.profile.updated'))
-        })
-        .catch((error: Error) =>
-          handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
-        )
-        .finally(() => this.saveLoading(false))
-    }
+  submit () {
+    this.saveLoading(true)
+      .then(async () => {
+        return await this.updateUser(this.updatedUser)
+      })
+      .then((savedUser: User) => {
+        if (!savedUser) {
+          return
+        }
+        reloadUserFromDatabase.next()
+        showSuccessToaster(this.$t('notification.profile.updated'))
+      })
+      .catch((error: Error) =>
+        handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
+      )
+      .finally(() => this.saveLoading(false))
+  }
 }
 </script>

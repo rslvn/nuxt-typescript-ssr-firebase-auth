@@ -37,9 +37,9 @@ import { Routes } from '~/types'
 import LanguageSwitcher from '~/components/navbar/LanguageSwitcher.vue'
 import Logo from '~/components/navbar/Logo.vue'
 
-  @Component({
-    components: { Logo, LanguageSwitcher }
-  })
+@Component({
+  components: { Logo, LanguageSwitcher }
+})
 export default class TopNavbar extends Vue {
   get routes () {
     return Routes

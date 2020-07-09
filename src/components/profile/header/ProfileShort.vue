@@ -21,16 +21,16 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue'
 import { AuthUser, User } from '~/types'
 
-  @Component({
-    components: { ProfilePhoto }
-  })
+@Component({
+  components: { ProfilePhoto }
+})
 export default class ProfileShort extends Vue {
-    @Prop({ type: Boolean, required: true }) isMyProfile : boolean
-    @Prop({ required: true }) authUser : AuthUser
-    @Prop({ type: Object, required: true }) user : User
+  @Prop({ type: Boolean, required: true }) isMyProfile: boolean
+  @Prop({ required: true }) authUser: AuthUser
+  @Prop({ type: Object, required: true }) user: User
 
-    get fullName () {
-      return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
-    }
+  get fullName () {
+    return this.user.surname ? `${this.user.name} ${this.user.surname}` : this.user.name
+  }
 }
 </script>

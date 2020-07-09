@@ -10,7 +10,7 @@
             icon="github"
             size="is-large"
           />
-          <span v-html="$t('page.home.goToSource')" />
+          <span> {{ $t('page.home.goToSource') }}</span>
         </a>
       </div>
     </div>

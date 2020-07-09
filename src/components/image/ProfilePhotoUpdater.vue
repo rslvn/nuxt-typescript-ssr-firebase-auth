@@ -46,32 +46,32 @@ import { Image } from '~/types'
 import { getNewFileName } from '~/service/global-service'
 import ImageCropper from '~/components/image/crop/ImageCropper.vue'
 
-  @Component({
-    components: { ImageCropper }
-  })
+@Component({
+  components: { ImageCropper }
+})
 export default class ProfilePhotoUpdater extends Vue {
-    @Prop({ required: false }) image: Image
+  @Prop({ required: false }) image: Image
 
-    isLoading = true
-    isFullPage = false
-    file: File | null = null
-    imageToCrop: Image | null = this.image || null
-    previewSrc: string | null = null
+  isLoading = true
+  isFullPage = false
+  file: File | null = null
+  imageToCrop: Image | null = this.image || null
+  previewSrc: string | null = null
 
-    @Watch('file')
-    onFileChanged (file: File) {
-      this.imageToCrop = {
-        src: URL.createObjectURL(file),
-        alt: 'alt',
-        default: false,
-        // name: this.parentFolderRef + getNewFileName(file.name)
-        name: getNewFileName(file.name)
-      }
+  @Watch('file')
+  onFileChanged (file: File) {
+    this.imageToCrop = {
+      src: URL.createObjectURL(file),
+      alt: 'alt',
+      default: false,
+      // name: this.parentFolderRef + getNewFileName(file.name)
+      name: getNewFileName(file.name)
     }
+  }
 
-    setPreview (croppedForPreview: string) {
-      this.previewSrc = croppedForPreview
-      this.isLoading = false
-    }
+  setPreview (croppedForPreview: string) {
+    this.previewSrc = croppedForPreview
+    this.isLoading = false
+  }
 }
 </script>

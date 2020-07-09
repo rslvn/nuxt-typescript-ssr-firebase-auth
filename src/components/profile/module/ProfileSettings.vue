@@ -30,41 +30,41 @@ import BaseModule from '~/mixin/BaseModule'
 import ProfileUpdateForm from '~/components/form/ProfileUpdateForm.vue'
 import ProfilePrivacyForm from '~/components/form/ProfilePrivacyForm.vue'
 
-  @Component({
-    components: { ProfileUpdateForm, ProfilePrivacyForm }
-  })
+@Component({
+  components: { ProfileUpdateForm, ProfilePrivacyForm }
+})
 export default class ProfileSettings extends BaseModule {
-    settingsType = SettingsType.GENERAL
+  settingsType = SettingsType.GENERAL
 
-    settingsMenuConfigs: SettingsMenuConfig[] = [
-      {
-        type: SettingsType.GENERAL,
-        icon: 'cogs',
-        component: ProfileUpdateForm,
-        private: true
-      },
-      {
-        type: SettingsType.PRIVACY,
-        icon: 'account-lock',
-        component: ProfilePrivacyForm,
-        private: true
+  settingsMenuConfigs: SettingsMenuConfig[] = [
+    {
+      type: SettingsType.GENERAL,
+      icon: 'cogs',
+      component: ProfileUpdateForm,
+      private: true
+    },
+    {
+      type: SettingsType.PRIVACY,
+      icon: 'account-lock',
+      component: ProfilePrivacyForm,
+      private: true
+    }
+  ]
+
+  created () {
+    reloadUserFromDatabase.next()
+  }
+
+  get settingsMenuConfig () {
+    return this.settingsMenuConfigs.find(setting => setting.type === this.settingsType)
+  }
+
+  get componentProperties () {
+    return this.settingsMenuConfig?.componentProperties
+      ? this.settingsMenuConfig.componentProperties
+      : {
+        user: this.user
       }
-    ]
-
-    created () {
-      reloadUserFromDatabase.next()
-    }
-
-    get settingsMenuConfig () {
-      return this.settingsMenuConfigs.find(setting => setting.type === this.settingsType)
-    }
-
-    get componentProperties () {
-      return this.settingsMenuConfig?.componentProperties
-        ? this.settingsMenuConfig.componentProperties
-        : {
-          user: this.user
-        }
-    }
+  }
 }
 </script>

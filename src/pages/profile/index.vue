@@ -10,41 +10,41 @@ import { coverPhotoObservable, profilePhotoObservable, reloadUserFromDatabase } 
 import { getUser } from '~/service/firebase/firestore'
 import { sendDangerNotification } from '~/service/notification-service'
 
-  @Component({
-    components: { Profile }
-  })
+@Component({
+  components: { Profile }
+})
 export default class profile extends Vue {
-    user: User | null = null
+  user: User|null = null
 
-    @StateNamespace.auth.Getter authUser : AuthUser;
+  @StateNamespace.auth.Getter authUser: AuthUser;
 
-    created () {
-      this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
-        if (this.user) {
-          this.user.profilePhoto = image
-        }
-      })
+  created () {
+    this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
+      if (this.user) {
+        this.user.profilePhoto = image
+      }
+    })
 
-      this.$subscribeTo(coverPhotoObservable.asObservable(), (image: Image) => {
-        if (this.user) {
-          this.user.coverPhoto = image
-        }
-      })
+    this.$subscribeTo(coverPhotoObservable.asObservable(), (image: Image) => {
+      if (this.user) {
+        this.user.coverPhoto = image
+      }
+    })
 
-      this.$subscribeTo(reloadUserFromDatabase.asObservable(), () => {
-        console.log('reloadUserFromDatabase called')
-        this.loadUser()
-      })
-
+    this.$subscribeTo(reloadUserFromDatabase.asObservable(), () => {
+      console.log('reloadUserFromDatabase called')
       this.loadUser()
-    }
+    })
 
-    loadUser () {
-      getUser(this.authUser.userId)
-        .then((user: User) => {
-          this.user = user
-        })
-        .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
-    }
+    this.loadUser()
+  }
+
+  loadUser () {
+    getUser(this.authUser.userId)
+      .then((user: User) => {
+        this.user = user
+      })
+      .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
+  }
 }
 </script>

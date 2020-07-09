@@ -40,12 +40,12 @@ import TopNotification from '~/components/notification/TopNotification.vue'
 import { NotificationMessage, StateNamespace } from '~/types'
 import AppFooter from '~/components/footer/AppFooter.vue'
 
-  @Component({
-    components: { AppFooter, TopNotification, TopNavbar }
-  })
+@Component({
+  components: { AppFooter, TopNotification, TopNavbar }
+})
 export default class defaultLayout extends Vue {
-    @StateNamespace.notification.Getter notificationMessage: NotificationMessage;
-    @StateNamespace.notification.Action clearNotificationMessage : () => void;
+  @StateNamespace.notification.Getter notificationMessage: NotificationMessage;
+  @StateNamespace.notification.Action clearNotificationMessage: () => void;
 }
 
 </script>

@@ -73,29 +73,29 @@ import { ValidationObserver } from 'vee-validate'
 import { RegistrationCredentials, Routes } from '~/types'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 
-  @Component({
-    components: {
-      ValidationObserver,
-      InputWithValidation
-    }
-  })
+@Component({
+  components: {
+    ValidationObserver,
+    InputWithValidation
+  }
+})
 export default class RegisterForm extends Vue {
-    credentials: RegistrationCredentials = {
-      name: '',
-      email: '',
-      password: ''
-    };
+  credentials: RegistrationCredentials = {
+    name: '',
+    email: '',
+    password: ''
+  };
 
-    confirmPassword = '';
+  confirmPassword = '';
 
-    @Prop({ type: Function, required: true }) signUpWithEmail : (credentials: RegistrationCredentials) => void;
+  @Prop({ type: Function, required: true }) signUpWithEmail: (credentials: RegistrationCredentials) => void;
 
-    get routes () {
-      return Routes
-    }
+  get routes () {
+    return Routes
+  }
 
-    submit () {
-      this.signUpWithEmail(this.credentials)
-    }
+  submit () {
+    this.signUpWithEmail(this.credentials)
+  }
 }
 </script>

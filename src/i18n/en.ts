@@ -75,7 +75,7 @@ const messages = {
   page: {
     home: {
       title: 'Welcome to Home',
-      goToSource: 'Go to source on <b>Github</b>'
+      goToSource: 'Go to source on Github'
     },
     lightbox: {
       title: 'Responsive Masonry with Lightbox',
@@ -124,7 +124,7 @@ const messages = {
       }
     },
     footer: {
-      copyRight: '&copy; Copyright 2020, '
+      copyRight: 'Copyright 2020, '
     },
     notFound: 'Page not found'
   },
@@ -205,7 +205,7 @@ const messages = {
       },
       passwordForm: {
         title: 'Set Password',
-        description: 'Set a  password for <b>{email}</b>',
+        description: 'Set a  password for {email}',
         submit: 'Save Password'
       }
     },

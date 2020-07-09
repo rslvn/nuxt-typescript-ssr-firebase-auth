@@ -79,48 +79,48 @@ import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, Support
 import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue'
 import BaseModule from '~/mixin/BaseModule'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class ProfileAboutMe extends BaseModule {
-    loading = false;
+  loading = false;
 
-    @StateNamespace.notification.Action clearNotificationMessage: () => void;
-    @StateNamespace.auth.Action handleSendingEmailVerificationCode: () => Promise<void>
-    @StateNamespace.auth.Action updatePassword: (password: string) => void;
+  @StateNamespace.notification.Action clearNotificationMessage: () => void;
+  @StateNamespace.auth.Action handleSendingEmailVerificationCode: () => Promise<void>
+  @StateNamespace.auth.Action updatePassword: (password: string) => void;
 
-    get passwordProvider (): ProviderConfig | undefined {
-      return this.authUser.providers.find(providerData => providerData.providerType === ProviderType.PASSWORD)
-        ? SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
-        : undefined
-    }
+  get passwordProvider (): ProviderConfig | undefined {
+    return this.authUser.providers.find(providerData => providerData.providerType === ProviderType.PASSWORD)
+      ? SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
+      : undefined
+  }
 
-    confirmCredentials (credentials: LoginCredentials) {
-      this.updatePassword(credentials.password)
-    }
+  confirmCredentials (credentials: LoginCredentials) {
+    this.updatePassword(credentials.password)
+  }
 
-    showSetPasswordModal () {
-      this.$buefy.modal.open({
-        parent: this,
-        component: SetEmailPasswordModal,
-        hasModalCard: true,
-        customClass: 'custom-class custom-class-2',
-        trapFocus: true,
-        canCancel: true,
-        onCancel: this.clearNotificationMessage,
-        props: {
-          authUser: this.authUser,
-          linkedProviders: [this.passwordProvider],
-          confirmCredentials: this.confirmCredentials
-        }
-      })
-    }
+  showSetPasswordModal () {
+    this.$buefy.modal.open({
+      parent: this,
+      component: SetEmailPasswordModal,
+      hasModalCard: true,
+      customClass: 'custom-class custom-class-2',
+      trapFocus: true,
+      canCancel: true,
+      onCancel: this.clearNotificationMessage,
+      props: {
+        authUser: this.authUser,
+        linkedProviders: [this.passwordProvider],
+        confirmCredentials: this.confirmCredentials
+      }
+    })
+  }
 
-    submit () {
-      this.loading = true
-      this.handleSendingEmailVerificationCode()
-        // eslint-disable-next-line no-return-assign
-        .then(() => this.loading = false)
-    }
+  submit () {
+    this.loading = true
+    this.handleSendingEmailVerificationCode()
+      // eslint-disable-next-line no-return-assign
+      .then(() => this.loading = false)
+  }
 }
 </script>

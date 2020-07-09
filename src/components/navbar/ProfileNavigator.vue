@@ -30,19 +30,19 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { AuthUser, Routes } from '~/types'
 import { getUserRoute } from '~/service/global-service'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class ProfileNavigator extends Vue {
-    @Prop({ required: true }) authUser : AuthUser;
-    @Prop({ type: Function, required: true }) logout : () => void;
+  @Prop({ required: true }) authUser: AuthUser;
+  @Prop({ type: Function, required: true }) logout: () => void;
 
-    get profileRoute () {
-      return Routes.PROFILE
-    }
+  get profileRoute () {
+    return Routes.PROFILE
+  }
 
-    get dynamicProfileRoute () {
-      return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
-    }
+  get dynamicProfileRoute () {
+    return getUserRoute(Routes.PROFILE_DYNAMIC, this.authUser.username)
+  }
 }
 </script>

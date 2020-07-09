@@ -22,22 +22,22 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { SupportedLanguage, SupportedLanguages } from '~/types'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class LanguageSwitcher extends Vue {
-    languages = SupportedLanguages;
+  languages = SupportedLanguages;
 
-    get activeLanguage () {
-      return SupportedLanguages.find(value => value.code === this.$i18n.locale)
+  get activeLanguage () {
+    return SupportedLanguages.find(value => value.code === this.$i18n.locale)
+  }
+
+  changeLocale (language: SupportedLanguage) {
+    if (this.$i18n.locale === language.code) {
+      return
     }
 
-    changeLocale (language: SupportedLanguage) {
-      if (this.$i18n.locale === language.code) {
-        return
-      }
-
-      this.$i18n.setLocale(language.code)
-    }
+    this.$i18n.setLocale(language.code)
+  }
 }
 </script>

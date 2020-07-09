@@ -83,37 +83,37 @@ import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import InputNoValidation from '~/components/ui/input/InputNoValidation.vue'
 import FieldWithValue from '~/components/ui/FieldWithValue.vue'
 
-  @Component({
-    components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
-  })
+@Component({
+  components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
+})
 export default class ProfileUpdateForm extends Vue {
-    @Prop({ required: true }) user:User
-    updatedUser = { ...this.user }
+  @Prop({ required: true }) user: User
+  updatedUser = { ...this.user }
 
-    @StateNamespace.profile.Action updateUser:(user: User) => Promise<User>;
-    @StateNamespace.loading.Action saveLoading:(loading: boolean) => Promise<void>
+  @StateNamespace.profile.Action updateUser: (user: User) => Promise<User>;
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-    @Watch('updatedUser.username', { deep: true })
-    onUsernameChange (username: string) {
-      this.updatedUser.username = slugify(username)
-    }
+  @Watch('updatedUser.username', { deep: true })
+  onUsernameChange (username: string) {
+    this.updatedUser.username = slugify(username)
+  }
 
-    submit () {
-      this.saveLoading(true)
-        .then(async () => {
-          return await this.updateUser(this.updatedUser)
-        })
-        .then((savedUser: User) => {
-          if (!savedUser) {
-            return
-          }
-          reloadUserFromDatabase.next()
-          showSuccessToaster(this.$t('notification.profile.updated'))
-        })
-        .catch((error: Error) =>
-          handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
-        )
-        .finally(() => this.saveLoading(false))
-    }
+  submit () {
+    this.saveLoading(true)
+      .then(async () => {
+        return await this.updateUser(this.updatedUser)
+      })
+      .then((savedUser: User) => {
+        if (!savedUser) {
+          return
+        }
+        reloadUserFromDatabase.next()
+        showSuccessToaster(this.$t('notification.profile.updated'))
+      })
+      .catch((error: Error) =>
+        handleError(this.$store.dispatch, error, getDangerNotificationMessage(this.$i18n.t('notification.profile.updateFailed')))
+      )
+      .finally(() => this.saveLoading(false))
+  }
 }
 </script>

@@ -6,10 +6,10 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { NuxtError } from '@nuxt/types'
 
-  @Component({
-    components: {}
-  })
+@Component({
+  components: {}
+})
 export default class Error404 extends Vue {
-    @Prop({ required: true }) error:NuxtError
+  @Prop({ required: true }) error: NuxtError
 }
 </script>
