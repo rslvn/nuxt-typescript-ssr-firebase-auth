@@ -32,91 +32,91 @@ import SearchResultCard from '~/components/search/SearchResultCard.vue'
 import Paging from '~/components/ui/paging/Paging.vue'
 import SearchField from '~/components/search/SearchField.vue'
 
-  @Component({
-    components: { SearchField, Paging, SearchResultCard, PageTitle }
-  })
+@Component({
+  components: { SearchField, Paging, SearchResultCard, PageTitle }
+})
 export default class search extends Vue {
-    // paging dynamic config
-    total = 1
-    current = 1
-    perPage = 5
+  // paging dynamic config
+  total = 1
+  current = 1
+  perPage = 5
 
-    // search page data
-    query = '';
-    list: SearchData[] = []
-    isFetching = false
-    searched = false
+  // search page data
+  query = '';
+  list: SearchData[] = []
+  isFetching = false
+  searched = false
 
-    @StateNamespace.auth.Getter authUser : AuthUser;
+  @StateNamespace.auth.Getter authUser: AuthUser;
 
-    @Watch('perPage')
-    onPerPageChanged () {
+  @Watch('perPage')
+  onPerPageChanged () {
+    this.resetSearch()
+  }
+
+  head () {
+    return getHeadByRouteType(Routes.SEARCH, this)
+  }
+
+  mounted () {
+    if (this.query) {
       this.resetSearch()
     }
+  }
 
-    head () {
-      return getHeadByRouteType(Routes.SEARCH, this)
+  asyncData ({ query }: Context) {
+    const queryText = (query[QueryParameters.QUERY]) || ''
+
+    return {
+      query: queryText
+    }
+  }
+
+  get hasResult () {
+    return !!this.list.length
+  }
+
+  watchQuery (newQuery: any) {
+    this.query = newQuery[QueryParameters.QUERY]
+    this.resetSearch()
+  }
+
+  resetSearch () {
+    this.searchByPage(1)
+  }
+
+  onPageChange (page: number) {
+    this.searchByPage(page)
+  }
+
+  searching (isSearching: boolean) {
+    this.searched = !isSearching
+    this.isFetching = isSearching
+  }
+
+  searchByPage (page: number) {
+    if (!this.authUser) {
+      return sendWarningNotification(this.$store.dispatch, this.$t('notification.search.notAllowedToSearch'))
     }
 
-    mounted () {
-      if (this.query) {
-        this.resetSearch()
-      }
+    this.searching(true)
+    if (!this.query) {
+      this.list = []
+      return this.searching(false)
     }
-
-    asyncData ({ query }: Context) {
-      const queryText = (query[QueryParameters.QUERY] as string)
-
-      return {
-        query: queryText
-      }
-    }
-
-    get hasResult () {
-      return !!this.list.length
-    }
-
-    watchQuery (newQuery: any) {
-      this.query = newQuery[QueryParameters.QUERY]
-      this.resetSearch()
-    }
-
-    resetSearch () {
-      this.searchByPage(1)
-    }
-
-    onPageChange (page: number) {
-      this.searchByPage(page)
-    }
-
-    searching (isSearching: boolean) {
-      this.searched = !isSearching
-      this.isFetching = isSearching
-    }
-
-    searchByPage (page: number) {
-      if (!this.authUser) {
-        return sendWarningNotification(this.$store.dispatch, this.$t('notification.search.notAllowedToSearch'))
-      }
-
-      this.searching(true)
-      if (!this.query) {
+    searchUsers(this.query, page, this.perPage)
+      .then((pagingResponse) => {
+        this.total = pagingResponse.total
         this.list = []
-        return this.searching(false)
-      }
-      searchUsers(this.query, page, this.perPage)
-        .then((pagingResponse) => {
-          this.total = pagingResponse.total
-          this.list = []
-          pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
-        })
-        .catch((error: Error) => {
-          console.log(error)
-          return showErrorToaster(this.$t('notification.search.canNotExecuted'))
-        })
-        .finally(() => {
-          this.searching(false)
-        })
-    }
+        pagingResponse.data.forEach((searchData: SearchData) => this.list.push(searchData))
+      })
+      .catch((error: Error) => {
+        console.log(error)
+        return showErrorToaster(this.$t('notification.search.canNotExecuted'))
+      })
+      .finally(() => {
+        this.searching(false)
+      })
+  }
 }
 </script>

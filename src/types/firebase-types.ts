@@ -182,7 +182,8 @@ export interface WhereClause {
 
 export enum collection {
   USER = 'user',
-  FOLLOWING = 'following'
+  FOLLOWING = 'following',
+  NOTIFICATION = 'notification'
 }
 
 export interface OrderBy {
@@ -196,6 +197,10 @@ export const orderByName: OrderBy = {
 }
 
 export const CollectionField = {
+  BASE: {
+    id: 'id',
+    createdAt: 'createdAt'
+  },
   USER: {
     username: 'username',
     privacy: 'privacy',
@@ -204,11 +209,22 @@ export const CollectionField = {
   FOLLOWING: {
     follower: 'follower',
     following: 'following'
+  },
+  NOTIFICATION: {
+    from: 'from',
+    to: 'to',
+    status: 'status'
   }
 }
 
 export enum PushNotificationType {
   FOLLOW = 'follow'
+}
+
+export enum PushNotificationStatus {
+  NEW = 'new',
+  READ = 'read',
+  DELETED = 'deleted'
 }
 
 export interface BaseModel {
@@ -240,5 +256,6 @@ export interface Following extends BaseModel {
 export interface PushNotification extends BaseModel {
   from: string,
   to: string,
-  notificationType: PushNotificationType
+  notificationType: PushNotificationType,
+  status: PushNotificationStatus
 }

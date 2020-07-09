@@ -15,6 +15,7 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
+import { loadNotificationObservable } from '~/service/rx-service';
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -40,11 +41,11 @@ const setRememberMe = async (store: Store<any>, app: NuxtAppOptions) => {
   await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe)
 }
 
-const updateAuthStore = (firebaseUser: User | null, store: Store<any>) => {
+const updateAuthStore = async (firebaseUser: User | null, store: Store<any>) => {
   if (!firebaseUser) {
     store.commit(StoreConfig.auth.setAuthUser, null)
   }
-  return firebaseUser?.getIdTokenResult()
+  return await firebaseUser?.getIdTokenResult()
     .then((idTokenResult) => {
       const authUser = getAuthUser(firebaseUser) as AuthUser
       if (authUser) {
@@ -58,6 +59,9 @@ const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOpti
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
   setRememberMe(store, app)
+    .catch((error: Error) => {
+      console.log(error)
+    })
 
   auth.onAuthStateChanged((firebaseUser: User | null) => {
     return new Promise((resolve) => {
@@ -69,6 +73,9 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
 
       updateAuthStore(firebaseUser, store)
+        .catch((error: Error) => {
+          console.log(error)
+        })
 
       if (firebaseUser) {
         // console.log('Firebase user: ', firebaseUser)
@@ -77,6 +84,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
           .then((token: string) => {
             app.$axios.setToken(token, 'Bearer')
             app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
+            loadNotificationObservable.next()
           })
 
         redirect(getNextRoute(route))
