@@ -104,6 +104,9 @@ const messages = {
       title: 'Giris Yap',
       description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir'
     },
+    profileNotification: {
+      title: 'Bildirimler'
+    },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.'
     },
@@ -156,6 +159,14 @@ const messages = {
       alreadyUnfollowing: "@{username}'i zaten takip etmiyorsunuz",
       canNotLoadFollowing: 'Takip bilgisi guncellenemedi'
     }
+  },
+
+  pushNotification: {
+    type: {
+      follow: 'Yeni bir takipciniz var'
+    },
+    seeAll: 'hepsini gor',
+    noPushNotification: 'hic bildirim yok'
   },
 
   form: {

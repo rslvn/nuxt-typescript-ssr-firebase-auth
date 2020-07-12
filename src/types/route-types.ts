@@ -9,6 +9,11 @@ export const LOGIN: RouteType = { label: 'login', path: '/login' }
 export const REGISTER: RouteType = { label: 'register', path: '/register' }
 export const PROFILE: RouteType = { label: 'profile', path: '/profile' }
 export const PROFILE_DYNAMIC: RouteType = { label: 'profile', name: 'u-username', path: '/u/' }
+export const PROFILE_NOTIFICATION: RouteType = {
+  label: 'profileNotification',
+  name: 'u-username-notification',
+  path: '/u/:username?/notification'
+}
 export const ACTION: RouteType = { label: 'action', path: '/auth/action' }
 export const FORGET_PASSWORD: RouteType = { label: 'forgetPassword', path: '/auth/forget-password' }
 export const RESET_PASSWORD: RouteType = { label: 'resetPassword', path: '/auth/reset-password' }
@@ -25,6 +30,7 @@ export const Routes = {
   REGISTER,
   PROFILE,
   PROFILE_DYNAMIC,
+  PROFILE_NOTIFICATION,
   ACTION,
   FORGET_PASSWORD,
   RESET_PASSWORD,

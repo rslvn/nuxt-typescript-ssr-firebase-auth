@@ -1,5 +1,5 @@
 <template>
-  <b-navbar-dropdown :boxed="true" :close-on-click="true">
+  <b-navbar-dropdown :boxed="true" :close-on-click="true" :arrowless="true">
     <template slot="label">
       <img class="image-fit-cover square-28" :src="activeLanguage.flag.src" :alt="activeLanguage.flag.alt">
     </template>

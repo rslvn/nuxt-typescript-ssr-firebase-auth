@@ -4,7 +4,7 @@
       <div class="columns">
         <div class="column">
           <TopNavbar />
-          <TopNotification
+          <TopMessage
             v-if="notificationMessage"
             :notification-message="notificationMessage"
             :closed="clearNotificationMessage"
@@ -36,12 +36,12 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import TopNavbar from '../components/navbar/TopNavbar.vue'
-import TopNotification from '~/components/notification/TopNotification.vue'
+import TopMessage from '~/components/notification/TopMessage.vue'
 import { NotificationMessage, StateNamespace } from '~/types'
 import AppFooter from '~/components/footer/AppFooter.vue'
 
 @Component({
-  components: { AppFooter, TopNotification, TopNavbar }
+  components: { AppFooter, TopMessage, TopNavbar }
 })
 export default class defaultLayout extends Vue {
   @StateNamespace.notification.Getter notificationMessage: NotificationMessage;

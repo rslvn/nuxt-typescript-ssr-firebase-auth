@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card">
     <section class="modal-card-body">
-      <TopNotification
+      <TopMessage
         v-if="notificationMessage"
         :notification-message="notificationMessage"
         :closed="clearNotificationMessage"
@@ -51,11 +51,11 @@ import {
 import SocialLogin from '~/components/form/SocialLogin.vue'
 import SetEmailPasswordForm from '~/components/form/SetEmailPasswordForm.vue'
 import LoginForm from '~/components/form/LoginForm.vue'
-import TopNotification from '~/components/notification/TopNotification.vue'
+import TopMessage from '~/components/notification/TopMessage.vue'
 import { reauthenticateObservable } from '~/service/rx-service'
 
 @Component({
-  components: { TopNotification, LoginForm, SetEmailPasswordForm, SocialLogin }
+  components: { TopMessage, LoginForm, SetEmailPasswordForm, SocialLogin }
 })
 export default class SetPasswordModal extends Vue {
   @Prop({ type: Object, required: true }) authUser: AuthUser

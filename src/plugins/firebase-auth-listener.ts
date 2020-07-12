@@ -41,7 +41,7 @@ const setRememberMe = async (store: Store<any>, app: NuxtAppOptions) => {
   await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe)
 }
 
-const updateAuthStore = async (firebaseUser: User | null, store: Store<any>) => {
+const updateAuthStore = async (firebaseUser: User|null, store: Store<any>) => {
   if (!firebaseUser) {
     store.commit(StoreConfig.auth.setAuthUser, null)
   }
@@ -55,6 +55,11 @@ const updateAuthStore = async (firebaseUser: User | null, store: Store<any>) => 
     })
 }
 
+const clearStore = (store: Store<any>) => {
+  store.dispatch(StoreConfig.notification.savePushNotification, [])
+  store.dispatch(StoreConfig.notification.clearNotificationMessage)
+}
+
 const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
@@ -63,43 +68,42 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       console.log(error)
     })
 
-  auth.onAuthStateChanged((firebaseUser: User | null) => {
-    return new Promise((resolve) => {
-      if (store.state.auth.forceLogout) {
-        logout(store)
-        return resolve()
-      }
+  auth.onAuthStateChanged((firebaseUser: User|null) => {
+    return Promise.resolve()
+      .then(async () => {
+        if (store.state.auth.forceLogout) {
+          logout(store)
+          return
+        }
 
-      console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
+        console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
 
-      updateAuthStore(firebaseUser, store)
-        .catch((error: Error) => {
-          console.log(error)
-        })
-
-      if (firebaseUser) {
-        // console.log('Firebase user: ', firebaseUser)
-        //
-        firebaseUser.getIdToken()
-          .then((token: string) => {
-            app.$axios.setToken(token, 'Bearer')
-            app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
-            loadNotificationObservable.next()
+        await updateAuthStore(firebaseUser, store)
+          .catch((error: Error) => {
+            console.log(error)
           })
 
-        redirect(getNextRoute(route))
-      } else {
-        app.$cookies.remove(AppCookie.TOKEN)
-        app.$axios.setToken(false)
-        if (authenticatedAllowed(route)) {
-          redirect(Routes.LOGIN)
+        if (firebaseUser) {
+          await firebaseUser.getIdToken()
+            .then((token: string) => {
+              app.$axios.setToken(token, 'Bearer')
+              app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
+              loadNotificationObservable.next()
+            })
+
+          redirect(getNextRoute(route))
+        } else {
+          app.$cookies.remove(AppCookie.TOKEN)
+          app.$axios.setToken(false)
+          clearStore(store)
+          if (authenticatedAllowed(route)) {
+            redirect(Routes.LOGIN)
+          }
         }
-      }
-      resolve()
-    })
+      })
   })
 
-  auth.onIdTokenChanged((firebaseUser: User | null) => {
+  auth.onIdTokenChanged((firebaseUser: User|null) => {
     console.log('onIdTokenChanged with a user: ', !!firebaseUser)
     if (!firebaseUser) {
       return

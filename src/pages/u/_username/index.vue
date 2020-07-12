@@ -15,7 +15,7 @@ import { sendDangerNotification } from '~/service/notification-service'
   components: { Profile }
 })
 export default class profile extends Vue {
-  username = '';
+  username = ''
   user: User|null = null
 
   @StateNamespace.auth.Getter authUser: AuthUser

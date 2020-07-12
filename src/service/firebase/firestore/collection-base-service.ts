@@ -129,13 +129,30 @@ export const getModelsByWhereClausesAndOrderBy = async <T extends BaseModel> (
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 
+export const getModelsByWhereClausesAndLimitAndOrderBy = async <T extends BaseModel> (
+  collection: string,
+  limit: number,
+  orderBy: OrderBy,
+  whereClause: WhereClause,
+  ...whereClauses: WhereClause[])
+  : Promise<T[]> => {
+  let query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+  if (orderBy) {
+    query = query.orderBy(orderBy.field, orderBy.direction)
+  }
+  query = query.limit(limit)
+
+  return await query.get()
+    .then(querySnapshot => toBaseModelArray(querySnapshot))
+}
+
 export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
   return await firestore.collection(collection).doc(id).get().then((doc) => {
     return doc.data() as BaseModel
   })
 }
 
-export const getModelByField = async (collection: string, field: string, value: any): Promise<BaseModel | null> => {
+export const getModelByField = async (collection: string, field: string, value: any): Promise<BaseModel|null> => {
   return await firestore.collection(collection)
     .where(field, '==', value)
     .get()

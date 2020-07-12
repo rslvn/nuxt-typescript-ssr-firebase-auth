@@ -196,6 +196,12 @@ export const orderByName: OrderBy = {
   direction: 'asc'
 }
 
+export interface QueryOptions {
+  orderBys?: OrderBy[],
+  whereClauses?: WhereClause[],
+  limit?: number
+}
+
 export const CollectionField = {
   BASE: {
     id: 'id',
@@ -224,7 +230,8 @@ export enum PushNotificationType {
 export enum PushNotificationStatus {
   NEW = 'new',
   READ = 'read',
-  DELETED = 'deleted'
+  DELETED = 'deleted',
+  IGNORED = 'ignored'
 }
 
 export interface BaseModel {

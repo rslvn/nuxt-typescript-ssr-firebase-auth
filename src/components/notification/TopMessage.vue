@@ -17,7 +17,7 @@ import { NotificationMessage } from '~/types'
 @Component({
   components: {}
 })
-export default class TopNotification extends Vue {
+export default class TopMessage extends Vue {
   active = true
 
   @Prop({ required: true }) notificationMessage: NotificationMessage

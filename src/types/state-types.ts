@@ -1,5 +1,11 @@
 import { namespace } from 'vuex-class'
 import { AuthUser } from '~/types/api-types'
+import { PushNotification, User } from '~/types/firebase-types'
+
+export interface PushNotificationEnriched {
+  fromUser: User,
+  pushNotification: PushNotification
+}
 
 export enum NotificationType {
   DANGER = 'is-danger',
@@ -24,7 +30,8 @@ export interface ProfileState {
 }
 
 export interface NotificationState {
-  notificationMessage?: NotificationMessage
+  notificationMessage?: NotificationMessage,
+  pushNotifications?: PushNotificationEnriched[]
 }
 
 export interface LoadingState {
@@ -54,6 +61,7 @@ export const StoreConfig = {
   },
   notification: {
     saveNotificationMessage: 'notification/saveNotificationMessage',
+    savePushNotification: 'notification/savePushNotification',
     clearNotificationMessage: 'notification/clearNotificationMessage'
   },
   loading: {

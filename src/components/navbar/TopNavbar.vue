@@ -38,6 +38,8 @@
 
       <LanguageSwitcher />
 
+      <TopPushNotification v-if="authUser" :auth-user="authUser"/>
+
       <b-navbar-item v-if="authUser" tag="router-link" :to="dynamicProfileRoute">
         <b-field>
           <BackgroundSquareImage :image-url="profilePhoto" size="28" rounded="true" />
@@ -66,6 +68,7 @@
         </div>
       </b-navbar-item>
     </template>
+
   </b-navbar>
 </template>
 
@@ -78,9 +81,10 @@ import Logo from '~/components/navbar/Logo.vue'
 import SearchBar from '~/components/navbar/SearchBar.vue'
 import { getUserRoute } from '~/service/global-service'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
+import TopPushNotification from '~/components/navbar/TopPushNotification.vue';
 
 @Component({
-  components: { BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
+  components: { TopPushNotification, BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
 })
 export default class TopNavbar extends Vue {
   @StateNamespace.auth.Getter authUser: AuthUser

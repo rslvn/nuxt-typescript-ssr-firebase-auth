@@ -103,6 +103,9 @@ const messages = {
       title: 'Login',
       description: 'A sample login page in nuxt and typescript with bulma'
     },
+    profileNotification: {
+      title: 'Notifications'
+    },
     action: {
       processing: 'Processing... Please wait.'
     },
@@ -157,6 +160,14 @@ const messages = {
       alreadyUnfollowing: 'You are already unfollowing to @{username}',
       canNotLoadFollowing: 'Could not load following info'
     }
+  },
+
+  pushNotification: {
+    type: {
+      follow: 'You have a new follower'
+    },
+    seeAll: 'see all',
+    noPushNotification: 'no notification yet'
   },
 
   form: {

@@ -19,7 +19,7 @@
       <template slot-scope="props">
         <div class="media">
           <div class="media-left">
-            <img width="32" :src="props.option.profilePhoto.src">
+            <img width="32" :src="props.option.profilePhoto.src" :alt="'Profile photo of '+props.option.username">
           </div>
           <div class="media-content truncate-long-text">
             {{ props.option.name }}
@@ -65,7 +65,7 @@ import { showErrorToaster, showWarningToaster } from '~/service/notification-ser
   components: {}
 })
 export default class SearchBar extends Vue {
-  @Prop({ required: true }) authUser: AuthUser;
+  @Prop({ required: true }) authUser: AuthUser
 
   data: SearchData[] = []
   isFetching = false

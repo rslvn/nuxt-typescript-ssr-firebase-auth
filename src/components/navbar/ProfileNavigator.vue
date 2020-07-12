@@ -6,6 +6,7 @@
         size="is-small"
       />
     </template>
+
     <b-navbar-item tag="router-link" :to="dynamicProfileRoute">
       <b-icon pack="fas" icon="user" class="has-margin-right-5" />
       <p>{{ $t('topNavbar.profileDynamic') }}</p>
