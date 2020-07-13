@@ -1,5 +1,5 @@
 <template>
-  <div class="media" @click="clicked">
+  <div class="media" @click="updatePushNotificationStatus">
     <div class="media-left">
       <BackgroundSquareImage
         :image-url="pushNotificationEnriched.fromUser.profilePhoto.src"
@@ -28,7 +28,8 @@ import { loadNotificationObservable } from '~/service/rx-service'
 export default class FollowingNotification extends Vue {
   @Prop({ type: Object, required: true }) pushNotificationEnriched: PushNotificationEnriched
 
-  clicked () {
+  updatePushNotificationStatus () {
+    console.log('FollowingNotification updatePushNotificationStatus')
     if (this.pushNotificationEnriched.pushNotification.status === PushNotificationStatus.NEW) {
       markAsRead({ ...this.pushNotificationEnriched.pushNotification })
         .then(() => loadNotificationObservable.next())

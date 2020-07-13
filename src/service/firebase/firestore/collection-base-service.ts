@@ -99,6 +99,12 @@ export const getCountByWhereClauses = async (
     })
 }
 
+export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
+  return await firestore.collection(collection).doc(id).get().then((doc) => {
+    return doc.data() as BaseModel
+  })
+}
+
 export const getModels = async <T extends BaseModel> (collection: string): Promise<T[]> => {
   return await firestore.collection(collection).get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
@@ -131,38 +137,25 @@ export const getModelsByWhereClausesAndOrderBy = async <T extends BaseModel> (
 
 export const getModelsByWhereClausesAndLimitAndOrderBy = async <T extends BaseModel> (
   collection: string,
+  lastVisible: any,
   limit: number,
   orderBy: OrderBy,
   whereClause: WhereClause,
   ...whereClauses: WhereClause[])
   : Promise<T[]> => {
   let query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
+
   if (orderBy) {
     query = query.orderBy(orderBy.field, orderBy.direction)
   }
+
+  if (lastVisible) {
+    query = query.startAfter(lastVisible)
+  }
+
   query = query.limit(limit)
 
   return await query.get()
-    .then(querySnapshot => toBaseModelArray(querySnapshot))
-}
-
-export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
-  return await firestore.collection(collection).doc(id).get().then((doc) => {
-    return doc.data() as BaseModel
-  })
-}
-
-export const getModelByField = async (collection: string, field: string, value: any): Promise<BaseModel|null> => {
-  return await firestore.collection(collection)
-    .where(field, '==', value)
-    .get()
-    .then((querySnapshot) => {
-      return querySnapshot.size > 0 ? querySnapshot.docs[0].data() : null
-    })
-}
-
-export const getModelsByField = async (collection: string, field: string, value: any): Promise<BaseModel[]> => {
-  return await firestore.collection(collection).where(field, '==', value).get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 

@@ -73,7 +73,33 @@ export const getReadPushNotifications = async (to: string, limit: number): Promi
     value: PushNotificationStatus.READ
   }
 
-  return await getModelsByWhereClausesAndLimitAndOrderBy(collection.NOTIFICATION, limit, orderBy, toWhereClause, statusWhereClause)
+  return await getModelsByWhereClausesAndLimitAndOrderBy(collection.NOTIFICATION, undefined, limit, orderBy, toWhereClause, statusWhereClause)
+}
+
+export const getPushNotifications = async (to: string, limit: number, lastVisible: PushNotification): Promise<PushNotification[]> => {
+  const orderBy: OrderBy = {
+    field: CollectionField.BASE.createdAt,
+    direction: 'desc'
+  }
+  const toWhereClause: WhereClause = {
+    field: CollectionField.NOTIFICATION.to,
+    operator: FirebaseQueryOperator.EQ,
+    value: to
+  }
+  const statusWhereClause: WhereClause = {
+    field: CollectionField.NOTIFICATION.status,
+    operator: FirebaseQueryOperator.IN,
+    value: [PushNotificationStatus.READ, PushNotificationStatus.NEW]
+  }
+
+  return await getModelsByWhereClausesAndLimitAndOrderBy(
+    collection.NOTIFICATION,
+    lastVisible?.createdAt,
+    limit,
+    orderBy,
+    toWhereClause,
+    statusWhereClause
+  )
 }
 
 export const markAsRead = async (pushNotification: PushNotification) => {

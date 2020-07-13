@@ -10,10 +10,9 @@ import {
   WhereClause
 } from '~/types'
 import {
-  getModelByField,
   getModelById,
-  getModelsByField,
   getModelsByFieldAndPaging,
+  getModelsByWhereClauses,
   getModelsByWhereClausesAndOrderBy,
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
@@ -28,14 +27,21 @@ export const getUser = async (id: string): Promise<User> => {
 
 export const getUserByUsername = async (
   username: string
-): Promise<User | null> => {
-  return await getModelByField(collection.USER, CollectionField.USER.username, username)
+): Promise<User|null> => {
+  const users = await getUsersByUsername(username)
+  return users.length > 0 ? users[0] : null
 }
 
 export const getUsersByUsername = async (
   username: string
 ): Promise<User[]> => {
-  return await getModelsByField(collection.USER, CollectionField.USER.username, username)
+  const usernameWhereClause: WhereClause = {
+    field: CollectionField.USER.username,
+    operator: FirebaseQueryOperator.EQ,
+    value: username
+  }
+
+  return await getModelsByWhereClauses(collection.USER, usernameWhereClause)
 }
 
 export const getUsersByUsernameAndPage = async (

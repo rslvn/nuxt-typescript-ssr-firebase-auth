@@ -10,7 +10,7 @@ import {
   savePushNotification
 } from '~/service/firebase/firestore'
 
-const toPushNotificationEnrichedList = async (pushNotifications: PushNotification[]) => {
+export const toPushNotificationEnrichedList = async (pushNotifications: PushNotification[]) => {
   const pushNotificationEnricheds: PushNotificationEnriched[] = []
 
   for (const pushNotification of pushNotifications) {
