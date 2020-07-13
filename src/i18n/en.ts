@@ -3,7 +3,7 @@ import en from 'vee-validate/dist/locale/en.json'
 const messages = {
   validation: {
     ...en.messages,
-    username: '{field} is already taken',
+    username: '{field} is already taken'
   },
   common: {
     field: {
@@ -29,7 +29,7 @@ const messages = {
       coverPhoto: 'cover photo',
       privacy: 'privacy',
       search: 'search',
-      searchPlaceholder: 'e.g. rslvn',
+      searchPlaceholder: 'e.g. rslvn'
     },
     cancel: 'Cancel',
     save: 'Save',
@@ -39,6 +39,7 @@ const messages = {
     search: 'Search',
     follow: 'Follow',
     unfollow: 'Unfollow',
+    refresh: 'refresh'
   },
 
   topNavbar: {
@@ -53,8 +54,8 @@ const messages = {
     logout: 'Logout',
     search: {
       footer: 'No more result',
-      detailedSearch: 'Detailed Search',
-    },
+      detailedSearch: 'Detailed Search'
+    }
   },
 
   profile: {
@@ -63,19 +64,19 @@ const messages = {
         verifyButton: 'Verify Email',
         updatePasswordButton: 'Update Password',
         mailVerified: 'Email is verified',
-        mailNotVerified: 'Email is not verified',
-      },
+        mailNotVerified: 'Email is not verified'
+      }
     },
     follow: {
       followers: 'followers',
-      following: 'following',
-    },
+      following: 'following'
+    }
   },
 
   page: {
     home: {
       title: 'Welcome to Home',
-      goToSource: 'Go to source on <b>Github</b>',
+      goToSource: 'Go to source on Github'
     },
     lightbox: {
       title: 'Responsive Masonry with Lightbox',
@@ -93,7 +94,7 @@ const messages = {
       roundedNoBorder: 'Borderless Round',
       squareNoBorder: 'Borderless Square',
       roundedWithBorder: 'Round With Border',
-      squareWithBorder: 'Square With Border',
+      squareWithBorder: 'Square With Border'
     },
     register: {
       title: 'Register',
@@ -101,18 +102,22 @@ const messages = {
     },
     login: {
       title: 'Login',
-      description: 'A sample login page in nuxt and typescript with bulma',
+      description: 'A sample login page in nuxt and typescript with bulma'
+    },
+    profileNotification: {
+      title: 'Notifications',
+      noMoreNotification: 'No more notification 👐'
     },
     action: {
-      processing: 'Processing... Please wait.',
+      processing: 'Processing... Please wait.'
     },
     terms: {
       title: 'Terms',
-      description: 'A sample terms page in nuxt and typescript',
+      description: 'A sample terms page in nuxt and typescript'
     },
     privacyAndPolicy: {
       title: 'Privacy And Policy',
-      description: 'A sample privacy and policy page in nuxt and typescript',
+      description: 'A sample privacy and policy page in nuxt and typescript'
     },
     search: {
       title: 'Search',
@@ -120,13 +125,13 @@ const messages = {
       noResult: 'No result 🥺',
       config: {
         total: 'total',
-        perPage: 'per page',
-      },
+        perPage: 'per page'
+      }
     },
     footer: {
-      copyRight: '&copy; Copyright 2020, ',
+      copyRight: 'Copyright 2020, '
     },
-    notFound: 'Page not found',
+    notFound: 'Page not found'
   },
 
   notification: {
@@ -146,50 +151,64 @@ const messages = {
     profile: {
       updated: 'Your profile is updated successfully',
       updateFailed: 'Your profile could not be updated',
-      canNotLoad: 'Profile can not load',
+      canNotLoad: 'Profile can not load'
     },
     search: {
       notAllowedToSearch: 'Just authenticated users are allowed to search. Please login...',
-      canNotExecuted: 'Can not search',
+      canNotExecuted: 'Can not search'
     },
     follow: {
       alreadyFollowing: 'You are already following to @{username}',
       alreadyUnfollowing: 'You are already unfollowing to @{username}',
-      canNotLoadFollowing: 'Could not load following info',
+      canNotLoadFollowing: 'Could not load following info'
+    }
+  },
+
+  pushNotification: {
+    type: {
+      follow: 'You have a new follower'
     },
+    dialog: {
+      delete: {
+        title: 'Delete notification',
+        message: 'Are you sure you want to <b>delete</b> the notification?<br>This action cannot be undone.'
+      }
+    },
+    seeAll: 'see all',
+    markAsRead: 'mark as read'
   },
 
   form: {
     forgetPassword: {
       title: 'Forget Password',
-      submit: 'Send Email',
+      submit: 'Send Email'
     },
     loginForm: {
       title: 'Login',
       submit: 'Login',
       forgetPassword: 'forgot my password',
-      noAccount: 'No account? SignUp!',
+      noAccount: 'No account? SignUp!'
     },
     social: {
       title: {
         login: 'Social Login',
-        register: 'Social Register',
+        register: 'Social Register'
       },
-      loginWith: 'Login with {provider}',
+      loginWith: 'Login with {provider}'
     },
     resetPassword: {
       title: 'Reset Password',
-      submit: 'Change Password',
+      submit: 'Change Password'
     },
     registerForm: {
       title: 'Register',
       submit: 'Register',
-      hasAccount: 'Already has an account? Login!',
+      hasAccount: 'Already has an account? Login!'
     },
     profileUpdate: {
       title: 'User Update',
-      submit: 'Update',
-    },
+      submit: 'Update'
+    }
   },
 
   provider: {
@@ -197,45 +216,45 @@ const messages = {
       password: 'Password',
       google: { com: 'Google' },
       twitter: { com: 'Twitter' },
-      facebook: { com: 'Facebook' },
+      facebook: { com: 'Facebook' }
     },
     linkPasswordProvider: {
       socialLogin: {
-        title: 'Social Login',
+        title: 'Social Login'
       },
       passwordForm: {
         title: 'Set Password',
-        description: 'Set a  password for <b>{email}</b>',
-        submit: 'Save Password',
-      },
+        description: 'Set a  password for {email}',
+        submit: 'Save Password'
+      }
     },
     submit: {
       link: 'Link',
-      unlink: 'Unlink',
+      unlink: 'Unlink'
     },
     tooltip: {
       linkedProvider:
         '{provider} provider is linked to your account. Click to unlink!',
       unlinkedProvider:
-        '{provider} provider is not linked to your account. Click to link!',
+        '{provider} provider is not linked to your account. Click to link!'
     },
     dialog: {
       delete: {
         title: 'Delete {provider}',
         message:
           'Are you sure you want to <b>delete</b> {provider} from your account?<br>This action cannot be undone.',
-        confirm: 'Delete',
-      },
-    },
+        confirm: 'Delete'
+      }
+    }
   },
 
   image: {
     crop: {
-      preview: 'Preview',
+      preview: 'Preview'
     },
     upload: {
-      dragAndDropButton: 'Drop your file here or click to upload',
-    },
+      dragAndDropButton: 'Drop your file here or click to upload'
+    }
   },
 
   privacy: {
@@ -244,43 +263,43 @@ const messages = {
       private: {
         title: 'Private',
         subtitle: 'No one can see',
-        description: 'No one can see any data of you',
+        description: 'No one can see any data of you'
       },
       public: {
         title: 'Public',
         subtitle: 'Everyone can see',
-        description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo',
+        description: 'The authenticated users can see your non-sensitive data like name, username, profile and cover photo'
       },
-      notSelected: 'Select visibility',
+      notSelected: 'Select visibility'
     },
     followers: {
       field: 'followers privacy',
       private: {
         title: 'Private',
         subtitle: 'No one can see your followers',
-        description: 'No one can see your followers even if they are authenticated',
+        description: 'No one can see your followers even if they are authenticated'
       },
       public: {
         title: 'Public',
         subtitle: 'Everyone can see your followers',
-        description: 'The authenticated users can see your followers',
+        description: 'The authenticated users can see your followers'
       },
-      notSelected: 'Select followers visibility',
+      notSelected: 'Select followers visibility'
     },
     following: {
       field: 'following privacy',
       private: {
         title: 'Private',
         subtitle: 'No one can see your following',
-        description: 'No one can see your following even if they are authenticated',
+        description: 'No one can see your following even if they are authenticated'
       },
       public: {
         title: 'Public',
         subtitle: 'Everyone can see your following',
-        description: 'The authenticated users can see your following',
+        description: 'The authenticated users can see your following'
       },
-      notSelected: 'Select following visibility',
-    },
+      notSelected: 'Select following visibility'
+    }
   },
 
   module: {
@@ -288,13 +307,13 @@ const messages = {
     linkedAccounts: 'Linked Accounts',
     profileSettings: 'Settings',
     profileFollowers: 'Followers',
-    profileFollowings: 'Following',
+    profileFollowings: 'Following'
   },
 
   settings: {
     general: 'General',
-    privacy: 'Privacy',
-  },
+    privacy: 'Privacy'
+  }
 }
 
 export default messages

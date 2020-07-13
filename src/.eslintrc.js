@@ -1,18 +1,28 @@
 module.exports = {
   root: true,
-  parser: 'babel-eslint',
   env: {
-    browser: true,
+    es6: true,
     node: true,
+    browser: true
+  },
+  parserOptions: {
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    },
+    ecmaVersion: 6
   },
   extends: [
-    // '@nuxtjs/eslint-config-typescript',
-    'prettier',
-    'prettier/vue',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended',
+    '@nuxtjs/eslint-config-typescript'
+
   ],
-  plugins: ['prettier'],
-  // add your custom rules here
-  rules: {},
+  rules: {
+    semi: [2, 'never'],
+    'no-console': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/script-indent': ['error', 2, { baseIndent: 0 }],
+    indent: ['error', 2, { SwitchCase: 1 }]
+    // 'prettier/prettier': ['error', { semi: false }]
+  }
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-
-    <PageTitle :title="$t('page.home.title')"/>
+    <PageTitle :title="$t('page.home.title')" />
 
     <div class="columns is-centered">
       <div class="column is-5-desktop">
@@ -9,9 +8,9 @@
           <b-icon
             pack="fab"
             icon="github"
-            size="is-large">
-          </b-icon>
-          <span v-html="$t('page.home.goToSource')"/>
+            size="is-large"
+          />
+          <span> {{ $t('page.home.goToSource') }}</span>
         </a>
       </div>
     </div>
@@ -19,18 +18,17 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "nuxt-property-decorator"
-  import { getHead } from "~/service/seo-service"
-  import { DefaultMeta } from "~/types"
-  import PageTitle from '~/components/ui/PageTitle.vue';
+import { Component, Vue } from 'nuxt-property-decorator'
+import { getHead } from '~/service/seo-service'
+import { DefaultMeta } from '~/types'
+import PageTitle from '~/components/ui/PageTitle.vue'
 
-  @Component({
-    components: { PageTitle }
-  })
-  export default class extends Vue {
-    head() {
-      return getHead(DefaultMeta)
-    }
+@Component({
+  components: { PageTitle }
+})
+export default class extends Vue {
+  head () {
+    return getHead(DefaultMeta)
   }
+}
 </script>
-

@@ -1,11 +1,14 @@
 <template>
   <div>
-    <h3 class="title has-text-centered has-text-dark">{{ title }}</h3>
+    <h3 class="title has-text-centered has-text-dark">
+      {{ title }}
+    </h3>
     <div class="box">
-      <p><span v-html="description"></span></p>
-      <br v-if="description">
+      <template v-if="description">
+        <p>{{ description }}</p>
+        <br>
+      </template>
       <ValidationObserver v-slot="{ passes }" tag="form">
-
         <InputWithValidation
           v-model="credentials.email"
           :label="$t('common.field.email')"
@@ -48,38 +51,37 @@
       </ValidationObserver>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { ValidationObserver } from "vee-validate";
-  import InputWithValidation from "~/components/ui/input/InputWithValidation.vue";
-  import { LoginCredentials } from "~/types";
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { ValidationObserver } from 'vee-validate'
+import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
+import { LoginCredentials } from '~/types'
 
-  @Component({
-    components: {
-      ValidationObserver,
-      InputWithValidation
-    }
-  })
-  export default class SetPasswordForm extends Vue {
-    @Prop({ type: Function, required: true }) confirmCredentials !: (credentials: LoginCredentials) => void;
-    @Prop({ type: String, required: true }) title !: string;
-    @Prop({ type: String, required: true }) buttonText !: string;
-    @Prop({ type: String, required: false }) description !: string;
-    @Prop({ type: String, required: false }) email !: string;
-
-    credentials: LoginCredentials = {
-      email: this.email,
-      password: '',
-      rememberMe: true
-    }
-
-    confirmedPassword = '';
-
-    submit() {
-      this.confirmCredentials(this.credentials);
-    }
+@Component({
+  components: {
+    ValidationObserver,
+    InputWithValidation
   }
+})
+export default class SetPasswordForm extends Vue {
+  @Prop({ type: Function, required: true }) confirmCredentials: (credentials: LoginCredentials) => void;
+  @Prop({ type: String, required: true }) title: string;
+  @Prop({ type: String, required: true }) buttonText: string;
+  @Prop({ type: String, required: false }) description: string;
+  @Prop({ type: String, required: false }) email: string;
+
+  credentials: LoginCredentials = {
+    email: this.email,
+    password: '',
+    rememberMe: true
+  }
+
+  confirmedPassword = '';
+
+  submit () {
+    this.confirmCredentials(this.credentials)
+  }
+}
 </script>

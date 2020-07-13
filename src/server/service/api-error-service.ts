@@ -1,10 +1,10 @@
 import { Response } from 'express'
-import { FirebaseError } from 'firebase-admin';
+import { FirebaseError } from 'firebase-admin'
 import { BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, UNAUTHORIZED } from 'http-status-codes'
 import { ApiErrorCode } from '../../types'
 
 const handleFirebaseError = (response: Response, error: FirebaseError) => {
-  console.error('Firebase error', error);
+  console.error('Firebase error', error)
   switch (error?.code) {
     case 'auth/id-token-expired':
       response.status(UNAUTHORIZED).send('re-authentication required')

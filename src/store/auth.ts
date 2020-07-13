@@ -25,11 +25,11 @@ import {
   showInfoToaster,
   showSuccessToaster
 } from '~/service/notification-service'
-import { getProviderOption, refreshToken, updateProfile } from "~/service/firebase/firebase-service";
-import { handleError } from "~/service/error-service";
-import { reauthenticateObservable } from '~/service/rx-service';
-import { getUser, saveUser } from '~/service/firebase/firestore';
-import { authClaims } from '~/service/api-service';
+import { getProviderOption, refreshToken, updateProfile } from '~/service/firebase/firebase-service'
+import { handleError } from '~/service/error-service'
+import { reauthenticateObservable } from '~/service/rx-service'
+import { getUser, saveUser } from '~/service/firebase/firestore'
+import { authClaims } from '~/service/api-service'
 import UserCredential = firebase.auth.UserCredential;
 import ActionCodeInfo = firebase.auth.ActionCodeInfo;
 import Persistence = firebase.auth.Auth.Persistence;
@@ -38,40 +38,40 @@ import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 export const state = (): AuthState => ({
   authUser: undefined,
   forceLogout: false,
-  rememberMe: true,
+  rememberMe: true
 })
 
 export const getters: GetterTree<AuthState, RootState> = {
-  authUser: (state) => state.authUser,
-  rememberMe: (state) => state.rememberMe
+  authUser: state => state.authUser,
+  rememberMe: state => state.rememberMe
 }
 
 export const mutations: MutationTree<AuthState> = {
-  setAuthUser(state, authUser: AuthUser) {
+  setAuthUser (state, authUser: AuthUser) {
     if (authUser && !authUser.profilePhoto) {
       authUser.profilePhoto = DefaultProfilePhoto
     }
     state.authUser = authUser
   },
 
-  forceLogout(state, forceLogout: boolean) {
+  forceLogout (state, forceLogout: boolean) {
     state.forceLogout = forceLogout
   },
 
-  setRememberMe(state, rememberMe: boolean) {
+  setRememberMe (state, rememberMe: boolean) {
     state.rememberMe = rememberMe
-  },
+  }
 }
 
 export const actions: ActionTree<AuthState, RootState> = {
 
-  async saveRememberMe({ commit }, rememberMe: boolean) {
+  saveRememberMe ({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
-    commit('setRememberMe', rememberMe);
+    commit('setRememberMe', rememberMe)
   },
 
-  async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
-    let persistence = credentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION;
+  async signInWithEmail ({ dispatch }, credentials: LoginCredentials) {
+    const persistence = credentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION
     await auth.setPersistence(persistence)
       .then(async () => {
         await auth.signInWithEmailAndPassword(credentials.email, credentials.password)
@@ -79,8 +79,8 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async reauthenticateWithCredential({ dispatch }, credentials: LoginCredentials) {
-    let authCredential = EmailAuthProvider.credential(credentials.email, credentials.password);
+  async reauthenticateWithCredential ({ dispatch }, credentials: LoginCredentials) {
+    const authCredential = EmailAuthProvider.credential(credentials.email, credentials.password)
     await auth.currentUser?.reauthenticateWithCredential(authCredential)
       .then(() => {
         reauthenticateObservable.next()
@@ -88,12 +88,12 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signUpWithEmail({ commit, dispatch }, credentials: RegistrationCredentials) {
+  async signUpWithEmail ({ dispatch }, credentials: RegistrationCredentials) {
     await auth
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (userCredential: UserCredential) => {
         // save user to db
-        let id = userCredential.user?.uid as string;
+        const id = userCredential.user?.uid as string
         await updateProfile(credentials.name, DefaultProfilePhoto.src)
           .then(async () => await authClaims(this.$axios, id))
           .then(() => refreshToken())
@@ -110,7 +110,7 @@ export const actions: ActionTree<AuthState, RootState> = {
           coverPhoto: DefaultCoverPhoto
         })
 
-        return userCredential;
+        return userCredential
       })
       .then(async (userCredential: UserCredential) => {
         // send verification mail
@@ -127,7 +127,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateProfilePhoto({ commit, dispatch }, profilePhoto: Image) {
+  async updateProfilePhoto ({ dispatch }, profilePhoto: Image) {
     await auth.currentUser
       ?.updateProfile({
         photoURL: profilePhoto.src
@@ -142,23 +142,23 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signInWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
-    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
-    let persistence = socialLoginCredentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION;
+  async signInWithSocialProvider ({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+    const authProvider = getAuthProvider(socialLoginCredentials.providerType)
+    const persistence = socialLoginCredentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION
     await auth.setPersistence(persistence)
       .then(async () => {
         await auth.signInWithPopup(authProvider)
           .then(async (userCredential) => {
-            let id = userCredential.user?.uid as string;
+            const id = userCredential.user?.uid as string
             await getUser(id)
-              .then((user) => !!user)
+              .then(user => !!user)
               .then(async (userExists) => {
                 if (userExists) {
-                  return;
+                  return
                 }
 
-                let name = userCredential.user?.displayName as string
-                let photo = userCredential.user?.photoURL as string
+                const name = userCredential.user?.displayName as string
+                const photo = userCredential.user?.photoURL as string
 
                 await authClaims(this.$axios, id)
                   .then(() => refreshToken())
@@ -174,7 +174,7 @@ export const actions: ActionTree<AuthState, RootState> = {
                     src: photo,
                     alt: `Profile photo of ${name}`
                   },
-                  coverPhoto: DefaultCoverPhoto,
+                  coverPhoto: DefaultCoverPhoto
                 })
               })
           })
@@ -182,8 +182,8 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async reauthenticateWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
-    let authProvider = getAuthProvider(socialLoginCredentials.providerType);
+  async reauthenticateWithSocialProvider ({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+    const authProvider = getAuthProvider(socialLoginCredentials.providerType)
     await auth.currentUser?.reauthenticateWithPopup(authProvider)
       .then(() => {
         reauthenticateObservable.next()
@@ -191,7 +191,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updatePassword({ dispatch }, newPassword: string) {
+  async updatePassword ({ dispatch }, newPassword: string) {
     await auth.currentUser?.updatePassword(newPassword)
       .then(() => {
         showSuccessToaster(this.$i18n.t('notification.passwordUpdated'))
@@ -199,7 +199,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleSendingEmailVerificationCode({ dispatch }) {
+  handleSendingEmailVerificationCode ({ dispatch }) {
     return auth.currentUser?.sendEmailVerification()
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.verifyMailSent', { email: auth.currentUser?.email }))
@@ -207,7 +207,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async sendPasswordResetEmail({ commit, dispatch }, emailAddress: string) {
+  async sendPasswordResetEmail ({ dispatch }, emailAddress: string) {
     return await auth.sendPasswordResetEmail(emailAddress)
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.sendPasswordResetEmail'))
@@ -215,7 +215,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async confirmPasswordReset({ commit, dispatch }, { actionCode, password }) {
+  async confirmPasswordReset ({ dispatch }, { actionCode, password }) {
     return await auth.confirmPasswordReset(actionCode, password)
       .then(async () => {
         await sendNotification(dispatch, getSuccessNotificationMessage(this.$i18n.t('notification.confirmPasswordReset')))
@@ -223,7 +223,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleVerifyEmail({ commit, dispatch }, actionCode: string) {
+  async handleVerifyEmail ({ dispatch }, actionCode: string) {
     return await auth.applyActionCode(actionCode)
       .then(async () => {
         await refreshToken()
@@ -234,60 +234,61 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleVerifyPasswordResetCode({ commit, dispatch }, actionCode: string) {
+  async handleVerifyPasswordResetCode ({ dispatch }, actionCode: string) {
     return await auth.verifyPasswordResetCode(actionCode)
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.passwordResetVerified'))
-        return true;
+        return true
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleRecoverEmail({ dispatch }, actionCode: string) {
+  async handleRecoverEmail ({ dispatch }, actionCode: string) {
     return await auth.checkActionCode(actionCode)
       .then(async (info: ActionCodeInfo) => {
         await auth.applyActionCode(actionCode)
           .then(() => console.log('Action applied'))
-        return info.data.email;
+        return info.data.email
       }).then((email: string | null | undefined) => {
-        if (email)
+        if (email) {
           auth.sendPasswordResetEmail(email)
             .then(() => console.log('PasswordResetEmail sent'))
+        }
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async linkPassword({ dispatch, commit }, credentials: LoginCredentials) {
-    let authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password);
+  async linkPassword ({ dispatch }, credentials: LoginCredentials) {
+    const authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password)
 
-    return auth.currentUser?.linkWithCredential(authCredential)
+    return await auth.currentUser?.linkWithCredential(authCredential)
       .then(async (userCredential) => {
         await saveUser({
           id: userCredential.user?.uid as string,
           email: userCredential.user?.email as string
         })
       }).then(async () => {
-        await refreshToken();
-      }).then(async () => {
+        await refreshToken()
+      }).then(() => {
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(ProviderType.PASSWORD)))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async linkSocialProvider({ dispatch, commit }, providerType: ProviderType) {
-    let authProvider = getAuthProvider(providerType);
-    return auth.currentUser?.linkWithPopup(authProvider)
+  async linkSocialProvider ({ dispatch }, providerType: ProviderType) {
+    const authProvider = getAuthProvider(providerType)
+    return await auth.currentUser?.linkWithPopup(authProvider)
       .then(async () => {
         await refreshToken()
       })
-      .then(async () => {
+      .then(() => {
         showSuccessToaster(this.$i18n.t('notification.providerLinked', getProviderOption(providerType)))
       })
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async unlinkProvider({ dispatch, commit }, providerType: ProviderType) {
-    return auth.currentUser?.unlink(providerType)
+  async unlinkProvider ({ dispatch }, providerType: ProviderType) {
+    return await auth.currentUser?.unlink(providerType)
       .then(async () => {
         await refreshToken()
       }).then(() => {
@@ -296,13 +297,14 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async logout({ dispatch, commit }) {
+  async logout ({ dispatch, commit }) {
     return await auth.signOut()
       .then(() => {
+        // @ts-ignore
         this.$router.push(Routes.LOGIN)
-        commit('forceLogout', false);
+        commit('forceLogout', false)
       })
       .catch((error: Error) => handleError(dispatch, error))
-  },
+  }
 
 }

@@ -18,5 +18,5 @@ app.use(router)
 
 export default {
   path: '/api',
-  handler: app,
+  handler: app
 }

@@ -8,10 +8,10 @@
               <p>
                 <b-icon
                   icon="upload"
-                  size="is-large">
-                </b-icon>
+                  size="is-large"
+                />
               </p>
-              <p>{{ $t('image.upload.dragAndDropButton')}}</p>
+              <p>{{ $t('image.upload.dragAndDropButton') }}</p>
             </div>
           </section>
         </b-upload>
@@ -20,57 +20,58 @@
 
     <div v-if="imageToCrop" class="columns is-multiline is-vcentered">
       <div class="column is-full-mobile is-full-tablet is-three-quarters-desktop">
-        <ImageCropper :image="imageToCrop" :height="400" :width="400" :preview="setPreview" class="height-50vh"/>
+        <ImageCropper :image="imageToCrop" :height="400" :width="400" :preview="setPreview" class="height-50vh" />
       </div>
 
       <div v-if="previewSrc" class="column has-text-centered">
-        <h3 class="h3 has-margin-bottom-30">{{ $t('image.crop.preview')}}</h3>
-        <img v-if="previewSrc" :src="previewSrc" class="profile-200"/>
-        <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15"/>
+        <h3 class="h3 has-margin-bottom-30">
+          {{ $t('image.crop.preview') }}
+        </h3>
+        <img v-if="previewSrc" :src="previewSrc" class="profile-200">
+        <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15">
         <div class="buttons is-centered has-margin-top-30">
-          <b-button>{{ $t('common.save')}}</b-button>
-          <b-button>{{ $t('common.cancel')}}</b-button>
+          <b-button>{{ $t('common.save') }}</b-button>
+          <b-button>{{ $t('common.cancel') }}</b-button>
         </div>
       </div>
 
-      <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"/>
+      <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator';
-  import { Image } from '~/types';
-  import { getNewFileName } from '~/service/global-service';
-  import ImageCropper from '~/components/image/crop/ImageCropper.vue';
+import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
+import { Image } from '~/types'
+import { getNewFileName } from '~/service/global-service'
+import ImageCropper from '~/components/image/crop/ImageCropper.vue'
 
-  @Component({
-    components: { ImageCropper }
-  })
-  export default class ProfilePhotoUpdater extends Vue {
-    @Prop({ required: false }) image !: Image
+@Component({
+  components: { ImageCropper }
+})
+export default class ProfilePhotoUpdater extends Vue {
+  @Prop({ required: false }) image: Image
 
-    isLoading = true
-    isFullPage = false
-    file: File | null = null
-    imageToCrop: Image | null = this.image || null
-    previewSrc: string | null = null
+  isLoading = true
+  isFullPage = false
+  file: File|null = null
+  imageToCrop: Image|null = this.image || null
+  previewSrc: string|null = null
 
-    @Watch('file')
-    onFileChanged(file: File, oldFile: File) {
-      this.imageToCrop = {
-        src: URL.createObjectURL(file),
-        alt: 'alt',
-        default: false,
-        // name: this.parentFolderRef + getNewFileName(file.name)
-        name: getNewFileName(file.name)
-      };
+  @Watch('file')
+  onFileChanged (file: File) {
+    this.imageToCrop = {
+      src: URL.createObjectURL(file),
+      alt: 'alt',
+      default: false,
+      // name: this.parentFolderRef + getNewFileName(file.name)
+      name: getNewFileName(file.name)
     }
-
-    setPreview(croppedForPreview: string) {
-      this.previewSrc = croppedForPreview
-      this.isLoading = false
-    }
-
   }
+
+  setPreview (croppedForPreview: string) {
+    this.previewSrc = croppedForPreview
+    this.isLoading = false
+  }
+}
 </script>

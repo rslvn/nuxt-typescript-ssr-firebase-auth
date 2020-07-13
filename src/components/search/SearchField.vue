@@ -8,11 +8,12 @@
           :placeholder="$t('common.field.searchPlaceholder')"
           type="search"
           icon="magnify"
-          @keyup.enter.native="resetSearch"
           rounded
           expanded
+          @keyup.enter.native="resetSearch"
         />
-        <b-button @click="resetSearch" :loading="isFetching" type="is-primary" rounded>{{$t('common.search')}}
+        <b-button :loading="isFetching" type="is-primary" rounded @click="resetSearch">
+          {{ $t('common.search') }}
         </b-button>
       </b-field>
     </div>
@@ -20,15 +21,14 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator';
+import { Component, Prop, PropSync, Vue } from 'nuxt-property-decorator'
 
-  @Component({
-    components: {}
-  })
-  export default class SearchField extends Vue {
-
-    @PropSync('query', { type: String, required: true }) syncQuery !: string
-    @Prop({ type: Function, required: true }) resetSearch !: () => void
-    @Prop({ type: Boolean, required: false, default: false }) isFetching !: boolean
-  }
+@Component({
+  components: {}
+})
+export default class SearchField extends Vue {
+  @PropSync('query', { type: String, required: true }) syncQuery: string
+  @Prop({ type: Function, required: true }) resetSearch: () => void
+  @Prop({ type: Boolean, required: false, default: false }) isFetching: boolean
+}
 </script>

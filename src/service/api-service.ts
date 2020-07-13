@@ -1,6 +1,6 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
-import { ApiConfig, AuthUser } from '~/types'
 import { AxiosResponse } from 'axios'
+import { ApiConfig, AuthUser } from '~/types'
 
 export const authVerify = async (axios: NuxtAxiosInstance) => {
   return await axios
@@ -14,6 +14,6 @@ export const authClaims = async (
   axios: NuxtAxiosInstance,
   username: string
 ) => {
-  let claims = { username }
+  const claims = { username }
   return await axios.post(ApiConfig.auth.claims, { claims })
 }

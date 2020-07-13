@@ -1,7 +1,8 @@
 <template>
   <div class="columns has-text-centered is-gapless">
     <div class="column is-6">
-      <p class="has-margin-left-15"><small v-html="$t('page.footer.copyRight')"></small>
+      <p class="has-margin-left-15">
+        <small>&copy;{{ $t('page.footer.copyRight') }}</small>
         <a :href="routes.HOME.path">nuxt-typescript-ssr-firebase-auth</a>
       </p>
     </div>
@@ -13,13 +14,13 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from 'nuxt-property-decorator';
-  import { Routes } from '~/types';
+import { Component, Vue } from 'nuxt-property-decorator'
+import { Routes } from '~/types'
 
-  @Component({
-    components: {}
-  })
-  export default class AppFooter extends Vue {
-    routes = Routes
-  }
+@Component({
+  components: {}
+})
+export default class AppFooter extends Vue {
+  routes = Routes
+}
 </script>

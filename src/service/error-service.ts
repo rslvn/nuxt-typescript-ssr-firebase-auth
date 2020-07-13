@@ -1,6 +1,6 @@
 import { Dispatch } from 'vuex'
 import { errorToNotificationMessage, sendNotification } from '~/service/notification-service'
-import { NotificationMessage } from '~/types';
+import { NotificationMessage } from '~/types'
 
 const sendErrorNotification = async (dispatch: Dispatch, error: Error) => {
   await sendNotification(dispatch, errorToNotificationMessage(error))

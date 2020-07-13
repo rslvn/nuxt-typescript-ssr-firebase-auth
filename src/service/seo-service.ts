@@ -1,14 +1,14 @@
-import { DefaultMeta, PageMeta, RouteType } from "~/types";
+import { DefaultMeta, PageMeta, RouteType } from '~/types'
 
 const getHeadTitle = (routeType: RouteType, vue: Vue) => {
   return vue.$t(`page.${routeType.label}.title`)
 }
 
 export const getHeadByRouteType = (routeType: RouteType, vue: Vue) => {
-  let pageMeta: PageMeta = {
+  const pageMeta: PageMeta = {
     title: `${getHeadTitle(routeType, vue)} | ${DefaultMeta.title}`,
     url: `${DefaultMeta.url}${routeType.path}`,
-    description: vue.$t(`page.${routeType.label}.description`) as string,
+    description: vue.$t(`page.${routeType.label}.description`) + '',
     image: DefaultMeta.image
   }
   return getHead(pageMeta)

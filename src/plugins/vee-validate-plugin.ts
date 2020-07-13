@@ -1,12 +1,12 @@
 import { NuxtAppOptions, Plugin } from '@nuxt/types'
 import { configure, extend } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
-import { QueryParameters, SupportedLanguages } from '~/types';
-import { getUserByUsername } from '~/service/firebase/firestore';
+import { QueryParameters, SupportedLanguages } from '~/types'
+import { getUserByUsername } from '~/service/firebase/firestore'
 
-for (let [rule, validation] of Object.entries(rules)) {
+for (const [rule, validation] of Object.entries(rules)) {
   extend(rule, {
-    ...validation,
+    ...validation
   })
 }
 
@@ -15,8 +15,8 @@ const setLanguageFromQuery = (langQuery: string, app: NuxtAppOptions) => {
     return
   }
 
-  let supportedLanguage = SupportedLanguages.find(
-    (language) => language.code === langQuery
+  const supportedLanguage = SupportedLanguages.find(
+    language => language.code === langQuery
   )
 
   if (supportedLanguage) {
@@ -34,25 +34,24 @@ const veeValidatePlugin: Plugin = ({ app, query }) => {
   //   console.log('onLanguageSwitched', oldLocale, newLocale)
   // };
 
-  let langQuery = query[QueryParameters.LANG] as string
+  const langQuery = query[QueryParameters.LANG] + ''
   setLanguageFromQuery(langQuery, app)
 
   // CUSTOM RULES
   extend('username', {
-    message: (field, params) => app.i18n.t('validation.username', { field }) as string,
+    message: field => app.i18n.t('validation.username', { field }) + '',
     validate: (value, params: any) => getUserByUsername(value)
       .then((user) => {
-          return user ? user.id === params[0] : true
-        }
-      )
+        return user ? user.id === params[0] : true
+      })
   })
 
   configure({
     // @ts-ignore
-    defaultMessage: (field: string, values: Record<string, any>) => {
+    defaultMessage: (field: string, values) => {
       values._field_ = app.i18n.t(`${field}`)
       return app.i18n.t(`validation.${values._rule_}`, values)
-    },
+    }
   })
 }
 

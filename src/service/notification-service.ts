@@ -1,6 +1,6 @@
-import { NotificationMessage, NotificationType, StoreConfig } from '~/types'
 import { NotificationProgrammatic } from 'buefy'
 import { Dispatch } from 'vuex'
+import { NotificationMessage, NotificationType, StoreConfig } from '~/types'
 
 const hasIcon = true
 const position = 'is-top-right'
@@ -8,7 +8,7 @@ const position = 'is-top-right'
 const toasterConfig = {
   hasIcon,
   queue: false,
-  duration: 3000,
+  duration: 3000
 }
 
 export const sendNotification = async (
@@ -19,7 +19,7 @@ export const sendNotification = async (
     StoreConfig.notification.saveNotificationMessage,
     notificationMessage,
     {
-      root: true,
+      root: true
     }
   )
 }
@@ -58,7 +58,7 @@ export const errorToNotificationMessage = (
   return {
     type: NotificationType.DANGER,
     message: error.message,
-    hasIcon,
+    hasIcon
   }
 }
 
@@ -68,7 +68,7 @@ export const getSuccessNotificationMessage = (
   return {
     type: NotificationType.SUCCESS,
     message,
-    hasIcon,
+    hasIcon
   }
 }
 
@@ -78,7 +78,7 @@ export const getDangerNotificationMessage = (
   return {
     type: NotificationType.DANGER,
     message,
-    hasIcon,
+    hasIcon
   }
 }
 
@@ -88,7 +88,7 @@ export const getWarningNotificationMessage = (
   return {
     type: NotificationType.WARNING,
     message,
-    hasIcon,
+    hasIcon
   }
 }
 
@@ -98,7 +98,7 @@ export const getInfoNotificationMessage = (
   return {
     type: NotificationType.INFO,
     message,
-    hasIcon,
+    hasIcon
   }
 }
 
@@ -107,7 +107,7 @@ export const showErrorToaster = (message: any): void => {
     type: 'is-danger',
     message,
     position,
-    ...toasterConfig,
+    ...toasterConfig
   })
 }
 
@@ -116,7 +116,7 @@ export const showInfoToaster = (message: any): void => {
     type: 'is-info',
     message,
     position,
-    ...toasterConfig,
+    ...toasterConfig
   })
 }
 
@@ -125,7 +125,7 @@ export const showWarningToaster = (message: any): void => {
     type: 'is-warning',
     message,
     position,
-    ...toasterConfig,
+    ...toasterConfig
   })
 }
 
@@ -134,6 +134,6 @@ export const showSuccessToaster = (message: any): void => {
     type: 'is-success',
     message,
     position,
-    ...toasterConfig,
+    ...toasterConfig
   })
 }

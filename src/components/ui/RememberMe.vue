@@ -7,20 +7,19 @@
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from 'nuxt-property-decorator';
-  import { StateNamespace } from "~/types";
+import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import { StateNamespace } from '~/types'
 
-  @Component({
-    components: {}
-  })
-  export default class RememberMe extends Vue {
+@Component({
+  components: {}
+})
+export default class RememberMe extends Vue {
+  @Prop({ type: Boolean, required: true }) value: boolean
 
-    @Prop({ type: Boolean, required: true }) value !: boolean
+  @StateNamespace.auth.Action saveRememberMe: (rememberMe: boolean) => void;
 
-    @StateNamespace.auth.Action saveRememberMe !: (rememberMe: boolean) => void;
-
-    inputChanged() {
-      this.saveRememberMe(!this.value)
-    }
+  inputChanged () {
+    this.saveRememberMe(!this.value)
   }
+}
 </script>

@@ -1,23 +1,23 @@
 import { User, UserInfo } from 'firebase'
 import jwtDecode from 'jwt-decode'
 import { AuthUser, DefaultProfilePhoto, FirebaseClaimKey, Image, ProviderData, ProviderType } from '~/types'
-import { auth } from '~/plugins/fire-init-plugin';
+import { auth } from '~/plugins/fire-init-plugin'
 
 export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
   return userInfo ? {
     providerType: userInfo.providerId as ProviderType,
-    displayName: userInfo.displayName as string,
-    email: userInfo.email as string,
-    phoneNumber: userInfo.phoneNumber as string,
-    photoURL: userInfo.photoURL as string,
+    displayName: userInfo.displayName,
+    email: userInfo.email,
+    phoneNumber: userInfo.phoneNumber,
+    photoURL: userInfo.photoURL,
     uid: userInfo.uid
   } : null
 }
 
 export const getAuthUser = (firebaseUser: User): AuthUser => {
   return {
-    name: firebaseUser.displayName as string,
-    email: firebaseUser.email as string,
+    name: firebaseUser.displayName,
+    email: firebaseUser.email,
     profilePhoto: {
       src: firebaseUser.photoURL || DefaultProfilePhoto.src,
       alt: firebaseUser.displayName ? 'Picture of ' + firebaseUser.displayName : DefaultProfilePhoto.alt
@@ -25,9 +25,9 @@ export const getAuthUser = (firebaseUser: User): AuthUser => {
     userId: firebaseUser.uid,
     username: '',
     verified: firebaseUser.emailVerified,
-    providers: firebaseUser.providerData?.filter(value => !!value).map((value) => getProviderData(value)) as ProviderData[]
+    providers: firebaseUser.providerData?.filter(value => !!value).map(value => getProviderData(value))
   }
-};
+}
 
 export const getProviderOption = (provider: ProviderType) => {
   return {
@@ -36,24 +36,25 @@ export const getProviderOption = (provider: ProviderType) => {
 }
 
 export const decodeToken = (token: string): AuthUser => {
-  let decodedToken: any = jwtDecode(token);
-  let name = decodedToken[FirebaseClaimKey.NAME] as string
-  let profilePhoto: Image = {
+  const decodedToken: any = jwtDecode(token)
+  const name = decodedToken[FirebaseClaimKey.NAME]
+  const profilePhoto: Image = {
     src: decodedToken[FirebaseClaimKey.PICTURE],
     alt: `Cover photo of ${name}`
   }
-  let providers: ProviderData[] = Object.keys(decodedToken[FirebaseClaimKey.FIREBASE]?.identities).map((provider: string) => {
-    return {
-      providerType: provider as ProviderType
-    }
-  })
+  const providers: ProviderData[] = Object.keys(decodedToken[FirebaseClaimKey.FIREBASE]?.identities)
+    .map((provider: string) => {
+      return {
+        providerType: provider as ProviderType
+      }
+    })
 
   return {
-    userId: decodedToken[FirebaseClaimKey.USER_ID] as string,
-    username: decodedToken[FirebaseClaimKey.USERNAME] as string,
+    userId: decodedToken[FirebaseClaimKey.USER_ID],
+    username: decodedToken[FirebaseClaimKey.USERNAME],
     name,
-    email: decodedToken[FirebaseClaimKey.EMAIL] as string,
-    verified: decodedToken[FirebaseClaimKey.EMAIL_VERIFIED] as boolean,
+    email: decodedToken[FirebaseClaimKey.EMAIL],
+    verified: decodedToken[FirebaseClaimKey.EMAIL_VERIFIED],
     profilePhoto,
     providers
   }

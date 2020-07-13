@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Route } from 'vue-router'
 import { QueryParameters, Routes, RouteType } from '~/types'
 
-let timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
+const timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
 const slugDelimiter = '-'
 
 export const log = (...anyMessages: any[]) => {
@@ -18,8 +18,8 @@ export const log = (...anyMessages: any[]) => {
  */
 export const getNewFileName = (fileName: string): string => {
   if (fileName) {
-    let baseNameSlug = slugify(basename(fileName))
-    let extension = fileName.split('.').pop()
+    const baseNameSlug = slugify(basename(fileName))
+    const extension = fileName.split('.').pop()
     return `${baseNameSlug}${slugDelimiter}${uuidv4()}.${extension}`
   }
   return fileName
@@ -39,21 +39,21 @@ export const slugify = (text: string): string => {
 }
 
 export const toBoolean = (value: string | boolean): boolean => {
-  return typeof value === 'boolean' ? value : JSON.parse(value);
+  return typeof value === 'boolean' ? value : JSON.parse(value)
 }
 
 export const authenticatedAllowed = (route: Route): boolean => {
-  return route.matched.some((record) =>
+  return route.matched.some(record =>
     record.path.startsWith(Routes.PROFILE_DYNAMIC.path) ||
     record.path.startsWith(Routes.PROFILE.path))
 }
 
 export const authenticatedNotAllowed = (route: Route): boolean => {
   return (
-    route.path == Routes.LOGIN.path ||
-    route.path == Routes.REGISTER.path ||
-    route.path == Routes.FORGET_PASSWORD.path ||
-    route.path == Routes.RESET_PASSWORD.path
+    route.path === Routes.LOGIN.path ||
+    route.path === Routes.REGISTER.path ||
+    route.path === Routes.FORGET_PASSWORD.path ||
+    route.path === Routes.RESET_PASSWORD.path
   )
 }
 
@@ -61,8 +61,8 @@ export const getUserRoute = (routeType: RouteType, username: string) => {
   return {
     name: routeType.name,
     params: {
-      username,
-    },
+      username
+    }
   }
 }
 
@@ -70,7 +70,7 @@ export const getPageRouteWithQuery = (routeType: RouteType, query: string) => {
   return {
     path: routeType.path,
     query: {
-      [QueryParameters.QUERY]: query,
-    },
+      [QueryParameters.QUERY]: query
+    }
   }
 }
