@@ -38,9 +38,9 @@ export default class SingleFileUploadWithValidation extends Vue {
   @Prop({ type: String, required: false, default: '' }) rules: string;
   @Prop({ type: String, required: false, default: 'uploadFile' }) vid: string;
 
-  file: File | null = null
+  file: File|null = null
   fileName = ''
-  uploadTask: firebase.storage.UploadTask | null = null
+  uploadTask: firebase.storage.UploadTask|null = null
 
   @StateNamespace.loading.Mutation setLoading: (loading: boolean) => void;
 

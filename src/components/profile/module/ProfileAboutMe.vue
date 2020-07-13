@@ -89,7 +89,7 @@ export default class ProfileAboutMe extends BaseModule {
   @StateNamespace.auth.Action handleSendingEmailVerificationCode: () => Promise<void>
   @StateNamespace.auth.Action updatePassword: (password: string) => void;
 
-  get passwordProvider (): ProviderConfig | undefined {
+  get passwordProvider (): ProviderConfig|undefined {
     return this.authUser.providers.find(providerData => providerData.providerType === ProviderType.PASSWORD)
       ? SupportedProviders.find(provider => provider.providerType === ProviderType.PASSWORD)
       : undefined

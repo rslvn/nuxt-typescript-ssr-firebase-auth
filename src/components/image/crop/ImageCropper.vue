@@ -20,7 +20,7 @@ export default class ImageCropper extends Vue {
   @Prop({ type: Number, required: true }) height: number
   @Prop({ type: Function, required: true }) preview: (cropped: string) => void
 
-  cropper: Cropper | null = null
+  cropper: Cropper|null = null
 
   mounted () {
     this.initiateCropper()

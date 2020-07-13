@@ -21,7 +21,7 @@ import { PrivacyType, PushNotificationEnriched, PushNotificationStatus, Routes }
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 import { markPushNotificationAsRead } from '~/service/firebase/firestore'
 import { loadNotificationObservable } from '~/service/rx-service'
-import { getUserRoute } from '~/service/global-service';
+import { getUserRoute } from '~/service/global-service'
 
 @Component({
   components: { BackgroundSquareImage }

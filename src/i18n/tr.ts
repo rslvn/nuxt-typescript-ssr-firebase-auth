@@ -107,7 +107,7 @@ const messages = {
     },
     profileNotification: {
       title: 'Bildirimler',
-      noMoreNotification: 'Baska bildirim yok 👐',
+      noMoreNotification: 'Baska bildirim yok 👐'
     },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.'

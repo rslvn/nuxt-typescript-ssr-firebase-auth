@@ -18,11 +18,11 @@ import { toBoolean } from '~/service/global-service'
 export default class BackgroundSquareImage extends Vue {
   @Prop({ type: String, required: true }) imageUrl: string
   @Prop({ type: [Number, String], required: true }) size: number
-  @Prop({ type: [Boolean, String], required: false, default: false }) rounded: boolean | string
+  @Prop({ type: [Boolean, String], required: false, default: false }) rounded: boolean|string
   @Prop({ type: [Number, String], required: false, default: 0 }) border: number
   @Prop({ type: String, required: false, default: '#eee' }) borderColor: string
-  @Prop({ type: [Boolean, String], required: false, default: true }) borderInside: boolean | string
-  @Prop({ type: [Boolean, String], required: false, default: false }) autoMargin: boolean | string
+  @Prop({ type: [Boolean, String], required: false, default: true }) borderInside: boolean|string
+  @Prop({ type: [Boolean, String], required: false, default: false }) autoMargin: boolean|string
 
   get isRounded () {
     return toBoolean(this.rounded)

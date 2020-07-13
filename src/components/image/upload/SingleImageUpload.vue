@@ -24,9 +24,9 @@ export default class SingleImageUpload extends Vue {
   @Prop({ type: Function, required: true }) getAltValue: (fileName: string) => string
   @Prop({ type: Function, required: true }) uploadCompleted: (image: Image) => void
 
-  file: File | null = null
+  file: File|null = null
   fileName = ''
-  uploadTask: firebase.storage.UploadTask | null = null
+  uploadTask: firebase.storage.UploadTask|null = null
 
   @StateNamespace.loading.Mutation setLoading: (loading: boolean) => void;
 

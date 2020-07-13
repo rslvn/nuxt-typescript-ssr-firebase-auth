@@ -54,9 +54,9 @@ export default class ProfilePhotoUpdater extends Vue {
 
   isLoading = true
   isFullPage = false
-  file: File | null = null
-  imageToCrop: Image | null = this.image || null
-  previewSrc: string | null = null
+  file: File|null = null
+  imageToCrop: Image|null = this.image || null
+  previewSrc: string|null = null
 
   @Watch('file')
   onFileChanged (file: File) {

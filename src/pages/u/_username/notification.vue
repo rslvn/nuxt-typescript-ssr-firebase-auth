@@ -2,7 +2,8 @@
   <div class="container">
     <div>
       <b-button type="is-primary" class="is-pulled-right" size="is-small" outlined rounded
-                @click="refreshNotifications">
+                @click="refreshNotifications"
+      >
         {{ $t('common.refresh') }}
       </b-button>
       <PageTitle :title="$t('page.profileNotification.title')" />
@@ -140,7 +141,7 @@ export default class notification extends Vue {
   refreshNotifications () {
     this.lastVisible = null
     this.pushNotificationEnrichedList = []
-    this.stateChanger.reset()
+    this.stateChanger?.reset()
   }
 }
 </script>
