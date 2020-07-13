@@ -87,7 +87,7 @@ import TopPushNotification from '~/components/navbar/TopPushNotification.vue';
   components: { TopPushNotification, BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
 })
 export default class TopNavbar extends Vue {
-  @StateNamespace.auth.Getter authUser: AuthUser
+  @StateNamespace.auth.Getter readonly authUser: AuthUser
   @StateNamespace.auth.Action logout: () => void
 
   get routes () {

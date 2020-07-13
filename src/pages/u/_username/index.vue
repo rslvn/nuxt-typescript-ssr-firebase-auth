@@ -18,7 +18,7 @@ export default class profile extends Vue {
   username = ''
   user: User|null = null
 
-  @StateNamespace.auth.Getter authUser: AuthUser
+  @StateNamespace.auth.Getter readonly authUser: AuthUser
 
   asyncData ({ params }: Context) {
     const username = params[RouteParameters.USERNAME]

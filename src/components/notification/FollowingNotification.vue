@@ -1,5 +1,5 @@
 <template>
-  <div class="media" @click="updatePushNotificationStatus">
+  <div class="media" @click="onPushNotificationClicked">
     <div class="media-left">
       <BackgroundSquareImage
         :image-url="pushNotificationEnriched.fromUser.profilePhoto.src"
@@ -17,10 +17,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { PushNotificationEnriched, PushNotificationStatus } from '~/types'
+import { PrivacyType, PushNotificationEnriched, PushNotificationStatus, Routes } from '~/types'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
-import { markAsRead } from '~/service/firebase/firestore'
+import { markPushNotificationAsRead } from '~/service/firebase/firestore'
 import { loadNotificationObservable } from '~/service/rx-service'
+import { getUserRoute } from '~/service/global-service';
 
 @Component({
   components: { BackgroundSquareImage }
@@ -28,10 +29,22 @@ import { loadNotificationObservable } from '~/service/rx-service'
 export default class FollowingNotification extends Vue {
   @Prop({ type: Object, required: true }) pushNotificationEnriched: PushNotificationEnriched
 
+  onPushNotificationClicked () {
+    this.updatePushNotificationStatus()
+    this.gotoProfile()
+  }
+
+  gotoProfile () {
+    if (this.pushNotificationEnriched.fromUser.privacy === PrivacyType.PRIVATE) {
+      return
+    }
+    return this.$router.push(getUserRoute(Routes.PROFILE_DYNAMIC, this.pushNotificationEnriched.fromUser.username))
+  }
+
   updatePushNotificationStatus () {
     console.log('FollowingNotification updatePushNotificationStatus')
     if (this.pushNotificationEnriched.pushNotification.status === PushNotificationStatus.NEW) {
-      markAsRead({ ...this.pushNotificationEnriched.pushNotification })
+      markPushNotificationAsRead(this.pushNotificationEnriched.pushNotification)
         .then(() => loadNotificationObservable.next())
     }
   }

@@ -16,7 +16,7 @@ import { sendDangerNotification } from '~/service/notification-service'
 export default class profile extends Vue {
   user: User|null = null
 
-  @StateNamespace.auth.Getter authUser: AuthUser;
+  @StateNamespace.auth.Getter readonly authUser: AuthUser;
 
   created () {
     this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {

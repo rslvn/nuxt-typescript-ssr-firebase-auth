@@ -17,8 +17,6 @@
     <b-navbar-item
       v-for="(pushNotificationEnriched,index) in pushNotifications"
       :key="index"
-      tag="router-link"
-      :to="gotoProfile(pushNotificationEnriched)"
       class="has-margin-bottom-5"
       :class="{'has-background-success': isNew(pushNotificationEnriched)}"
     >
@@ -27,12 +25,8 @@
       />
     </b-navbar-item>
 
-    <b-navbar-item v-if="pushNotifications.length > 0" :key="'seeAll'" tag="router-link" :to="profileNotification">
-      see all
-    </b-navbar-item>
-
-    <b-navbar-item v-else :key="'noPushNotification'">
-      {{ $t('pushNotification.noPushNotification') }}
+    <b-navbar-item :key="'seeAll'" tag="router-link" :to="profileNotification">
+      {{ $t('pushNotification.seeAll') }}
     </b-navbar-item>
   </b-navbar-dropdown>
 </template>
@@ -41,7 +35,6 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import {
   AuthUser,
-  PrivacyType,
   PushNotificationEnriched,
   PushNotificationStatus,
   PushNotificationType,
@@ -85,13 +78,6 @@ export default class TopPushNotification extends Vue {
 
   getComponentProperties (pushNotificationEnriched: PushNotificationEnriched) {
     return { pushNotificationEnriched }
-  }
-
-  gotoProfile (pushNotificationEnriched: PushNotificationEnriched) {
-    if (pushNotificationEnriched.fromUser.privacy === PrivacyType.PRIVATE) {
-      return '/'
-    }
-    return getUserRoute(Routes.PROFILE_DYNAMIC, pushNotificationEnriched.fromUser.username)
   }
 }
 </script>

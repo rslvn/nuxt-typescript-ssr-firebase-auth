@@ -47,7 +47,7 @@ export default class search extends Vue {
   isFetching = false
   searched = false
 
-  @StateNamespace.auth.Getter authUser: AuthUser;
+  @StateNamespace.auth.Getter readonly authUser: AuthUser;
 
   @Watch('perPage')
   onPerPageChanged () {

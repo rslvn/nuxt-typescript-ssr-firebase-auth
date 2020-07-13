@@ -102,7 +102,12 @@ export const getPushNotifications = async (to: string, limit: number, lastVisibl
   )
 }
 
-export const markAsRead = async (pushNotification: PushNotification) => {
+export const markPushNotificationAsRead = async (pushNotification: PushNotification) => {
   pushNotification.status = PushNotificationStatus.READ
+  return await saveModel(collection.NOTIFICATION, pushNotification)
+}
+
+export const markPushNotificationAsDeleted = async (pushNotification: PushNotification) => {
+  pushNotification.status = PushNotificationStatus.DELETED
   return await saveModel(collection.NOTIFICATION, pushNotification)
 }

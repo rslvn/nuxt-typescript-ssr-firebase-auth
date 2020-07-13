@@ -38,7 +38,8 @@ const messages = {
     settings: 'Settings',
     search: 'Search',
     follow: 'Follow',
-    unfollow: 'Unfollow'
+    unfollow: 'Unfollow',
+    refresh: 'refresh'
   },
 
   topNavbar: {
@@ -104,7 +105,8 @@ const messages = {
       description: 'A sample login page in nuxt and typescript with bulma'
     },
     profileNotification: {
-      title: 'Notifications'
+      title: 'Notifications',
+      noMoreNotification: 'No more notification 👐'
     },
     action: {
       processing: 'Processing... Please wait.'
@@ -166,8 +168,14 @@ const messages = {
     type: {
       follow: 'You have a new follower'
     },
+    dialog: {
+      delete: {
+        title: 'Delete notification',
+        message: 'Are you sure you want to <b>delete</b> the notification?<br>This action cannot be undone.'
+      }
+    },
     seeAll: 'see all',
-    noPushNotification: 'no notification yet'
+    markAsRead: 'mark as read'
   },
 
   form: {

@@ -39,7 +39,8 @@ const messages = {
     settings: 'Ayarlar',
     search: 'Ara',
     follow: 'Takip Et',
-    unfollow: 'Takip Etme'
+    unfollow: 'Takip Etme',
+    refresh: 'yenile'
   },
 
   topNavbar: {
@@ -105,7 +106,8 @@ const messages = {
       description: 'Nuxt ve typescript ile hazirlanmis, kayitli kullanicilarin sisteme giris yapmasini saglayan ornek bir sayfadir'
     },
     profileNotification: {
-      title: 'Bildirimler'
+      title: 'Bildirimler',
+      noMoreNotification: 'Baska bildirim yok 👐',
     },
     action: {
       processing: 'Isleniyor... Lutfen bekleyiniz.'
@@ -165,8 +167,14 @@ const messages = {
     type: {
       follow: 'Yeni bir takipciniz var'
     },
+    dialog: {
+      delete: {
+        title: 'Bildirimi Sil',
+        message: 'Bildirimi <b>silmek</b> istediginizden emin misiniz?<br>Bu islem geri alinamaz.'
+      }
+    },
     seeAll: 'hepsini gor',
-    noPushNotification: 'hic bildirim yok'
+    markAsRead: 'okundu'
   },
 
   form: {
