@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs'
-import { Image, ModuleType, PushNotification } from '~/types'
+import { Image, ModuleType, PushNotification, UpdatePushNotificationStatus } from '~/types'
 
 export const coverPhotoObservable = new Subject<Image>()
 export const profilePhotoObservable = new Subject<Image>()
@@ -10,3 +10,4 @@ export const showProfileModule = new Subject<ModuleType>()
 export const reloadFollowing = new Subject<void>()
 export const sendNotificationObservable = new Subject<PushNotification>()
 export const loadNotificationObservable = new Subject<void>()
+export const updateNotificationStatusObservable = new Subject<UpdatePushNotificationStatus>()

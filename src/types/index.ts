@@ -1,11 +1,12 @@
 import { CookieSerializeOptions } from 'cookie'
-import { Image } from '~/types/firebase-types'
+import { Image, PushNotification, User } from '~/types/firebase-types'
 
 export * from './api-types'
 export * from './firebase-types'
 export * from './state-types'
 export * from './route-types'
 export * from './seo-types'
+export * from './rx-types'
 
 export interface SupportedLanguage {
   name: string,
@@ -75,4 +76,9 @@ export interface ModuleTabConfig extends NavigatorConfig<ModuleType, any> {
 
 export interface SettingsMenuConfig extends NavigatorConfig<SettingsType, any> {
 
+}
+
+export interface PushNotificationEnriched {
+  fromUser: User,
+  pushNotification: PushNotification
 }
