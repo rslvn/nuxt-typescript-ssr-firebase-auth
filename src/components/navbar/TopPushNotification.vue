@@ -67,8 +67,6 @@ export default class TopPushNotification extends Vue {
         const index = this.pushNotificationEnrichedList
           .findIndex(notification => notification.pushNotification.id === updatePushNotificationStatus.id)
 
-        console.log('INDEX', index, 'ID', updatePushNotificationStatus.id)
-
         if (index > -1) {
           switch (updatePushNotificationStatus.status) {
             case PushNotificationStatus.READ:
