@@ -43,8 +43,8 @@ import {
 } from '~/types'
 import FollowingNotification from '~/components/notification/FollowingNotification.vue'
 import { getUserRoute } from '~/service/global-service'
-import { loadNotificationObservable, updateNotificationStatusObservable } from '~/service/rx-service';
-import { loadLatestNotifications } from '~/service/firebase/firestore';
+import { loadNotificationObservable, updateNotificationStatusObservable } from '~/service/rx-service'
+import { loadLatestNotifications } from '~/service/firebase/firestore'
 
 @Component({
   components: {}
@@ -63,7 +63,6 @@ export default class TopPushNotification extends Vue {
 
     this.$subscribeTo(updateNotificationStatusObservable.asObservable(),
       (updatePushNotificationStatus: UpdatePushNotificationStatus) => {
-
         const index = this.pushNotificationEnrichedList
           .findIndex(notification => notification.pushNotification.id === updatePushNotificationStatus.id)
 
