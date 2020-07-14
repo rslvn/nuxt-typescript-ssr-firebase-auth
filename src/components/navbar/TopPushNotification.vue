@@ -15,7 +15,7 @@
     </template>
 
     <b-navbar-item
-      v-for="(pushNotificationEnriched,index) in pushNotifications"
+      v-for="(pushNotificationEnriched,index) in pushNotificationEnrichedList"
       :key="index"
       class="has-margin-bottom-5"
       :class="{'has-background-success': isNew(pushNotificationEnriched)}"
@@ -39,20 +39,52 @@ import {
   PushNotificationStatus,
   PushNotificationType,
   Routes,
-  StateNamespace
+  UpdatePushNotificationStatus
 } from '~/types'
 import FollowingNotification from '~/components/notification/FollowingNotification.vue'
 import { getUserRoute } from '~/service/global-service'
+import { loadNotificationObservable, updateNotificationStatusObservable } from '~/service/rx-service';
+import { loadLatestNotifications } from '~/service/firebase/firestore';
 
 @Component({
   components: {}
 })
 export default class TopPushNotification extends Vue {
-  @Prop({ required: true }) authUser: AuthUser
-  @StateNamespace.notification.Getter pushNotifications: PushNotificationEnriched[]
+  @Prop({ required: true }) readonly authUser: AuthUser
+  pushNotificationEnrichedList: PushNotificationEnriched[] = []
+
+  created () {
+    this.$subscribeTo(loadNotificationObservable.asObservable(), () => {
+      loadLatestNotifications(this.authUser.userId, 5)
+        .then((list) => {
+          this.pushNotificationEnrichedList = list
+        })
+    })
+
+    this.$subscribeTo(updateNotificationStatusObservable.asObservable(),
+      (updatePushNotificationStatus: UpdatePushNotificationStatus) => {
+
+        const index = this.pushNotificationEnrichedList
+          .findIndex(notification => notification.pushNotification.id === updatePushNotificationStatus.id)
+
+        console.log('INDEX', index, 'ID', updatePushNotificationStatus.id)
+
+        if (index > -1) {
+          switch (updatePushNotificationStatus.status) {
+            case PushNotificationStatus.READ:
+              this.pushNotificationEnrichedList[index].pushNotification.status = updatePushNotificationStatus.status
+              break
+
+            case PushNotificationStatus.DELETED:
+              this.pushNotificationEnrichedList.splice(index, 1)
+              break
+          }
+        }
+      })
+  }
 
   get countOfNewNotifications () {
-    return this.pushNotifications
+    return this.pushNotificationEnrichedList
       .filter(pushNotificationEnriched => this.isNew(pushNotificationEnriched))
       .length
   }

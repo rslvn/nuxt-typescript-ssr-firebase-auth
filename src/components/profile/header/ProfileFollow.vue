@@ -168,7 +168,14 @@ export default class ProfileFollow extends Vue {
   }
 
   followCalled () {
-    return this.following ? this.unfollow() : this.follow()
+    this.loading = true
+    Promise.resolve()
+      .then(async () => {
+        this.following ? await this.unfollow() : await this.follow()
+      })
+      .finally(() => {
+        this.loading = false
+      })
   }
 
   async follow () {

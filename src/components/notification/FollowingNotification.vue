@@ -20,7 +20,7 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { PrivacyType, PushNotificationEnriched, PushNotificationStatus, Routes } from '~/types'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 import { markPushNotificationAsRead } from '~/service/firebase/firestore'
-import { loadNotificationObservable } from '~/service/rx-service'
+import { updateNotificationStatusObservable } from '~/service/rx-service'
 import { getUserRoute } from '~/service/global-service'
 
 @Component({
@@ -45,7 +45,10 @@ export default class FollowingNotification extends Vue {
     console.log('FollowingNotification updatePushNotificationStatus')
     if (this.pushNotificationEnriched.pushNotification.status === PushNotificationStatus.NEW) {
       markPushNotificationAsRead(this.pushNotificationEnriched.pushNotification)
-        .then(() => loadNotificationObservable.next())
+        .then(() => updateNotificationStatusObservable.next({
+          id: this.pushNotificationEnriched.pushNotification.id,
+          status: PushNotificationStatus.READ
+        }))
     }
   }
 }

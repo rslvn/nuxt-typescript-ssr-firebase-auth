@@ -4,6 +4,7 @@ import {
   FirebaseQueryOperator,
   OrderBy,
   PushNotification,
+  PushNotificationEnriched,
   PushNotificationStatus,
   WhereClause
 } from '~/types'
@@ -13,6 +14,7 @@ import {
   getModelsByWhereClausesAndOrderBy,
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
+import { getUser } from '~/service/firebase/firestore/user-collection'
 
 export const savePushNotification = async (pushNotification: PushNotification): Promise<PushNotification> => {
   return await saveModel(collection.NOTIFICATION, pushNotification)
@@ -100,6 +102,40 @@ export const getPushNotifications = async (to: string, limit: number, lastVisibl
     toWhereClause,
     statusWhereClause
   )
+}
+
+export const toPushNotificationEnrichedList = async (pushNotifications: PushNotification[]) => {
+  const pushNotificationEnricheds: PushNotificationEnriched[] = []
+
+  for (const pushNotification of pushNotifications) {
+    const fromUser = await getUser(pushNotification.from)
+    if (fromUser) {
+      pushNotificationEnricheds.push({
+        pushNotification,
+        fromUser
+      })
+    }
+  }
+  return pushNotificationEnricheds
+}
+
+export const loadLatestNotifications = (to: string, limit: number) => {
+  return getNewPushNotifications(to)
+    .then(async (pushNotifications) => {
+      const pushNotificationEnrichedList: PushNotificationEnriched[] = await toPushNotificationEnrichedList(pushNotifications)
+
+      const readLimit = limit - pushNotificationEnrichedList.length
+      if (readLimit > 0) {
+        await getReadPushNotifications(to, readLimit)
+          .then(async (readPushNotifications) => {
+            await toPushNotificationEnrichedList(readPushNotifications).then((readPushNotificationEnrichedList) => {
+              readPushNotificationEnrichedList
+                .forEach(pushNotificationEnriched => pushNotificationEnrichedList.push(pushNotificationEnriched))
+            })
+          })
+      }
+      return pushNotificationEnrichedList
+    })
 }
 
 export const markPushNotificationAsRead = async (pushNotification: PushNotification) => {

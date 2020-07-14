@@ -26,7 +26,7 @@
                   >
                     {{ $t('pushNotification.markAsRead') }}
                   </b-button>
-                  <span v-if="!isNew(pushNotificationEnriched)" @click="markAsDeleted(pushNotificationEnriched, index)">
+                  <span @click="markAsDeleted(pushNotificationEnriched)">
                     <b-tooltip :label="$t('common.delete')"
                                type="is-light"
                                position="is-bottom"
@@ -58,16 +58,23 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import InfiniteLoading, { SpinnerType, StateChanger } from 'vue-infinite-loading'
-import { AuthUser, PushNotificationEnriched, PushNotificationStatus, StateNamespace } from '~/types'
+import {
+  AuthUser,
+  PushNotificationEnriched,
+  PushNotificationStatus,
+  StateNamespace,
+  UpdatePushNotificationStatus
+} from '~/types'
 import userPrivateMiddleware from '~/middleware/user-private'
 import PageTitle from '~/components/ui/PageTitle.vue'
 import {
   getPushNotifications,
   markPushNotificationAsDeleted,
-  markPushNotificationAsRead
+  markPushNotificationAsRead,
+  toPushNotificationEnrichedList
 } from '~/service/firebase/firestore'
-import { toPushNotificationEnrichedList } from '~/plugins/notification-plugin'
 import FollowingNotification from '~/components/notification/FollowingNotification.vue'
+import { loadNotificationObservable, updateNotificationStatusObservable } from '~/service/rx-service'
 
 @Component({
   components: { FollowingNotification, PageTitle, InfiniteLoading },
@@ -79,6 +86,26 @@ export default class notification extends Vue {
   stateChanger: StateChanger|null = null
 
   @StateNamespace.auth.Getter readonly authUser: AuthUser
+
+  created () {
+    this.$subscribeTo(updateNotificationStatusObservable.asObservable(),
+      (updatePushNotificationStatus: UpdatePushNotificationStatus) => {
+        const index = this.pushNotificationEnrichedList
+          .findIndex(notification => notification.pushNotification.id === updatePushNotificationStatus.id)
+
+        if (index > -1) {
+          switch (updatePushNotificationStatus.status) {
+            case PushNotificationStatus.READ:
+              this.pushNotificationEnrichedList[index].pushNotification.status = updatePushNotificationStatus.status
+              break
+
+            case PushNotificationStatus.DELETED:
+              this.pushNotificationEnrichedList.splice(index, 1)
+              break
+          }
+        }
+      })
+  }
 
   get spinner (): SpinnerType {
     return 'bubbles'
@@ -116,10 +143,14 @@ export default class notification extends Vue {
   markAsRead (pushNotificationEnriched: PushNotificationEnriched) {
     if (pushNotificationEnriched?.pushNotification?.status !== PushNotificationStatus.READ) {
       markPushNotificationAsRead(pushNotificationEnriched.pushNotification)
+        .then(() => updateNotificationStatusObservable.next({
+          id: pushNotificationEnriched.pushNotification.id,
+          status: PushNotificationStatus.READ
+        }))
     }
   }
 
-  markAsDeleted (pushNotificationEnriched: PushNotificationEnriched, index: number) {
+  markAsDeleted (pushNotificationEnriched: PushNotificationEnriched) {
     if (pushNotificationEnriched?.pushNotification?.status === PushNotificationStatus.DELETED) {
       return
     }
@@ -132,8 +163,11 @@ export default class notification extends Vue {
       type: 'is-danger',
       hasIcon: true,
       onConfirm: () => {
-        this.pushNotificationEnrichedList.splice(index, 1)
         markPushNotificationAsDeleted(pushNotificationEnriched.pushNotification)
+          .then(() => updateNotificationStatusObservable.next({
+            id: pushNotificationEnriched.pushNotification.id,
+            status: PushNotificationStatus.DELETED
+          }))
       }
     })
   }
@@ -141,7 +175,8 @@ export default class notification extends Vue {
   refreshNotifications () {
     this.lastVisible = null
     this.pushNotificationEnrichedList = []
-    this.stateChanger?.reset()
+    this.stateChanger.reset()
+    loadNotificationObservable.next()
   }
 }
 </script>

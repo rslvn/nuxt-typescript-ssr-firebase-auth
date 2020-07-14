@@ -56,7 +56,6 @@ const updateAuthStore = async (firebaseUser: User|null, store: Store<any>) => {
 }
 
 const clearStore = (store: Store<any>) => {
-  store.dispatch(StoreConfig.notification.savePushNotification, [])
   store.dispatch(StoreConfig.notification.clearNotificationMessage)
 }
 
