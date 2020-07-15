@@ -183,7 +183,8 @@ export interface WhereClause {
 export enum collection {
   USER = 'user',
   FOLLOWING = 'following',
-  NOTIFICATION = 'notification'
+  NOTIFICATION = 'notification',
+  USER_DEVICE = 'userDevice'
 }
 
 export interface OrderBy {
@@ -265,4 +266,9 @@ export interface PushNotification extends BaseModel {
   to: string,
   notificationType: PushNotificationType,
   status: PushNotificationStatus
+}
+
+export interface UserDevice extends BaseModel {
+  userId: string
+  deviceToken: string
 }

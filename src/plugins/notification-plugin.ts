@@ -1,49 +1,39 @@
 import { Plugin } from '@nuxt/types'
+import firebase from './fire-init-plugin'
 import { sendNotificationObservable } from '~/service/rx-service'
 import { PushNotification, PushNotificationStatus } from '~/types'
 import { getAlreadyExistPushNotification, savePushNotification } from '~/service/firebase/firestore'
+import 'firebase/messaging'
 
-// export const toPushNotificationEnrichedList = async (pushNotifications: PushNotification[]) => {
-//   const pushNotificationEnricheds: PushNotificationEnriched[] = []
-//
-//   for (const pushNotification of pushNotifications) {
-//     const fromUser = await getUser(pushNotification.from)
-//     if (fromUser) {
-//       pushNotificationEnricheds.push({
-//         pushNotification,
-//         fromUser
-//       })
-//     }
-//   }
-//   return pushNotificationEnricheds
-// }
-//
-// const loadLatestNotifications = (store: Store<any>) => {
-//   const authUser = store.state.auth?.authUser as AuthUser
-//   if (!authUser) {
-//     console.log('No authUser to loadLatestNotifications')
-//     return
-//   }
-//
-//   getNewPushNotifications(authUser.userId)
-//     .then(async (pushNotifications) => {
-//       const pushNotificationEnrichedList: PushNotificationEnriched[] = await toPushNotificationEnrichedList(pushNotifications)
-//
-//       const limit = 5 - pushNotificationEnrichedList.length
-//       if (limit > 0) {
-//         await getReadPushNotifications(authUser.userId, limit)
-//           .then(async (readPushNotifications) => {
-//             await toPushNotificationEnrichedList(readPushNotifications).then((readPushNotificationEnrichedList) => {
-//               readPushNotificationEnrichedList
-//                 .forEach(pushNotificationEnriched => pushNotificationEnrichedList.push(pushNotificationEnriched))
-//             })
-//           })
-//       }
-//
-//       await store.dispatch(StoreConfig.notification.savePushNotification, pushNotificationEnrichedList)
-//     })
-//     .catch((error: Error) => console.log(error))
-// }
+const configureFcm = () => {
+  if (!firebase.messaging.isSupported()) {
+    console.log('Push Notification is not supported')
+    return
+  }
+
+  const messaging = firebase.messaging()
+  messaging.usePublicVapidKey('BC9vtFETeLltpC88TwhJhpGoY2CQLfV0rjKErJ5qm0Al3xS2GRt7lUiGMxc904dK-Xumn_SaLufC7kUAUh6-6Ic')
+  messaging.onTokenRefresh((token) => {
+    console.log('messaging.onTokenRefresh token', token)
+  }, (error) => {
+    console.log('messaging.onTokenRefresh', error)
+  })
+
+  Notification.requestPermission().then((permission) => {
+    console.log('permission: ', permission)
+    messaging.getToken()
+      .then((token) => {
+        console.log('TOKEN:', token)
+        if (token) {
+          messaging.onMessage((payload) => {
+            console.log('FCM payload', payload)
+          })
+        }
+      })
+  }).catch((error: Error) => console.log(error))
+
+  console.log('configureFcm done')
+}
 
 const saveNotification = (notification: PushNotification) => {
   getAlreadyExistPushNotification(notification)
@@ -70,10 +60,7 @@ const notificationPlugin: Plugin = () => {
       console.log('sendNotificationObservable called')
       saveNotification(notification)
     })
-  // loadNotificationObservable.asObservable().subscribe(() => {
-  //   console.log('loadNotificationObservable called')
-  //   loadLatestNotifications(store)
-  // })
+  configureFcm()
 }
 
 export default notificationPlugin
