@@ -1,51 +1,57 @@
-import { Plugin } from '@nuxt/types'
-import { sendNotificationObservable } from '~/service/rx-service'
-import { PushNotification, PushNotificationStatus } from '~/types'
+import { NuxtAppOptions, Plugin } from '@nuxt/types'
+import firebase, { auth } from './fire-init-plugin'
+import { configureFcmObservable, loadNotificationObservable, sendNotificationObservable } from '~/service/rx-service'
+import { LocalStorageKey, PushNotification, PushNotificationStatus } from '~/types'
 import { getAlreadyExistPushNotification, savePushNotification } from '~/service/firebase/firestore'
+import 'firebase/messaging'
+import { saveUserDevice } from '~/service/firebase/firestore/user-device-collection'
+import { notificationNotify } from '~/service/api-service'
 
-// export const toPushNotificationEnrichedList = async (pushNotifications: PushNotification[]) => {
-//   const pushNotificationEnricheds: PushNotificationEnriched[] = []
-//
-//   for (const pushNotification of pushNotifications) {
-//     const fromUser = await getUser(pushNotification.from)
-//     if (fromUser) {
-//       pushNotificationEnricheds.push({
-//         pushNotification,
-//         fromUser
-//       })
-//     }
-//   }
-//   return pushNotificationEnricheds
-// }
-//
-// const loadLatestNotifications = (store: Store<any>) => {
-//   const authUser = store.state.auth?.authUser as AuthUser
-//   if (!authUser) {
-//     console.log('No authUser to loadLatestNotifications')
-//     return
-//   }
-//
-//   getNewPushNotifications(authUser.userId)
-//     .then(async (pushNotifications) => {
-//       const pushNotificationEnrichedList: PushNotificationEnriched[] = await toPushNotificationEnrichedList(pushNotifications)
-//
-//       const limit = 5 - pushNotificationEnrichedList.length
-//       if (limit > 0) {
-//         await getReadPushNotifications(authUser.userId, limit)
-//           .then(async (readPushNotifications) => {
-//             await toPushNotificationEnrichedList(readPushNotifications).then((readPushNotificationEnrichedList) => {
-//               readPushNotificationEnrichedList
-//                 .forEach(pushNotificationEnriched => pushNotificationEnrichedList.push(pushNotificationEnriched))
-//             })
-//           })
-//       }
-//
-//       await store.dispatch(StoreConfig.notification.savePushNotification, pushNotificationEnrichedList)
-//     })
-//     .catch((error: Error) => console.log(error))
-// }
+let messagingLoaded = false
 
-const saveNotification = (notification: PushNotification) => {
+const configureFcm = () => {
+  if (!firebase.messaging.isSupported()) {
+    console.log('Push Notification is not supported')
+    return
+  }
+  const messaging = firebase.messaging()
+  if (!messagingLoaded) {
+    messaging.usePublicVapidKey(process.env.FIREBASE_MESSAGING_VAP_ID)
+    messaging.onTokenRefresh((token) => {
+      console.log('messaging.onTokenRefresh token', token)
+    }, (error) => {
+      console.log('messaging.onTokenRefresh', error)
+    })
+    messagingLoaded = true
+  }
+
+  Notification.requestPermission().then((permission) => {
+    console.log('permission: ', permission, auth.currentUser.uid)
+    messaging.getToken()
+      .then((token) => {
+        const user = auth.currentUser
+        if (token && user) {
+          saveUserDevice({
+            userId: user.uid,
+            deviceToken: token
+          })
+            .catch(() => {
+            })
+
+          messaging.onMessage((payload) => {
+            console.log('FCM payload', payload)
+            loadNotificationObservable.next()
+          })
+
+          localStorage.setItem(LocalStorageKey.FCM_TOKEN, token)
+        }
+      })
+  }).catch((error: Error) => console.log(error))
+
+  console.log('configureFcm done')
+}
+
+const sendNotification = (app: NuxtAppOptions, notification: PushNotification) => {
   getAlreadyExistPushNotification(notification)
     .then((existNotifications) => {
       console.log('existNotifications', existNotifications)
@@ -58,22 +64,24 @@ const saveNotification = (notification: PushNotification) => {
     })
     .then(() => {
       savePushNotification(notification)
-        .then(saveNotification => console.log('savePushNotification', saveNotification))
+        .then((saveNotification) => {
+          notificationNotify(app.$axios, saveNotification.id)
+            .catch((error: Error) => console.log(error))
+        })
     })
     .catch((error: Error) => console.log(error))
 }
 
-const notificationPlugin: Plugin = () => {
+const notificationPlugin: Plugin = ({ app }) => {
   sendNotificationObservable
     .asObservable()
     .subscribe((notification: PushNotification) => {
       console.log('sendNotificationObservable called')
-      saveNotification(notification)
+      sendNotification(app, notification)
     })
-  // loadNotificationObservable.asObservable().subscribe(() => {
-  //   console.log('loadNotificationObservable called')
-  //   loadLatestNotifications(store)
-  // })
+  configureFcmObservable.asObservable().subscribe(() => {
+    configureFcm()
+  })
 }
 
 export default notificationPlugin

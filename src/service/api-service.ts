@@ -17,3 +17,11 @@ export const authClaims = async (
   const claims = { username }
   return await axios.post(ApiConfig.auth.claims, { claims })
 }
+
+export const notificationNotify = async (
+  axios: NuxtAxiosInstance,
+  notificationId: string
+) => {
+  const notify = ApiConfig.notification.notify
+  return await axios.post(notify.context.replace(notify.params.notificationId, notificationId))
+}

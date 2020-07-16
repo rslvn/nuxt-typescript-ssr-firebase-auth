@@ -161,7 +161,7 @@ export interface PagingResponse<T> {
 }
 
 /**
- * firestore collection models
+ * FIRESTORE types
  */
 export enum FirebaseQueryOperator {
   LT = '<',
@@ -183,7 +183,8 @@ export interface WhereClause {
 export enum collection {
   USER = 'user',
   FOLLOWING = 'following',
-  NOTIFICATION = 'notification'
+  NOTIFICATION = 'notification',
+  USER_DEVICE = 'userDevice'
 }
 
 export interface OrderBy {
@@ -211,6 +212,10 @@ export const CollectionField = {
     username: 'username',
     privacy: 'privacy',
     name: 'name'
+  },
+  USER_DEVICE: {
+    userId: 'userId',
+    deviceToken: 'deviceToken'
   },
   FOLLOWING: {
     follower: 'follower',
@@ -265,4 +270,9 @@ export interface PushNotification extends BaseModel {
   to: string,
   notificationType: PushNotificationType,
   status: PushNotificationStatus
+}
+
+export interface UserDevice extends BaseModel {
+  userId: string
+  deviceToken: string
 }

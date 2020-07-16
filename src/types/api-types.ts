@@ -35,10 +35,18 @@ export interface AuthUser {
 }
 
 export const ApiConfig = {
+  healthy: '/healthy',
   auth: {
-    healthy: '/auth/healthy',
     verify: '/auth/verify',
     claims: '/auth/claims'
+  },
+  notification: {
+    notify: {
+      context: '/notification/notify/:notificationId',
+      params: {
+        notificationId: ':notificationId'
+      }
+    }
   }
 }
 

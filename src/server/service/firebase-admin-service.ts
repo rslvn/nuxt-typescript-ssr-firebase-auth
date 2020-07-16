@@ -1,6 +1,19 @@
-import { AuthUser, collection, FirebaseClaimKey, FirebaseClaims, ProviderType, User } from '../../types'
+import {
+  AuthUser,
+  collection,
+  CollectionField,
+  FirebaseClaimKey,
+  FirebaseClaims,
+  FirebaseQueryOperator,
+  ProviderType,
+  PushNotification,
+  User,
+  UserDevice,
+  WhereClause
+} from '../../types'
 import admin from './firebase-admin-init'
-import DecodedIdToken = admin.auth.DecodedIdToken;
+import { deleteModel, getModelById, getModelsByWhereClauses } from './firestore-admin-collection-service'
+import DecodedIdToken = admin.auth.DecodedIdToken
 
 export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
   return admin.auth()
@@ -47,12 +60,24 @@ export const toAuthUser = (decodedIdToken: DecodedIdToken, firebaseClaims: Fireb
   }
 }
 
-export const getUser = async (uid: string): Promise<User> => {
-  return await admin.firestore()
-    .collection(collection.USER)
-    .doc(uid)
-    .get()
-    .then((document) => {
-      return document.data() as User
-    })
+export const getUser = async (userId: string): Promise<User> => {
+  return await getModelById(collection.USER, userId)
+}
+
+export const getPushNotification = async (notificationId: string): Promise<PushNotification> => {
+  return await getModelById(collection.NOTIFICATION, notificationId)
+}
+
+export const getUserDevices = async (userId: string): Promise<UserDevice[]> => {
+  const userWhereClause: WhereClause = {
+    field: CollectionField.USER_DEVICE.userId,
+    operator: FirebaseQueryOperator.EQ,
+    value: userId
+  }
+
+  return await getModelsByWhereClauses(collection.USER_DEVICE, userWhereClause)
+}
+
+export const deleteUserDevice = (userDevice: UserDevice) => {
+  return deleteModel(collection.USER_DEVICE, userDevice)
 }

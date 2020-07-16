@@ -9,26 +9,32 @@ export const state = (): RootState => ({})
 
 export const actions: ActionTree<RootState, RootState> = {
   async nuxtServerInit ({ commit }, { route, app }: Context) {
-    console.log(`>>>>>>>>>> nuxtServerInit for path: ${route.path}`)
-    const token = app.$cookies.get(AppCookie.TOKEN)
-    if (token) {
-      commit(StoreConfig.loading.setLoading, true)
-      console.log('Token FOUND')
-      return await authVerify(app.$axios)
-        .then(authUser => commit(StoreConfig.auth.setAuthUser, authUser))
-        .catch((error: AxiosError) => {
-          if (error?.response?.status === 401) {
-            console.log('Token DECODED')
-            commit(StoreConfig.auth.setAuthUser, decodeToken(token))
-          } else {
-            console.log('Error: ', error)
-            commit(StoreConfig.auth.forceLogout, true)
-            app.$cookies.remove(AppCookie.TOKEN)
-          }
-        })
-        .finally(() => commit(StoreConfig.loading.setLoading, false))
-    } else {
-      console.log('No token')
-    }
+    return await Promise.resolve()
+      .then(async () => {
+        console.log(`>>>>>>>>>> nuxtServerInit for path: ${route.path}`)
+
+        const token = app.$cookies.get(AppCookie.TOKEN)
+        if (!token) {
+          console.log('No token')
+          return
+        }
+
+        console.log('Token FOUND')
+
+        await authVerify(app.$axios)
+          .then(authUser => commit(StoreConfig.auth.setAuthUser, authUser))
+          .catch((error: AxiosError) => {
+            if (error?.response?.status === 401) {
+              console.log('Token DECODED')
+              commit(StoreConfig.auth.setAuthUser, decodeToken(token))
+            } else {
+              console.log('Error: ', error)
+              commit(StoreConfig.auth.forceLogout, true)
+              app.$cookies.remove(AppCookie.TOKEN)
+            }
+          })
+      })
+      .catch((error: Error) => console.log(error))
+      .finally(() => commit(StoreConfig.loading.setLoading, false))
   }
 }

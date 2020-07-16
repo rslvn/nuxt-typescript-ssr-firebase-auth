@@ -4,40 +4,40 @@ import { ApiErrorCode } from '../types';
 import { FirebaseError } from 'firebase-admin';
 
 const handleFirebaseError = (response: Response, error: FirebaseError) => {
-    console.error('Firebase error', error);
-    switch (error?.code) {
-        case 'auth/id-token-expired':
-            response.status(UNAUTHORIZED).send('re-authentication required')
-            break
+  console.error('Firebase error', error);
+  switch (error?.code) {
+    case 'auth/id-token-expired':
+      response.status(UNAUTHORIZED).send('re-authentication required')
+      break
 
-        default:
-            response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
-    }
+    default:
+      response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
+  }
 }
 
 export const handleGenericError = (response: Response, error: Error) => {
-    console.error('Error occurred', error)
+  console.error('Error occurred', error)
 
-    switch (error.message) {
-        case ApiErrorCode.FORBIDDEN:
-            response.status(FORBIDDEN).send(error.message)
-            break
+  switch (error.message) {
+    case ApiErrorCode.FORBIDDEN:
+      response.status(FORBIDDEN).send(error.message)
+      break
 
-        case ApiErrorCode.BAD_REQUEST:
-            response.status(BAD_REQUEST).send(error.message)
-            break
+    case ApiErrorCode.BAD_REQUEST:
+      response.status(BAD_REQUEST).send(error.message)
+      break
 
-        default:
-            response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
-    }
+    default:
+      response.status(INTERNAL_SERVER_ERROR).send(ApiErrorCode.INTERNAL_ERROR)
+  }
 }
 
-export const handleApiErrors = (response: Response, error: Error | FirebaseError) => {
-    isFirebaseError(error)
-        ? handleFirebaseError(response, error as FirebaseError)
-        : handleGenericError(response, error as Error)
+export const handleApiErrors = (response: Response, error: Error|FirebaseError) => {
+  isFirebaseError(error)
+    ? handleFirebaseError(response, error as FirebaseError)
+    : handleGenericError(response, error as Error)
 }
 
 const isFirebaseError = (error: any) => {
-    return !!error.code
+  return !!error.code
 }

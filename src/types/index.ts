@@ -43,6 +43,10 @@ export enum AppCookie {
   REMEMBER_ME = 'rememberMe'
 }
 
+export enum LocalStorageKey {
+  FCM_TOKEN = 'fcmToken'
+}
+
 export const cookieOptions: CookieSerializeOptions = { sameSite: 'lax', path: '/' }
 
 export const sessionCookieOptionsDev: CookieSerializeOptions = { sameSite: 'none', path: '/' }
