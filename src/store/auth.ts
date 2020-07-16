@@ -8,6 +8,7 @@ import {
   DefaultCoverPhoto,
   DefaultProfilePhoto,
   Image,
+  LocalStorageKey,
   LoginCredentials,
   PrivacyType,
   ProviderType,
@@ -30,10 +31,11 @@ import { handleError } from '~/service/error-service'
 import { reauthenticateObservable } from '~/service/rx-service'
 import { getUser, saveUser } from '~/service/firebase/firestore'
 import { authClaims } from '~/service/api-service'
-import UserCredential = firebase.auth.UserCredential;
-import ActionCodeInfo = firebase.auth.ActionCodeInfo;
-import Persistence = firebase.auth.Auth.Persistence;
-import EmailAuthProvider = firebase.auth.EmailAuthProvider;
+import { deleteUserDeviceByToken } from '~/service/firebase/firestore/user-device-collection'
+import UserCredential = firebase.auth.UserCredential
+import ActionCodeInfo = firebase.auth.ActionCodeInfo
+import Persistence = firebase.auth.Auth.Persistence
+import EmailAuthProvider = firebase.auth.EmailAuthProvider
 
 export const state = (): AuthState => ({
   authUser: undefined,
@@ -249,7 +251,7 @@ export const actions: ActionTree<AuthState, RootState> = {
         await auth.applyActionCode(actionCode)
           .then(() => console.log('Action applied'))
         return info.data.email
-      }).then((email: string | null | undefined) => {
+      }).then((email: string|null|undefined) => {
         if (email) {
           auth.sendPasswordResetEmail(email)
             .then(() => console.log('PasswordResetEmail sent'))
@@ -298,6 +300,11 @@ export const actions: ActionTree<AuthState, RootState> = {
   },
 
   async logout ({ dispatch, commit }) {
+    const fcmToken = localStorage.getItem(LocalStorageKey.FCM_TOKEN)
+    if (fcmToken) {
+      await deleteUserDeviceByToken(fcmToken)
+    }
+
     return await auth.signOut()
       .then(() => {
         // @ts-ignore

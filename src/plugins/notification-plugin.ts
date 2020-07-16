@@ -1,33 +1,49 @@
-import { Plugin } from '@nuxt/types'
-import firebase from './fire-init-plugin'
-import { sendNotificationObservable } from '~/service/rx-service'
-import { PushNotification, PushNotificationStatus } from '~/types'
+import { NuxtAppOptions, Plugin } from '@nuxt/types'
+import firebase, { auth } from './fire-init-plugin'
+import { configureFcmObservable, loadNotificationObservable, sendNotificationObservable } from '~/service/rx-service'
+import { LocalStorageKey, PushNotification, PushNotificationStatus } from '~/types'
 import { getAlreadyExistPushNotification, savePushNotification } from '~/service/firebase/firestore'
 import 'firebase/messaging'
+import { saveUserDevice } from '~/service/firebase/firestore/user-device-collection'
+import { notificationNotify } from '~/service/api-service'
+
+let messagingLoaded = false
 
 const configureFcm = () => {
   if (!firebase.messaging.isSupported()) {
     console.log('Push Notification is not supported')
     return
   }
-
   const messaging = firebase.messaging()
-  messaging.usePublicVapidKey('BC9vtFETeLltpC88TwhJhpGoY2CQLfV0rjKErJ5qm0Al3xS2GRt7lUiGMxc904dK-Xumn_SaLufC7kUAUh6-6Ic')
-  messaging.onTokenRefresh((token) => {
-    console.log('messaging.onTokenRefresh token', token)
-  }, (error) => {
-    console.log('messaging.onTokenRefresh', error)
-  })
+  if (!messagingLoaded) {
+    messaging.usePublicVapidKey('BC9vtFETeLltpC88TwhJhpGoY2CQLfV0rjKErJ5qm0Al3xS2GRt7lUiGMxc904dK-Xumn_SaLufC7kUAUh6-6Ic')
+    messaging.onTokenRefresh((token) => {
+      console.log('messaging.onTokenRefresh token', token)
+    }, (error) => {
+      console.log('messaging.onTokenRefresh', error)
+    })
+    messagingLoaded = true
+  }
 
   Notification.requestPermission().then((permission) => {
-    console.log('permission: ', permission)
+    console.log('permission: ', permission, auth.currentUser.uid)
     messaging.getToken()
       .then((token) => {
-        console.log('TOKEN:', token)
-        if (token) {
+        const user = auth.currentUser
+        if (token && user) {
+          saveUserDevice({
+            userId: user.uid,
+            deviceToken: token
+          })
+            .catch(() => {
+            })
+
           messaging.onMessage((payload) => {
             console.log('FCM payload', payload)
+            loadNotificationObservable.next()
           })
+
+          localStorage.setItem(LocalStorageKey.FCM_TOKEN, token)
         }
       })
   }).catch((error: Error) => console.log(error))
@@ -35,7 +51,7 @@ const configureFcm = () => {
   console.log('configureFcm done')
 }
 
-const saveNotification = (notification: PushNotification) => {
+const sendNotification = (app: NuxtAppOptions, notification: PushNotification) => {
   getAlreadyExistPushNotification(notification)
     .then((existNotifications) => {
       console.log('existNotifications', existNotifications)
@@ -48,19 +64,24 @@ const saveNotification = (notification: PushNotification) => {
     })
     .then(() => {
       savePushNotification(notification)
-        .then(saveNotification => console.log('savePushNotification', saveNotification))
+        .then((saveNotification) => {
+          notificationNotify(app.$axios, saveNotification.id)
+            .catch((error: Error) => console.log(error))
+        })
     })
     .catch((error: Error) => console.log(error))
 }
 
-const notificationPlugin: Plugin = () => {
+const notificationPlugin: Plugin = ({ app }) => {
   sendNotificationObservable
     .asObservable()
     .subscribe((notification: PushNotification) => {
       console.log('sendNotificationObservable called')
-      saveNotification(notification)
+      sendNotification(app, notification)
     })
-  configureFcm()
+  configureFcmObservable.asObservable().subscribe(() => {
+    configureFcm()
+  })
 }
 
 export default notificationPlugin

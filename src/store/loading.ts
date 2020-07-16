@@ -2,7 +2,7 @@ import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import { LoadingState, RootState } from '~/types'
 
 export const state = (): LoadingState => ({
-  loading: false
+  loading: true
 })
 
 export const getters: GetterTree<LoadingState, RootState> = {

@@ -4,7 +4,8 @@ import { json } from 'body-parser'
 import cors from 'cors'
 import { RuntimeOptions, runWith } from 'firebase-functions'
 import { ApiConfig } from '../types';
-import { claimsHandler, healthyHandler, tokenHandler, verifyHandler } from './auth-handler';
+import { claimsHandler, verifyHandler } from './auth-handler';
+import { healthyHandler, tokenHandler } from './api-handler'
 
 const router = Router()
 router.get(ApiConfig.auth.healthy, healthyHandler)
@@ -18,10 +19,10 @@ app.use(cors({ origin: true }))
 app.use('/api', router)
 
 const runtimeOpts: RuntimeOptions = {
-    timeoutSeconds: 300,
-    memory: '1GB'
+  timeoutSeconds: 300,
+  memory: '1GB'
 }
 
 export const apiApp = runWith(runtimeOpts)
-    .https
-    .onRequest(app)
+  .https
+  .onRequest(app)

@@ -7,6 +7,7 @@ import {
   AppCookie,
   AuthUser,
   FirebaseClaimKey,
+  LocalStorageKey,
   QueryParameters,
   Routes,
   sessionCookieOptionsDev,
@@ -15,7 +16,7 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
-import { loadNotificationObservable } from '~/service/rx-service'
+import { configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -59,6 +60,12 @@ const clearStore = (store: Store<any>) => {
   store.dispatch(StoreConfig.notification.clearNotificationMessage)
 }
 
+const logoutActions = (store: Store<any>, app: NuxtAppOptions) => {
+  app.$cookies.remove(AppCookie.TOKEN)
+  app.$axios.setToken(false)
+  clearStore(store)
+  localStorage.removeItem(LocalStorageKey.FCM_TOKEN)
+}
 const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd
 
 const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => {
@@ -88,13 +95,12 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
               app.$axios.setToken(token, 'Bearer')
               app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
               loadNotificationObservable.next()
+              configureFcmObservable.next()
             })
 
           redirect(getNextRoute(route))
         } else {
-          app.$cookies.remove(AppCookie.TOKEN)
-          app.$axios.setToken(false)
-          clearStore(store)
+          logoutActions(store, app)
           if (authenticatedAllowed(route)) {
             redirect(Routes.LOGIN)
           }

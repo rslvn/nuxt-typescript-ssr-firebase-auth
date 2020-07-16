@@ -213,6 +213,10 @@ export const CollectionField = {
     privacy: 'privacy',
     name: 'name'
   },
+  USER_DEVICE: {
+    userId: 'userId',
+    deviceToken: 'deviceToken'
+  },
   FOLLOWING: {
     follower: 'follower',
     following: 'following'
