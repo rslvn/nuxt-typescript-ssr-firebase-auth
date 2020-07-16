@@ -19,6 +19,7 @@ jobs:
             echo "FIREBASE_MESSAGING_SENDER_ID=$FIREBASE_MESSAGING_SENDER_ID" >> src/.env
             echo "FIREBASE_APP_ID=$FIREBASE_APP_ID" >> src/.env
             echo "FIREBASE_MEASUREMENT_ID=$FIREBASE_MEASUREMENT_ID" >> src/.env
+            echo "FIREBASE_MESSAGING_VAP_ID=FIREBASE_MESSAGING_VAP_ID" >> src/.env
       - run:
           name: Install functions dependencies
           command: npm --prefix functions install

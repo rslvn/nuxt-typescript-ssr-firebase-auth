@@ -30,6 +30,7 @@ See the [Features](#features) for more functionalities
         - [x] performance configuration
         - [x] the url same as hosting
         - [x] dynamic sitemap
+        - [x] send notification to user devices
     - [x] firebase-storage
         - [x] profile photo
         - [x] cover photo
@@ -56,6 +57,12 @@ See the [Features](#features) for more functionalities
         - [x] link/unlink facebook authenticator
         - [x] remember me
         - [x] user custom claims
+    - [x] messaging (FCM)
+        - send push notification
+        - listen push notification
+        - [x] token
+            - save deviceToken on login
+            - remove device token on logout
 - [x] buefy
 - [x] nuxt-i18n
     - [x] English
