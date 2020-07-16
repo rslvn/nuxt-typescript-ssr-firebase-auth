@@ -16,7 +16,7 @@ const configureFcm = () => {
   }
   const messaging = firebase.messaging()
   if (!messagingLoaded) {
-    messaging.usePublicVapidKey('BC9vtFETeLltpC88TwhJhpGoY2CQLfV0rjKErJ5qm0Al3xS2GRt7lUiGMxc904dK-Xumn_SaLufC7kUAUh6-6Ic')
+    messaging.usePublicVapidKey(process.env.FIREBASE_MESSAGING_VAP_ID)
     messaging.onTokenRefresh((token) => {
       console.log('messaging.onTokenRefresh token', token)
     }, (error) => {

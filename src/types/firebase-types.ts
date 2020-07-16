@@ -161,7 +161,7 @@ export interface PagingResponse<T> {
 }
 
 /**
- * firestore collection models
+ * FIRESTORE types
  */
 export enum FirebaseQueryOperator {
   LT = '<',

@@ -11,6 +11,7 @@ export const saveUserDevice = async (userDevice: UserDevice): Promise<UserDevice
 export const deleteUserDeviceByToken = (deviceToken: string) => {
   return getUserDevicesByDeviceToken(deviceToken)
     .then((userDevices) => {
+      console.log(`found ${userDevices.length} userDevices for the token`)
       if (userDevices.length === 0) {
         return
       }
