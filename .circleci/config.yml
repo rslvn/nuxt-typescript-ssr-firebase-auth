@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Add env
+          name: Add .env
           command: |
             echo "WEBSITE_URL=$WEBSITE_URL"> src/.env
             echo "API_URL=API_URL">> src/.env
@@ -20,6 +20,27 @@ jobs:
             echo "FIREBASE_APP_ID=$FIREBASE_APP_ID" >> src/.env
             echo "FIREBASE_MEASUREMENT_ID=$FIREBASE_MEASUREMENT_ID" >> src/.env
             echo "FIREBASE_MESSAGING_VAP_ID=FIREBASE_MESSAGING_VAP_ID" >> src/.env
+      - run:
+          name: Add firebase-messaging-sw.js
+          command: |
+            echo "importScripts('https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js')" > src/static/firebase-messaging-sw.js
+            echo "importScripts('https://www.gstatic.com/firebasejs/7.15.0/firebase-messaging.js')" >> src/static/firebase-messaging-sw.js
+            echo "" >> src/static/firebase-messaging-sw.js
+            echo "firebase.initializeApp({" >> src/static/firebase-messaging-sw.js
+            echo "  apiKey: '$FIREBASE_API_KEY'," >> src/static/firebase-messaging-sw.js
+            echo "  projectId: '$FIREBASE_PROJECT_ID'," >> src/static/firebase-messaging-sw.js
+            echo "  messagingSenderId: '$FIREBASE_MESSAGING_SENDER_ID'," >> src/static/firebase-messaging-sw.js
+            echo "  appId: '$FIREBASE_APP_ID'" >> src/static/firebase-messaging-sw.js
+            echo "})" >> src/static/firebase-messaging-sw.js
+            echo "" >> src/static/firebase-messaging-sw.js
+            echo "const messaging = firebase.messaging()" >> src/static/firebase-messaging-sw.js
+            echo "" >> src/static/firebase-messaging-sw.js
+            echo "messaging.setBackgroundMessageHandler((payload) => {" >> src/static/firebase-messaging-sw.js
+            echo "  console.log('firebase-messaging-sw.js setBackgroundMessageHandler', payload)" >> src/static/firebase-messaging-sw.js
+            echo "})" >> src/static/firebase-messaging-sw.js
+            echo "" >> src/static/firebase-messaging-sw.js
+            echo ""
+            cat src/static/firebase-messaging-sw.js
       - run:
           name: Install functions dependencies
           command: npm --prefix functions install

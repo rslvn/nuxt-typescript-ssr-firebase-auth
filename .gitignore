@@ -106,7 +106,7 @@ functions/lib
 functions/nuxt.config.ts
 public
 firebase-admin-credentials.json
-
+firebase-messaging-sw.js
 package-lock.json
 
 tmp
