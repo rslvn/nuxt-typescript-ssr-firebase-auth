@@ -66,6 +66,13 @@ export enum AppCookie {
   TOKEN = '__session',
 }
 
+export enum AppHeader {
+  SESSION_ID = 'ns-session-id',
+  REQUEST_ID = 'ns-request-id'
+}
+
+export const AuthHeaderValuePrefix = 'Bearer '
+
 // FIRESTORE types
 export enum FirebaseQueryOperator {
   LT = '<',

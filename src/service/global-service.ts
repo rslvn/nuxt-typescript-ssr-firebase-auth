@@ -2,10 +2,16 @@ import moment from 'moment'
 import slug from 'slug'
 import { v4 as uuidv4 } from 'uuid'
 import { Route } from 'vue-router'
-import { QueryParameters, Routes, RouteType } from '~/types'
+import { QueryParameters, Routes, RouteType } from '../types'
 
 const timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
 const slugDelimiter = '-'
+
+export const dashAllRegex = new RegExp('-', 'g')
+
+export const generateUuid = () => {
+  return uuidv4().replace(dashAllRegex, '')
+}
 
 export const log = (...anyMessages: any[]) => {
   console.log(`${moment().format(timestampFormat)} | `, ...anyMessages)
@@ -20,7 +26,7 @@ export const getNewFileName = (fileName: string): string => {
   if (fileName) {
     const baseNameSlug = slugify(basename(fileName))
     const extension = fileName.split('.').pop()
-    return `${baseNameSlug}${slugDelimiter}${uuidv4()}.${extension}`
+    return `${baseNameSlug}${slugDelimiter}${generateUuid()}.${extension}`
   }
   return fileName
 }
@@ -38,7 +44,7 @@ export const slugify = (text: string): string => {
   return slug(text, slugDelimiter)
 }
 
-export const toBoolean = (value: string | boolean): boolean => {
+export const toBoolean = (value: string|boolean): boolean => {
   return typeof value === 'boolean' ? value : JSON.parse(value)
 }
 

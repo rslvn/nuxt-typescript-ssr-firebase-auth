@@ -4,7 +4,7 @@ import { Store } from 'vuex'
 import { Location, Route } from 'vue-router'
 import { auth } from '~/plugins/fire-init-plugin'
 import {
-  AppCookie,
+  AppCookie, AppTokenType,
   AuthUser,
   FirebaseClaimKey,
   LocalStorageKey,
@@ -16,7 +16,7 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
-import { configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
+import { configureAxiosObservable, configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -65,6 +65,7 @@ const logoutActions = (store: Store<any>, app: NuxtAppOptions) => {
   app.$axios.setToken(false)
   clearStore(store)
   localStorage.removeItem(LocalStorageKey.FCM_TOKEN)
+  configureAxiosObservable.next()
 }
 const cookieOptions = process.env.NODE_ENV === 'development' ? sessionCookieOptionsDev : sessionCookieOptionsProd
 
@@ -92,7 +93,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
         if (firebaseUser) {
           await firebaseUser.getIdToken()
             .then((token: string) => {
-              app.$axios.setToken(token, 'Bearer')
+              app.$axios.setToken(token, AppTokenType)
               app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
               loadNotificationObservable.next()
               configureFcmObservable.next()
@@ -117,7 +118,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
 
     firebaseUser.getIdToken()
       .then((token: string) => {
-        app.$axios.setToken(token, 'Bearer')
+        app.$axios.setToken(token, AppTokenType)
         app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
       })
   })

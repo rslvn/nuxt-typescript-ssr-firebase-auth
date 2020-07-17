@@ -22,7 +22,6 @@ export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
 }
 
 export const setCustomClaims = async (uid: string, firebaseClaims: FirebaseClaims): Promise<void> => {
-  console.log('setCustomClaims', firebaseClaims)
   await admin.auth().setCustomUserClaims(uid, firebaseClaims);
 }
 
@@ -32,9 +31,9 @@ export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {
     return { username }
   }
 
-  const user = await getUser(decodedIdToken.sub)
+  const user = await getUser(decodedIdToken.uid)
   if (!user) {
-    throw new Error('User not found by id: ' + decodedIdToken.sub)
+    throw new Error('User not found by id: ' + decodedIdToken.uid)
   }
 
   username = user.username || user.id

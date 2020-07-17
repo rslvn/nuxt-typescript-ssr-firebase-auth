@@ -50,6 +50,10 @@ jobs:
       - run:
           name: deploy to Firebase Hosting
           command: ./src/node_modules/.bin/firebase deploy --project=$FIREBASE_PROJECT_ID --token=$FIREBASE_CI_TOKEN
+      - run:
+          name: Call to warm up
+          command: |
+            curl "$WEBSITE_URL"
 
 workflows:
   version: 2

@@ -1,0 +1,7 @@
+import { v4 as uuidv4 } from 'uuid'
+
+export const dashAllRegex = new RegExp('-', 'g')
+
+export const generateUuid = () => {
+  return uuidv4().replace(dashAllRegex, '')
+}

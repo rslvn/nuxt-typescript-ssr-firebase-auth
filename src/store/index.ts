@@ -3,7 +3,7 @@ import { Context } from '@nuxt/types'
 import { AxiosError } from 'axios'
 import { AppCookie, RootState, StoreConfig } from '../types'
 import { decodeToken } from '~/service/firebase/firebase-service'
-import { authVerify } from '~/service/api-service'
+import { authVerify, configureAxiosDefaults } from '~/service/api-service'
 
 export const state = (): RootState => ({})
 
@@ -12,6 +12,8 @@ export const actions: ActionTree<RootState, RootState> = {
     return await Promise.resolve()
       .then(async () => {
         console.log(`>>>>>>>>>> nuxtServerInit for path: ${route.path}`)
+
+        configureAxiosDefaults(app.$axios)
 
         const token = app.$cookies.get(AppCookie.TOKEN)
         if (!token) {

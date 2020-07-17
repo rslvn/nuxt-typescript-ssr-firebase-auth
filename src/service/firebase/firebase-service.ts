@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode'
 import { AuthUser, DefaultProfilePhoto, FirebaseClaimKey, Image, ProviderData, ProviderType } from '~/types'
 import { auth } from '~/plugins/fire-init-plugin'
 
-export const getProviderData = (userInfo: UserInfo | null | undefined): ProviderData | null => {
+export const getProviderData = (userInfo: UserInfo|null|undefined): ProviderData|null => {
   return userInfo ? {
     providerType: userInfo.providerId as ProviderType,
     displayName: userInfo.displayName,

@@ -1,34 +1,27 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { OK } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode, AppCookie } from '../types'
-import { handleApiErrors } from '../service/api-error-service';
+import { ApiErrorCode } from '../types'
+import {
+  extractHeadersFromRequest,
+  getTokenFromRequest,
+  handleApiErrors,
+  handlerCalledLog
+} from '../service/request-handler-service';
 import { getDecodedIdToken } from '../service/firebase-admin-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
 
-const bearer = 'Bearer '
-
-const getTokenFromRequest = (req: Request) => {
-  return Promise.resolve().then(() => {
-    const token = req.headers.authorization && req.headers.authorization.startsWith(bearer)
-      ? req.headers.authorization.split(bearer)[1] : null
-
-    return token || req.cookies[AppCookie.TOKEN] as string
-  })
-}
-
-export const getDecodedIdTokenFromRequest = (req: Request) => {
-  return Promise.resolve().then(() => {
-    if (!req.user) {
-      throw new Error(ApiErrorCode.FORBIDDEN)
-    }
-
-    return req.user as DecodedIdToken
-  })
+export const extractHeaderHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+  await extractHeadersFromRequest(req)
+    .then(() => {
+      handlerCalledLog(req, 'extractHeaderHandler')
+      next()
+    })
+    .catch((error: Error) => handleApiErrors(req, res, error))
 }
 
 export const tokenHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(`${req.originalUrl} - tokenHandler called`)
+  handlerCalledLog(req, 'tokenHandler')
   await getTokenFromRequest(req)
     .then(async (token: string) => {
       if (!token) {
@@ -42,7 +35,7 @@ export const tokenHandler: RequestHandler = async (req: Request, res: Response, 
 
       next()
     })
-    .catch((error: Error) => handleApiErrors(res, error))
+    .catch((error: Error) => handleApiErrors(req, res, error))
 }
 
 export const healthyHandler: RequestHandler = (req, res) => {

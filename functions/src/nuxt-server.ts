@@ -4,8 +4,6 @@ import express, { Request, Response } from 'express'
 
 const { Nuxt } = require('nuxt');
 
-console.log('Creating nuxtOnFunction function.')
-
 const config = {
   // Don't start in dev mode.
   dev: false,
@@ -32,6 +30,7 @@ const readyPromise = nuxt
 
 const handleRequest = async (req: Request, res: Response) => {
   if (!isReady) {
+    console.log('Creating nuxtOnFunction function.')
     await readyPromise
   }
   res.set('Cache-Control', 'public, max-age=31536000, s-maxage=1000')

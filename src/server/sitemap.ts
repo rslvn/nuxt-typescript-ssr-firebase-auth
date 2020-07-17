@@ -2,7 +2,7 @@ import { createGzip } from 'zlib'
 import express, { Request, RequestHandler, Response, Router } from 'express'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { Routes } from '../types'
-import { handleGenericError } from './service/api-error-service'
+import { handleGenericError } from './service/request-handler-service'
 
 const staticRoutes = [
   Routes.HOME.path,
@@ -15,7 +15,7 @@ const staticRoutes = [
   Routes.IMAGES.path
 ]
 
-let sitemap: Buffer | null = null
+let sitemap: Buffer|null = null
 
 const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
   console.log(`${req.originalUrl} - called`)
@@ -47,7 +47,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
         throw e
       })
     })
-    .catch(error => handleGenericError(res, error))
+    .catch(error => handleGenericError(req, res, error))
 }
 
 const app = express()
