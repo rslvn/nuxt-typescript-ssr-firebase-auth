@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
-import { FirebaseError } from 'firebase-admin'
+import admin, { FirebaseError } from 'firebase-admin'
 import { BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, UNAUTHORIZED } from 'http-status-codes'
 import { ApiErrorCode } from '../../types'
 import { AppCookie, AppHeader, AuthHeaderValuePrefix } from '../../../functions/src/types'
 import { generateUuid } from '../../service/global-service'
+import DecodedIdToken = admin.auth.DecodedIdToken
 
 const isFirebaseError = (error: any) => {
   return !!error.code
