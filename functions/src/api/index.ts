@@ -5,14 +5,14 @@ import cors from 'cors'
 import { RuntimeOptions, runWith } from 'firebase-functions'
 import { ApiConfig } from '../types';
 import { claimsHandler, verifyHandler } from './auth-handler'
-import { healthyHandler, tokenHandler } from './api-handler'
+import { extractHeaderHandler, healthyHandler, tokenHandler } from './api-handler'
 import { notifyHandler } from './notification-handler'
 
 const router = Router()
 router.get(ApiConfig.healthy, healthyHandler)
-router.get(ApiConfig.auth.verify, tokenHandler, verifyHandler)
-router.post(ApiConfig.auth.claims, tokenHandler, claimsHandler)
-router.post(ApiConfig.notification.notify.context, tokenHandler, notifyHandler)
+router.get(ApiConfig.auth.verify, extractHeaderHandler, tokenHandler, verifyHandler)
+router.post(ApiConfig.auth.claims, extractHeaderHandler, tokenHandler, claimsHandler)
+router.post(ApiConfig.notification.notify.context, extractHeaderHandler, tokenHandler, notifyHandler)
 
 const app = express()
 app.use(cookieParser())

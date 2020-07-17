@@ -43,6 +43,14 @@ export enum AppCookie {
   REMEMBER_ME = 'rememberMe'
 }
 
+export enum AppHeader {
+  SESSION_ID = 'ns-session-id',
+  REQUEST_ID = 'ns-request-id'
+}
+
+export const AppTokenType = 'Bearer'
+export const AuthHeaderValuePrefix = `${AppTokenType} `
+
 export enum LocalStorageKey {
   FCM_TOKEN = 'fcmToken'
 }

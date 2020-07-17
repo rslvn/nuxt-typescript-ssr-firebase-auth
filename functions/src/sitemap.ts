@@ -2,7 +2,7 @@ import express, { Request, RequestHandler, Response, Router } from 'express';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import { createGzip } from 'zlib'
 import { RuntimeOptions, runWith } from "firebase-functions";
-import { handleGenericError } from './service/api-error-service';
+import { handleGenericError } from './service/request-handler-service';
 import { config } from './config';
 
 const staticRoutes = [
@@ -45,7 +45,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
         throw e
       })
     })
-    .catch((error) => handleGenericError(res, error))
+    .catch((error) => handleGenericError(req, res, error))
 }
 
 const app = express()

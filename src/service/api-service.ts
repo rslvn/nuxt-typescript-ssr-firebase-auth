@@ -1,6 +1,17 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { AxiosResponse } from 'axios'
-import { ApiConfig, AuthUser } from '~/types'
+import { ApiConfig, AppHeader, AuthUser } from '~/types'
+import { generateUuid } from '~/service/global-service'
+
+let sessionId: string|null = null
+
+export const configureAxiosDefaults = (axios: NuxtAxiosInstance) => {
+  sessionId = generateUuid()
+  axios.onRequest((config) => {
+    config.headers.common[AppHeader.SESSION_ID] = sessionId
+    config.headers.common[AppHeader.REQUEST_ID] = generateUuid()
+  })
+}
 
 export const authVerify = async (axios: NuxtAxiosInstance) => {
   return await axios

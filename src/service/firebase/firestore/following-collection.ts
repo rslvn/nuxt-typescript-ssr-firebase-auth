@@ -74,7 +74,7 @@ export const searchFollowers = async (user: User, query: string, page: number, l
   const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowings)
   const users: User[] = []
 
-  let loadedUser: User | null = null
+  let loadedUser: User|null = null
   for (const following of followingList) {
     loadedUser = await getUser(following.follower)
     if (loadedUser && userIncludes(loadedUser, queryLower)) {
@@ -98,7 +98,7 @@ export const searchFollowings = async (user: User, query: string, page: number, 
 
   const users: User[] = []
 
-  let loadedUser: User | null = null
+  let loadedUser: User|null = null
   for (const following of followingList) {
     loadedUser = await getUser(following.following)
     if (loadedUser && userIncludes(loadedUser, queryLower)) {

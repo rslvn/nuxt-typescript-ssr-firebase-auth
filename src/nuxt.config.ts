@@ -54,6 +54,7 @@ const config: Configuration = {
     '~/plugins/fire-init-plugin',
     // this should be ssr: false
     { src: '~/plugins/firebase-auth-listener', ssr: false },
+    { src: '~/plugins/axios-plugin', ssr: false },
     { src: '~/plugins/notification-plugin', ssr: false },
     { src: '~/plugins/buefy-plugin', ssr: true },
     '~/plugins/vee-validate-plugin',

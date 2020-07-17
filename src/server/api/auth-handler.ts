@@ -1,26 +1,33 @@
 import { RequestHandler } from 'express'
-import { OK } from 'http-status-codes'
+import { NO_CONTENT, OK } from 'http-status-codes'
 import admin from 'firebase-admin'
 import { setCustomClaims, toAuthUser, validateClaimsAndGet } from '../service/firebase-admin-service'
 import { ApiErrorCode, FirebaseClaimKey, FirebaseClaims } from '../../types'
-import { handleApiErrors } from '../service/api-error-service'
-import { getDecodedIdTokenFromRequest } from './api-handler'
+import {
+  getDecodedIdTokenFromRequest,
+  handleApiErrors,
+  handlerCalledLog,
+  handlerLog
+} from '../service/request-handler-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
 
 export const verifyHandler: RequestHandler = async (req, res) => {
-  console.log(`${req.originalUrl} - verifyHandler called`)
+  handlerCalledLog(req, 'verifyHandler')
   await getDecodedIdTokenFromRequest(req)
     .then(async (decodedIdToken: DecodedIdToken) => {
       const claims = await validateClaimsAndGet(decodedIdToken)
+      handlerLog(req, `current claims of: ${decodedIdToken.uid}`, JSON.stringify(claims))
+
       const authUser = toAuthUser(decodedIdToken, claims)
+      handlerLog(req, 'returning authUser: ', JSON.stringify(authUser))
 
       return res.status(OK).json(authUser)
     })
-    .catch((error: Error) => handleApiErrors(res, error))
+    .catch((error: Error) => handleApiErrors(req, res, error))
 }
 
 export const claimsHandler: RequestHandler = async (req, res) => {
-  console.log(`${req.originalUrl} - claimsHandler called`)
+  handlerCalledLog(req, 'claimsHandler')
   await getDecodedIdTokenFromRequest(req)
     .then(async (decodedIdToken: DecodedIdToken) => {
       if (!req.body.claims) {
@@ -28,13 +35,14 @@ export const claimsHandler: RequestHandler = async (req, res) => {
       }
 
       const firebaseClaims = req.body.claims as FirebaseClaims
+      handlerLog(req, 'claims from body: ', JSON.stringify(firebaseClaims))
       if (!firebaseClaims[FirebaseClaimKey.USERNAME]) {
         throw new Error(ApiErrorCode.BAD_REQUEST)
       }
 
       await setCustomClaims(decodedIdToken.sub, firebaseClaims)
 
-      return res.status(OK).end()
+      return res.status(NO_CONTENT).send()
     })
-    .catch((error: Error) => handleApiErrors(res, error))
+    .catch((error: Error) => handleApiErrors(req, res, error))
 }
