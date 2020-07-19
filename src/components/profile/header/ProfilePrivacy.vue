@@ -25,7 +25,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { PrivacyList, PrivacyType, User } from '../../../types'
+import { PrivacyType, User } from 'common-types'
+import { PrivacyConfigList } from '../../../types'
 
 @Component({
   components: {}
@@ -38,7 +39,7 @@ export default class ProfilePrivacy extends Vue {
   }
 
   get userPrivacyConfig () {
-    return PrivacyList.find(privacyConfig => privacyConfig.privacyType === this.userPrivacy)
+    return PrivacyConfigList.find(privacyConfig => privacyConfig.privacyType === this.userPrivacy)
   }
 }
 </script>

@@ -7,7 +7,7 @@ import {
   handlerCalledLog,
   handlerLog
 } from '../service/request-handler-service'
-import { ApiErrorCode, UserDevice } from '../types'
+import { ApiErrorCode, UserDevice } from 'common-types'
 import { deleteUserDevice, getPushNotification, getUserDevices } from '../service/firebase-admin-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
 

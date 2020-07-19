@@ -23,7 +23,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, CoverPhotoPlaceholder, CoverPhotoStorageRef, Image, StateNamespace } from '~/types'
+import { AuthUser, Image } from 'common-types'
+import { CoverPhotoPlaceholder, CoverPhotoStorageRef, StateNamespace } from '~/types'
 import Lightbox from '~/components/image/lightbox/Lightbox.vue'
 import { coverPhotoObservable } from '~/service/rx-service'
 import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue'

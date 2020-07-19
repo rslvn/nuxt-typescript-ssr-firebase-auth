@@ -1,4 +1,4 @@
-import { collection, CollectionField, FirebaseQueryOperator, UserDevice, WhereClause } from '~/types'
+import { collection, CollectionField, FirebaseQueryOperator, UserDevice, WhereClause } from 'common-types'
 import { deleteModel, getModelsByWhereClauses, saveModel } from '~/service/firebase/firestore/collection-base-service'
 
 export const saveUserDevice = async (userDevice: UserDevice): Promise<UserDevice> => {

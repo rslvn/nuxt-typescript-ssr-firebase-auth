@@ -74,7 +74,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
 import { ValidationObserver } from 'vee-validate'
-import { Routes, StateNamespace, User } from '~/types'
+import { User } from 'common-types'
+import { Routes, StateNamespace } from '~/types'
 import { getUserRoute, slugify } from '~/service/global-service'
 import { getDangerNotificationMessage, showSuccessToaster } from '~/service/notification-service'
 import { handleError } from '~/service/error-service'

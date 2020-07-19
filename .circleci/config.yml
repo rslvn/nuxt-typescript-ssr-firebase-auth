@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install commons-types dependencies
+          command: npm --prefix functions commons-types
+      - run:
+          name: Build commons-types
+          command: npm --prefix functions run build
+      - run:
           name: Add .env
           command: |
             echo "WEBSITE_URL=$WEBSITE_URL"> src/.env

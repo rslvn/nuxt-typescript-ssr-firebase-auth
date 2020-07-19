@@ -1,6 +1,7 @@
 import firebase from 'firebase'
+import { BaseModel, OrderBy, WhereClause } from 'common-types'
 import { auth, firestore } from '~/plugins/fire-init-plugin'
-import { BaseModel, OrderBy, PagingResponse, WhereClause } from '~/types'
+import { PagingResponse } from '~/types'
 
 export const toBaseModelArray = <T extends BaseModel> (querySnapshot: firebase.firestore.QuerySnapshot) => {
   const docs: T[] = []

@@ -101,8 +101,10 @@ firebase-debug.log
 **/*.log
 node_modules
 
+# modules
+*/lib
+
 # firebase
-functions/lib
 functions/nuxt.config.ts
 public
 firebase-admin-credentials.json

@@ -31,7 +31,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { DefaultCoverPhoto, DefaultProfilePhoto, Image, PrivacyType, Routes } from '../../types'
+import { Image, PrivacyType } from 'common-types'
+import { DefaultCoverPhoto, DefaultProfilePhoto, Routes } from '../../types'
 import BackgroundSquareImage from '../image/BackgroundSquareImage.vue'
 import { getUserRoute } from '~/service/global-service'
 import BackgroundImage from '~/components/image/BackgroundImage.vue'

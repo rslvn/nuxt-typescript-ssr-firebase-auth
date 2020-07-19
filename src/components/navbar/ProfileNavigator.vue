@@ -28,7 +28,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, Routes } from '~/types'
+import { AuthUser } from 'common-types'
+import { Routes } from '~/types'
 import { getUserRoute } from '~/service/global-service'
 
 @Component({

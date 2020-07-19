@@ -55,8 +55,9 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import _debounce from 'debounce'
+import { AuthUser } from 'common-types'
 import { searchUsers } from '~/service/firebase/firestore'
-import { AuthUser, Routes, SearchData } from '~/types'
+import { Routes, SearchData } from '~/types'
 import { loadMoreSearchResult } from '~/service/rx-service'
 import { getPageRouteWithQuery, getUserRoute } from '~/service/global-service'
 import { showErrorToaster, showWarningToaster } from '~/service/notification-service'
@@ -65,7 +66,7 @@ import { showErrorToaster, showWarningToaster } from '~/service/notification-ser
   components: {}
 })
 export default class SearchBar extends Vue {
-  @Prop({ required: true }) authUser: AuthUser
+  @Prop({ required: true }) readonly authUser: AuthUser
 
   data: SearchData[] = []
   isFetching = false

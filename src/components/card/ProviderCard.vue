@@ -50,7 +50,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { DefaultProfilePhoto, ProviderConfig, ProviderData, ProviderType } from '~/types'
+import { ProviderData, ProviderType } from 'common-types'
+import { DefaultProfilePhoto, ProviderConfig } from '~/types'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 
 @Component({
@@ -59,10 +60,10 @@ import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 export default class ProviderCard extends Vue {
   defaultType = 'is-light';
 
-  @Prop({ type: Object, required: true }) providerConfig: ProviderConfig;
-  @Prop({ type: Boolean, required: true }) isLinked: boolean;
-  @Prop({ type: Function, required: true }) linkFunction: (providerType: ProviderType) => void;
-  @Prop({ type: Object, required: false }) providerData: ProviderData;
+  @Prop({ type: Object, required: true }) providerConfig: ProviderConfig
+  @Prop({ type: Boolean, required: true }) isLinked: boolean
+  @Prop({ type: Function, required: true }) linkFunction: (providerType: ProviderType) => void
+  @Prop({ type: Object, required: false }) providerData: ProviderData
 
   submit () {
     if (!this.isLinked) {

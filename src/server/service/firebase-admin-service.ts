@@ -10,7 +10,7 @@ import {
   User,
   UserDevice,
   WhereClause
-} from '../../types'
+} from 'common-types'
 import admin from './firebase-admin-init'
 import { deleteModel, getModelById, getModelsByWhereClauses } from './firestore-admin-collection-service'
 import DecodedIdToken = admin.auth.DecodedIdToken

@@ -2,13 +2,11 @@ import {
   collection,
   CollectionField,
   FirebaseQueryOperator,
-  orderByName,
-  PagingResponse,
+  OrderBy,
   PrivacyType,
-  SearchData,
   User,
   WhereClause
-} from '~/types'
+} from 'common-types'
 import {
   getModelById,
   getModelsByFieldAndPaging,
@@ -16,6 +14,7 @@ import {
   getModelsByWhereClausesAndOrderBy,
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
+import { PagingResponse, SearchData } from '~/types'
 
 export const saveUser = async (user: User): Promise<User> => {
   return await saveModel(collection.USER, user)
@@ -66,6 +65,11 @@ export const searchUsers = async (query: string, page: number, limit: number): P
     operator: FirebaseQueryOperator.EQ,
     value: PrivacyType.PUBLIC
   }
+  const orderByName: OrderBy = {
+    field: CollectionField.USER.name,
+    direction: 'asc'
+  }
+
   const users = await getModelsByWhereClausesAndOrderBy(collection.USER, orderByName, whereClause)
   const filteredUsers = users.filter(user => userIncludes(user, queryLower))
 

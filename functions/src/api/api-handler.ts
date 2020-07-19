@@ -1,7 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { OK } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode } from '../types'
 import {
   extractHeadersFromRequest,
   getTokenFromRequest,
@@ -10,6 +9,7 @@ import {
 } from '../service/request-handler-service';
 import { getDecodedIdToken } from '../service/firebase-admin-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
+import { ApiErrorCode } from 'common-types'
 
 export const extractHeaderHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
   await extractHeadersFromRequest(req)

@@ -4,10 +4,9 @@ import {
   FirebaseQueryOperator,
   OrderBy,
   PushNotification,
-  PushNotificationEnriched,
   PushNotificationStatus,
   WhereClause
-} from '~/types'
+} from 'common-types'
 import {
   getModelsByWhereClauses,
   getModelsByWhereClausesAndLimitAndOrderBy,
@@ -15,6 +14,7 @@ import {
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
 import { getUser } from '~/service/firebase/firestore/user-collection'
+import { PushNotificationEnriched } from '~/types'
 
 export const savePushNotification = async (pushNotification: PushNotification): Promise<PushNotification> => {
   return await saveModel(collection.NOTIFICATION, pushNotification)

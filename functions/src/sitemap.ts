@@ -1,9 +1,9 @@
-import express, { Request, RequestHandler, Response, Router } from 'express';
-import { SitemapStream, streamToPromise } from 'sitemap';
+import express, { Request, RequestHandler, Response, Router } from 'express'
+import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
-import { RuntimeOptions, runWith } from "firebase-functions";
-import { handleGenericError } from './service/request-handler-service';
-import { config } from './config';
+import { RuntimeOptions, runWith } from "firebase-functions"
+import { handleGenericError } from './service/request-handler-service'
+import { config } from './config'
 
 const staticRoutes = [
   '/',

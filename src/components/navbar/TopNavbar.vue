@@ -73,7 +73,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { AuthUser, DefaultProfilePhoto, Routes, StateNamespace } from '~/types'
+import { AuthUser } from 'common-types'
+import { DefaultProfilePhoto, Routes, StateNamespace } from '~/types'
 import LanguageSwitcher from '~/components/navbar/LanguageSwitcher.vue'
 import ProfileNavigator from '~/components/navbar/ProfileNavigator.vue'
 import Logo from '~/components/navbar/Logo.vue'

@@ -19,9 +19,10 @@
 import { Component, Prop, Ref, Vue, Watch } from 'nuxt-property-decorator'
 import { ValidationProvider } from 'vee-validate'
 import { ValidationResult } from 'vee-validate/dist/types/types'
+import { Image } from 'common-types'
 import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
 import { handleError } from '~/service/error-service'
-import { Image, StateNamespace } from '~/types'
+import { StateNamespace } from '~/types'
 import { showErrorToaster, showWarningToaster } from '~/service/notification-service'
 import { getNewFileName } from '~/service/global-service'
 

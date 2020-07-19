@@ -54,7 +54,8 @@
 <script lang="ts">
 import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationProvider } from 'vee-validate'
-import { PrivacyList, PrivacyType } from '~/types'
+import { PrivacyType } from 'common-types'
+import { PrivacyConfigList } from '~/types'
 
 @Component({
   components: { ValidationProvider }
@@ -75,11 +76,11 @@ export default class PrivacyDropdown extends Vue {
   }
 
   get selectedPrivacyType () {
-    return PrivacyList.find(value => value.privacyType === this.value)
+    return PrivacyConfigList.find(value => value.privacyType === this.value)
   }
 
   get privacyList () {
-    return PrivacyList
+    return PrivacyConfigList
   }
 
   get label () {

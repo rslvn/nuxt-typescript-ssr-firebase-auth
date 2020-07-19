@@ -75,7 +75,8 @@
 
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
-import { LoginCredentials, ProviderConfig, ProviderType, StateNamespace, SupportedProviders } from '~/types'
+import { ProviderType } from 'common-types'
+import { LoginCredentials, ProviderConfig, StateNamespace, SupportedProviders } from '~/types'
 import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue'
 import BaseModule from '~/mixin/BaseModule'
 

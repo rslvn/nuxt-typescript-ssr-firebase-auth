@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Prop, Ref, Vue } from 'nuxt-property-decorator'
 import Cropper from 'cropperjs'
-import { Image } from '~/types'
+import { Image } from 'common-types'
 
 @Component({
   components: {}

@@ -1,12 +1,26 @@
 import { CookieSerializeOptions } from 'cookie'
-import { Image, PushNotification, User } from '~/types/firebase-types'
+import { Image, PrivacyType, PushNotification, User } from 'common-types'
 
-export * from './api-types'
 export * from './firebase-types'
 export * from './state-types'
 export * from './route-types'
 export * from './seo-types'
 export * from './rx-types'
+
+export const ProfilePhotoPlaceholder = '/img/default-profile.png'
+export const CoverPhotoPlaceholder = '/img/default-cover.jpg'
+
+export const DefaultProfilePhoto: Image = {
+  src: ProfilePhotoPlaceholder,
+  alt: 'default profile picture',
+  default: true
+}
+
+export const DefaultCoverPhoto: Image = {
+  src: CoverPhotoPlaceholder,
+  alt: 'default cover picture',
+  default: true
+}
 
 export interface SupportedLanguage {
   name: string,
@@ -37,19 +51,6 @@ export const SupportedLanguages: SupportedLanguage[] = [
     }
   }
 ]
-
-export enum AppCookie {
-  TOKEN = '__session',
-  REMEMBER_ME = 'rememberMe'
-}
-
-export enum AppHeader {
-  SESSION_ID = 'ns-session-id',
-  REQUEST_ID = 'ns-request-id'
-}
-
-export const AppTokenType = 'Bearer'
-export const AuthHeaderValuePrefix = `${AppTokenType} `
 
 export enum LocalStorageKey {
   FCM_TOKEN = 'fcmToken'
@@ -94,3 +95,26 @@ export interface PushNotificationEnriched {
   fromUser: User,
   pushNotification: PushNotification
 }
+
+export interface PrivacyConfig {
+  privacyType: PrivacyType,
+  colorType: string,
+  icon: string,
+  type: string,
+  iconPack?: string
+}
+
+export const PrivacyConfigList: PrivacyConfig[] = [
+  {
+    privacyType: PrivacyType.PRIVATE,
+    colorType: 'is-danger',
+    icon: 'account-lock',
+    type: 'is-danger'
+  },
+  {
+    privacyType: PrivacyType.PUBLIC,
+    colorType: 'is-primary',
+    icon: 'earth',
+    type: 'is-primary'
+  }
+]

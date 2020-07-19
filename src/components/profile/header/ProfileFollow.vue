@@ -80,7 +80,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, ModuleType, PrivacyType, PushNotificationStatus, PushNotificationType, User } from '~/types'
+import { AuthUser, PrivacyType, PushNotificationStatus, PushNotificationType, User } from 'common-types'
+import { ModuleType } from '~/types'
 import {
   deleteFollowing,
   getCountOfFollowers,
