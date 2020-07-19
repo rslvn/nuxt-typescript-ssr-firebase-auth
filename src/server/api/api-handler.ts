@@ -1,7 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 import { OK } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode } from 'common-types'
+import { ApiErrorCode } from 'types-module'
 import { getDecodedIdToken } from '../service/firebase-admin-service'
 import {
   extractHeadersFromRequest,

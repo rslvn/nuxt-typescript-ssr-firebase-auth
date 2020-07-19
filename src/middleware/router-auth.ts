@@ -1,5 +1,5 @@
 import { Middleware } from '@nuxt/types'
-import { AuthUser } from 'common-types'
+import { AuthUser } from 'types-module'
 import { QueryParameters, Routes } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed, getUserRoute } from '~/service/global-service'
 

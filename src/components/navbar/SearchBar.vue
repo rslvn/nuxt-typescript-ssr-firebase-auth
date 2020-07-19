@@ -55,7 +55,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import _debounce from 'debounce'
-import { AuthUser } from 'common-types'
+import { AuthUser } from 'types-module'
 import { searchUsers } from '~/service/firebase/firestore'
 import { Routes, SearchData } from '~/types'
 import { loadMoreSearchResult } from '~/service/rx-service'

@@ -40,7 +40,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, ProviderType } from 'common-types'
+import { AuthUser, ProviderType } from 'types-module'
 import {
   LoginCredentials,
   NotificationMessage,

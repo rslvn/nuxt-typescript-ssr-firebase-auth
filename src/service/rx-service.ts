@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs'
-import { Image, PushNotification } from 'common-types'
+import { Image, PushNotification } from 'types-module'
 import { ModuleType, UpdatePushNotificationStatus } from '~/types'
 
 // Configuration

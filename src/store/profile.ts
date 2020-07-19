@@ -1,5 +1,5 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import { Image, User } from 'common-types'
+import { Image, User } from 'types-module'
 import { auth } from '~/plugins/fire-init-plugin'
 import { handleError } from '~/service/error-service'
 import { saveUser } from '~/service/firebase/firestore'

@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, User } from 'common-types'
+import { AuthUser, User } from 'types-module'
 import ProfileHeader from '~/components/profile/header/ProfileHeader.vue'
 import ProfileModule from '~/components/profile/module/ProfileModule.vue'
 

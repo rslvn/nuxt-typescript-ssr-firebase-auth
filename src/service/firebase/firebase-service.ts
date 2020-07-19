@@ -1,6 +1,6 @@
 import { User, UserInfo } from 'firebase'
 import jwtDecode from 'jwt-decode'
-import { AuthUser, FirebaseClaimKey, Image, ProviderData, ProviderType } from 'common-types'
+import { AuthUser, FirebaseClaimKey, Image, ProviderData, ProviderType } from 'types-module'
 import { auth } from '~/plugins/fire-init-plugin'
 import { DefaultProfilePhoto } from '~/types'
 

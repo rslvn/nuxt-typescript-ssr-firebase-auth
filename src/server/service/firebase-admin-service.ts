@@ -10,7 +10,7 @@ import {
   User,
   UserDevice,
   WhereClause
-} from 'common-types'
+} from 'types-module'
 import admin from './firebase-admin-init'
 import { deleteModel, getModelById, getModelsByWhereClauses } from './firestore-admin-collection-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
@@ -21,8 +21,8 @@ export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
     .then((decodedIdToken: DecodedIdToken) => decodedIdToken)
 }
 
-export const setCustomClaims = async (uid: string, firebaseClaims: FirebaseClaims): Promise<void> => {
-  await admin.auth().setCustomUserClaims(uid, firebaseClaims)
+export const setCustomClaims = (uid: string, firebaseClaims: FirebaseClaims) => {
+  return admin.auth().setCustomUserClaims(uid, firebaseClaims)
 }
 
 export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {

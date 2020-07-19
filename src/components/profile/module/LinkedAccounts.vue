@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
-import { ProviderData, ProviderType } from 'common-types'
+import { ProviderData, ProviderType } from 'types-module'
 import ProviderCard from '~/components/card/ProviderCard.vue'
 import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue'
 import { LoginCredentials, ProviderConfig, ProviderLink, StateNamespace, SupportedProviders } from '~/types'

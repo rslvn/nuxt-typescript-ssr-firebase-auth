@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { PrivacyType, User } from 'common-types'
+import { PrivacyType, User } from 'types-module'
 import { PrivacyConfigList } from '../../../types'
 
 @Component({

@@ -6,7 +6,7 @@ import {
   PrivacyType,
   User,
   WhereClause
-} from 'common-types'
+} from 'types-module'
 import {
   getModelById,
   getModelsByFieldAndPaging,

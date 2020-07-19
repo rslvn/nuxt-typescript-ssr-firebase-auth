@@ -1,4 +1,4 @@
-import { collection, CollectionField, FirebaseQueryOperator, Following, User, WhereClause } from 'common-types'
+import { collection, CollectionField, FirebaseQueryOperator, Following, User, WhereClause } from 'types-module'
 import {
   deleteModel,
   getCountByWhereClauses,

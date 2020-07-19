@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { PrivacyType, PushNotificationStatus } from 'common-types'
+import { PrivacyType, PushNotificationStatus } from 'types-module'
 import { PushNotificationEnriched, Routes } from '~/types'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 import { markPushNotificationAsRead } from '~/service/firebase/firestore'

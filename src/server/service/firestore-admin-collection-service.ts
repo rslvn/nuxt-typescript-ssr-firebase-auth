@@ -1,4 +1,4 @@
-import { BaseModel, WhereClause } from 'common-types'
+import { BaseModel, WhereClause } from 'types-module'
 import admin from './firebase-admin-init'
 
 const toBaseModelArray = <T extends BaseModel> (querySnapshot: admin.firestore.QuerySnapshot): T[] => {

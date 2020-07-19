@@ -1,5 +1,5 @@
 import { CookieSerializeOptions } from 'cookie'
-import { Image, PrivacyType, PushNotification, User } from 'common-types'
+import { Image, PrivacyType, PushNotification, User } from 'types-module'
 
 export * from './firebase-types'
 export * from './state-types'

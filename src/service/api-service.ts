@@ -1,6 +1,6 @@
 import { NuxtAxiosInstance } from '@nuxtjs/axios'
 import { AxiosResponse } from 'axios'
-import { ApiConfig, AppHeader, AuthUser } from 'common-types'
+import { ApiConfig, AppHeader, AuthUser } from 'types-module'
 import { generateUuid } from '~/service/global-service'
 
 let sessionId: string|null = null

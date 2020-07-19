@@ -1,5 +1,5 @@
 import { NuxtAppOptions, Plugin } from '@nuxt/types'
-import { PushNotification, PushNotificationStatus } from 'common-types'
+import { PushNotification, PushNotificationStatus } from 'types-module'
 import firebase, { auth } from './fire-init-plugin'
 import { configureFcmObservable, loadNotificationObservable, sendNotificationObservable } from '~/service/rx-service'
 import { LocalStorageKey } from '~/types'

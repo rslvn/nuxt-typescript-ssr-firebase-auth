@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex'
 import { Context } from '@nuxt/types'
 import { AxiosError } from 'axios'
-import { AppCookie } from 'common-types'
+import { AppCookie } from 'types-module'
 import { RootState, StoreConfig } from '../types'
 import { decodeToken } from '~/service/firebase/firebase-service'
 import { authVerify, configureAxiosDefaults } from '~/service/api-service'

@@ -1,4 +1,4 @@
-import admin from './firebase-admin-init'
+import admin from 'firebase-admin'
 import {
   AuthUser,
   collection,
@@ -11,9 +11,12 @@ import {
   User,
   UserDevice,
   WhereClause
-} from 'common-types'
+} from 'types-module'
 import { deleteModel, getModelById, getModelsByWhereClauses } from './firestore-admin-collection-service'
+import { HandlerConfig } from '../config'
 import DecodedIdToken = admin.auth.DecodedIdToken
+
+HandlerConfig.initialize()
 
 export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
   return admin.auth()

@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { Component, Watch } from 'nuxt-property-decorator'
-import { User } from 'common-types'
+import { User } from 'types-module'
 import ProfileCard from '~/components/card/ProfileCard.vue'
 import { SearchData } from '~/types'
 import PageTitle from '~/components/ui/PageTitle.vue'

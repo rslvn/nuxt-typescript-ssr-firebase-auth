@@ -3,10 +3,18 @@ import cookieParser from 'cookie-parser'
 import { json } from 'body-parser'
 import cors from 'cors'
 import { RuntimeOptions, runWith } from 'firebase-functions'
-import { ApiConfig } from 'common-types';
-import { claimsHandler, verifyHandler } from './auth-handler'
-import { extractHeaderHandler, healthyHandler, tokenHandler } from './api-handler'
-import { notifyHandler } from './notification-handler'
+import { ApiConfig } from 'types-module';
+import {
+  claimsHandler,
+  extractHeaderHandler,
+  healthyHandler,
+  notifyHandler,
+  tokenHandler,
+  verifyHandler
+} from 'handlers-module'
+import { initalizeFirebaseAdmin } from './firebase-admin-init'
+
+initalizeFirebaseAdmin()
 
 const router = Router()
 router.get(ApiConfig.healthy, healthyHandler)

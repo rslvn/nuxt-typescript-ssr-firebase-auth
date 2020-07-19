@@ -58,7 +58,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import InfiniteLoading, { SpinnerType, StateChanger } from 'vue-infinite-loading'
-import { AuthUser, PushNotificationStatus } from 'common-types'
+import { AuthUser, PushNotificationStatus } from 'types-module'
 import { PushNotificationEnriched, StateNamespace, UpdatePushNotificationStatus } from '~/types'
 import userPrivateMiddleware from '~/middleware/user-private'
 import PageTitle from '~/components/ui/PageTitle.vue'

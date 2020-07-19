@@ -23,7 +23,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'nuxt-property-decorator'
 import { Context } from '@nuxt/types'
-import { AuthUser } from 'common-types'
+import { AuthUser } from 'types-module'
 import { QueryParameters, Routes, SearchData, StateNamespace } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'
 import { sendWarningNotification, showErrorToaster } from '~/service/notification-service'

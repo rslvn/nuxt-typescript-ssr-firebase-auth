@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { Image } from 'common-types'
+import { Image } from 'types-module'
 
 @Component({
   components: {}

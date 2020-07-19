@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-import { BaseModel, OrderBy, WhereClause } from 'common-types'
+import { BaseModel, OrderBy, WhereClause } from 'types-module'
 import { auth, firestore } from '~/plugins/fire-init-plugin'
 import { PagingResponse } from '~/types'
 

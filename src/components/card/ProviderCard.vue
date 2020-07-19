@@ -50,7 +50,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { ProviderData, ProviderType } from 'common-types'
+import { ProviderData, ProviderType } from 'types-module'
 import { DefaultProfilePhoto, ProviderConfig } from '~/types'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 

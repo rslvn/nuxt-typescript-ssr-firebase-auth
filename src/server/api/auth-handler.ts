@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { NO_CONTENT, OK } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode, FirebaseClaimKey, FirebaseClaims } from 'common-types'
+import { ApiErrorCode, FirebaseClaimKey, FirebaseClaims } from 'types-module'
 import { setCustomClaims, toAuthUser, validateClaimsAndGet } from '../service/firebase-admin-service'
 import {
   getDecodedIdTokenFromRequest,

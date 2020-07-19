@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
 import firebase from 'firebase'
-import { AppCookie, AuthUser, Image, PrivacyType, ProviderType } from 'common-types'
+import { AppCookie, AuthUser, Image, PrivacyType, ProviderType } from 'types-module'
 import {
   AuthState,
   cookieOptions,

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { NO_CONTENT } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode, UserDevice } from 'common-types'
+import { ApiErrorCode, UserDevice } from 'types-module'
 import { deleteUserDevice, getPushNotification, getUserDevices } from '../service/firebase-admin-service'
 import {
   getDecodedIdTokenFromRequest,

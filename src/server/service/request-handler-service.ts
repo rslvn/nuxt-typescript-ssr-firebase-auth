@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import admin, { FirebaseError } from 'firebase-admin'
 import { BAD_REQUEST, FORBIDDEN, INTERNAL_SERVER_ERROR, UNAUTHORIZED } from 'http-status-codes'
-import { ApiErrorCode, AppCookie, AppHeader, AuthHeaderValuePrefix } from 'common-types'
+import { ApiErrorCode, AppCookie, AppHeader, AuthHeaderValuePrefix } from 'types-module'
 import { generateUuid } from '../../service/global-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
 

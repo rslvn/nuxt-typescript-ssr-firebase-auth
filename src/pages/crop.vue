@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import 'cropperjs/dist/cropper.css'
-import { Image } from 'common-types'
+import { Image } from 'types-module'
 import ProfilePhotoUpdater from '~/components/image/ProfilePhotoUpdater.vue'
 import { Routes } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'

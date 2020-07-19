@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { AuthUser, Image, User } from 'common-types'
+import { AuthUser, Image, User } from 'types-module'
 import Profile from '~/components/profile/Profile.vue'
 import { StateNamespace } from '~/types'
 import { coverPhotoObservable, profilePhotoObservable, reloadUserFromDatabase } from '~/service/rx-service'

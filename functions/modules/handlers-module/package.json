@@ -1,5 +1,5 @@
 {
-  "name": "common-types",
+  "name": "handlers-module",
   "version": "1.0.0",
   "description": "Common types between backend and frontend",
   "main": "./lib/cjs/index.js",
@@ -19,5 +19,16 @@
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "@types/uuid": "^8.0.0",
+    "express": "^4.17.1",
+    "firebase": "^7.16.1",
+    "firebase-admin": "^9.0.0",
+    "http-status-codes": "^1.4.0",
+    "sitemap": "^6.2.0",
+    "types-module": "file:../types-module",
+    "uuid": "^8.2.0"
   }
 }

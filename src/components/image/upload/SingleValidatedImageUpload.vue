@@ -19,7 +19,7 @@
 import { Component, Prop, Ref, Vue, Watch } from 'nuxt-property-decorator'
 import { ValidationProvider } from 'vee-validate'
 import { ValidationResult } from 'vee-validate/dist/types/types'
-import { Image } from 'common-types'
+import { Image } from 'types-module'
 import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
 import { handleError } from '~/service/error-service'
 import { StateNamespace } from '~/types'

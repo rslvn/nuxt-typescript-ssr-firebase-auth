@@ -6,7 +6,7 @@ import {
   PushNotification,
   PushNotificationStatus,
   WhereClause
-} from 'common-types'
+} from 'types-module'
 import {
   getModelsByWhereClauses,
   getModelsByWhereClausesAndLimitAndOrderBy,

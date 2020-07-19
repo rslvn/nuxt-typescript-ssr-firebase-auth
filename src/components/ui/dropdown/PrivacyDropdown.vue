@@ -54,7 +54,7 @@
 <script lang="ts">
 import { Component, Emit, Model, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationProvider } from 'vee-validate'
-import { PrivacyType } from 'common-types'
+import { PrivacyType } from 'types-module'
 import { PrivacyConfigList } from '~/types'
 
 @Component({

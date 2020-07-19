@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, User } from 'common-types'
+import { AuthUser, User } from 'types-module'
 import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue'
 
 @Component({

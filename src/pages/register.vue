@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { ProviderType } from 'common-types'
+import { ProviderType } from 'types-module'
 import SocialLogin from '~/components/form/SocialLogin.vue'
 import RegisterForm from '~/components/form/RegisterForm.vue'
 import { RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from '~/types'

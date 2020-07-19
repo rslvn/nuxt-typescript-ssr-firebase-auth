@@ -1,4 +1,4 @@
-import { Image, PrivacyType, ProviderData, ProviderType } from 'common-types'
+import { Image, PrivacyType, ProviderData, ProviderType } from 'types-module'
 
 export enum FirebaseAuthAction {
   VERIFY_EMAIL = 'verifyEmail',

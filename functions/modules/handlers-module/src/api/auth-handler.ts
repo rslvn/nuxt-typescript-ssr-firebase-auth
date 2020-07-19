@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { NO_CONTENT, OK } from 'http-status-codes'
 import { setCustomClaims, toAuthUser, validateClaimsAndGet } from '../service/firebase-admin-service'
-import { ApiErrorCode, FirebaseClaimKey, FirebaseClaims } from 'common-types'
+import { ApiErrorCode, FirebaseClaimKey, FirebaseClaims } from 'types-module'
 import {
   getDecodedIdTokenFromRequest,
   handleApiErrors,
@@ -27,6 +27,7 @@ export const verifyHandler: RequestHandler = async (req, res) => {
 }
 
 export const claimsHandler: RequestHandler = async (req, res) => {
+
   handlerCalledLog(req, 'claimsHandler')
   await getDecodedIdTokenFromRequest(req)
     .then(async (decodedIdToken: DecodedIdToken) => {
