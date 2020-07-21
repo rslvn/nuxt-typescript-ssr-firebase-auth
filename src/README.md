@@ -10,6 +10,19 @@
 
 # Nuxt Source
 
+## modules
+
+### install modules
+
+    npm i ../functions/modules/types-module ../functions/modules/handlers-module
+
+### remove modules
+
+    npm remove types-module handlers-module 
+
+## install
+    npm i
+
 ## dev
 ```shell script
 npm run dev

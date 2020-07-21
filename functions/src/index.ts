@@ -1,3 +1,3 @@
 export { nuxtOnFunction } from './nuxtOnFunction'
 export { apiApp } from './apiApp'
-export { sitemapApp } from './sitemap'
+export { sitemapApp } from './sitemapApp'

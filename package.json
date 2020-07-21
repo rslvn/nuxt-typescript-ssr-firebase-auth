@@ -1,8 +1,9 @@
 {
   "scripts": {
-    "build": "npm --prefix src run build && npm --prefix functions run build && npm run hosting",
+    "install": "npm --prefix functions/modules install && npm --prefix functions install && npm --prefix src install",
+    "build": "npm --prefix functions/modules run build && npm --prefix src run build && npm --prefix functions run build && npm run hosting",
     "hosting": "rm -rf public && mkdir -p public/assets && cp -r src/.nuxt/dist/* public/assets/. && cp -r src/static/* public/.",
     "clear": "rm -rf public functions/lib functions/.nuxt src/.nuxt",
-    "clear-all": "npm run clear && rm -rf functions/node_modules src/.nuxt src/node_modules */package-lock.json */*.log"
+    "clear-all": "npm run clear && rm -rf functions/node_modules src/node_modules */package-lock.json */*.log && npm --prefix functions/modules run clear-all"
   }
 }

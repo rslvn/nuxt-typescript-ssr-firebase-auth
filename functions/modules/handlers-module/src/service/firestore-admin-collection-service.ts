@@ -1,5 +1,6 @@
 import { BaseModel, WhereClause } from 'types-module'
 import admin from 'firebase-admin'
+import { HandlerConfig } from '../handler-config'
 
 const toBaseModelArray = <T extends BaseModel> (querySnapshot: admin.firestore.QuerySnapshot): T[] => {
   const docs: T[] = []
@@ -14,7 +15,7 @@ const getQueryByWhereClauses = (
   collection: string,
   whereClause: WhereClause,
   ...whereClauses: WhereClause[]) => {
-  const collectionReference = admin.firestore().collection(collection)
+  const collectionReference = HandlerConfig.getAdmin().firestore().collection(collection)
 
   let query = collectionReference.where(whereClause.field, whereClause.operator, whereClause.value)
   whereClauses.forEach((wc) => {
@@ -25,7 +26,7 @@ const getQueryByWhereClauses = (
 }
 
 export async function getModelById<T extends BaseModel> (collection: string, modelId: string) {
-  return await admin.firestore()
+  return await HandlerConfig.getAdmin().firestore()
     .collection(collection)
     .doc(modelId)
     .get()
@@ -47,5 +48,5 @@ export async function getModelsByWhereClauses<T extends BaseModel> (
 }
 
 export const deleteModel = <T extends BaseModel> (collection: string, model: T) => {
-  return admin.firestore().collection(collection).doc(model.id as string).delete()
+  return HandlerConfig.getAdmin().firestore().collection(collection).doc(model.id as string).delete()
 }

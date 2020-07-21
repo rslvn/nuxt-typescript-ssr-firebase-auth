@@ -13,26 +13,20 @@ export const configureAxiosDefaults = (axios: NuxtAxiosInstance) => {
   })
 }
 
-export const authVerify = async (axios: NuxtAxiosInstance) => {
-  return await axios
+export const authVerify = (axios: NuxtAxiosInstance) => {
+  return axios
     .get(ApiConfig.auth.verify)
     .then((response: AxiosResponse<AuthUser>) => {
       return response.data
     })
 }
 
-export const authClaims = async (
-  axios: NuxtAxiosInstance,
-  username: string
-) => {
+export const authClaims = (axios: NuxtAxiosInstance, username: string) => {
   const claims = { username }
-  return await axios.post(ApiConfig.auth.claims, { claims })
+  return axios.post(ApiConfig.auth.claims, { claims })
 }
 
-export const notificationNotify = async (
-  axios: NuxtAxiosInstance,
-  notificationId: string
-) => {
+export const notificationNotify = (axios: NuxtAxiosInstance, notificationId: string) => {
   const notify = ApiConfig.notification.notify
-  return await axios.post(notify.context.replace(notify.params.notificationId, notificationId))
+  return axios.post(notify.context.replace(notify.params.notificationId, notificationId))
 }

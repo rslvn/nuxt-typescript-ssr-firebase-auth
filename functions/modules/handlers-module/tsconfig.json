@@ -10,6 +10,7 @@
     "moduleResolution": "Node",
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "types": [
       "./src/types"
     ]

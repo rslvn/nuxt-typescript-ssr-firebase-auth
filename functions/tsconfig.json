@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "types": [
-      "sitemap"
+      "./src/types"
     ]
   },
   "compileOnSave": true,

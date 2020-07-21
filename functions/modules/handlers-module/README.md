@@ -1,11 +1,19 @@
-# types module
+# handlers-module
 
 ## build
     npm i
     npm run build
     
 ## install
-    npm i ../modules/types-module
+    npm i <relative-path-from-target-package>
+
+`on function`
+    
+    npm i ../modules/handlers-module
+
+`on src (nuxt)`
+   
+    npm i ../functions/modules/handlers-module
 
 ## remove local modules
-    npm remove types-module
+    npm remove handlers-module

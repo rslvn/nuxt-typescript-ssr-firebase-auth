@@ -1,4 +1,3 @@
-import admin from 'firebase-admin'
 import {
   AuthUser,
   collection,
@@ -13,19 +12,18 @@ import {
   WhereClause
 } from 'types-module'
 import { deleteModel, getModelById, getModelsByWhereClauses } from './firestore-admin-collection-service'
-import { HandlerConfig } from '../config'
+import { HandlerConfig } from '../handler-config'
+import admin from 'firebase-admin'
 import DecodedIdToken = admin.auth.DecodedIdToken
 
-HandlerConfig.initialize()
-
 export const getDecodedIdToken = (idToken: string): Promise<DecodedIdToken> => {
-  return admin.auth()
+  return HandlerConfig.getAdmin().auth()
     .verifyIdToken(idToken)
     .then((decodedIdToken: DecodedIdToken) => decodedIdToken)
 }
 
 export const setCustomClaims = async (uid: string, firebaseClaims: FirebaseClaims): Promise<void> => {
-  await admin.auth().setCustomUserClaims(uid, firebaseClaims);
+  await HandlerConfig.getAdmin().auth().setCustomUserClaims(uid, firebaseClaims);
 }
 
 export const validateClaimsAndGet = async (decodedIdToken: DecodedIdToken) => {

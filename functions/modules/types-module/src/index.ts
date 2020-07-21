@@ -1,3 +1,50 @@
+/**
+ * Configs
+ */
+export const ApiConfig = {
+  healthy: "/healthy",
+  auth: {
+    verify: "/auth/verify",
+    claims: "/auth/claims",
+  },
+  notification: {
+    notify: {
+      context: "/notification/notify/:notificationId",
+      params: {
+        notificationId: ":notificationId",
+      },
+    },
+  },
+}
+
+export const CollectionField = {
+  BASE: {
+    id: "id",
+    createdAt: "createdAt",
+  },
+  USER: {
+    username: "username",
+    privacy: "privacy",
+    name: "name",
+  },
+  USER_DEVICE: {
+    userId: "userId",
+    deviceToken: "deviceToken",
+  },
+  FOLLOWING: {
+    follower: "follower",
+    following: "following",
+  },
+  NOTIFICATION: {
+    from: "from",
+    to: "to",
+    status: "status",
+  },
+}
+
+/**
+ *
+ */
 export interface Image {
   src: string;
   alt: string;
@@ -45,22 +92,6 @@ export interface FirebaseClaims {
   [FirebaseClaimKey.USERNAME]: string;
 }
 
-export const ApiConfig = {
-  healthy: "/healthy",
-  auth: {
-    verify: "/auth/verify",
-    claims: "/auth/claims",
-  },
-  notification: {
-    notify: {
-      context: "/notification/notify/:notificationId",
-      params: {
-        notificationId: ":notificationId",
-      },
-    },
-  },
-};
-
 export enum ApiErrorCode {
   INTERNAL_ERROR = "Internal Error",
   FORBIDDEN = "Forbidden",
@@ -78,7 +109,7 @@ export enum AppHeader {
 }
 
 export const AppTokenType = 'Bearer'
-export const AuthHeaderValuePrefix = `${AppTokenType} `
+export const AuthHeaderValuePrefix = 'Bearer '
 
 export enum PrivacyType {
   PRIVATE = 'private',
@@ -121,31 +152,6 @@ export enum collection {
   NOTIFICATION = "notification",
   USER_DEVICE = "userDevice",
 }
-
-export const CollectionField = {
-  BASE: {
-    id: "id",
-    createdAt: "createdAt",
-  },
-  USER: {
-    username: "username",
-    privacy: "privacy",
-    name: "name",
-  },
-  USER_DEVICE: {
-    userId: "userId",
-    deviceToken: "deviceToken",
-  },
-  FOLLOWING: {
-    follower: "follower",
-    following: "following",
-  },
-  NOTIFICATION: {
-    from: "from",
-    to: "to",
-    status: "status",
-  },
-};
 
 export enum PushNotificationType {
   FOLLOW = "follow",

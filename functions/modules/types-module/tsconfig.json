@@ -5,10 +5,12 @@
     "module": "ES2020",
     "declaration": true,
     "outDir": "./lib",
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "allowJs": true
   },
   "include": [
     "./src"

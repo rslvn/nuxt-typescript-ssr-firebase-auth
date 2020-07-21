@@ -12,9 +12,6 @@ import {
   tokenHandler,
   verifyHandler
 } from 'handlers-module'
-import { initalizeFirebaseAdmin } from './firebase-admin-init'
-
-initalizeFirebaseAdmin()
 
 const router = Router()
 router.get(ApiConfig.healthy, healthyHandler)

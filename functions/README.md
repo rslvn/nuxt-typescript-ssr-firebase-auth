@@ -37,3 +37,6 @@
     
 ### deploy sitemapApp
     firebase deploy --only functions:sitemapApp
+
+## install modules
+go to [modules](./modules)
