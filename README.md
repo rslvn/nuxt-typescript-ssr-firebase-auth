@@ -21,7 +21,35 @@ See the [Features](#features) for more functionalities
 
 - [functions](./functions): source folder for firebase-functions
     - [modules](./functions/modules): Shared types and functions between front-end and back-end (firebase-functions and nuxt serverMiddleware)
+        - [types-module](./functions/modules/types-module): has all shared types (enums, interfaces, constants)
+        - [handlers-module](./functions/modules/handlers-module): has all express handlers. Also, has all backend services like firebase-admin and firestore
+    - src: the source of the functions
 - [src](./src): nuxt application
+
+```shell script
+|-- functions
+|   |-- modules
+|   |   |-- handlers-module
+|   |   |   `-- src
+|   |   `-- types-module
+|   |       `-- src
+|   `-- src
+`-- src
+    |-- assets
+    |-- components
+    |-- i18n
+    |-- layouts
+    |-- middleware
+    |-- mixin
+    |-- pages
+    |-- plugins
+    |-- server
+    |-- service
+    |-- static
+    |-- store
+    |-- types
+
+```
 
 
 ## DETAILED DOCUMENTATION
@@ -31,6 +59,7 @@ See the [Features](#features) for more functionalities
 - [x] nuxtjs - universal mode
     - [x] dynamic profile page with username
 - [x] typescript
+- [x] local npm modules for shared types and functions
 - [x] firebase
     - [x] firebase-hosting
     - [x] firebase-functions
