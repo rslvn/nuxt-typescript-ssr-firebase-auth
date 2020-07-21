@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: npm run install
+      - run:
           name: Add .env
           command: |
             echo "WEBSITE_URL=$WEBSITE_URL"> src/.env
@@ -39,14 +42,6 @@ jobs:
             echo "  console.log('firebase-messaging-sw.js setBackgroundMessageHandler', payload)" >> src/static/firebase-messaging-sw.js
             echo "})" >> src/static/firebase-messaging-sw.js
             echo "" >> src/static/firebase-messaging-sw.js
-            echo ""
-            cat src/static/firebase-messaging-sw.js
-      - run:
-          name: Install functions dependencies
-          command: npm --prefix functions install
-      - run:
-          name: Install src dependencies
-          command: npm --prefix src install
       - run:
           name: deploy to Firebase Hosting
           command: ./src/node_modules/.bin/firebase deploy --project=$FIREBASE_PROJECT_ID --token=$FIREBASE_CI_TOKEN
@@ -54,6 +49,8 @@ jobs:
           name: Call to warm up
           command: |
             curl "$WEBSITE_URL"
+            curl "$WEBSITE_URL/api/healthy"
+            curl "$WEBSITE_URL/sitemap.xml"
 
 workflows:
   version: 2

@@ -17,6 +17,41 @@ See the [Features](#features) for more functionalities
 |<img width="1604" alt="Profile" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fprofile.png?alt=media&token=b14fd223-1248-44bc-8f9f-92f45273c716"> |  <img width="1604" alt="Ligthbox" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Flightbox.png?alt=media&token=347fe927-f425-49dd-8d2b-05c626de48cf">|<img width="1604" alt="Ligthbox view" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Flightbox-view.png?alt=media&token=d6e31892-c0cb-4708-9b9f-d53d52644e9e">|
 |<img width="1604" alt="Crop" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fcrop.png?alt=media&token=d547fe2e-fe51-4904-8e22-f3c4a6d6e886">  |  <img width="1604" alt="login" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Flogin.png?alt=media&token=08d3333c-d54f-495a-937b-fa178d22b21d">|<img width="1604" alt="register" src="https://firebasestorage.googleapis.com/v0/b/nuxt-ts-firebase-auth-ssr.appspot.com/o/github%2Fregister.png?alt=media&token=2cd96b4d-3f34-4a4c-a4a5-0de7b72c3d6a">|
 
+## Folder Structure
+
+- [functions](./functions): source folder for firebase-functions
+    - [modules](./functions/modules): Shared types and functions between front-end and back-end (firebase-functions and nuxt serverMiddleware)
+        - [types-module](./functions/modules/types-module): has all shared types (enums, interfaces, constants)
+        - [handlers-module](./functions/modules/handlers-module): has all express handlers. Also, has all backend services like firebase-admin and firestore
+    - src: the source of the functions
+- [src](./src): nuxt application
+
+```shell script
+|-- functions
+|   |-- modules
+|   |   |-- handlers-module
+|   |   |   `-- src
+|   |   `-- types-module
+|   |       `-- src
+|   `-- src
+`-- src
+    |-- assets
+    |-- components
+    |-- i18n
+    |-- layouts
+    |-- middleware
+    |-- mixin
+    |-- pages
+    |-- plugins
+    |-- server
+    |-- service
+    |-- static
+    |-- store
+    |-- types
+
+```
+
+
 ## DETAILED DOCUMENTATION
 > Coming soon
 
@@ -24,6 +59,7 @@ See the [Features](#features) for more functionalities
 - [x] nuxtjs - universal mode
     - [x] dynamic profile page with username
 - [x] typescript
+- [x] local npm modules for shared types and functions
 - [x] firebase
     - [x] firebase-hosting
     - [x] firebase-functions
@@ -174,10 +210,9 @@ FIREBASE_MEASUREMENT_ID= ***
 
 the root `package.json` has been created to manage build and deployment easily. 
 
-### install dependencies
+### install dependencies (not `npm install` or `npm i` )
 ```bash
-$ npm --prefix functions install
-$ npm --prefix src install
+$ npm run install
 ```
 
 ### deploy

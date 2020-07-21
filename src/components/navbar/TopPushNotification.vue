@@ -33,14 +33,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import {
-  AuthUser,
-  PushNotificationEnriched,
-  PushNotificationStatus,
-  PushNotificationType,
-  Routes,
-  UpdatePushNotificationStatus
-} from '~/types'
+import { AuthUser, PushNotificationStatus, PushNotificationType } from 'types-module'
+import { PushNotificationEnriched, Routes, UpdatePushNotificationStatus } from '~/types'
 import FollowingNotification from '~/components/notification/FollowingNotification.vue'
 import { getUserRoute } from '~/service/global-service'
 import { loadNotificationObservable, updateNotificationStatusObservable } from '~/service/rx-service'

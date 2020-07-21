@@ -1,7 +1,5 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express'
-import { OK } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode } from '../types'
 import {
   extractHeadersFromRequest,
   getTokenFromRequest,
@@ -9,6 +7,7 @@ import {
   handlerCalledLog
 } from '../service/request-handler-service';
 import { getDecodedIdToken } from '../service/firebase-admin-service'
+import { ApiErrorCode } from 'types-module'
 import DecodedIdToken = admin.auth.DecodedIdToken
 
 export const extractHeaderHandler: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
@@ -36,9 +35,4 @@ export const tokenHandler: RequestHandler = async (req: Request, res: Response, 
       next()
     })
     .catch((error: Error) => handleApiErrors(req, res, error))
-}
-
-export const healthyHandler: RequestHandler = (req, res) => {
-  console.log(`${req.originalUrl} - healthyHandler called`)
-  return res.status(OK).send('OK')
 }

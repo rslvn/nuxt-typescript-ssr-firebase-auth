@@ -2,10 +2,18 @@ import express, { Router } from 'express'
 import cookieParser from 'cookie-parser'
 import { json } from 'body-parser'
 import cors from 'cors'
-import { ApiConfig } from '../../types'
-import { claimsHandler, verifyHandler } from './auth-handler'
-import { extractHeaderHandler, healthyHandler, tokenHandler } from './api-handler'
-import { notifyHandler } from './notification-handler'
+import { ApiConfig } from 'types-module'
+import {
+  claimsHandler,
+  extractHeaderHandler,
+  HandlerConfig,
+  healthyHandler,
+  notifyHandler,
+  tokenHandler,
+  verifyHandler
+} from 'handlers-module'
+
+HandlerConfig.setCredentials(require('./config/firebase-admin-credentials.json'))
 
 const router = Router()
 router.get(ApiConfig.healthy, healthyHandler)

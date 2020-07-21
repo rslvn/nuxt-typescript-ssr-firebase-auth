@@ -24,7 +24,8 @@
 
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
-import { ModuleTabConfig, ModuleType, PrivacyType } from '~/types'
+import { PrivacyType } from 'types-module'
+import { ModuleTabConfig, ModuleType } from '~/types'
 import BaseModule from '~/mixin/BaseModule'
 import ProfileAboutMe from '~/components/profile/module/ProfileAboutMe.vue'
 import LinkedAccounts from '~/components/profile/module/LinkedAccounts.vue'

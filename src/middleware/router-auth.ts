@@ -1,5 +1,6 @@
 import { Middleware } from '@nuxt/types'
-import { AuthUser, QueryParameters, Routes } from '~/types'
+import { AuthUser } from 'types-module'
+import { QueryParameters, Routes } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed, getUserRoute } from '~/service/global-service'
 
 const routerAuthMiddleware: Middleware = ({ store, redirect, route }) => {

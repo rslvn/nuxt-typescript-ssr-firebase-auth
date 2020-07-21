@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES2015",
+    "module": "ES2020",
+    "declaration": true,
+    "outDir": "./lib",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "allowJs": true
+  },
+  "include": [
+    "./src"
+  ]
+}

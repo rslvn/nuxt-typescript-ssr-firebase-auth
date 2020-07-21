@@ -1,13 +1,4 @@
-import {
-  collection,
-  CollectionField,
-  FirebaseQueryOperator,
-  Following,
-  PagingResponse,
-  SearchData,
-  User,
-  WhereClause
-} from '~/types'
+import { collection, CollectionField, FirebaseQueryOperator, Following, User, WhereClause } from 'types-module'
 import {
   deleteModel,
   getCountByWhereClauses,
@@ -15,6 +6,7 @@ import {
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
 import { getUser, toSearchDataPagingResponse, userIncludes } from '~/service/firebase/firestore/user-collection'
+import { PagingResponse, SearchData } from '~/types'
 
 const followingWhereClause = (user: User): WhereClause => {
   return {

@@ -1,4 +1,4 @@
-import { Image } from '~/types/firebase-types'
+import { Image } from 'types-module'
 
 export interface PageMeta {
   title: string,

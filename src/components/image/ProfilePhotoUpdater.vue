@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
-import { Image } from '~/types'
+import { Image } from 'types-module'
 import { getNewFileName } from '~/service/global-service'
 import ImageCropper from '~/components/image/crop/ImageCropper.vue'
 

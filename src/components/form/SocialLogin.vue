@@ -26,7 +26,8 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { ProviderConfig, ProviderType, SocialLoginCredentials, StateNamespace } from '~/types'
+import { ProviderType } from 'types-module'
+import { ProviderConfig, SocialLoginCredentials, StateNamespace } from '~/types'
 import { getProviderOption } from '~/service/firebase/firebase-service'
 import RememberMe from '~/components/ui/RememberMe.vue'
 import { reloadUserFromDatabase } from '~/service/rx-service'

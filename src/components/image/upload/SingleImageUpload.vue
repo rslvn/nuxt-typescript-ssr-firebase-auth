@@ -11,10 +11,11 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
 import firebase from 'firebase'
+import { Image } from 'types-module'
 import { getNewFileName } from '~/service/global-service'
 import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
 import { handleError } from '~/service/error-service'
-import { Image, StateNamespace } from '~/types'
+import { StateNamespace } from '~/types'
 
 @Component({
   components: {}

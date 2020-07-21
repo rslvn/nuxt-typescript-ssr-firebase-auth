@@ -1,4 +1,4 @@
-import { PushNotificationStatus } from '~/types/firebase-types'
+import { PushNotificationStatus } from 'types-module'
 
 export interface UpdatePushNotificationStatus {
   id: string,

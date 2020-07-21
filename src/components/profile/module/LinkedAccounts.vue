@@ -7,7 +7,7 @@
         :provider-config="providerLink.providerConfig"
         :provider-data="providerLink.providerData"
         :is-linked="providerLink.linked"
-        :link-function="providerLink.method"
+        :link-function="providerLink.linkMethod"
       />
     </div>
   </div>
@@ -15,17 +15,10 @@
 
 <script lang="ts">
 import { Component } from 'nuxt-property-decorator'
+import { ProviderData, ProviderType } from 'types-module'
 import ProviderCard from '~/components/card/ProviderCard.vue'
 import SetEmailPasswordModal from '~/components/modal/SetEmailPasswordModal.vue'
-import {
-  LoginCredentials,
-  ProviderConfig,
-  ProviderData,
-  ProviderLink,
-  ProviderType,
-  StateNamespace,
-  SupportedProviders
-} from '~/types'
+import { LoginCredentials, ProviderConfig, ProviderLink, StateNamespace, SupportedProviders } from '~/types'
 import { showWarningToaster } from '~/service/notification-service'
 import { getProviderOption } from '~/service/firebase/firebase-service'
 import BaseModule from '~/mixin/BaseModule'
@@ -42,12 +35,12 @@ export default class LinkedAccounts extends BaseModule {
     return SupportedProviders.map((providerConfig) => {
       const providerData = this.authUser.providers.find((data: ProviderData) => providerConfig.providerType === data.providerType)
       const linked = !!providerData
-      const method = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
+      const linkMethod = linked ? this.getUnlinkMethod() : this.getLinkMethod(providerConfig.providerType)
       return {
         providerConfig,
         providerData,
         linked,
-        method
+        linkMethod
       }
     })
   }
@@ -61,7 +54,7 @@ export default class LinkedAccounts extends BaseModule {
   }
 
   isLinked (providerType: ProviderType): boolean {
-    return !!this.authUser.providers.find(providerData => providerData.providerType === providerType)
+    return !!this.authUser.providers.find((providerData: ProviderData) => providerData.providerType === providerType)
   }
 
   getProviderLabel (providerType: ProviderType) {

@@ -1,0 +1,34 @@
+{
+  "name": "handlers-module",
+  "version": "1.0.0",
+  "description": "Common types between backend and frontend",
+  "main": "./lib/cjs/index.js",
+  "typings": "./lib/cjs/index.d.ts",
+  "scripts": {
+    "prebuild": "npm run lint && rm -rf ./lib",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "lint": "tslint --project tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "resul avan <avan@rslvn.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/pluralize": "0.0.29",
+    "prettier": "^2.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.7",
+    "@types/uuid": "^8.0.0",
+    "express": "^4.17.1",
+    "firebase": "^7.16.1",
+    "firebase-admin": "^9.0.0",
+    "http-status-codes": "^1.4.0",
+    "sitemap": "^6.2.0",
+    "types-module": "file:../types-module",
+    "uuid": "^8.2.0"
+  }
+}

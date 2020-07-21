@@ -21,9 +21,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import { ProviderType } from 'types-module'
 import SocialLogin from '~/components/form/SocialLogin.vue'
 import RegisterForm from '~/components/form/RegisterForm.vue'
-import { ProviderType, RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from '~/types'
+import { RegistrationCredentials, Routes, StateNamespace, SupportedProviders } from '~/types'
 import { getHeadByRouteType } from '~/service/seo-service'
 import { reloadUserFromDatabase } from '~/service/rx-service'
 

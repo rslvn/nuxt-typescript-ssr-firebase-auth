@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, User } from '~/types'
+import { AuthUser, User } from 'types-module'
 import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue'
 import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue'
 import ProfilePrivacy from '~/components/profile/header/ProfilePrivacy.vue'

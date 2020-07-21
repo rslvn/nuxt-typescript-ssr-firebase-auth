@@ -1,5 +1,5 @@
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { AuthUser, User } from '~/types'
+import { AuthUser, User } from 'types-module'
 
 @Component({
   components: {}

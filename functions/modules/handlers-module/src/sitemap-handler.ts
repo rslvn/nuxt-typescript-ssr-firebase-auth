@@ -1,9 +1,7 @@
-import express, { Request, RequestHandler, Response, Router } from 'express';
-import { SitemapStream, streamToPromise } from 'sitemap';
+import { Request, RequestHandler, Response } from 'express'
+import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
-import { RuntimeOptions, runWith } from "firebase-functions";
-import { handleGenericError } from './service/request-handler-service';
-import { config } from './config';
+import { handleGenericError } from './service/request-handler-service'
 
 const staticRoutes = [
   '/',
@@ -16,20 +14,20 @@ const staticRoutes = [
   '/images'
 ]
 
-let sitemap: Buffer|null = null
+let sitemapBuffer: Buffer|null = null
 
-const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
+export const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
   console.log(`${req.originalUrl} - called (function)`)
   res.header('Content-Type', 'application/xml')
   res.header('Content-Encoding', 'gzip')
-  if (sitemap) {
-    res.send(sitemap)
+  if (sitemapBuffer) {
+    res.send(sitemapBuffer)
     return
   }
 
   await Promise.resolve()
     .then(() => {
-      const smStream = new SitemapStream({ hostname: config.WEBSITE_URL })
+      const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app/' })
       const pipeline = smStream.pipe(createGzip())
 
       staticRoutes.forEach((route) =>
@@ -38,7 +36,7 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
       smStream.end()
 
       streamToPromise(pipeline)
-        .then((sm: Buffer) => (sitemap = sm))
+        .then((sm: Buffer) => (sitemapBuffer = sm))
         .catch((error: Error) => console.log(error))
       // stream write the response
       pipeline.pipe(res).on('error', (e: Error) => {
@@ -48,16 +46,3 @@ const sitemapHandler: RequestHandler = async (req: Request, res: Response) => {
     .catch((error) => handleGenericError(req, res, error))
 }
 
-const app = express()
-const router = Router()
-
-router.get('/sitemap.xml', sitemapHandler)
-app.use(router)
-
-const runtimeOpts: RuntimeOptions = {
-  timeoutSeconds: 300
-}
-
-export const sitemapApp = runWith(runtimeOpts)
-  .https
-  .onRequest(app);

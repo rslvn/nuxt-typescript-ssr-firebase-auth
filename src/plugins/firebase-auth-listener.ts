@@ -2,11 +2,9 @@ import { NuxtAppOptions, Plugin } from '@nuxt/types'
 import { User } from 'firebase'
 import { Store } from 'vuex'
 import { Location, Route } from 'vue-router'
+import { AppCookie, AppTokenType, AuthUser, FirebaseClaimKey } from 'types-module'
 import { auth } from '~/plugins/fire-init-plugin'
 import {
-  AppCookie, AppTokenType,
-  AuthUser,
-  FirebaseClaimKey,
   LocalStorageKey,
   QueryParameters,
   Routes,

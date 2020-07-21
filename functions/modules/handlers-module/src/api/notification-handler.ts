@@ -1,14 +1,14 @@
 import { RequestHandler } from 'express'
 import { NO_CONTENT } from 'http-status-codes'
 import admin from 'firebase-admin'
-import { ApiErrorCode, UserDevice } from '../../types'
-import { deleteUserDevice, getPushNotification, getUserDevices } from '../service/firebase-admin-service'
 import {
   getDecodedIdTokenFromRequest,
   handleApiErrors,
   handlerCalledLog,
   handlerLog
 } from '../service/request-handler-service'
+import { ApiErrorCode, UserDevice } from 'types-module'
+import { deleteUserDevice, getPushNotification, getUserDevices } from '../service/firebase-admin-service'
 import DecodedIdToken = admin.auth.DecodedIdToken
 
 export const notifyHandler: RequestHandler = async (req, res) => {

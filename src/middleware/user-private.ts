@@ -1,5 +1,6 @@
 import { Middleware } from '@nuxt/types'
-import { AuthUser, RouteParameters, Routes } from '~/types'
+import { AuthUser } from 'types-module'
+import { RouteParameters, Routes } from '~/types'
 
 const userPrivateMiddleware: Middleware = ({ store, redirect, route }) => {
   const authUser = store.state.auth?.authUser as AuthUser

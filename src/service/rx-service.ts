@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs'
-import { Image, ModuleType, PushNotification, UpdatePushNotificationStatus } from '~/types'
+import { Image, PushNotification } from 'types-module'
+import { ModuleType, UpdatePushNotificationStatus } from '~/types'
 
 // Configuration
 export const configureFcmObservable = new Subject<void>()

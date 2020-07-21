@@ -32,7 +32,8 @@
 
 <script lang="ts">
 import { Component, Watch } from 'nuxt-property-decorator'
-import { SearchData, User } from '~/types'
+import { User } from 'types-module'
+import { SearchData } from '~/types'
 import { searchFollowings } from '~/service/firebase/firestore'
 import { showErrorToaster } from '~/service/notification-service'
 import { reloadFollowing } from '~/service/rx-service'

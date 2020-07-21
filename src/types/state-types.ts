@@ -1,5 +1,5 @@
 import { namespace } from 'vuex-class'
-import { AuthUser } from '~/types/api-types'
+import { AuthUser } from 'types-module'
 
 export enum NotificationType {
   DANGER = 'is-danger',

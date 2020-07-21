@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
-import { ProviderType } from '~/types'
+import { ProviderType } from 'types-module'
 
 if (!firebase.apps.length) {
   const config = {
