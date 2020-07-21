@@ -4,6 +4,6 @@
     "install": "npm --prefix types-module install && npm --prefix handlers-module install",
     "re-install": "npm run clear-all && npm run install",
     "clear": "rm -rf */lib",
-    "clear-all": "rm -rf */node_modules */lib */package-lock.json"
+    "clear-all": "rm -rf */node_modules */lib */package-lock.json */*.tgz"
   }
 }
