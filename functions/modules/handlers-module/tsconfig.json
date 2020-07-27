@@ -12,7 +12,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "types": [
-      "./src/types"
+      "./src/types",
+      "types-module"
     ]
   },
   "include": [

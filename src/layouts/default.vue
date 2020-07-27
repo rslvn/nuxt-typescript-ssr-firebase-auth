@@ -49,3 +49,7 @@ export default class defaultLayout extends Vue {
 }
 
 </script>
+
+<style lang="scss">
+  @import 'assets/main';
+</style>

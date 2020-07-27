@@ -1,5 +1,5 @@
 <template>
-  <b-navbar-dropdown :boxed="true" :close-on-click="true" :arrowless="true">
+  <b-navbar-dropdown :boxed="true" :close-on-click="true" :arrowless="true" right>
     <template slot="label">
       <b-icon
         icon="chevron-down"

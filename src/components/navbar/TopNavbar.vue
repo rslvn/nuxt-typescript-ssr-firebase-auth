@@ -11,32 +11,15 @@
         <strong>{{ $t('topNavbar.home') }}</strong>
       </b-navbar-item>
 
-      <b-navbar-item
-        :to="routes.LIGHT_BOX"
-        tag="router-link"
-      >
-        {{ $t('topNavbar.lightbox') }}
-      </b-navbar-item>
-
-      <b-navbar-item
-        :to="routes.CROP"
-        tag="router-link"
-      >
-        {{ $t('topNavbar.crop') }}
-      </b-navbar-item>
-
-      <b-navbar-item
-        :to="routes.IMAGES"
-        tag="router-link"
-      >
-        {{ $t('topNavbar.images') }}
-      </b-navbar-item>
+      <TopImage />
     </template>
 
     <template slot="end">
       <SearchBar :auth-user="authUser" class="has-margin-top-10" />
 
       <LanguageSwitcher />
+
+      <TopShare />
 
       <TopPushNotification v-if="authUser" :auth-user="authUser" />
 
@@ -46,6 +29,7 @@
           <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
         </b-field>
       </b-navbar-item>
+
       <ProfileNavigator v-if="authUser" :auth-user="authUser" :logout="logout" />
 
       <b-navbar-item v-else tag="div">
@@ -82,9 +66,20 @@ import SearchBar from '~/components/navbar/SearchBar.vue'
 import { getUserRoute } from '~/service/global-service'
 import BackgroundSquareImage from '~/components/image/BackgroundSquareImage.vue'
 import TopPushNotification from '~/components/navbar/TopPushNotification.vue'
+import TopShare from '~/components/navbar/TopShare.vue'
+import TopImage from '~/components/navbar/TopImage.vue'
 
 @Component({
-  components: { TopPushNotification, BackgroundSquareImage, SearchBar, Logo, ProfileNavigator, LanguageSwitcher }
+  components: {
+    TopImage,
+    TopShare,
+    TopPushNotification,
+    BackgroundSquareImage,
+    SearchBar,
+    Logo,
+    ProfileNavigator,
+    LanguageSwitcher
+  }
 })
 export default class TopNavbar extends Vue {
   @StateNamespace.auth.Getter readonly authUser: AuthUser

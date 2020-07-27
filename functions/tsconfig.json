@@ -11,7 +11,9 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "types": [
-      "./src/types"
+      "./src/types",
+      "types-module",
+      "handlers-module"
     ]
   },
   "compileOnSave": true,

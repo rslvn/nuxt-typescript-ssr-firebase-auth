@@ -5,7 +5,7 @@ import {
   getTokenFromRequest,
   handleApiErrors,
   handlerCalledLog
-} from '../service/request-handler-service';
+} from '../service/request-handler-service'
 import { getDecodedIdToken } from '../service/firebase-admin-service'
 import { ApiErrorCode } from 'types-module'
 import DecodedIdToken = admin.auth.DecodedIdToken

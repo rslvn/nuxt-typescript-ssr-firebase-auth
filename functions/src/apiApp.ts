@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser'
 import { json } from 'body-parser'
 import cors from 'cors'
 import { RuntimeOptions, runWith } from 'firebase-functions'
-import { ApiConfig } from 'types-module';
+import { ApiConfig } from 'types-module'
 import {
   claimsHandler,
   extractHeaderHandler,

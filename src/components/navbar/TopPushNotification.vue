@@ -1,5 +1,5 @@
 <template>
-  <b-navbar-dropdown :arrowless="true" :close-on-click="true" :boxed="true">
+  <b-navbar-dropdown :arrowless="true" :close-on-click="true" :boxed="true" right>
     <template slot="label">
       <b-icon
         v-if="hasNewNotification"
