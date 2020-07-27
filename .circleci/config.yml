@@ -43,7 +43,7 @@ jobs:
             echo "})" >> src/static/firebase-messaging-sw.js
             echo "" >> src/static/firebase-messaging-sw.js
       - run:
-          name: deploy to Firebase Hosting
+          name: deploy to Firebase Hosting&Functions
           command: ./src/node_modules/.bin/firebase deploy --project=$FIREBASE_PROJECT_ID --token=$FIREBASE_CI_TOKEN
       - run:
           name: Call to warm up

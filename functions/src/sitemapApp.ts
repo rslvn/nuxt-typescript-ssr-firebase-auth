@@ -1,5 +1,4 @@
 import express, { Router } from 'express'
-
 import { RuntimeOptions, runWith } from "firebase-functions"
 import { sitemapHandler } from 'handlers-module'
 

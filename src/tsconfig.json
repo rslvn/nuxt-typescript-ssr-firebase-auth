@@ -32,7 +32,9 @@
       "@nuxtjs/axios",
       "nuxt-i18n",
       "cookie-universal-nuxt",
-      "firebase"
+      "firebase",
+      "types-module",
+      "handlers-module"
     ]
   },
   "exclude": [

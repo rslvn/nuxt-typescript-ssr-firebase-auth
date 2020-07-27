@@ -1,0 +1,32 @@
+@import "~bulma/sass/utilities/_all";
+
+$primary: #8c67ef;
+$primary-invert: findColorInvert($primary);
+
+$twitter: #55acee;
+$twitter-invert: findColorInvert($twitter);
+
+$facebook: #3b5999;
+$facebook-invert: findColorInvert($facebook);
+
+$whatsapp: #25D366;
+$whatsapp-invert: findColorInvert($whatsapp);
+
+$pinterest: #bd081c;
+$pinterest-invert: findColorInvert($pinterest);
+
+$colors: (
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "info": ($info, $info-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($danger, $danger-invert),
+  "twitter": ($twitter, $twitter-invert),
+  "facebook": ($facebook, $facebook-invert),
+  "whatsapp": ($whatsapp, $whatsapp-invert),
+  "pinterest": ($pinterest, $pinterest-invert)
+);
