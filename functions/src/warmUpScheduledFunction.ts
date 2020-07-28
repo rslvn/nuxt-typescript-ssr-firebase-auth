@@ -4,7 +4,7 @@ import { HandlerConfig } from 'handlers-module'
 import { ApiConfig } from 'types-module'
 
 export const warmUpScheduledFunction = pubsub
-  .schedule('0 */15 * * *')
+  .schedule('*/15 * * * *')
   .onRun((context) => {
     syncRequest('GET', HandlerConfig.getWebsiteUrl())
     syncRequest('GET', `${HandlerConfig.getWebsiteUrl()}${ApiConfig.healthy}`)

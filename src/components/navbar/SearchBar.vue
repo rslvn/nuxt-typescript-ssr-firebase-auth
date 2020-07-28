@@ -1,7 +1,6 @@
 <template>
   <b-field label-position="on-border" expanded>
     <b-autocomplete
-      v-model="query"
       :data="data"
       :placeholder="$t('common.field.searchPlaceholder')"
       field="title"
@@ -28,11 +27,6 @@
           </div>
         </div>
       </template>
-
-      <!--      <template slot="empty">-->
-      <!--                    <span v-show="data.length === 0"-->
-      <!--                          class="has-text-grey has-text-centered"> {{$t('topNavbar.search.footer')}} </span>-->
-      <!--      </template>-->
 
       <template slot="header">
         <div>
@@ -88,28 +82,34 @@ export default class SearchBar extends Vue {
     })
   }
 
+  clearOldSearchData () {
+    this.data = []
+    this.page = 1
+    this.totalPages = 1
+  }
+
   searchByName (newQuery: string) {
     if (!this.authUser) {
       return showWarningToaster(this.$t('notification.search.notAllowedToSearch'))
     }
-    // String update
-    if (this.query !== newQuery) {
-      this.query = newQuery
-      this.data = []
-      this.page = 1
-      this.totalPages = 1
-    }
-    // String cleared
+
+    // String cleared, don't search
     if (!newQuery.length) {
-      this.data = []
-      this.page = 1
-      this.totalPages = 1
+      this.clearOldSearchData()
       return
     }
+
+    // String update, refresh search
+    if (this.query !== newQuery) {
+      this.query = newQuery
+      this.clearOldSearchData()
+    }
+
     // Reached last page
     if (this.page > this.totalPages) {
       return
     }
+
     this.isFetching = true
     searchUsers(newQuery, this.page, 5)
       .then((pagingResponse) => {
@@ -132,7 +132,6 @@ export default class SearchBar extends Vue {
     query
       ? await this.$router.push(getPageRouteWithQuery(Routes.SEARCH, query))
       : await this.$router.push(Routes.SEARCH)
-    console.log('gotoSearchPage', this.query)
   }
 
   async gotoProfile (username: string) {

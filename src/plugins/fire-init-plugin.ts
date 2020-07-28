@@ -32,7 +32,7 @@ export const getAuthProvider = (providerType: ProviderType) => {
 
     default:
       throw new Error(
-        'No social auth provider for provider type' + providerType
+        `No social auth provider for provider type ${providerType}`
       )
   }
 }

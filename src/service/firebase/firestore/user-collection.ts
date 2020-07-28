@@ -80,9 +80,10 @@ export const userIncludes = (user: User, query: string) => {
   if (!query) {
     return true
   }
-  return user.username?.toLowerCase().includes(query) ||
-    user.name?.toLowerCase().includes(query) ||
-    user.surname?.toLowerCase().includes(query)
+  const queryLower = query.toLowerCase()
+  return user.username?.toLowerCase().includes(queryLower) ||
+    user.name?.toLowerCase().includes(queryLower) ||
+    user.surname?.toLowerCase().includes(queryLower)
 }
 
 export const toSearchDataPagingResponse = (filteredUsers: User[], page: number, limit: number): PagingResponse<SearchData> => {

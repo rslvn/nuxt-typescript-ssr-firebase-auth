@@ -4,12 +4,9 @@
       {{ $t('provider.linkPasswordProvider.passwordForm.title') }}
     </h3>
     <p class="has-text-centered has-margin-bottom-15">
-      {{ email ?
-      $t('provider.linkPasswordProvider.passwordForm.description',{email}) :
-      $t('provider.linkPasswordProvider.passwordForm.descriptionNoEmail') }}
+      {{ description }}
     </p>
     <div class="box">
-
       <ValidationObserver v-slot="{ passes }" tag="form">
         <FieldWithValue
           v-if="!!email"
@@ -89,6 +86,11 @@ export default class SetPasswordForm extends Vue {
   }
 
   confirmedPassword = '';
+
+  get description () {
+    return this.email ? this.$t('provider.linkPasswordProvider.passwordForm.description', { email: this.email })
+      : this.$t('provider.linkPasswordProvider.passwordForm.descriptionNoEmail')
+  }
 
   submit () {
     this.confirmCredentials(this.credentials)
