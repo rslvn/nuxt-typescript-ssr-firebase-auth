@@ -58,7 +58,7 @@ export default class LinkedAccounts extends BaseModule {
   }
 
   getProviderLabel (providerType: ProviderType) {
-    return this.$t('provider.label.' + providerType)
+    return this.$t(`provider.label.${providerType}`)
   }
 
   getLinkMethod (providerType: ProviderType) {

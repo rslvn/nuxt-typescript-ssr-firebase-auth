@@ -2,6 +2,7 @@ import { Request, RequestHandler, Response } from 'express'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { createGzip } from 'zlib'
 import { handleGenericError } from './service/request-handler-service'
+import { HandlerConfig } from './handler-config'
 
 const staticRoutes = [
   '/',
@@ -27,7 +28,7 @@ export const sitemapHandler: RequestHandler = async (req: Request, res: Response
 
   await Promise.resolve()
     .then(() => {
-      const smStream = new SitemapStream({ hostname: 'https://nuxt-ts-firebase-auth-ssr.web.app/' })
+      const smStream = new SitemapStream({ hostname: HandlerConfig.getWebsiteUrl() })
       const pipeline = smStream.pipe(createGzip())
 
       staticRoutes.forEach((route) =>

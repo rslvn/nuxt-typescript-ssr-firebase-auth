@@ -106,10 +106,10 @@ lib
 **/*.tgz
 
 # firebase
-functions/nuxt.config.ts
 public
 firebase-admin-credentials.json
 firebase-messaging-sw.js
+
 package-lock.json
 
 tmp

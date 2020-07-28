@@ -45,6 +45,7 @@
     "rxjs": "^6.6.0",
     "sitemap": "^6.2.0",
     "slug": "^3.3.2",
+    "sync-request": "^6.1.0",
     "types-module": "file:modules/types-module",
     "uuid": "^8.3.0",
     "vee-validate": "^3.3.7",
