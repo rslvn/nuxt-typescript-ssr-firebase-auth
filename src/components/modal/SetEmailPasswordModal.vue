@@ -41,12 +41,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { AuthUser, ProviderType } from 'types-module'
-import {
-  LoginCredentials,
-  NotificationMessage,
-  ProviderConfig,
-  StateNamespace
-} from '../../types'
+import { LoginCredentials, NotificationMessage, ProviderConfig, StateNamespace } from '../../types'
 import SocialLogin from '~/components/form/SocialLogin.vue'
 import SetEmailPasswordForm from '~/components/form/SetEmailPasswordForm.vue'
 import LoginForm from '~/components/form/LoginForm.vue'

@@ -3,6 +3,7 @@ import admin from 'firebase-admin'
 export class HandlerConfig {
 
   private static credentials = ''
+  private static websiteUrl = 'https://nuxt-ts-firebase-auth-ssr.web.app/'
 
   private static readonly defaultInitializer = () => {
     admin.initializeApp({
@@ -21,8 +22,16 @@ export class HandlerConfig {
     console.log('firebase admin is initialized by custom credentials')
   }
 
-  static setCredentials = (credentials: string) => {
+  static setCredentials (credentials: string) {
     HandlerConfig.credentials = credentials
+  }
+
+  static setWebSiteUrl (websiteUrl: string) {
+    HandlerConfig.websiteUrl = websiteUrl
+  }
+
+  static getWebsiteUrl () {
+    return HandlerConfig.websiteUrl
   }
 
   static getAdmin () {
