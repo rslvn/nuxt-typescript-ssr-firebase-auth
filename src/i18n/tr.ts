@@ -222,9 +222,10 @@ const messages = {
         title: 'Sosyal Medya Giris'
       },
       passwordForm: {
-        title: 'Parola Belirleme',
+        title: 'e-posta/parola belirle',
         description: '{email} icin bir parola belirleyiniz',
-        submit: 'Parolayi Kaydet'
+        descriptionNoEmail: 'hesabininiz icin e-posta ve parola belirleyiniz',
+        submit: 'parolayi kaydet'
       }
     },
     submit: {

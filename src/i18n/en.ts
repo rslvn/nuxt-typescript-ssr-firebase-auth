@@ -223,8 +223,9 @@ const messages = {
         title: 'Social Login'
       },
       passwordForm: {
-        title: 'Set Password',
-        description: 'Set a  password for {email}',
+        title: 'set email/password',
+        description: 'set a password for {email}',
+        descriptionNoEmail: 'set email and password to your account',
         submit: 'Save Password'
       }
     },

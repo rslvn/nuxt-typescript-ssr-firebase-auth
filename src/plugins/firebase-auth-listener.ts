@@ -14,7 +14,12 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
-import { configureAxiosObservable, configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
+import {
+  configureAxiosObservable,
+  configureFcmObservable,
+  loadNotificationObservable,
+  reloadUserFromDatabase
+} from '~/service/rx-service'
 
 const logout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
@@ -113,6 +118,9 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       return
     }
     updateAuthStore(firebaseUser, store)
+      .then(() => {
+        reloadUserFromDatabase.next()
+      })
 
     firebaseUser.getIdToken()
       .then((token: string) => {

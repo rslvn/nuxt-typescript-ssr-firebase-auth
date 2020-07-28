@@ -29,10 +29,8 @@
 
       <SetEmailPasswordForm
         v-if="!showLogin"
-        :title="$t('provider.linkPasswordProvider.passwordForm.title')"
-        :description="$t('provider.linkPasswordProvider.passwordForm.description',{email: authUser.email})"
-        :button-text="$t('provider.linkPasswordProvider.passwordForm.submit')"
         :confirm-credentials="handleConfirmCredentials"
+        :email="authUser.email"
       />
     </section>
   </div>
@@ -52,20 +50,16 @@ import { reauthenticateObservable } from '~/service/rx-service'
   components: { TopMessage, LoginForm, SetEmailPasswordForm, SocialLogin }
 })
 export default class SetPasswordModal extends Vue {
-  @Prop({ type: Object, required: true }) authUser: AuthUser
-  @Prop({ type: Array, required: true }) linkedProviders: ProviderConfig[]
-  @Prop({ type: Function, required: true }) confirmCredentials: (
-    credentials: LoginCredentials
-  ) => void
+  @Prop({ type: Object, required: true }) readonly authUser: AuthUser
+  @Prop({ type: Array, required: true }) readonly linkedProviders: ProviderConfig[]
+  @Prop({ type: Function, required: true }) readonly confirmCredentials: (credentials: LoginCredentials) => void
 
   showLogin = true
 
   @StateNamespace.notification.Getter notificationMessage: NotificationMessage
   @StateNamespace.notification.Action clearNotificationMessage: () => void
   @StateNamespace.auth.Getter rememberMe: boolean
-  @StateNamespace.auth.Action reauthenticateWithCredential: (
-    credentials: LoginCredentials
-  ) => void
+  @StateNamespace.auth.Action reauthenticateWithCredential: (credentials: LoginCredentials) => void
 
   created () {
     this.$subscribeTo(reauthenticateObservable.asObservable(), () => {

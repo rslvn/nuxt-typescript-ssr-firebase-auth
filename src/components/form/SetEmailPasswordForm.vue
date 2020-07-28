@@ -1,22 +1,33 @@
 <template>
   <div>
     <h3 class="title has-text-centered has-text-dark">
-      {{ title }}
+      {{ $t('provider.linkPasswordProvider.passwordForm.title') }}
     </h3>
+    <p class="has-text-centered has-margin-bottom-15">
+      {{ email ?
+      $t('provider.linkPasswordProvider.passwordForm.description',{email}) :
+      $t('provider.linkPasswordProvider.passwordForm.descriptionNoEmail') }}
+    </p>
     <div class="box">
-      <template v-if="description">
-        <p>{{ description }}</p>
-        <br>
-      </template>
+
       <ValidationObserver v-slot="{ passes }" tag="form">
+        <FieldWithValue
+          v-if="!!email"
+          :value="email"
+          :label="$t('common.field.email')"
+          :disabled="true"
+          label-position="on-border"
+          class="has-margin-bottom-15"
+        />
+
         <InputWithValidation
+          v-else
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceholder')"
           input-type="email"
           rules="required|email"
           vid="email"
-          :disabled="!!credentials.email"
           label-position="on-border"
           class="has-margin-5"
         />
@@ -44,8 +55,8 @@
         />
 
         <div class="buttons">
-          <b-button type="is-primary" icon-left="lock-reset" icon-pack="mdi" @click="passes(submit)">
-            {{ buttonText }}
+          <b-button type="is-primary" icon-left="cog-outline" @click="passes(submit)">
+            {{ $t('provider.linkPasswordProvider.passwordForm.submit') }}
           </b-button>
         </div>
       </ValidationObserver>
@@ -58,19 +69,18 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationObserver } from 'vee-validate'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import { LoginCredentials } from '~/types'
+import FieldWithValue from '~/components/ui/FieldWithValue.vue'
 
 @Component({
   components: {
+    FieldWithValue,
     ValidationObserver,
     InputWithValidation
   }
 })
 export default class SetPasswordForm extends Vue {
-  @Prop({ type: Function, required: true }) confirmCredentials: (credentials: LoginCredentials) => void;
-  @Prop({ type: String, required: true }) title: string;
-  @Prop({ type: String, required: true }) buttonText: string;
-  @Prop({ type: String, required: false }) description: string;
-  @Prop({ type: String, required: false }) email: string;
+  @Prop({ type: Function, required: true }) confirmCredentials: (credentials: LoginCredentials) => void
+  @Prop({ type: String, required: false }) email: string
 
   credentials: LoginCredentials = {
     email: this.email,
