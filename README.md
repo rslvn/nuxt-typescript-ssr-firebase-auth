@@ -130,6 +130,12 @@ See the [Features](#features) for more functionalities
 - [x] force logout if token is invalid    
 - [x] dotenv
 - [x] rxJS
+- [x] share on social
+    - [x] facebook
+    - [x] twitter
+    - [x] whatsapp
+    - [x] email
+    - [x] sms
 - [x] uuid
 - [x] slug
 - [ ] better formatting
