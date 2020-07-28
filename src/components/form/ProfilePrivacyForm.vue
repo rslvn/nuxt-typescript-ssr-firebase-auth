@@ -52,14 +52,13 @@ import { User } from 'types-module'
 import { StateNamespace } from '~/types'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import InputNoValidation from '~/components/ui/input/InputNoValidation.vue'
-import FieldWithValue from '~/components/ui/FieldWithValue.vue'
 import { getDangerNotificationMessage, showSuccessToaster } from '~/service/notification-service'
 import { handleError } from '~/service/error-service'
 import PrivacyDropdown from '~/components/ui/dropdown/PrivacyDropdown.vue'
 import { reloadUserFromDatabase } from '~/service/rx-service'
 
 @Component({
-  components: { PrivacyDropdown, FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
+  components: { PrivacyDropdown, InputNoValidation, ValidationObserver, InputWithValidation }
 })
 export default class ProfilePrivacyForm extends Vue {
   @Prop({ required: true }) user: User

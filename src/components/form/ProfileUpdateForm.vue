@@ -4,18 +4,16 @@
       <FieldWithValue
         :value="updatedUser.id"
         :label="$t('common.field.id')"
-        :disabled="true"
-        label-position="on-border"
         class="has-margin-bottom-15"
       />
 
       <FieldWithValue
         :value="updatedUser.email"
         :label="$t('common.field.email')"
-        :disabled="true"
-        label-position="on-border"
         class="has-margin-bottom-15"
       />
+
+      <hr>
 
       <InputWithValidation
         v-model="updatedUser.username"
@@ -46,7 +44,7 @@
         class="has-margin-5"
       />
 
-      <InputWithValidation
+      <InputNoValidation
         v-model="updatedUser.biography"
         input-type="textarea"
         :label="$t('common.field.biography')"
@@ -89,7 +87,7 @@ import { reloadUserFromDatabase } from '~/service/rx-service'
 })
 export default class ProfileUpdateForm extends Vue {
   @Prop({ required: true }) user: User
-  updatedUser = { ...this.user }
+  updatedUser: User = { ...this.user }
 
   @StateNamespace.profile.Action updateUser: (user: User) => Promise<User>;
   @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>

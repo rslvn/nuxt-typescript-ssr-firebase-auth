@@ -57,11 +57,9 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationObserver } from 'vee-validate'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import { LoginCredentials } from '~/types'
-import FieldWithValue from '~/components/ui/FieldWithValue.vue'
 
 @Component({
   components: {
-    FieldWithValue,
     ValidationObserver,
     InputWithValidation
   }
