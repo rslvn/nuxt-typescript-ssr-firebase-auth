@@ -40,7 +40,9 @@ const messages = {
     search: 'Ara',
     follow: 'Takip Et',
     unfollow: 'Takip Etme',
-    refresh: 'yenile'
+    refresh: 'yenile',
+    share: 'paylas',
+    Share: 'Paylas'
   },
 
   topNavbar: {

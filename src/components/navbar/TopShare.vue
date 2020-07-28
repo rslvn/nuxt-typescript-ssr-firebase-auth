@@ -5,7 +5,7 @@
         icon="share-variant"
         type="is-primary"
       />
-      <small class="has-text-primary">Share</small>
+      <small class="has-text-primary has-margin-left-5"> {{ $t('common.Share') }} </small>
     </template>
 
     <b-navbar-item>

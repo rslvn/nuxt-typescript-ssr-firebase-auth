@@ -50,8 +50,6 @@ export default class SocialShare extends Vue {
       }
     }
 
-    console.log('LINK', link)
-
     return link
       .replace(/@u/g, encodeURIComponent(this.pageMeta.url))
       .replace(/@t/g, encodeURIComponent(this.pageMeta.title))
