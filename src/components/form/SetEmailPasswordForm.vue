@@ -8,17 +8,8 @@
     </p>
     <div class="box">
       <ValidationObserver v-slot="{ passes }" tag="form">
-        <FieldWithValue
-          v-if="!!email"
-          :value="email"
-          :label="$t('common.field.email')"
-          :disabled="true"
-          label-position="on-border"
-          class="has-margin-bottom-15"
-        />
-
         <InputWithValidation
-          v-else
+          v-if="!email"
           v-model="credentials.email"
           :label="$t('common.field.email')"
           :placeholder="$t('common.field.emailPlaceholder')"
@@ -34,7 +25,7 @@
           input-type="password"
           :label="$t('common.field.password')"
           :placeholder="$t('common.field.passwordPlaceholder')"
-          rules="required|min:4|confirmed:confirmedPassword"
+          rules="required|min:4"
           vid="password"
           label-position="on-border"
           class="has-margin-5"
@@ -45,7 +36,7 @@
           input-type="password"
           :label="$t('common.field.confirmPassword')"
           :placeholder="$t('common.field.confirmPasswordPlaceholder')"
-          rules="required"
+          rules="required|confirmed:password"
           vid="confirmedPassword"
           label-position="on-border"
           class="has-margin-5"
@@ -66,11 +57,9 @@ import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { ValidationObserver } from 'vee-validate'
 import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 import { LoginCredentials } from '~/types'
-import FieldWithValue from '~/components/ui/FieldWithValue.vue'
 
 @Component({
   components: {
-    FieldWithValue,
     ValidationObserver,
     InputWithValidation
   }

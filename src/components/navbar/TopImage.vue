@@ -33,11 +33,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import SocialShare from '~/components/ui/social/SocialShare.vue'
 import { Routes } from '~/types'
 
 @Component({
-  components: { SocialShare }
+  components: {}
 })
 export default class TopImage extends Vue {
   get routes () {

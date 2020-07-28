@@ -39,7 +39,9 @@ const messages = {
     search: 'Search',
     follow: 'Follow',
     unfollow: 'Unfollow',
-    refresh: 'refresh'
+    refresh: 'refresh',
+    share: 'share',
+    Share: 'Share'
   },
 
   topNavbar: {

@@ -142,7 +142,7 @@ See the [Features](#features) for more functionalities
     - [x] tslint
     - [x] eslint
     - [x] linting before `build`
-- [x] backend contracts in a npm package
+- [x] backend contracts in an NPM package
 
 Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more coming functionality
 
