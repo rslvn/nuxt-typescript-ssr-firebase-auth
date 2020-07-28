@@ -23,7 +23,7 @@ See the [Features](#features) for more functionalities
     - [modules](./functions/modules): Shared types and functions between front-end and back-end (firebase-functions and nuxt serverMiddleware)
         - [types-module](./functions/modules/types-module): has all shared types (enums, interfaces, constants)
         - [handlers-module](./functions/modules/handlers-module): has all express handlers. Also, has all backend services like firebase-admin and firestore
-    - src: the source of the functions
+    - `src`: the source of the functions
 - [src](./src): nuxt application
 
 ```shell script
@@ -138,8 +138,11 @@ See the [Features](#features) for more functionalities
     - [x] sms
 - [x] uuid
 - [x] slug
-- [ ] better formatting
-- [ ] backend contracts in a npm package
+- [x] better formatting
+    - [x] tslint
+    - [x] eslint
+    - [x] linting before `build`
+- [x] backend contracts in a npm package
 
 Have a look [Trello Board](https://trello.com/b/6JN23G7A/boiler-plate) for more coming functionality
 
@@ -288,6 +291,7 @@ npm run dev
 - https://www.robinwieruch.de/firebase-facebook-login
 - https://qiita.com/simochee/items/e5b77af4aa36bd0f32e5
 - https://buefy.org/extensions/veevalidate
+- https://github.com/nicolasbeauvais/vue-social-sharing
 
 ## Contribution
 
