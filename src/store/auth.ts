@@ -25,9 +25,10 @@ import {
 import { getProviderOption, refreshToken, updateProfile } from '~/service/firebase/firebase-service'
 import { handleError } from '~/service/error-service'
 import { reauthenticateObservable } from '~/service/rx-service'
-import { getUser, saveUser } from '~/service/firebase/firestore'
+import { getAvailableUsername, getUser, saveUser } from '~/service/firebase/firestore'
 import { authClaims } from '~/service/api-service'
 import { deleteUserDeviceByToken } from '~/service/firebase/firestore/user-device-collection'
+import { generateUsername } from '~/service/global-service'
 import UserCredential = firebase.auth.UserCredential
 import ActionCodeInfo = firebase.auth.ActionCodeInfo
 import Persistence = firebase.auth.Auth.Persistence
@@ -92,15 +93,16 @@ export const actions: ActionTree<AuthState, RootState> = {
       .then(async (userCredential: UserCredential) => {
         // save user to db
         const id = userCredential.user?.uid as string
+        const username = await getAvailableUsername(generateUsername(userCredential.user.email))
         await updateProfile(credentials.name, DefaultProfilePhoto.src)
-          .then(async () => await authClaims(this.$axios, id))
+          .then(async () => await authClaims(this.$axios, username))
           .then(() => refreshToken())
 
         await saveUser({
           id,
           name: credentials.name,
           email: credentials.email,
-          username: id,
+          username,
           privacy: PrivacyType.PUBLIC,
           followersPrivacy: PrivacyType.PUBLIC,
           followingPrivacy: PrivacyType.PUBLIC,
@@ -156,15 +158,16 @@ export const actions: ActionTree<AuthState, RootState> = {
                 }
 
                 const name = userCredential.user?.displayName as string
+                const username = await getAvailableUsername(generateUsername(name))
                 const photo = userCredential.user?.photoURL as string
 
-                await authClaims(this.$axios, id)
+                await authClaims(this.$axios, username)
                   .then(() => refreshToken())
 
                 await saveUser({
                   id,
                   name,
-                  username: id,
+                  username,
                   privacy: PrivacyType.PUBLIC,
                   followersPrivacy: PrivacyType.PUBLIC,
                   followingPrivacy: PrivacyType.PUBLIC,

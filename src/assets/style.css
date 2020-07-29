@@ -119,15 +119,15 @@ footer {
 
 .is-overlay-bottom-left {
   position: absolute !important;
-  bottom: 5px !important;
-  left: 5px !important;
+  bottom: 10px !important;
+  left: 10px !important;
   z-index: 3 !important;
 }
 
 .is-overlay-bottom-right {
   position: absolute !important;
-  bottom: 5px !important;
-  right: 5px !important;
+  bottom: 10px !important;
+  right: 10px !important;
   z-index: 3 !important;
 }
 

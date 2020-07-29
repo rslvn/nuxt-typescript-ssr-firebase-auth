@@ -57,6 +57,7 @@ export const StoreConfig = {
     clearNotificationMessage: 'notification/clearNotificationMessage'
   },
   loading: {
-    setLoading: 'loading/setLoading'
+    setLoading: 'loading/setLoading',
+    saveLoading: 'loading/saveLoading'
   }
 }

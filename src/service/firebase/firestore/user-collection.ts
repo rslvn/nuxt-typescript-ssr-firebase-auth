@@ -15,13 +15,23 @@ import {
   saveModel
 } from '~/service/firebase/firestore/collection-base-service'
 import { PagingResponse, SearchData } from '~/types'
+import { generateNumericByLength } from '~/service/global-service'
 
-export const saveUser = async (user: User): Promise<User> => {
-  return await saveModel(collection.USER, user)
+export const saveUser = (user: User): Promise<User> => {
+  return saveModel(collection.USER, user)
 }
 
-export const getUser = async (id: string): Promise<User> => {
-  return await getModelById(collection.USER, id)
+export const getUser = (id: string): Promise<User> => {
+  return getModelById(collection.USER, id)
+}
+
+export const getAvailableUsername = (username: string, originalUsername ?: string): Promise<string> => {
+  return getUserByUsername(username).then(async (existingUser) => {
+    if (!existingUser) {
+      return username
+    }
+    return await getAvailableUsername(`${username}${generateNumericByLength(4)}`, originalUsername || username)
+  })
 }
 
 export const getUserByUsername = async (
