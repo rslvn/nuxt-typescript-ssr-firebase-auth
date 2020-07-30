@@ -4,7 +4,7 @@
     npm i
     npm run build
     
-## pack (to create handlers-module-1.0.0.tgz)
+## pack (to create handlers-module-<version>.tgz)
     npm pack
     
 ## install

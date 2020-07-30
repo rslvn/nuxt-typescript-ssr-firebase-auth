@@ -2,7 +2,7 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-half">
-        <b-tabs v-model="moduleType" type="is-toggle-rounded" size="is-small" expanded>
+        <b-tabs v-model="moduleType" type="is-toggle-rounded" size="is-small">
           <b-tab-item
             v-for="(moduleConfig, key) in computedModuleConfigs"
             :key="key"

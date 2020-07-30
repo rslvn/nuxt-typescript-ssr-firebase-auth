@@ -68,7 +68,7 @@ export default class SocialLogin extends Vue {
         return this.reauthenticate
           ? await this.reauthenticateWithSocialProvider(this.getSocialLoginCredentials(providerType))
           : await this.signInWithSocialProvider(this.getSocialLoginCredentials(providerType))
-            .then(async () => await reloadUserFromDatabase.next())
+            .then(() => reloadUserFromDatabase.next())
       })
       .finally(() => this.saveLoading(false))
   }

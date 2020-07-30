@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="card-image has-cursor-pointer has-max-height-500 crop-to-fit" @click="showLightbox">
+    <div class="card-image has-cursor-pointer has-max-height-350 crop-to-fit" @click="showLightbox">
       <img
         v-lazy="coverPhoto.src"
         :src="placeholder"

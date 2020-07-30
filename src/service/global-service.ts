@@ -13,6 +13,10 @@ export const generateUuid = () => {
   return uuidv4().replace(dashAllRegex, '')
 }
 
+export const generateNumericByLength = (length: number) => {
+  return Math.random().toString(9).substr(2, length)
+}
+
 export const log = (...anyMessages: any[]) => {
   console.log(`${moment().format(timestampFormat)} | `, ...anyMessages)
 }
@@ -79,4 +83,9 @@ export const getPageRouteWithQuery = (routeType: RouteType, query: string) => {
       [QueryParameters.QUERY]: query
     }
   }
+}
+
+export const generateUsername = (username: string) => {
+  const usernamePrefix = username.replace(/@.*$/, '')
+  return slugify(usernamePrefix).replace(dashAllRegex, '')
 }

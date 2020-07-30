@@ -42,7 +42,7 @@ export default class register extends Vue {
       .then(async () => {
         await this.clearNotificationMessage()
         await this.signUpWithEmail(credentials)
-          .then(async () => await reloadUserFromDatabase.next())
+          .then(() => reloadUserFromDatabase.next())
       })
       .finally(() => this.saveLoading(false))
   }

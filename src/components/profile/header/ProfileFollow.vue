@@ -101,7 +101,7 @@ export default class ProfileFollow extends Vue {
   @Prop({ type: Object, required: true }) user: User
 
   loading = true
-  following = false
+  followedByMe = false
   followerCount = 0
   followingCount = 0
 
@@ -111,12 +111,14 @@ export default class ProfileFollow extends Vue {
     await Promise.resolve()
       .then(async () => {
         if (!this.isMyProfile) {
+          // am i following the user?
           await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id)
             .then((existingFollowing) => {
-              this.following = !!existingFollowing
+              this.followedByMe = !!existingFollowing
             })
         }
 
+        // get followers and followings counts
         const [
           followerCount,
           followingCount
@@ -157,22 +159,22 @@ export default class ProfileFollow extends Vue {
   }
 
   get icon () {
-    return this.following ? 'account-remove-outline' : 'account-star'
+    return this.followedByMe ? 'account-remove-outline' : 'account-star'
   }
 
   get buttonText () {
-    return this.following ? this.$t('common.unfollow') : this.$t('common.follow')
+    return this.followedByMe ? this.$t('common.unfollow') : this.$t('common.follow')
   }
 
   get buttonType () {
-    return this.following ? 'is-light' : 'is-primary'
+    return this.followedByMe ? 'is-light' : 'is-primary'
   }
 
   followCalled () {
     this.loading = true
     Promise.resolve()
       .then(async () => {
-        this.following ? await this.unfollow() : await this.follow()
+        this.followedByMe ? await this.unfollow() : await this.follow()
       })
       .finally(() => {
         this.loading = false
@@ -183,7 +185,7 @@ export default class ProfileFollow extends Vue {
     await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
       .then(async (existingFollowing) => {
         if (existingFollowing) {
-          this.following = true
+          this.followedByMe = true
           return showInfoToaster(this.$t('notification.follow.alreadyFollowing', { username: this.user.username }))
         }
 
@@ -198,7 +200,7 @@ export default class ProfileFollow extends Vue {
             status: PushNotificationStatus.NEW
           })
         }).then(() => {
-          this.following = true
+          this.followedByMe = true
           this.followerCount++
         })
       })
@@ -210,13 +212,13 @@ export default class ProfileFollow extends Vue {
     await getFollowingByFollowerAndFollowing(this.authUser.userId, this.user.id as string)
       .then(async (existingFollowing) => {
         if (!existingFollowing) {
-          this.following = false
+          this.followedByMe = false
           return showInfoToaster(this.$t('notification.follow.alreadyUnfollowing', { username: this.user.username }))
         }
 
         await deleteFollowing(existingFollowing)
           .then(() => {
-            this.following = false
+            this.followedByMe = false
             this.followerCount--
           })
       })

@@ -14,14 +14,9 @@ import {
 } from '~/types'
 import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
-import {
-  configureAxiosObservable,
-  configureFcmObservable,
-  loadNotificationObservable,
-  reloadUserFromDatabase
-} from '~/service/rx-service'
+import { configureAxiosObservable, configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
 
-const logout = (store: Store<any>) => {
+const forceLogout = (store: Store<any>) => {
   store.dispatch(StoreConfig.auth.logout, true).then(() => {
     console.log('the user is forced to logout')
   })
@@ -79,10 +74,10 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
     })
 
   auth.onAuthStateChanged((firebaseUser: User|null) => {
-    return Promise.resolve()
+    return store.dispatch(StoreConfig.loading.saveLoading, true)
       .then(async () => {
         if (store.state.auth.forceLogout) {
-          logout(store)
+          forceLogout(store)
           return
         }
 
@@ -110,23 +105,25 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
           }
         }
       })
+      .finally(() => store.dispatch(StoreConfig.loading.saveLoading, false))
   })
 
   auth.onIdTokenChanged((firebaseUser: User|null) => {
-    console.log('onIdTokenChanged with a user: ', !!firebaseUser)
-    if (!firebaseUser) {
-      return
-    }
-    updateAuthStore(firebaseUser, store)
+    store.dispatch(StoreConfig.loading.saveLoading, true)
       .then(() => {
-        reloadUserFromDatabase.next()
-      })
+        console.log('onIdTokenChanged with a user: ', !!firebaseUser)
+        if (!firebaseUser) {
+          return
+        }
+        updateAuthStore(firebaseUser, store)
 
-    firebaseUser.getIdToken()
-      .then((token: string) => {
-        app.$axios.setToken(token, AppTokenType)
-        app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
+        firebaseUser.getIdToken()
+          .then((token: string) => {
+            app.$axios.setToken(token, AppTokenType)
+            app.$cookies.set(AppCookie.TOKEN, token, cookieOptions)
+          })
       })
+      .finally(() => store.dispatch(StoreConfig.loading.saveLoading, false))
   })
 }
 
