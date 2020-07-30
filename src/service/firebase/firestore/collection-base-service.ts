@@ -44,12 +44,12 @@ const updateBaseModel = <T extends BaseModel> (model: T) => {
   model.updatedBy = auth.currentUser?.uid
 }
 
-const set = async <T extends BaseModel> (collection: string, model: T) => {
+const set = <T extends BaseModel> (collection: string, model: T) => {
   updateBaseModel(model)
 
   const docRef = firestore.collection(collection).doc(model.id)
 
-  return await docRef.set(model, {
+  return docRef.set(model, {
     merge: true
   })
     .then(() => {
@@ -63,65 +63,65 @@ const set = async <T extends BaseModel> (collection: string, model: T) => {
     })
 }
 
-const add = async <T extends BaseModel> (collection: string, model: T) => {
+const add = <T extends BaseModel> (collection: string, model: T) => {
   const docRef = firestore.collection(collection).doc()
   model.id = docRef.id
 
-  return await set(collection, model)
+  return set(collection, model)
 }
 
-export const saveModel = async <T extends BaseModel> (collection: string, model: T) => {
+export const saveModel = <T extends BaseModel> (collection: string, model: T) => {
   return model.id
-    ? await set(collection, model)
-    : await add(collection, model)
+    ? set(collection, model)
+    : add(collection, model)
 }
 
-export const deleteModel = async (collection: string, model: BaseModel) => {
-  return await firestore.collection(collection).doc(model.id).delete()
+export const deleteModel = (collection: string, model: BaseModel) => {
+  return firestore.collection(collection).doc(model.id).delete()
 }
 
-export const getCount = async (collection: string): Promise<number> => {
-  return await firestore.collection(collection)
+export const getCount = (collection: string): Promise<number> => {
+  return firestore.collection(collection)
     .get()
     .then((querySnapshot) => {
       return querySnapshot.size
     })
 }
 
-export const getCountByWhereClauses = async (
+export const getCountByWhereClauses = (
   collection: string,
   whereClause: WhereClause,
   ...whereClauses: WhereClause[]): Promise<number> => {
   const query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
 
-  return await query.get()
+  return query.get()
     .then((querySnapshot) => {
       return querySnapshot.size
     })
 }
 
-export const getModelById = async (collection: string, id: string): Promise<BaseModel> => {
-  return await firestore.collection(collection).doc(id).get().then((doc) => {
+export const getModelById = (collection: string, id: string): Promise<BaseModel> => {
+  return firestore.collection(collection).doc(id).get().then((doc) => {
     return doc.data() as BaseModel
   })
 }
 
-export const getModels = async <T extends BaseModel> (collection: string): Promise<T[]> => {
-  return await firestore.collection(collection).get()
+export const getModels = <T extends BaseModel> (collection: string): Promise<T[]> => {
+  return firestore.collection(collection).get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 
-export const getModelsByWhereClauses = async <T extends BaseModel> (
+export const getModelsByWhereClauses = <T extends BaseModel> (
   collection: string,
   whereClause: WhereClause,
   ...whereClauses: WhereClause[]): Promise<T[]> => {
   const query = getQueryByWhereClauses(collection, whereClause, ...whereClauses)
 
-  return await query.get()
+  return query.get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 
-export const getModelsByWhereClausesAndOrderBy = async <T extends BaseModel> (
+export const getModelsByWhereClausesAndOrderBy = <T extends BaseModel> (
   collection: string,
   orderBy: OrderBy,
   whereClause: WhereClause,
@@ -132,11 +132,11 @@ export const getModelsByWhereClausesAndOrderBy = async <T extends BaseModel> (
     query = query.orderBy(orderBy.field, orderBy.direction)
   }
 
-  return await query.get()
+  return query.get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 
-export const getModelsByWhereClausesAndLimitAndOrderBy = async <T extends BaseModel> (
+export const getModelsByWhereClausesAndLimitAndOrderBy = <T extends BaseModel> (
   collection: string,
   lastVisible: any,
   limit: number,
@@ -156,14 +156,14 @@ export const getModelsByWhereClausesAndLimitAndOrderBy = async <T extends BaseMo
 
   query = query.limit(limit)
 
-  return await query.get()
+  return query.get()
     .then(querySnapshot => toBaseModelArray(querySnapshot))
 }
 
-export const getModelsByFieldAndPaging = async (
+export const getModelsByFieldAndPaging = (
   collection: string, field: string, value: any, page: number, limit: number
 ): Promise<PagingResponse<BaseModel>> => {
-  return await firestore.collection(collection).get()
+  return firestore.collection(collection).get()
     .then((querySnapshot) => {
       const docs: BaseModel[] = []
 

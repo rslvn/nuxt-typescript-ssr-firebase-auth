@@ -24,12 +24,12 @@ const followersWhereClause = (user: User): WhereClause => {
   }
 }
 
-export const saveFollowing = async (following: Following): Promise<Following> => {
-  return await saveModel(collection.FOLLOWING, following)
+export const saveFollowing = (following: Following): Promise<Following> => {
+  return saveModel(collection.FOLLOWING, following)
 }
 
-export const deleteFollowing = async (following: Following) => {
-  return await deleteModel(collection.FOLLOWING, following)
+export const deleteFollowing = (following: Following) => {
+  return deleteModel(collection.FOLLOWING, following)
 }
 
 export const getFollowingByFollowerAndFollowing = async (follower: string, following: string) => {
@@ -50,13 +50,11 @@ export const getFollowingByFollowerAndFollowing = async (follower: string, follo
 
 export const getCountOfFollowers = (user: User) => {
   const whereClause = followingWhereClause(user)
-
   return getCountByWhereClauses(collection.FOLLOWING, whereClause)
 }
 
 export const getCountOfFollowing = (user: User) => {
   const whereClause = followersWhereClause(user)
-
   return getCountByWhereClauses(collection.FOLLOWING, whereClause)
 }
 
@@ -87,7 +85,6 @@ export const searchFollowings = async (user: User, query: string, page: number, 
   const whereClauseForFollowers = followersWhereClause(user)
 
   const followingList: Following[] = await getModelsByWhereClauses(collection.FOLLOWING, whereClauseForFollowers)
-
   const users: User[] = []
 
   let loadedUser: User|null = null
