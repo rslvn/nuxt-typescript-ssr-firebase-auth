@@ -18,8 +18,9 @@ export default class profile extends Vue {
   user: User|null = null
 
   @StateNamespace.auth.Getter readonly authUser: AuthUser;
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
-  created () {
+  mounted () {
     this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
       if (this.user) {
         this.user.profilePhoto = image
@@ -41,11 +42,16 @@ export default class profile extends Vue {
   }
 
   loadUser () {
-    getUser(this.authUser.userId)
-      .then((user: User) => {
-        this.user = user
+    this.saveLoading(true)
+      .then(async () => {
+        await getUser(this.authUser.userId)
+          .then((user: User) => {
+            this.user = user
+          })
+          .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
       })
-      .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
+      .catch((error: Error) => console.log('profile.create', error))
+      .finally(() => this.saveLoading(false))
   }
 }
 </script>

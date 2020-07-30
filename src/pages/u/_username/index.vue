@@ -20,6 +20,7 @@ export default class profile extends Vue {
   user: User|null = null
 
   @StateNamespace.auth.Getter readonly authUser: AuthUser
+  @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
   asyncData ({ params }: Context) {
     const username = params[RouteParameters.USERNAME]
@@ -29,7 +30,7 @@ export default class profile extends Vue {
     }
   }
 
-  async created () {
+  mounted () {
     this.$subscribeTo(profilePhotoObservable.asObservable(), (image: Image) => {
       console.log('profilePhotoObservable called by ', image)
       if (this.user) {
@@ -57,26 +58,32 @@ export default class profile extends Vue {
       })
     }
 
-    const user = await this.loadUser()
-      .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad'))) as User
-    if (!user) {
-      return this.$nuxt.error({
-        message: this.$t('page.notFound') as string,
-        path: this.$route.fullPath,
-        statusCode: 404
-      })
-    }
+    this.saveLoading(true)
+      .then(async () => {
+        const user = await this.loadUser()
+          .catch(() => sendDangerNotification(this.$store.dispatch, this.$t('notification.profile.canNotLoad')))
 
-    if (this.authUser.username !== this.username &&
-      ((!user?.privacy || user.privacy === PrivacyType.PRIVATE))) {
-      console.log('PRIVATE user')
-      this.$nuxt.error({
-        message: this.$t('page.notFound') as string,
-        path: this.$route.fullPath,
-        statusCode: 404
+        if (!user) {
+          return this.$nuxt.error({
+            message: this.$t('page.notFound') as string,
+            path: this.$route.fullPath,
+            statusCode: 404
+          })
+        }
+
+        if (this.authUser.username !== this.username &&
+          ((!user?.privacy || user.privacy === PrivacyType.PRIVATE))) {
+          console.log('PRIVATE user')
+          this.$nuxt.error({
+            message: this.$t('page.notFound') as string,
+            path: this.$route.fullPath,
+            statusCode: 404
+          })
+        }
+        this.user = user
       })
-    }
-    this.user = user
+      .catch((error: Error) => console.log('profile.create', error))
+      .finally(() => this.saveLoading(false))
   }
 
   async loadUser (): Promise<User> {

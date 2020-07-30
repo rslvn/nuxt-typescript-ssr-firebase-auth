@@ -23,15 +23,14 @@ import { NotificationMessage, RouteParameters, StateNamespace } from '~/types'
 import { getWarningNotificationMessage } from '~/service/notification-service'
 
 @Component({
-  components: { SetPasswordForm },
-  layout: 'action'
+  components: { SetPasswordForm }
 })
 export default class ResetPassword extends Vue {
-  actionCode: string = '';
+  actionCode: string = ''
 
-  @StateNamespace.auth.Action confirmPasswordReset: (code: any) => {};
-  @StateNamespace.notification.Action clearNotificationMessage: () => void;
-  @StateNamespace.notification.Action saveNotificationMessage: (notificationMessage: NotificationMessage) => {};
+  @StateNamespace.auth.Action confirmPasswordReset: (code: any) => {}
+  @StateNamespace.notification.Action clearNotificationMessage: () => void
+  @StateNamespace.notification.Action saveNotificationMessage: (notificationMessage: NotificationMessage) => {}
 
   handleConfirmPasswordReset (password: string) {
     this.clearNotificationMessage()

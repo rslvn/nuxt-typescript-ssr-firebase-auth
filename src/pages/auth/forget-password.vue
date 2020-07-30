@@ -8,12 +8,11 @@ import ForgetPasswordForm from '~/components/form/ForgetPasswordForm.vue'
 import { StateNamespace } from '~/types'
 
 @Component({
-  components: { ForgetPasswordForm },
-  layout: 'action'
+  components: { ForgetPasswordForm }
 })
 export default class ForgetPassword extends Vue {
-  @StateNamespace.auth.Action sendPasswordResetEmail: (code: any) => Promise<boolean>;
-  @StateNamespace.notification.Action clearNotificationMessage: () => void;
+  @StateNamespace.auth.Action sendPasswordResetEmail: (code: any) => Promise<boolean>
+  @StateNamespace.notification.Action clearNotificationMessage: () => void
 
   handleSendPasswordResetEmail (emailAddress: string) {
     this.clearNotificationMessage()
