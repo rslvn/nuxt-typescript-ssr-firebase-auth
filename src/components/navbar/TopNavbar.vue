@@ -34,21 +34,13 @@
 
       <b-navbar-item v-else tag="div">
         <div class="buttons">
-          <b-button
-            tag="router-link"
-            :to="routes.REGISTER"
-            type="is-primary"
-          >
+          <a class="button is-primary" :href="routes.REGISTER.path">
             <strong>{{ $t('topNavbar.register') }}</strong>
-          </b-button>
+          </a>
 
-          <b-button
-            tag="router-link"
-            :to="routes.LOGIN"
-            type="is-primary"
-          >
+          <a class="button is-primary" :href="routes.LOGIN.path">
             <strong>{{ $t('topNavbar.login') }}</strong>
-          </b-button>
+          </a>
         </div>
       </b-navbar-item>
     </template>

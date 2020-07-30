@@ -5,14 +5,14 @@ import { Location, Route } from 'vue-router'
 import { AppCookie, AppTokenType, AuthUser, FirebaseClaimKey } from 'types-module'
 import { auth } from '~/plugins/fire-init-plugin'
 import {
-  LocalStorageKey,
+  LocalStorageKey, LOGIN,
   QueryParameters,
   Routes,
   sessionCookieOptionsDev,
   sessionCookieOptionsProd,
   StoreConfig
 } from '~/types'
-import { authenticatedAllowed, authenticatedNotAllowed } from '~/service/global-service'
+import { authenticatedAllowed, authenticatedNotAllowed, getUserRoute } from '~/service/global-service'
 import { getAuthUser } from '~/service/firebase/firebase-service'
 import { configureAxiosObservable, configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
 
@@ -22,14 +22,15 @@ const forceLogout = (store: Store<any>) => {
   })
 }
 
-const getNextRoute = (route: Route): Location => {
+const getNextRoute = (route: Route, authUser: AuthUser): Location => {
   const path: string = route.query[QueryParameters.NEXT] as string
+  console.log(`firebaseAuthListenerPlugin next: ${path}, fullPath: ${route.fullPath}, route.path: ${route.path}`)
   if (path) {
     return { path }
   }
 
   if (authenticatedNotAllowed(route) || route.path === Routes.ACTION.path) {
-    return Routes.PROFILE
+    return getUserRoute(Routes.PROFILE_DYNAMIC, authUser.username)
   }
 
   return { path: route.fullPath }
@@ -40,17 +41,20 @@ const setRememberMe = async (store: Store<any>, app: NuxtAppOptions) => {
   await store.dispatch(StoreConfig.auth.saveRememberMe, rememberMe === undefined ? true : rememberMe)
 }
 
-const updateAuthStore = async (firebaseUser: User|null, store: Store<any>) => {
+const updateAuthStore = async (firebaseUser: User, store: Store<any>) => {
   if (!firebaseUser) {
     store.commit(StoreConfig.auth.setAuthUser, null)
+    return null
   }
-  return await firebaseUser?.getIdTokenResult()
+
+  return await firebaseUser.getIdTokenResult()
     .then((idTokenResult) => {
       const authUser = getAuthUser(firebaseUser) as AuthUser
       if (authUser) {
         authUser.username = idTokenResult.claims[FirebaseClaimKey.USERNAME]
         store.commit(StoreConfig.auth.setAuthUser, authUser)
       }
+      return authUser
     })
 }
 
@@ -73,7 +77,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
       console.log(error)
     })
 
-  auth.onAuthStateChanged((firebaseUser: User|null) => {
+  auth.onAuthStateChanged((firebaseUser: User) => {
     return store.dispatch(StoreConfig.loading.saveLoading, true)
       .then(async () => {
         if (store.state.auth.forceLogout) {
@@ -82,11 +86,7 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
         }
 
         console.log('firebaseAuthListenerPlugin called with a user: ', !!firebaseUser)
-
-        await updateAuthStore(firebaseUser, store)
-          .catch((error: Error) => {
-            console.log(error)
-          })
+        const authUser = await updateAuthStore(firebaseUser, store)
 
         if (firebaseUser) {
           await firebaseUser.getIdToken()
@@ -97,11 +97,11 @@ const firebaseAuthListenerPlugin: Plugin = ({ store, app, route, redirect }) => 
               configureFcmObservable.next()
             })
 
-          redirect(getNextRoute(route))
+          redirect(getNextRoute(route, authUser))
         } else {
           logoutActions(store, app)
           if (authenticatedAllowed(route)) {
-            redirect(Routes.LOGIN)
+            location.replace(LOGIN.path)
           }
         }
       })
