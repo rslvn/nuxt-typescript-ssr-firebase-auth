@@ -29,6 +29,8 @@
     "types": [
       "@types/node",
       "@nuxt/types",
+      "@nuxt/vue-app",
+      "@types/jest",
       "@nuxtjs/axios",
       "nuxt-i18n",
       "cookie-universal-nuxt",
