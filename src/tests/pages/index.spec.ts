@@ -11,9 +11,9 @@ Vue.config.ignoredElements = ['b-icon']
 describe('HomePage', () => {
   const wrapper = mount(Index)
 
-  it('is a Vue component', () => {
+  it('Home page loaded sucessfully', () => {
     expect(wrapper.vm).toBeTruthy()
-    // expect(wrapper.vm.$meta()).toBeCalled()
+    expect(wrapper.find('h1'))
   })
 
   // it('check page title', () => {
