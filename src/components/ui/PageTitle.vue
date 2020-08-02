@@ -1,5 +1,5 @@
 <template>
-  <div class="columns has-margin-bottom-25 has-margin-top-25">
+  <div id="pageTitle" class="columns has-margin-bottom-25 has-margin-top-25">
     <div class="column has-text-centered">
       <h1 class="title">
         {{ title }}
