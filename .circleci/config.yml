@@ -51,11 +51,17 @@ jobs:
             curl "$WEBSITE_URL"
             curl "$WEBSITE_URL/api/healthy"
             curl "$WEBSITE_URL/sitemap.xml"
+      - sonarcloud/scan
+
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.1
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
+      - build:
+          context: SonarCloud
       - deploy_master:
           filters:
             branches:
