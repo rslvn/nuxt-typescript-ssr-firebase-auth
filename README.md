@@ -1,6 +1,9 @@
 # nuxt-typescript-ssr-firebase-auth
 
 [![BUILD](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth.svg?style=shield)](https://circleci.com/gh/rslvn/nuxt-typescript-ssr-firebase-auth)
+[![Coverage Code](https://sonarcloud.io/api/project_badges/measure?project=rslvn_nuxt-typescript-ssr-firebase-auth&metric=coverage)](https://sonarcloud.io/dashboard?id=rslvn_nuxt-typescript-ssr-firebase-auth)
+[![Lines Of Code](https://sonarcloud.io/api/project_badges/measure?project=rslvn_nuxt-typescript-ssr-firebase-auth&metric=ncloc)](https://sonarcloud.io/dashboard?id=rslvn_nuxt-typescript-ssr-firebase-auth)
+[![Technical Debit](https://sonarcloud.io/api/project_badges/measure?project=rslvn_nuxt-typescript-ssr-firebase-auth&metric=sqale_index)](https://sonarcloud.io/dashboard?id=rslvn_nuxt-typescript-ssr-firebase-auth)
 
 `nuxt generate` is really sucks!!! We lost `nuxtServerInit`, dynamic routing stuff etc. We need a good alternative to deploy our applications to the cloud without VPS and SSL configuration.
 
