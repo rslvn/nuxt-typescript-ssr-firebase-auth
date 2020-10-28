@@ -71,6 +71,7 @@
     "cookie-parser": "^1.4.5",
     "cookie-universal-nuxt": "^2.1.4",
     "cors": "^2.8.5",
+    "country-state-city": "^1.0.5",
     "cropperjs": "^1.5.7",
     "debounce": "^1.2.0",
     "dotenv": "^8.2.0",
@@ -94,7 +95,8 @@
     "vue-lazyload": "^1.3.3",
     "vue-meta": "^2.4.0",
     "vue-rx": "^6.2.0",
-    "vuex-class": "^0.3.2"
+    "vuex-class": "^0.3.2",
+    "world-cities": "file:../../world-cities"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -107,7 +109,9 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@types/jest": "^26.0.8",
     "@types/vfile-message": "^2.0.0",
+    "@vue/test-utils": "^1.0.0-beta.27",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^24.1.0",
     "core-js": "^3.6.5",
     "dts-generator": "^3.0.0",
     "eslint": "^7.5.0",
@@ -118,16 +122,14 @@
     "eslint-plugin-vue": "^6.2.2",
     "firebase-tools": "^8.6.0",
     "husky": "^4.2.5",
+    "jest": "^24.1.0",
     "jest-serializer-vue": "^2.0.2",
     "lint-staged": "^10.2.11",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "sass-loader": "^9.0.2",
     "stylelint": "^13.6.1",
-    "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-jest": "^24.1.0",
-    "jest": "^24.1.0",
-    "vue-jest": "^4.0.0-0",
-    "ts-jest": "^25.0.0"
+    "ts-jest": "^25.0.0",
+    "vue-jest": "^4.0.0-0"
   }
 }

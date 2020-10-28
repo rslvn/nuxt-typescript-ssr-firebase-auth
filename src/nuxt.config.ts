@@ -69,7 +69,15 @@ const config: Configuration = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
+    ['@nuxt/typescript-build', {
+      typeCheck: {
+        async: true,
+        typescript: {
+          enable: true,
+          memoryLimit: 2048
+        }
+      }
+    }],
     '@nuxtjs/stylelint-module'
   ],
   /*
