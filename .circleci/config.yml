@@ -60,9 +60,8 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build:
-          context: SonarCloud
       - deploy_master:
           filters:
             branches:
               only: master
+          context: SonarCloud
