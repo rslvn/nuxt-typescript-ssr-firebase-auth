@@ -3,6 +3,8 @@ import { RuntimeOptions, runWith } from "firebase-functions"
 import { sitemapHandler } from 'handlers-module'
 
 const app = express()
+app.disable('x-powered-by')
+
 const router = Router()
 
 router.get('/sitemap.xml', sitemapHandler)
