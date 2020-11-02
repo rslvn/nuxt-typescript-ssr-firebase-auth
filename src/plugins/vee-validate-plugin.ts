@@ -5,8 +5,8 @@ import { QueryParameters, SupportedLanguages } from '~/types'
 import { getUserByUsername } from '~/service/firebase/firestore'
 
 for (const [rule, validation] of Object.entries(rules)) {
+  // @ts-ignore
   extend(rule, {
-    params: [],
     ...validation
   })
 }
