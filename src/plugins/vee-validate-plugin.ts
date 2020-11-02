@@ -6,6 +6,7 @@ import { getUserByUsername } from '~/service/firebase/firestore'
 
 for (const [rule, validation] of Object.entries(rules)) {
   extend(rule, {
+    params: [],
     ...validation
   })
 }

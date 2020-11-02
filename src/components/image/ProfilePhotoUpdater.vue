@@ -27,8 +27,8 @@
         <h3 class="h3 has-margin-bottom-30">
           {{ $t('image.crop.preview') }}
         </h3>
-        <img v-if="previewSrc" :src="previewSrc" class="profile-200">
-        <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15">
+        <img v-if="previewSrc" :src="previewSrc" class="profile-200" alt="preview">
+        <img v-if="previewSrc" :src="previewSrc" class="profile-200-round has-margin-top-15" alt="preview2">
         <div class="buttons is-centered has-margin-top-30">
           <b-button>{{ $t('common.save') }}</b-button>
           <b-button>{{ $t('common.cancel') }}</b-button>

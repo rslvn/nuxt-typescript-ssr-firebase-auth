@@ -26,7 +26,7 @@
       <b-navbar-item v-if="authUser" tag="router-link" :to="dynamicProfileRoute">
         <b-field>
           <BackgroundSquareImage :image-url="profilePhoto" size="28" rounded="true" />
-          <span class="has-margin-left-5"><b>{{ authUser.name || authUser.email }}</b></span>
+          <span class="has-margin-left-5"><strong>{{ authUser.name || authUser.email }}</strong></span>
         </b-field>
       </b-navbar-item>
 
