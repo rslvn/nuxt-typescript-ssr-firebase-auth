@@ -39,6 +39,7 @@ const handleRequest = async (req: Request, res: Response) => {
 
 // Init express.
 const app = express();
+app.disable('x-powered-by')
 app.use(cookieParser())
 // Give nuxt middleware to express.
 app.get('*', handleRequest)

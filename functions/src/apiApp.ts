@@ -20,6 +20,7 @@ router.post(ApiConfig.auth.claims, extractHeaderHandler, tokenHandler, claimsHan
 router.post(ApiConfig.notification.notify.context, extractHeaderHandler, tokenHandler, notifyHandler)
 
 const app = express()
+app.disable('x-powered-by')
 app.use(cookieParser())
 app.use(json())
 app.use(cors({ origin: true }))
