@@ -1,3 +1,4 @@
+import { Vue } from 'nuxt-property-decorator'
 import { DefaultMeta, PageMeta, RouteType } from '~/types'
 
 const getHeadTitle = (routeType: RouteType, vue: Vue) => {

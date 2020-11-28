@@ -35,6 +35,7 @@
       "nuxt-i18n",
       "cookie-universal-nuxt",
       "firebase",
+      "firebase/app",
       "nuxt-property-decorator",
       "types-module",
       "handlers-module"

@@ -75,7 +75,7 @@
     "cropperjs": "^1.5.9",
     "debounce": "^1.2.0",
     "dotenv": "^8.2.0",
-    "firebase": "^8.1.1",
+    "firebase": "^7.15.5",
     "firebase-admin": "^9.4.1",
     "handlers-module": "file:../functions/modules/handlers-module",
     "http-status-codes": "^2.1.4",
