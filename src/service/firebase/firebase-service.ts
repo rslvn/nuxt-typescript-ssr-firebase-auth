@@ -5,14 +5,16 @@ import { auth } from '~/plugins/fire-init-plugin'
 import { DefaultProfilePhoto } from '~/types'
 
 export const getProviderData = (userInfo: UserInfo|null|undefined): ProviderData|null => {
-  return userInfo ? {
-    providerType: userInfo.providerId as ProviderType,
-    displayName: userInfo.displayName,
-    email: userInfo.email,
-    phoneNumber: userInfo.phoneNumber,
-    photoURL: userInfo.photoURL,
-    uid: userInfo.uid
-  } : null
+  return userInfo
+    ? {
+      providerType: userInfo.providerId as ProviderType,
+      displayName: userInfo.displayName,
+      email: userInfo.email,
+      phoneNumber: userInfo.phoneNumber,
+      photoURL: userInfo.photoURL,
+      uid: userInfo.uid
+    }
+    : null
 }
 
 export const getAuthUser = (firebaseUser: User): AuthUser => {

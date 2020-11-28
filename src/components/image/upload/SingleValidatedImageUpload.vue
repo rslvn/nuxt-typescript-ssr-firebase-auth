@@ -18,6 +18,7 @@
 <script lang="ts">
 import { Component, Prop, Ref, Vue, Watch } from 'nuxt-property-decorator'
 import { ValidationProvider } from 'vee-validate'
+import firebase from 'firebase'
 import { ValidationResult } from 'vee-validate/dist/types/types'
 import { Image } from 'types-module'
 import { storage, TaskEvent, TaskState } from '~/plugins/fire-init-plugin'
@@ -83,7 +84,7 @@ export default class SingleFileUploadWithValidation extends Vue {
       this.handleFireStorageError,
       () => {
         return this.uploadTask?.snapshot.ref.getDownloadURL()
-          .then((downloadURL) => {
+          .then((downloadURL:string) => {
             const image: Image = {
               name: this.fileName,
               src: downloadURL,

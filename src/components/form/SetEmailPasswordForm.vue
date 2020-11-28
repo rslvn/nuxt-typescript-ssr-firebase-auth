@@ -77,7 +77,8 @@ export default class SetPasswordForm extends Vue {
   confirmedPassword = '';
 
   get description () {
-    return this.email ? this.$t('provider.linkPasswordProvider.passwordForm.description', { email: this.email })
+    return this.email
+      ? this.$t('provider.linkPasswordProvider.passwordForm.description', { email: this.email })
       : this.$t('provider.linkPasswordProvider.passwordForm.descriptionNoEmail')
   }
 

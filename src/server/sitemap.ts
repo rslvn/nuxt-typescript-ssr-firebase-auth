@@ -1,17 +1,6 @@
 import express, { Router } from 'express'
 import { sitemapHandler } from 'handlers-module'
 
-// const staticRoutes = [
-//   Routes.HOME.path,
-//   Routes.TERMS.path,
-//   Routes.PRIVACY_POLICY.path,
-//   Routes.REGISTER.path,
-//   Routes.LOGIN.path,
-//   Routes.CROP.path,
-//   Routes.LIGHT_BOX.path,
-//   Routes.IMAGES.path
-// ]
-
 const app = express()
 app.disable('x-powered-by')
 

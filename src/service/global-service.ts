@@ -7,7 +7,8 @@ import { QueryParameters, Routes, RouteType } from '../types'
 const timestampFormat: string = 'MM/DD/YYYY HH:mm:ss.SSS'
 const slugDelimiter = '-'
 
-export const dashAllRegex = new RegExp('-', 'g')
+export const dashAllRegex = /-/g
+// new RegExp('-', 'g')
 
 export const generateUuid = () => {
   return uuidv4().replace(dashAllRegex, '')
