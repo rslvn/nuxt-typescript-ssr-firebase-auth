@@ -8,7 +8,8 @@ import DecodedIdToken = admin.auth.DecodedIdToken
 const isFirebaseError = (error: any) => {
   return !!error.code
 }
-const sessinIdsLog = (req: Request) => {
+
+const sessionIdsLog = (req: Request) => {
   return `nsSessionId: ${req.nsSessionId}, nsRequestId: ${req.nsRequestId}`
 }
 
@@ -17,14 +18,15 @@ const contextLog = (req: Request) => {
 }
 
 export const handlerCalledLog = (req: Request, handler: string) => {
-  console.log(handler, ` called - ${sessinIdsLog(req)},${contextLog(req)}`)
+  console.log(handler, ` called - ${sessionIdsLog(req)},${contextLog(req)}`)
 }
+
 export const handlerLog = (req: Request, ...anyMessages: any[]) => {
-  console.log(...anyMessages, ` - ${sessinIdsLog(req)}`)
+  console.log(...anyMessages, ` - ${sessionIdsLog(req)}`)
 }
 
 export const handlerError = (req: Request, ...anyMessages: any[]) => {
-  console.error(`${sessinIdsLog(req)},${contextLog(req)} - `, ...anyMessages)
+  console.error(`${sessionIdsLog(req)},${contextLog(req)} - `, ...anyMessages)
 }
 
 export const extractHeadersFromRequest = (req: Request) => {

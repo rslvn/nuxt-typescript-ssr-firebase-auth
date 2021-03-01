@@ -108,7 +108,7 @@ const config: Configuration = {
       }
     ],
     defaultLocale: 'en',
-    fallbackLocale: 'en',
+    // fallbackLocale: 'en',
     // rootRedirect: 'en',
     langDir: 'i18n/',
     lazy: true,
@@ -167,7 +167,7 @@ const config: Configuration = {
     //   chunk: ({ isDev }) => isDev ? '[name].js' : '[id].[contenthash].js'
     // },
     babel: {
-      presets ({ isServer }: any) {
+      presets({ isServer }: any) {
         return [
           [
             require.resolve('@nuxt/babel-preset-app'),

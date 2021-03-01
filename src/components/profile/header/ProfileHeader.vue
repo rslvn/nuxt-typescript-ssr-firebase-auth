@@ -13,7 +13,6 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
 import { AuthUser, User } from 'types-module'
-import SingleValidatedImageUpload from '~/components/image/upload/SingleValidatedImageUpload.vue'
 import ProfilePhoto from '~/components/profile/header/ProfilePhoto.vue'
 import ProfilePrivacy from '~/components/profile/header/ProfilePrivacy.vue'
 import ProfileFollow from '~/components/profile/header/ProfileFollow.vue'
@@ -21,7 +20,7 @@ import ProfileShort from '~/components/profile/header/ProfileShort.vue'
 import CoverPhoto from '~/components/profile/header/CoverPhoto.vue'
 
 @Component({
-  components: { CoverPhoto, ProfileShort, ProfileFollow, ProfilePrivacy, ProfilePhoto, SingleValidatedImageUpload }
+  components: { CoverPhoto, ProfileShort, ProfileFollow, ProfilePrivacy, ProfilePhoto }
 })
 export default class ProfileHeader extends Vue {
   @Prop({ type: Boolean, required: true }) isMyProfile: boolean

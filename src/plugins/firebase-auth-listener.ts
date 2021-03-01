@@ -5,7 +5,8 @@ import { Location, Route } from 'vue-router'
 import { AppCookie, AppTokenType, AuthUser, FirebaseClaimKey } from 'types-module'
 import { auth } from '~/plugins/fire-init-plugin'
 import {
-  LocalStorageKey, LOGIN,
+  LocalStorageKey,
+  LOGIN,
   QueryParameters,
   Routes,
   sessionCookieOptionsDev,
@@ -17,9 +18,10 @@ import { getAuthUser } from '~/service/firebase/firebase-service'
 import { configureAxiosObservable, configureFcmObservable, loadNotificationObservable } from '~/service/rx-service'
 
 const forceLogout = (store: Store<any>) => {
-  store.dispatch(StoreConfig.auth.logout, true).then(() => {
-    console.log('the user is forced to logout')
-  })
+  store.dispatch(StoreConfig.auth.logout, true)
+    .then(() => {
+      console.log('the user is forced to logout')
+    })
 }
 
 const getNextRoute = (route: Route, authUser: AuthUser): Location => {

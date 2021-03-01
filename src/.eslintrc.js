@@ -22,7 +22,8 @@ module.exports = {
     'no-console': 'off',
     'vue/max-attributes-per-line': 'off',
     'vue/script-indent': ['error', 2, { baseIndent: 0 }],
-    indent: ['error', 2, { SwitchCase: 1 }]
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'space-before-function-paren': 'off'
     // 'prettier/prettier': ['error', { semi: false }]
   }
 }

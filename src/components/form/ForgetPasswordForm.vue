@@ -39,7 +39,7 @@ import InputWithValidation from '~/components/ui/input/InputWithValidation.vue'
 @Component({
   components: { InputWithValidation, ValidationObserver }
 })
-export default class LoginForm extends Vue {
+export default class ForgetPasswordForm extends Vue {
   emailAddress = ''
 
   @Prop({ type: Function, required: true }) sendPasswordResetEmail: (email: string) => void;

@@ -86,7 +86,7 @@ import { reloadUserFromDatabase } from '~/service/rx-service'
   components: { FieldWithValue, InputNoValidation, ValidationObserver, InputWithValidation }
 })
 export default class ProfileUpdateForm extends Vue {
-  @Prop({ required: true }) user: User
+  @Prop({ required: true }) user!: User
   updatedUser: User = { ...this.user }
 
   @StateNamespace.profile.Action updateUser: (user: User) => Promise<User>;

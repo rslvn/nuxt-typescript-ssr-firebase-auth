@@ -1,5 +1,5 @@
 import { ActionTree, GetterTree, MutationTree } from 'vuex'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import { AppCookie, AuthUser, Image, PrivacyType, ProviderType } from 'types-module'
 import {
   AuthState,
@@ -46,30 +46,30 @@ export const getters: GetterTree<AuthState, RootState> = {
 }
 
 export const mutations: MutationTree<AuthState> = {
-  setAuthUser (state, authUser: AuthUser) {
+  setAuthUser(state, authUser: AuthUser) {
     if (authUser && !authUser.profilePhoto) {
       authUser.profilePhoto = DefaultProfilePhoto
     }
     state.authUser = authUser
   },
 
-  forceLogout (state, forceLogout: boolean) {
+  forceLogout(state, forceLogout: boolean) {
     state.forceLogout = forceLogout
   },
 
-  setRememberMe (state, rememberMe: boolean) {
+  setRememberMe(state, rememberMe: boolean) {
     state.rememberMe = rememberMe
   }
 }
 
 export const actions: ActionTree<AuthState, RootState> = {
 
-  saveRememberMe ({ commit }, rememberMe: boolean) {
+  saveRememberMe({ commit }, rememberMe: boolean) {
     this.$cookies.set(AppCookie.REMEMBER_ME, rememberMe, cookieOptions)
     commit('setRememberMe', rememberMe)
   },
 
-  async signInWithEmail ({ dispatch }, credentials: LoginCredentials) {
+  async signInWithEmail({ dispatch }, credentials: LoginCredentials) {
     const persistence = credentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION
     await auth.setPersistence(persistence)
       .then(async () => {
@@ -78,7 +78,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async reauthenticateWithCredential ({ dispatch }, credentials: LoginCredentials) {
+  async reauthenticateWithCredential({ dispatch }, credentials: LoginCredentials) {
     const authCredential = EmailAuthProvider.credential(credentials.email, credentials.password)
     await auth.currentUser?.reauthenticateWithCredential(authCredential)
       .then(() => {
@@ -87,7 +87,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signUpWithEmail ({ dispatch }, credentials: RegistrationCredentials) {
+  async signUpWithEmail({ dispatch }, credentials: RegistrationCredentials) {
     await auth
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(async (userCredential: UserCredential) => {
@@ -127,7 +127,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updateProfilePhoto ({ dispatch }, profilePhoto: Image) {
+  async updateProfilePhoto({ dispatch }, profilePhoto: Image) {
     await auth.currentUser
       ?.updateProfile({
         photoURL: profilePhoto.src
@@ -142,7 +142,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async signInWithSocialProvider ({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+  async signInWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
     const authProvider = getAuthProvider(socialLoginCredentials.providerType)
     const persistence = socialLoginCredentials.rememberMe ? Persistence.LOCAL : Persistence.SESSION
     await auth.setPersistence(persistence)
@@ -183,7 +183,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async reauthenticateWithSocialProvider ({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
+  async reauthenticateWithSocialProvider({ dispatch }, socialLoginCredentials: SocialLoginCredentials) {
     const authProvider = getAuthProvider(socialLoginCredentials.providerType)
     await auth.currentUser?.reauthenticateWithPopup(authProvider)
       .then(() => {
@@ -192,7 +192,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async updatePassword ({ dispatch }, newPassword: string) {
+  async updatePassword({ dispatch }, newPassword: string) {
     await auth.currentUser?.updatePassword(newPassword)
       .then(() => {
         showSuccessToaster(this.$i18n.t('notification.passwordUpdated'))
@@ -200,7 +200,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  handleSendingEmailVerificationCode ({ dispatch }) {
+  handleSendingEmailVerificationCode({ dispatch }) {
     return auth.currentUser?.sendEmailVerification()
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.verifyMailSent', { email: auth.currentUser?.email }))
@@ -208,7 +208,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async sendPasswordResetEmail ({ dispatch }, emailAddress: string) {
+  async sendPasswordResetEmail({ dispatch }, emailAddress: string) {
     return await auth.sendPasswordResetEmail(emailAddress)
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.sendPasswordResetEmail'))
@@ -216,7 +216,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async confirmPasswordReset ({ dispatch }, { actionCode, password }) {
+  async confirmPasswordReset({ dispatch }, { actionCode, password }) {
     return await auth.confirmPasswordReset(actionCode, password)
       .then(async () => {
         await sendNotification(dispatch, getSuccessNotificationMessage(this.$i18n.t('notification.confirmPasswordReset')))
@@ -224,7 +224,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleVerifyEmail ({ dispatch }, actionCode: string) {
+  async handleVerifyEmail({ dispatch }, actionCode: string) {
     return await auth.applyActionCode(actionCode)
       .then(async () => {
         await refreshToken()
@@ -235,7 +235,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleVerifyPasswordResetCode ({ dispatch }, actionCode: string) {
+  async handleVerifyPasswordResetCode({ dispatch }, actionCode: string) {
     return await auth.verifyPasswordResetCode(actionCode)
       .then(() => {
         showInfoToaster(this.$i18n.t('notification.passwordResetVerified'))
@@ -244,7 +244,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async handleRecoverEmail ({ dispatch }, actionCode: string) {
+  async handleRecoverEmail({ dispatch }, actionCode: string) {
     return await auth.checkActionCode(actionCode)
       .then(async (info: ActionCodeInfo) => {
         await auth.applyActionCode(actionCode)
@@ -259,10 +259,10 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async linkPassword ({ dispatch }, credentials: LoginCredentials) {
+  linkPassword({ dispatch }, credentials: LoginCredentials) {
     const authCredential = firebase.auth.EmailAuthProvider.credential(credentials.email, credentials.password)
 
-    return await auth.currentUser?.linkWithCredential(authCredential)
+    return auth.currentUser?.linkWithCredential(authCredential)
       .then(async (userCredential) => {
         await saveUser({
           id: userCredential.user?.uid as string,
@@ -276,7 +276,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async linkSocialProvider ({ dispatch }, providerType: ProviderType) {
+  async linkSocialProvider({ dispatch }, providerType: ProviderType) {
     const authProvider = getAuthProvider(providerType)
     return await auth.currentUser?.linkWithPopup(authProvider)
       .then(async () => {
@@ -288,7 +288,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async unlinkProvider ({ dispatch }, providerType: ProviderType) {
+  async unlinkProvider({ dispatch }, providerType: ProviderType) {
     return await auth.currentUser?.unlink(providerType)
       .then(async () => {
         await refreshToken()
@@ -298,7 +298,7 @@ export const actions: ActionTree<AuthState, RootState> = {
       .catch((error: Error) => handleError(dispatch, error))
   },
 
-  async logout ({ dispatch, commit }) {
+  async logout({ dispatch, commit }) {
     const fcmToken = localStorage.getItem(LocalStorageKey.FCM_TOKEN)
     if (fcmToken) {
       await deleteUserDeviceByToken(fcmToken)
@@ -306,7 +306,6 @@ export const actions: ActionTree<AuthState, RootState> = {
 
     return await auth.signOut()
       .then(() => {
-        // @ts-ignore
         this.$router.push(Routes.LOGIN)
         commit('forceLogout', false)
       })

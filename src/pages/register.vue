@@ -33,8 +33,8 @@ import { reloadUserFromDatabase } from '~/service/rx-service'
 })
 export default class register extends Vue {
   @StateNamespace.auth.Getter rememberMe: boolean;
-  @StateNamespace.auth.Action signUpWithEmail: (credentials: RegistrationCredentials) => Promise<void>;
-  @StateNamespace.notification.Action clearNotificationMessage: () => Promise<void>;
+  @StateNamespace.auth.Action signUpWithEmail: (credentials: RegistrationCredentials) => Promise<void>
+  @StateNamespace.notification.Action clearNotificationMessage: () => Promise<void>
   @StateNamespace.loading.Action saveLoading: (loading: boolean) => Promise<void>
 
   async handleSignUpWithEmail (credentials: RegistrationCredentials) {
